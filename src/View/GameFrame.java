@@ -3,7 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-class GameFrame extends JFrame{
+class GameFrame extends JFrame implements DisplayInterface{
     GamePanel subPanel;
     GameFrame(int width, int height){
         this.subPanel = new GamePanel(width, height);
@@ -15,7 +15,12 @@ class GameFrame extends JFrame{
         setVisible(true);
     }
 
-    void paintImageAtVector(BufferedImage image, int x, int y){
+    public void paintImageAtVector(BufferedImage image, int x, int y){
         subPanel.paintImageAtVector(image, x, y);
+    }
+
+    @Override
+    public void iRepaint() {
+        repaint();
     }
 }

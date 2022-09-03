@@ -9,7 +9,7 @@ public class GameView {
     private static final int x_width = 1000;
     private static final int y_width = 800;
 
-    GameFrame display;
+    DisplayInterface display;
 
     BufferedImage background;
 
@@ -30,10 +30,10 @@ public class GameView {
     }
 
     public void refreshScreen(){
+        display.iRepaint();
+
         int backgroundX = (x_width/2)-(background.getWidth())/2;
         int backgroundY = (y_width/2)-(background.getHeight())/2;
         display.paintImageAtVector(background, backgroundX, backgroundY);
-
-        display.repaint();
     }
 }
