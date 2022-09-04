@@ -1,14 +1,20 @@
 package View;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-class GameFrame extends JFrame implements DisplayInterface{
-    GamePanel subPanel;
-    GameFrame(int width, int height){
-        this.subPanel = new GamePanel(width, height);
+class Game1Frame extends JFrame implements DisplayInterface{
+
+    Game1Panel subPanel;
+
+    Game1Frame(int width, int height){
+        this.subPanel = new Game1Panel(width, height);
         add(subPanel);
         pack();
+
+        setPreferredSize(new Dimension(1000,800));
         setTitle("Yup were about done.");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

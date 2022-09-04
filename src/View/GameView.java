@@ -13,27 +13,54 @@ public class GameView {
 
     BufferedImage background;
 
+    Vector playerVector = new Vector(0, 0);
+
     public GameView(){
         try {
-            background = ImageIO.read(new File("src\\View\\BackgroundPNG.png"));
+            background = ImageIO.read(new File("src\\View\\Images\\BackgroundPNG.png"));
         } catch (IOException e) {
             System.out.println("Failed to load background");
         }
     }
 
     public void startGameScreen(){
-        display = new GameFrame(x_width, y_width);
-    }
-
-    public void paintSprite(BufferedImage image, int x, int y){
-        display.paintImageAtVector(image, x, y);
+        display = new Game1Frame(x_width, y_width);
     }
 
     public void refreshScreen(){
         display.iRepaint();
+    }
 
-        int backgroundX = (x_width/2)-(background.getWidth())/2;
-        int backgroundY = (y_width/2)-(background.getHeight())/2;
-        display.paintImageAtVector(background, backgroundX, backgroundY);
+    public void paintBackground(){
+        paintSpriteRelativeToWorld(background, 0, 0);
+    }
+
+    public void inputPlayerVector(Vector playerVector){
+        this.playerVector = playerVector;
+    }
+
+    public void paintSpriteRelativeToWorld(BufferedImage image, int x, int y){
+        paintSpriteRelativeToScreen(image, x-playerVector.getX(), y-playerVector.getY());
+    }
+
+    public void paintSpriteRelativeToScreen(BufferedImage image, int x, int y){
+        int adjustedX = (x) + (x_width/2) - (image.getWidth()/2);
+        int adjustedY = (y) + (y_width/2) - (image.getHeight()/2);
+        display.paintImageAtVector(image, adjustedX, adjustedY);
+    }
+
+    class Vector{
+        int x;
+        int y;
+        Vector(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+        int getX(){
+            return x;
+        }
+        int getY(){
+            return y;
+        }
     }
 }
