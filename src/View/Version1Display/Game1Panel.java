@@ -1,4 +1,4 @@
-package View;
+package View.Version1Display;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 package View;
 
+import View.Version2Display.Game2Frame;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,22 +25,41 @@ public class GameView {
         }
     }
 
+    /**
+     * Starts the display.
+     * <p></p> Must be called before using other display related methods from GameView.
+     */
     public void startGameScreen(){
-        display = new Game1Frame(x_width, y_width);
+        //display = new Game1Frame(x_width, y_width);
+        display = new Game2Frame(x_width, y_width);
     }
 
+    /**
+     * Displays everything that has been painted since the last frame, after displaying clears the frame.
+     * <p></p> Must be called for the user to see anything.
+     */
     public void refreshScreen(){
         display.iRepaint();
+        paintBackground();
     }
 
-    public void paintBackground(){
+    private void paintBackground(){
         paintSpriteRelativeToWorld(background, 0, 0);
     }
 
+    /**
+     * Inputs the players location so that the GameView knows where to render relative to the world.
+     * <p></p> Must be called before using paintSpriteRelativeToWorld().
+     * @param playerVector the vector relative to the world of the player
+     */
     public void inputPlayerVector(Vector playerVector){
         this.playerVector = playerVector;
     }
 
+    /**
+     * Paints an image on the screen with the vector relative to the world, needs.
+     * <p></p> Must be called before using other display related methods from GameView.
+     */
     public void paintSpriteRelativeToWorld(BufferedImage image, int x, int y){
         paintSpriteRelativeToScreen(image, x-playerVector.getX(), y-playerVector.getY());
     }

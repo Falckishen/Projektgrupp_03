@@ -1,11 +1,12 @@
-package View;
+package View.Version1Display;
+
+import View.DisplayInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-class Game1Frame extends JFrame implements DisplayInterface{
+class Game1Frame extends JFrame implements DisplayInterface {
 
     Game1Panel subPanel;
 

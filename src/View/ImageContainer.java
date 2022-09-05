@@ -10,6 +10,10 @@ public class ImageContainer {
 
     private static BufferedImage[][] imageMatrix;
 
+    /**
+     * compileImages() loads all the image urls.
+     * <p></p> Must be called before using other methods from ImageContainer.
+     */
     public static void compileImages(){
         BufferedImage[][] returnMatrix;
         returnMatrix = new BufferedImage[preCompileMatrix.length][0];
