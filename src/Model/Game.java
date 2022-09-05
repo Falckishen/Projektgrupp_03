@@ -17,6 +17,14 @@ public class Game {
 
     public Entity getEntityOnPosistion(Position position) {
         for(Entity entity : Entities) {
+            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
+                return entity;
+            }
         }
+        return null;
+    }
+
+    public boolean isPositionOccupied(Position position) {
+        return getEntityOnPosistion(position) != null;
     }
 }
