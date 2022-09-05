@@ -2,8 +2,7 @@ package Model;
 
 public abstract class Entity {
     private int id;
-    private int coordX;
-    private int coordY;
+    private Position coordinate;
     private int hitboxWidthRadius;
     private int hitboxHeightRadius;
     private int direction;
@@ -12,8 +11,7 @@ public abstract class Entity {
 
 
     Entity(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius){
-        this.coordX = coordX;
-        this.coordY = coordY;
+        this.coordinate = new Position(coordX, coordY);
         this.hitboxWidthRadius = hitboxWidthRadius;
         this.hitboxHeightRadius = hitboxHeightRadius;
 
