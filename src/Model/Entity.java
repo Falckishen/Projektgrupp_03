@@ -22,23 +22,25 @@ public abstract class Entity {
         this.health = 1;
     }
 
-    public int getCoordX() {
+    int getCoordX() {
         return coordX;
     }
 
-    public int getCoordY() {
+    int getCoordY() {
         return coordY;
     }
 
-    public int getDirection() {
+    int getDirection() {
         return direction;
     }
 
-    public void setCoordX(int coordX) {
+    protected void setCoordX(int coordX) {
         this.coordX = coordX;
     }
 
-    public void setCoordY(int coordY) {
+    protected void setCoordY(int coordY) {
         this.coordY = coordY;
     }
+
+    abstract void move();
 }
