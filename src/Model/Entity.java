@@ -21,11 +21,11 @@ public abstract class Entity {
     }
 
     int getCoordX() {
-        return coordX;
+        return coordinate.getX();
     }
 
     int getCoordY() {
-        return coordY;
+        return coordinate.getY();
     }
 
     int getDirection() {
@@ -33,11 +33,11 @@ public abstract class Entity {
     }
 
     protected void setCoordX(int coordX) {
-        this.coordX = coordX;
+        this.coordinate.setX = coordX;
     }
 
     protected void setCoordY(int coordY) {
-        this.coordY = coordY;
+        this.coordinate.setY = coordY;
     }
 
     abstract void move();
