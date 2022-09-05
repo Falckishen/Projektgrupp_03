@@ -2,8 +2,8 @@ package Model;
 
 class Position {
 
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     // TODO fixa bägränsningar för parametrarna
     public Position(int x, int y) {
