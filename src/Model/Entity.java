@@ -33,11 +33,11 @@ public abstract class Entity {
     }
 
     protected void setCoordX(int coordX) {
-        this.coordinate.setX = coordX;
+        this.coordinate.setX(coordX);
     }
 
     protected void setCoordY(int coordY) {
-        this.coordinate.setY = coordY;
+        this.coordinate.setY(coordY);
     }
 
     abstract void move();
