@@ -1,11 +1,13 @@
 package Model;
 
+import Utilities.Direction;
+
 public abstract class Entity {
     private int id;
     private Position coordinate;
     private int hitboxWidthRadius;
     private int hitboxHeightRadius;
-    private int direction;
+    private Direction direction;
     private int velocity;
     private int health;
 
@@ -15,7 +17,7 @@ public abstract class Entity {
         this.hitboxWidthRadius = hitboxWidthRadius;
         this.hitboxHeightRadius = hitboxHeightRadius;
 
-        this.direction = 0;
+        this.direction = Direction.down;
         this.velocity = 0;
         this.health = 1;
     }
@@ -28,9 +30,15 @@ public abstract class Entity {
         return coordinate.getY();
     }
 
-    int getDirection() {
+    Direction getDirection() {
         return direction;
     }
+
+    void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    int getVelocity() {return velocity;}
 
     protected void setCoordX(int coordX) {
         this.coordinate.setX(coordX);
