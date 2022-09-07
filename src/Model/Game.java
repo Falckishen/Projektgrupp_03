@@ -23,7 +23,7 @@ public class Game extends Thread {
         timer.scheduleAtFixedRate(worldUpdate, 5000, 1000); // 1.task 2.delay 3.period
     }
 
-    public void setListOfCurrentDirection(List<Direction> listOfCurrentPlayerDirection) {
+    public void setListOfCurrentPlayerDirection(List<Direction> listOfCurrentPlayerDirection) {
         this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
     }
 
