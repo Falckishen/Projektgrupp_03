@@ -3,21 +3,17 @@ package Model;
 public abstract class Entity {
     private int id;
     private Position coordinate;
-    private int hitboxWidthRadius;
-    private int hitboxHeightRadius;
+    private int hitboxRadiusX;
+    private int hitboxRadiusY;
     private int direction;
-    private int velocity;
-    private int health;
 
 
-    Entity(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius){
+    Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
         this.coordinate = new Position(coordX, coordY);
-        this.hitboxWidthRadius = hitboxWidthRadius;
-        this.hitboxHeightRadius = hitboxHeightRadius;
+        this.hitboxRadiusX = hitboxRadiusX;
+        this.hitboxRadiusY = hitboxRadiusY;
 
         this.direction = 0;
-        this.velocity = 0;
-        this.health = 1;
     }
 
     int getCoordX() {
@@ -38,6 +34,14 @@ public abstract class Entity {
 
     protected void setCoordY(int coordY) {
         this.coordinate.setY(coordY);
+    }
+
+    protected int getHitboxRadiusX() {
+        return hitboxRadiusX;
+    }
+
+    protected int getHitboxRadiusY() {
+        return hitboxRadiusY;
     }
 
     abstract void move();
