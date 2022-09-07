@@ -1,6 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Math.pow;
 
 public class Monster extends Entity{
     Monster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
@@ -9,10 +13,22 @@ public class Monster extends Entity{
     }
 
     private Position findClosestPosition(List<Position> positionList) {
-        return new Position(0,0);
+        List<Double> playerDistances = new ArrayList<Double>();
+        for (Position p : positionList){
+            Double distance = Math.pow(p.getX() - this.getCoordX(), 2) +
+                    Math.pow(p.getY() - this.getCoordY(),2);
+            playerDistances.add(distance);
+        }
+
+        Double smallest = Collections.min(playerDistances);
+        int indexOfSmallest = playerDistances.indexOf(smallest);
+
+
+        return positionList.get(indexOfSmallest);
     }
 
     private Direction findDirectionToPosition(Position position) {
+        
         return Direction.UP;
     }
     /* // Probably should be in factory
