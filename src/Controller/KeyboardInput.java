@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyboardInput extends KeyAdapter {
+    private boolean upKeyPressed = false;
+    private boolean leftKeyPressed = false;
+    private boolean downKeyPressed = false;
+    private boolean rightKeyPressed = false;
     private Game game;
     private List<Direction> directions;
     public KeyboardInput(Game game) {
@@ -21,21 +25,25 @@ public class KeyboardInput extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_W) {
+        if (key == KeyEvent.VK_W && !upKeyPressed) {
             directions.add(Direction.UP);
-            System.out.println(key + "true");
+            upKeyPressed = true;
+            //System.out.println(key + "true");
         }
-        if (key == KeyEvent.VK_A) {
+        if (key == KeyEvent.VK_A && !leftKeyPressed) {
             directions.add(Direction.LEFT);
-            System.out.println(key + "true");
+            leftKeyPressed = true;
+            //System.out.println(key + "true");
         }
-        if (key == KeyEvent.VK_S) {
+        if (key == KeyEvent.VK_S && !downKeyPressed) {
             directions.add(Direction.DOWN);
-            System.out.println(key + "true");
+            downKeyPressed = true;
+            //System.out.println(key + "true");
         }
-        if (key == KeyEvent.VK_D) {
+        if (key == KeyEvent.VK_D && !rightKeyPressed) {
             directions.add(Direction.RIGHT);
-            System.out.println(key + "true");
+            rightKeyPressed = true;
+            //System.out.println(key + "true");
         }
     }
 
@@ -44,19 +52,23 @@ public class KeyboardInput extends KeyAdapter {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W) {
             directions.remove(Direction.UP);
-            System.out.println(key + "false");
+            upKeyPressed = false;
+            //System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_A) {
             directions.remove(Direction.LEFT);
-            System.out.println(key + "false");
+            leftKeyPressed = false;
+            //System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_S) {
             directions.remove(Direction.DOWN);
-            System.out.println(key + "false");
+            downKeyPressed = false;
+            //System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_D) {
             directions.remove(Direction.RIGHT);
-            System.out.println(key + "false");
+            rightKeyPressed = false;
+            //System.out.println(key + "false");
         }
     }
 }
