@@ -18,5 +18,6 @@ public class Game {
     public Entity getEntityOnPosistion(Position position) {
         for(Entity entity : Entities) {
         }
+        return null;
     }
 }

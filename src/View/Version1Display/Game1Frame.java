@@ -30,4 +30,14 @@ class Game1Frame extends JFrame implements DisplayInterface {
     public void iRepaint() {
         repaint();
     }
+
+    @Override
+    public int getWindowWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getWindowHeight() {
+        return 0;
+    }
 }
