@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 // The "main" class for Model.
-// Follows the facade pattern, this is the only public class in Model
+// Follows the facade pattern, this should be the only class in Model to communicate with controller and view
 public class Game extends Thread {
 
     private Entity[] Entities;
