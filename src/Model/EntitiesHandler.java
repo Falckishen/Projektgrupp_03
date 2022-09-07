@@ -1,18 +1,15 @@
 package Model;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class EntitiesHandler {
     private ArrayList<Entity> completeEntityList = new ArrayList<Entity>();
-//    private ArrayList<Player> players = new ArrayList<Player>();
-    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<OnTick> completeList = new ArrayList<OnTick>();
 
  /*   void addPlayer(){
         Player p = new Player();
-        players.add(p);
-        completeEntityList.add(p);
+        completeList.add((Action)p);
+        completeEntityList.add((Entity)p);
     }*/
 
     void addEnemy(String type){
@@ -23,28 +20,23 @@ public class EntitiesHandler {
 
     private void addMonster(){
  /*       Monster m = new Monster();
-        enemies.add((Enemy) m);
+        completeList.add((Action) m);
         completeEntityList.add((Entity) m);
     */}
 
     void updateEntities(){
-
-    }
-
-    private void checkCollisionForMe(Entity self){
-        for (Entity e: completeEntityList){
-
-
+        for (OnTick entity: completeList) {
+            entity.doOnTick();
         }
     }
 
-    private void updateEnemies(){
-
+    private boolean isPositionOccupied(Position position){
+        for (Entity entity: completeEntityList){
+            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
+                return true;
+            }
+        }
+        return false;
     }
-
-    private void updatePlayers(){
-
-    }
-
 
 }
