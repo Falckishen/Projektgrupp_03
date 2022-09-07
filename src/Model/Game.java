@@ -1,19 +1,21 @@
 package Model;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// Game engine, main class for Model.
-// Follows the facade pattern, this is the only public class in Model
+// The "main" class for Model.
+// Follows the facade pattern, this should be the only class in Model to communicate with controller and view
 public class Game extends Thread {
 
     private Entity[] Entities;
+    private List<Direction> listOfCurrentPlayerDirection;
 
     public Game() {
 
     }
 
-    // Denna metod körs som en thread, så eventuella inputs körs parallelt med denna
+    // This method runs as a thread, inputs are running parallel
     public void run() {
 
         TimerTask worldUpdate = new WorldUpdate();
@@ -21,21 +23,16 @@ public class Game extends Thread {
         timer.scheduleAtFixedRate(worldUpdate, 5000, 1000); // 1.task 2.delay 3.period
     }
 
-    // Controller calls this method to move the player
-    public void movePlayer() {
-
-    }
-
-    public Entity getEntityOnPosition(Position position) {
-        for(Entity entity : Entities) {
-            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
-                return entity;
-            }
-        }
-        return null;
+    public void setListOfCurrentPlayerDirection(List<Direction> listOfCurrentPlayerDirection) {
+        this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
     }
 
     public boolean isPositionOccupied(Position position) {
-        return getEntityOnPosition(position) != null;
+        for(Entity entity : Entities) {
+            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
