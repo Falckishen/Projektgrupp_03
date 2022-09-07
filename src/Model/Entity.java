@@ -5,7 +5,8 @@ public abstract class Entity {
     private Position coordinate;
     private int hitboxRadiusX;
     private int hitboxRadiusY;
-    private int direction;
+    private Direction direction;
+    private boolean moving;
 
 
     Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
@@ -13,7 +14,8 @@ public abstract class Entity {
         this.hitboxRadiusX = hitboxRadiusX;
         this.hitboxRadiusY = hitboxRadiusY;
 
-        this.direction = 0;
+        this.direction = Direction.LEFT;
+        this.moving = false;
     }
 
     int getCoordX() {
@@ -24,8 +26,20 @@ public abstract class Entity {
         return coordinate.getY();
     }
 
-    int getDirection() {
+    Direction getDirection() {
         return direction;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     protected void setCoordX(int coordX) {
