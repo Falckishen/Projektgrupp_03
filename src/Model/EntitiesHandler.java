@@ -31,8 +31,11 @@ public class EntitiesHandler {
 
     }
 
-    private void checkCollision(){
+    private void checkCollisionForMe(Entity self){
+        for (Entity e: completeEntityList){
 
+
+        }
     }
 
     private void updateEnemies(){
