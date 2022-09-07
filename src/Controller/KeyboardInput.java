@@ -5,6 +5,7 @@ import Model.Game;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class KeyboardInput extends KeyAdapter {
@@ -12,7 +13,7 @@ public class KeyboardInput extends KeyAdapter {
     private List<Direction> directions;
     public KeyboardInput(Game game) {
         this.game = game;
-        directions.clear();
+        directions = new ArrayList<Direction>();
         game.setListOfCurrentPlayerDirection(directions);
     }
 
