@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,6 +9,7 @@ import java.util.TimerTask;
 public class Game extends Thread {
 
     private Entity[] Entities;
+    private List<Direction> listOfCurrentPlayerDirection;
 
     public Game() {
 
@@ -21,14 +23,8 @@ public class Game extends Thread {
         timer.scheduleAtFixedRate(worldUpdate, 5000, 1000); // 1.task 2.delay 3.period
     }
 
-    // Controller calls this method to move the player
-    public void setPlayerStateMoving(Direction direction) {
-
-    }
-
-    // Controller calls this method when the player should stop moving
-    public void setPlayerStateNotMoving() {
-
+    public void setListOfCurrentDirection(List<Direction> listOfCurrentPlayerDirection) {
+        this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
     }
 
     public boolean isPositionOccupied(Position position) {
