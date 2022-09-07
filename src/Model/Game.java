@@ -13,7 +13,7 @@ public class Game extends Thread {
 
     }
 
-    // Denna metod körs som en thread, så eventuella inputs körs parallelt med denna
+    // This method runs as a thread, inputs are not handled here
     public void run() {
 
         TimerTask worldUpdate = new WorldUpdate();
@@ -22,20 +22,25 @@ public class Game extends Thread {
     }
 
     // Controller calls this method to move the player
-    public void movePlayer() {
+    public void setPlayerStateMoving(Direction direction) {
 
     }
 
-    public Entity getEntityOnPosition(Position position) {
+    // Controller calls this method when the player should stop moving
+    public void setPlayerStateNotMoving() {
+
+    }
+
+    public boolean isPositionOccupied(Position position) {
+        return getEntityOnPosition(position) != null;
+    }
+
+    Entity getEntityOnPosition(Position position) {
         for(Entity entity : Entities) {
             if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
                 return entity;
             }
         }
         return null;
-    }
-
-    public boolean isPositionOccupied(Position position) {
-        return getEntityOnPosition(position) != null;
     }
 }

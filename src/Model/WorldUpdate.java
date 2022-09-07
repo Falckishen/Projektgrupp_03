@@ -3,7 +3,7 @@ package Model;
 import java.util.TimerTask;
 
 // Denna klass används som en TimerTask för att kunna uppdatera världen ett antal gånger per sekund (via metoden run)
-public class WorldUpdate extends TimerTask {
+class WorldUpdate extends TimerTask {
 
     @Override
     public void run() {
