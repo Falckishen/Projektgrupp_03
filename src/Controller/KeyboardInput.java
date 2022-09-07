@@ -1,16 +1,22 @@
 package Controller;
 
+import Model.Direction;
+import Model.Game;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class KeyboardInput extends KeyAdapter {
     private boolean UpKeyPressed = false;
     private boolean LeftKeyPressed = false;
     private boolean DownKeyPressed = false;
     private boolean RightKeyPressed = false;
-
-    public KeyboardInput() {
-
+    private Game game;
+    private List<Direction> directions;
+    public KeyboardInput(Game game) {
+        this.game = game;
+        directions.clear();
     }
 
     @Override
@@ -18,19 +24,19 @@ public class KeyboardInput extends KeyAdapter {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_W) {
-            UpKeyPressed = true;
+            directions.add(Direction.UP);
             System.out.println(key + "true");
         }
         if (key == KeyEvent.VK_A) {
-            LeftKeyPressed = true;
+            directions.add(Direction.LEFT);
             System.out.println(key + "true");
         }
         if (key == KeyEvent.VK_S) {
-            DownKeyPressed = true;
+            directions.add(Direction.DOWN);
             System.out.println(key + "true");
         }
         if (key == KeyEvent.VK_D) {
-            RightKeyPressed = true;
+            directions.add(Direction.RIGHT);
             System.out.println(key + "true");
         }
     }
@@ -39,19 +45,19 @@ public class KeyboardInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W) {
-            UpKeyPressed = false;
+            directions.remove(Direction.UP);
             System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_A) {
-            LeftKeyPressed = false;
+            directions.remove(Direction.LEFT);
             System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_S) {
-            DownKeyPressed = false;
+            directions.remove(Direction.DOWN);
             System.out.println(key + "false");
         }
         if (key == KeyEvent.VK_D) {
-            RightKeyPressed = false;
+            directions.remove(Direction.RIGHT);
             System.out.println(key + "false");
         }
     }
