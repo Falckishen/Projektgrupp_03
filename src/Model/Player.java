@@ -17,20 +17,25 @@ public class Player extends Entity {
         int x = this.getCoordX();
         int y = this.getCoordY();
         switch (getDirection()){
-            case up:
-                y += this.getVelocity();
+            case UP:
+                y += 1;
                 break;
-            case down:
-                y -= this.getVelocity();
+            case DOWN:
+                y -= 1;
                 break;
-            case left:
-                x -= this.getVelocity();
+            case LEFT:
+                x -= 1;
                 break;
-            case right:
-                x += this.getVelocity();
+            case RIGHT:
+                x += 1;
                 break;
         }
         setCoordX(x);
         setCoordY(y);
+    }
+
+    @Override
+    public void doOnTick() {
+        move();
     }
 }

@@ -1,6 +1,6 @@
 package Model;
 
-import Utilities.Direction;
+import java.util.List;
 
 public class Monster extends Entity{
     Monster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
@@ -8,6 +8,13 @@ public class Monster extends Entity{
 
     }
 
+    private Position findClosestPosition(List<Position> positionList) {
+        return new Position(0,0);
+    }
+
+    private Direction findDirectionToPosition(Position position) {
+        return Direction.UP;
+    }
     /* // Probably should be in factory
     Monster(int coordX, int coordY) {
         super(coordX, coordY, 20, 20);
@@ -15,29 +22,37 @@ public class Monster extends Entity{
 
     // Stubb
     private Direction findClosestPlayerDirection() {
-        return Direction.up;
+        return Direction.UP;
     }
 
     @Override
     void move() {
-        setDirection(findClosestPlayerDirection());
+        // Position closePosition = findClosestPosition(listOfPlayers);
+        // Direction goToDirection = findDirectionToPosition(closePosition);
+        Direction goToDirection = Direction.UP;
+        setDirection(goToDirection);
         int x = this.getCoordX();
         int y = this.getCoordY();
         switch (getDirection()){
-            case up:
-                y += this.getVelocity();
+            case UP:
+                y += 1;
                 break;
-            case down:
-                y -= this.getVelocity();
+            case DOWN:
+                y -= 1;
                 break;
-            case left:
-                x -= this.getVelocity();
+            case LEFT:
+                x -= 1;
                 break;
-            case right:
-                x += this.getVelocity();
+            case RIGHT:
+                x += 1;
                 break;
         }
         setCoordX(x);
         setCoordY(y);
+    }
+
+    @Override
+    public void doOnTick() {
+        move();
     }
 }
