@@ -8,15 +8,12 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class KeyboardInput extends KeyAdapter {
-    private boolean UpKeyPressed = false;
-    private boolean LeftKeyPressed = false;
-    private boolean DownKeyPressed = false;
-    private boolean RightKeyPressed = false;
     private Game game;
     private List<Direction> directions;
     public KeyboardInput(Game game) {
         this.game = game;
         directions.clear();
+        game.setListOfCurrentPlayerDirection(directions);
     }
 
     @Override
