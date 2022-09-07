@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Game2Frame extends JFrame implements DisplayInterface {
-    public Game2Frame(int width, int height, JFrame mainFrame){
+    public Game2Frame(int width, int height, JPanel mainFrame){
         setSize(new Dimension(width,height));
         setResizable(false);
         setTitle("(╯°□°）╯︵ ┻━┻");
@@ -15,10 +15,10 @@ public class Game2Frame extends JFrame implements DisplayInterface {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setVisible(true);
-
-        mainFrame.add(this);
-        mainFrame.pack();
-
+        mainFrame.setSize(0,0);
+        mainFrame.setFocusable(true);
+        mainFrame.requestFocusInWindow();
+        this.add(mainFrame);
         createBufferStrategy(2);
     }
 
