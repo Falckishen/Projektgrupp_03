@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         JPanel mainFrame = new JPanel();
-        mainFrame.addKeyListener(new KeyboardInput());
+        mainFrame.addKeyListener(new KeyboardInput(game));
         GameView mainView = new GameView(mainFrame);
         game.start();
     }
