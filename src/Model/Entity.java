@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class Entity {
+public abstract class Entity implements OnTick{
     private int id;
     private Position coordinate;
     private int hitboxRadiusX;
