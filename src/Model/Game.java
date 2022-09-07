@@ -20,19 +20,11 @@ public class Game extends Thread {
 
         TimerTask worldUpdate = new WorldUpdate();
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(worldUpdate, 5000, 1000); // 1.task 2.delay 3.period
+        timer.scheduleAtFixedRate(worldUpdate, 0, 17); // 1.task 2. delay 3. period
+        // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
     }
 
     public void setListOfCurrentPlayerDirection(List<Direction> listOfCurrentPlayerDirection) {
         this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
-    }
-
-    public boolean isPositionOccupied(Position position) {
-        for(Entity entity : Entities) {
-            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
-                return true;
-            }
-        }
-        return false;
     }
 }
