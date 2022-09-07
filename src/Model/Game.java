@@ -3,7 +3,7 @@ package Model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// Game engine, main class for Model.
+// The "main" class for Model.
 // Follows the facade pattern, this is the only public class in Model
 public class Game extends Thread {
 
@@ -13,7 +13,7 @@ public class Game extends Thread {
 
     }
 
-    // This method runs as a thread, inputs are not handled here
+    // This method runs as a thread, inputs are running parallel
     public void run() {
 
         TimerTask worldUpdate = new WorldUpdate();
