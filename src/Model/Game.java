@@ -28,15 +28,11 @@ public class Game extends Thread {
     }
 
     public boolean isPositionOccupied(Position position) {
-        return getEntityOnPosition(position) != null;
-    }
-
-    Entity getEntityOnPosition(Position position) {
         for(Entity entity : Entities) {
             if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
-                return entity;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }
