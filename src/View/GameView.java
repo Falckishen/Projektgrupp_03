@@ -8,7 +8,7 @@ import java.awt.*;
 public class GameView {
     ScreenDirector screenDirector;
 
-    GameView(JFrame mainFrame){
+    public GameView(JPanel mainFrame){
         screenDirector = new ScreenDirector();
         ImageContainer.compileImages();
         screenDirector.startGameScreen(mainFrame);

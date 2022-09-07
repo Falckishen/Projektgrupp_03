@@ -35,7 +35,7 @@ public class ScreenDirector {
      * Starts the display.
      * <p></p> Must be called before using other display related methods from GameView.
      */
-    public void startGameScreen(JFrame mainFrame){
+    public void startGameScreen(JPanel mainFrame){
         //display = new Game1Frame(x_width, y_width);
         display = new Game2Frame(width, height, mainFrame);
     }
