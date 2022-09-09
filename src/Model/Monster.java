@@ -15,8 +15,8 @@ public class Monster extends Entity{
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<Double>();
         for (Position p : positionList){
-            Double distance = Math.pow(p.getX() - this.getCoordX(), 2) +
-                    Math.pow(p.getY() - this.getCoordY(),2);
+            Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
+                    Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
             playerDistances.add(distance);
         }
 
@@ -47,8 +47,8 @@ public class Monster extends Entity{
         // Direction goToDirection = findDirectionToPosition(closePosition);
         Direction goToDirection = Direction.UP;
         setDirection(goToDirection);
-        int x = this.getCoordX();
-        int y = this.getCoordY();
+        int x = this.getCurrentPosition().getX();
+        int y = this.getCurrentPosition().getY();
         switch (getDirection()){
             case UP:
                 y += 1;

@@ -14,8 +14,8 @@ public class Player extends Entity {
 
     @Override
     void move() {
-        int x = this.getCoordX();
-        int y = this.getCoordY();
+        int x = this.getCurrentPosition().getX();
+        int y = this.getCurrentPosition().getY();
         switch (getDirection()){
             case UP:
                 y += 1;
