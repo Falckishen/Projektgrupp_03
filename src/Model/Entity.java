@@ -53,6 +53,4 @@ public abstract class Entity implements OnTick{
     protected int getHitboxRadiusY() {
         return hitboxRadiusY;
     }
-
-    abstract void move();
 }
