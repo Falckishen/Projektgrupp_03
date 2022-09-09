@@ -1,28 +1,32 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class EntitiesHandler {
     private ArrayList<Entity> completeEntityList = new ArrayList<Entity>();
     private ArrayList<OnTick> completeList = new ArrayList<OnTick>();
 
- /*   void addPlayer(){
+    /*
+    void addPlayer(){
         Player p = new Player();
         completeList.add((Action)p);
         completeEntityList.add((Entity)p);
     }*/
 
     void addEnemy(String type){
-        if (type == "Monster"){
+        if (Objects.equals(type, "Monster")){
             addMonster();
         }
     }
 
-    private void addMonster(){
- /*       Monster m = new Monster();
+    private void addMonster() {
+        /*
+        Monster m = new Monster();
         completeList.add((Action) m);
         completeEntityList.add((Entity) m);
-    */}
+        */
+    }
 
     void updateEntities(){
         for (OnTick entity: completeList) {

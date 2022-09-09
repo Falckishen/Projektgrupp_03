@@ -32,6 +32,7 @@ class WorldUpdate extends TimerTask {
         }
         */
 
+        // DRAWS WORLD
         for (ViewObserver viewObserver : viewObservers) {
             viewObserver.drawWorld();
         }

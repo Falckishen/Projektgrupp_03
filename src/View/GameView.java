@@ -20,7 +20,7 @@ public class GameView implements ViewObserver {
         //for()
     }
 
-    // updateScreenSequence
+    // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override
     public void drawWorld() {
         /*screenDirector.inputPlayerPosition();
