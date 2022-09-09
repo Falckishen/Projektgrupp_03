@@ -4,8 +4,8 @@ import Utilities.Direction;
 
 class SingleShooter extends Weapon{
 
-    protected SingleShooter(String type, int coolDown, int projectileVelocity, int projectileLife) {
-        super(type, coolDown, projectileVelocity, projectileLife);
+    protected SingleShooter(String type, int coolDownSec, int projectileVelocity, int projectileLife) {
+        super(type, coolDownSec, projectileVelocity, projectileLife);
     }
 
     @Override

@@ -2,31 +2,28 @@ package Model.Weapon;
 
 import Utilities.Direction;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 abstract class Weapon {
     private static final int UPDATE_INTERVAL = 5; // Millisecond
 
 
     private final String WeaponType;
-    private final int coolDown;
+    private final int coolDownSec; //saved as seconds not milliseconds
 
     private final int projectileVelocity;
     private final int projectileLife;
 
-    private Long lastShotFired;
+    private Long lastShotFired; //is saved as milliseconds
     private Direction direction = Direction.LEFT;
 
 
-    protected Weapon(String WeaponType, int coolDown, int projectileVelocity, int projectileLife){
+    protected Weapon(String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife){
         this.WeaponType = WeaponType;
-        this.coolDown = coolDown;
+        this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
 
         this.projectileVelocity = projectileVelocity;
         this.projectileLife = projectileLife;
 
-        this.lastShotFired = new Date().getTime();
+        this.lastShotFired = System.currentTimeMillis();
     }
 
     protected Direction getDirection() {
@@ -50,7 +47,7 @@ abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(){
-        if (new Date().getTime() - lastShotFired > coolDown){
+        if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
         }
     }
