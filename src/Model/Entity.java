@@ -16,12 +16,8 @@ public abstract class Entity implements OnTick{
         this.direction = Direction.LEFT;
     }
 
-    int getCoordX() {
-        return coordinate.getX();
-    }
-
-    int getCoordY() {
-        return coordinate.getY();
+    Position getCurrentPosition() {
+        return coordinate;
     }
 
     Direction getDirection() {

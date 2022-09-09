@@ -6,6 +6,7 @@ import java.util.Objects;
 public class EntitiesHandler {
     private ArrayList<Entity> completeEntityList = new ArrayList<Entity>();
     private ArrayList<OnTick> completeList = new ArrayList<OnTick>();
+    private Player player;
 
     /*
     void addPlayer(){
@@ -36,11 +37,15 @@ public class EntitiesHandler {
 
     private boolean isPositionOccupied(Position position){
         for (Entity entity: completeEntityList){
-            if (entity.getCoordX() == position.getX() && entity.getCoordY() == position.getY()) {
+            if (entity.getCurrentPosition().getX() == position.getX() && entity.getCurrentPosition().getY() == position.getY()) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Position getPlayerPosition(){
+        return player.getCurrentPosition();
     }
 
 }
