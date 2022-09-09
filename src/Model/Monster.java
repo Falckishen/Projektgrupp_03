@@ -1,4 +1,5 @@
 package Model;
+import Utilities.Direction;
 
 import java.util.ArrayList;
 import java.util.Collections;

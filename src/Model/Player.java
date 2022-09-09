@@ -1,4 +1,5 @@
 package Model;
+import Utilities.Direction;
 
 public class Player extends Entity {
     Player(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {

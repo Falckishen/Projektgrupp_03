@@ -1,4 +1,5 @@
 package Model;
+import Utilities.Direction;
 
 public abstract class Entity implements OnTick{
     private int id;
@@ -9,7 +10,7 @@ public abstract class Entity implements OnTick{
     private int velocity;
 
 
-    Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
+    protected Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
         this.coordinate = new Position(coordX, coordY);
         this.hitboxRadiusX = hitboxRadiusX;
         this.hitboxRadiusY = hitboxRadiusY;
@@ -18,23 +19,23 @@ public abstract class Entity implements OnTick{
         this.velocity = 10;
     }
 
-    Position getCurrentPosition() {
+    protected Position getCurrentPosition() {
         return coordinate;
     }
 
-    Direction getDirection() {
+    protected Direction getDirection() {
         return direction;
     }
 
-    public int getVelocity() {
+    protected int getVelocity() {
         return velocity;
     }
 
-    void setDirection(Direction direction) {
+    protected void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    public void setVelocity(int velocity) {
+    protected void setVelocity(int velocity) {
         this.velocity = velocity;
     }
 

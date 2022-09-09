@@ -1,8 +1,8 @@
 package Utilities;
 
 public enum Direction {
-    left,
-    right,
-    up,
-    down
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
 }

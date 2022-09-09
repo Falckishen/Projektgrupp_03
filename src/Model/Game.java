@@ -1,4 +1,5 @@
 package Model;
+import Utilities.Direction;
 
 import Utilities.ViewObserver;
 import java.util.ArrayList;
