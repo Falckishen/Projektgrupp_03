@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Direction;
+import Utilities.Direction;
 import Model.Game;
 
 import java.awt.event.KeyAdapter;
