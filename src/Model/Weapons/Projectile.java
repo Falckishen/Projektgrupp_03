@@ -1,4 +1,4 @@
-package Model.Weapon;
+package Model.Weapons;
 
 import Model.Entity;
 import Utilities.Direction;

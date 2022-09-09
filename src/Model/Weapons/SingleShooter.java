@@ -1,6 +1,4 @@
-package Model.Weapon;
-
-import Utilities.Direction;
+package Model.Weapons;
 
 class SingleShooter extends Weapon{
 

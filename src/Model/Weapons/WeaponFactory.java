@@ -1,4 +1,4 @@
-package Model.Weapon;
+package Model.Weapons;
 
 public class WeaponFactory {
 
