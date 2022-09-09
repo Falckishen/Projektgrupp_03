@@ -19,6 +19,10 @@ public abstract class Entity implements OnTick{
         this.velocity = 10;
     }
 
+    protected int getId(){
+        return id;
+    }
+
     protected Position getCurrentPosition() {
         return coordinate;
     }
