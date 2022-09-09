@@ -1,9 +1,9 @@
 package Utilities;
 
-import Model.Weapon.Projectile;
+import Model.Entity;
 
 import java.util.HashMap;
 
 public class JustAPlaceToKeepThePublicList {
-    public static HashMap<int, Projectile> ACTIVE_PROJECTILES= new HashMap<int, Projectile>();
+    public static HashMap<int, Entity> ACTIVE_PROJECTILES= new HashMap<int, Entity>();
 }

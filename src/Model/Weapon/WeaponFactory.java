@@ -1,7 +1,12 @@
 package Model.Weapon;
 
 public class WeaponFactory {
-    static Weapon getGun(){
-        return new SingleShooter();
+
+    public static Weapon getGun(){
+        return new SingleShooter("Gun",32,7,40);
+    }
+
+    public static Weapon getTestWeapon(){
+        return new SingleShooter("testWeapon",2,50,60);
     }
 }
