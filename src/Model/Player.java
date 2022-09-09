@@ -12,7 +12,6 @@ public class Player extends Entity {
     }*/
 
 
-    @Override
     void move() {
         int x = this.getCurrentPosition().getX();
         int y = this.getCurrentPosition().getY();

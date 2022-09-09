@@ -41,7 +41,6 @@ public class Monster extends Entity{
         return Direction.UP;
     }
 
-    @Override
     void move() {
         // Position closePosition = findClosestPosition(listOfPlayers);
         // Direction goToDirection = findDirectionToPosition(closePosition);
