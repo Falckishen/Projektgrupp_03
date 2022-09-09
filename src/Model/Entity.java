@@ -1,12 +1,11 @@
 package Model;
 
-public abstract class Entity {
+public abstract class Entity implements OnTick{
     private int id;
     private Position coordinate;
     private int hitboxRadiusX;
     private int hitboxRadiusY;
     private Direction direction;
-    private boolean moving;
 
 
     Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
@@ -15,7 +14,6 @@ public abstract class Entity {
         this.hitboxRadiusY = hitboxRadiusY;
 
         this.direction = Direction.LEFT;
-        this.moving = false;
     }
 
     int getCoordX() {
@@ -28,14 +26,6 @@ public abstract class Entity {
 
     Direction getDirection() {
         return direction;
-    }
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    void setMoving(boolean moving) {
-        this.moving = moving;
     }
 
     void setDirection(Direction direction) {

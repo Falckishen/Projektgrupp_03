@@ -10,13 +10,12 @@ class WorldUpdate extends TimerTask {
         //Test
         System.out.println("World updated!");
 
-        /* THIS CODE WILL BE USED LATER
+
+        /* THIS CODE WILL BE USED LATER */
 
         if (System.currentTimeMillis() - scheduledExecutionTime() >= 1000) {
             System.out.println("Task");
             System.out.println(scheduledExecutionTime());
         }
-
-        */
     }
 }
