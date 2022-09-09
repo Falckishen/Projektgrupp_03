@@ -14,7 +14,7 @@ public class KeyboardInput extends KeyAdapter {
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
     private Game game;
-    private List<Direction> directions;
+    private ArrayList<Direction> directions;
     public KeyboardInput(Game game) {
         this.game = game;
         directions = new ArrayList<Direction>();
