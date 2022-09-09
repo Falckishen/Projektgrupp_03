@@ -6,6 +6,7 @@ public abstract class Entity implements OnTick{
     private int hitboxRadiusX;
     private int hitboxRadiusY;
     private Direction direction;
+    private int velosity;
 
 
     Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
@@ -14,6 +15,7 @@ public abstract class Entity implements OnTick{
         this.hitboxRadiusY = hitboxRadiusY;
 
         this.direction = Direction.LEFT;
+        this.velosity = 10;
     }
 
     Position getCurrentPosition() {
@@ -24,8 +26,16 @@ public abstract class Entity implements OnTick{
         return direction;
     }
 
+    public int getVelosity() {
+        return velosity;
+    }
+
     void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void setVelosity(int velosity) {
+        this.velosity = velosity;
     }
 
     protected void setCoordX(int coordX) {
