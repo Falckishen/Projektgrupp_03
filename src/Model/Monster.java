@@ -29,8 +29,8 @@ public class Monster extends Entity{
     }
 
     Direction findDirectionToPosition(Position p) {
-        int vx = p.getX() - this.getCoordX();
-        int vy = p.getY() - this.getCoordY();
+        int vx = p.getX() - this.getCurrentPosition().getX();
+        int vy = p.getY() - this.getCurrentPosition().getY();
         // Top is 0 degrees
         int ux = 0;
         int uy = 1;
