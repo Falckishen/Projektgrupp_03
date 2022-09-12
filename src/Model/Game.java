@@ -13,9 +13,13 @@ public class Game extends Thread {
     private WorldUpdate worldUpdate;
     private Entity[] Entities;
     private ArrayList<Direction> listOfCurrentPlayerDirection;
+    private Player player;
 
     public Game() {
-        this.worldUpdate = new WorldUpdate();
+        this.player = new Player(0, 0, 25, 25, listOfCurrentPlayerDirection);
+        // Allt
+
+        this.worldUpdate = new WorldUpdate(player);
     }
 
     public void addViewObserver(ViewObserver viewObserver) {
@@ -32,5 +36,9 @@ public class Game extends Thread {
 
     public void setListOfCurrentPlayerDirection(ArrayList<Direction> listOfCurrentPlayerDirection) {
         this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
+    }
+
+    public Position getPlayerPosition() {
+        return player.getCurrentPosition();
     }
 }

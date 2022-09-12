@@ -1,7 +1,6 @@
 package Model;
 
 import Utilities.ViewObserver;
-
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -9,9 +8,10 @@ import java.util.TimerTask;
 class WorldUpdate extends TimerTask {
 
     private ArrayList<ViewObserver> viewObservers = new ArrayList<ViewObserver>();
+    private Player player;
 
-    public WorldUpdate() {
-
+    public WorldUpdate(Player player) {
+        this.player = player;
     }
 
     public void addViewObserver(ViewObserver viewObserver) {
@@ -22,6 +22,8 @@ class WorldUpdate extends TimerTask {
     public void run() {
         //Test
         System.out.println("World updated!");
+
+        player.doOnTick();
 
 
         /* THIS CODE WILL BE USED LATER
