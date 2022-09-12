@@ -1,18 +1,34 @@
 package Model;
 import Utilities.Direction;
+import Utilities.JustAPlaceToKeepThePublicList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.Math.E;
 import static java.lang.Math.pow;
 
 public class Monster extends Entity{
+    private static HashMap<Integer, Entity> ENEMIES = JustAPlaceToKeepThePublicList.ACTIVE_ENEMIES;
+
     Monster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
         super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
-
+        addToHashMap();
     }
-//hej
+
+    @Override
+    protected void addToHashMap() {
+        ENEMIES.put(this.getId(), this);
+    }
+
+    @Override
+    protected void removeFromHashMap() {
+        ENEMIES.remove(this.getId());
+    }
+
+    //hej
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<Double>();
         for (Position p : positionList){
