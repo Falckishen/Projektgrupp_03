@@ -1,10 +1,25 @@
 package Model;
 import Utilities.Direction;
+import Utilities.JustAPlaceToKeepThePublicList;
+
+import java.util.HashMap;
 
 public class Player extends Entity {
+    private static HashMap<Integer, Entity> PLAYER = JustAPlaceToKeepThePublicList.ACTIVE_PLAYERS;
+
     Player(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
         super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
+        addToHashMap();
+    }
 
+    @Override
+    protected void addToHashMap() {
+        PLAYER.put(this.getId(), this);
+    }
+
+    @Override
+    protected void removeFromHashMap() {
+        PLAYER.remove(this.getId());
     }
 
     /*
