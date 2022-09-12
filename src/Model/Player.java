@@ -12,6 +12,7 @@ public class Player extends Entity {
     Player(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, ArrayList<Direction> listOfCurrentPlayerDirection) {
         super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
         this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
+        addToHashMap();
     }
 
     /*
