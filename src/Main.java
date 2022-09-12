@@ -14,5 +14,6 @@ public class Main {
         game.start();                                           // The world comes to life!
 
         //test comment
+        //test comment 2
     }
 }
