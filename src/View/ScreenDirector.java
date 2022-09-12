@@ -4,6 +4,7 @@ import View.Version2Display.Game2Frame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +79,10 @@ public class ScreenDirector {
         int adjustedX = (x) + (width /2) - (image.getWidth()/2);
         int adjustedY = (y) + (height /2) - (image.getHeight()/2);
         display.paintImageAtVector(image, adjustedX, adjustedY);
+    }
+
+    public void addKeyListener(KeyListener keyListener){
+        display.implementKeyListener(keyListener);
     }
 
     class Vector{

@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public interface DisplayInterface {
@@ -10,4 +11,6 @@ public interface DisplayInterface {
     int getWindowWidth();
 
     int getWindowHeight();
+
+    void implementKeyListener(KeyListener keyListener);
 }

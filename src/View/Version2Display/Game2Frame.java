@@ -4,6 +4,7 @@ import View.DisplayInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class Game2Frame extends JFrame implements DisplayInterface {
@@ -41,5 +42,10 @@ public class Game2Frame extends JFrame implements DisplayInterface {
     @Override
     public int getWindowHeight(){
         return(getHeight());
+    }
+
+    @Override
+    public void implementKeyListener(KeyListener keyListener) {
+        addKeyListener(keyListener);
     }
 }

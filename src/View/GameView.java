@@ -5,6 +5,7 @@ import Model.Game;
 import Utilities.ViewObserver;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class GameView implements ViewObserver {
     ScreenDirector screenDirector;
@@ -14,6 +15,10 @@ public class GameView implements ViewObserver {
         ImageContainer.compileImages();
         screenDirector.startGameScreen(mainFrame);
         game.addViewObserver(this);
+    }
+
+    public void addKeyListener(KeyListener keyListener){
+        screenDirector.addKeyListener(keyListener);
     }
 
     private void paintEntities(Entity[] entities){
