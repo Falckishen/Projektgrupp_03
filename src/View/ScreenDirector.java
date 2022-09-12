@@ -21,7 +21,7 @@ public class ScreenDirector {
 
     public ScreenDirector(){
         try {
-            background = ImageIO.read(new File("src\\View\\Images\\BackgroundPNG.png"));
+            background = ImageIO.read(new File("src/View/Images/BackgroundPNG.png"));
         } catch (IOException e) {
             System.out.println("Failed to load background");
         }
