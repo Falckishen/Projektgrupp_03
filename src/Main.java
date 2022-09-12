@@ -12,7 +12,5 @@ public class Main {
         GameView mainView = new GameView(game, mainFrame);            // View
 
         game.start();                                           // The world comes to life!
-
-        // Test
     }
 }
