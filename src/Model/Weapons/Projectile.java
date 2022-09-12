@@ -7,7 +7,7 @@ import Utilities.JustAPlaceToKeepThePublicList;
 import java.util.HashMap;
 
 class Projectile extends Entity {
-    private static HashMap<int, Entity> PROJECTILES_IN_PLAY = JustAPlaceToKeepThePublicList.ACTIVE_PROJECTILES;
+    private static HashMap<Integer, Entity> PROJECTILES_IN_PLAY = JustAPlaceToKeepThePublicList.ACTIVE_PROJECTILES;
 
     private int lifeLeft;
 
