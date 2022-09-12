@@ -58,4 +58,7 @@ public abstract class Entity implements OnTick{
     protected int getHitboxRadiusY() {
         return hitboxRadiusY;
     }
+
+    protected abstract void addToHashMap();
+    protected abstract void removeFromHashMap();
 }

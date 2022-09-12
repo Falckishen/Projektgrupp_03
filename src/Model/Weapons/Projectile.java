@@ -17,7 +17,7 @@ class Projectile extends Entity {
         setDirection(direction);
         this.lifeLeft = lifeLeft;
 
-        PROJECTILES_IN_PLAY.put(this.getId(), this);
+        addToHashMap();
     }
 
     //handles 360 degrees
@@ -27,7 +27,7 @@ class Projectile extends Entity {
         setDirection(direction);
         this.lifeLeft = lifeLeft;
 
-        PROJECTILES_IN_PLAY.put(this.getId(), this);
+        addToHashMap();
     }*/
 
 
@@ -37,7 +37,7 @@ class Projectile extends Entity {
             move();
             lifeLeft -= 1;
         } else {
-            PROJECTILES_IN_PLAY.remove(this.getId());
+            removeFromHashMap();
         }
     }
 
@@ -52,5 +52,15 @@ class Projectile extends Entity {
         } else if (getDirection() == Direction.DOWN){
             getCurrentPosition().setY( getCurrentPosition().getY() - getVelocity() );
         }
+    }
+
+    @Override
+    protected void addToHashMap() {
+        PROJECTILES_IN_PLAY.put(this.getId(), this);
+    }
+
+    @Override
+    protected void removeFromHashMap() {
+        PROJECTILES_IN_PLAY.remove(this.getId());
     }
 }
