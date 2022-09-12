@@ -23,13 +23,11 @@ class WorldUpdate extends TimerTask {
     @Override
     public void run() {
         while(firstTick) {
-            // Skapa player
-            this.player = new Player(0, 0, 25, 25, game.getCurrentPlayerDirections());
+            // Create player
+            player = new Player(0, 0, 25, 25, game.getCurrentPlayerDirections());
+            game.setPlayer(player);
             firstTick = false;
         }
-
-        //Test
-        System.out.println("World updated!");
 
         player.doOnTick();
 

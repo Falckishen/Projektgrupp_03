@@ -28,8 +28,8 @@ public class Player extends Entity {
         if(!listOfCurrentPlayerDirection.isEmpty()) {
             for (Direction direction : listOfCurrentPlayerDirection) {
                 switch (direction) {
-                    case UP -> y += 1;
-                    case DOWN -> y -= 1;
+                    case UP -> y -= 1;
+                    case DOWN -> y += 1;
                     case LEFT -> x -= 1;
                     case RIGHT -> x += 1;
                 }

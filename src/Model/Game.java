@@ -15,18 +15,18 @@ public class Game extends Thread {
     private Player player;
 
     public Game() {
-        this.worldUpdate = new WorldUpdate(this);
+        worldUpdate = new WorldUpdate(this);
     }
 
     public void addViewObserver(ViewObserver viewObserver) {
-        this.worldUpdate.addViewObserver(viewObserver);
+        worldUpdate.addViewObserver(viewObserver);
     }
 
     // This method runs as a thread, inputs are running parallel
     public void run() {
-        //TimerTask worldUpdateTimerTask = this.worldUpdate;
+        //TimerTask worldUpdateTimerTask = worldUpdate;
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(this.worldUpdate, 0, 17); // 1.task 2. delay 3. period
+        timer.scheduleAtFixedRate(worldUpdate, 0, 17); // 1.task 2. delay 3. period
         // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
     }
 
