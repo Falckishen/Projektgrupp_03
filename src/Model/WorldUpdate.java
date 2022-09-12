@@ -8,7 +8,7 @@ import java.util.TimerTask;
 // This class is used as a TimerTask to update the world a amount of time every second
 class WorldUpdate extends TimerTask {
 
-    private ArrayList<ViewObserver> viewObservers;
+    private ArrayList<ViewObserver> viewObservers = new ArrayList<ViewObserver>();
 
     public WorldUpdate() {
 
