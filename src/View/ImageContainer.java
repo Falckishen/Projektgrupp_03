@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageContainer {
-    private static final String[][] preCompileMatrix = {{"src/View/Images/PlayerPNG.png"}};
+    private static final String[][] preCompileMatrix = {{"src/View/Images/PlayerImageOOP.png"}, {"src/View/Images/EnemyImageOOP.png"}};
 
     private static BufferedImage[][] imageMatrix;
 
