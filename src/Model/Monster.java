@@ -12,7 +12,7 @@ public class Monster extends Entity{
         super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
 
     }
-
+//hej
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<Double>();
         for (Position p : positionList){
@@ -28,9 +28,35 @@ public class Monster extends Entity{
         return positionList.get(indexOfSmallest);
     }
 
-    private Direction findDirectionToPosition(Position position) {
-        
-        return Direction.UP;
+    Direction findDirectionToPosition(Position p) {
+        int vx = p.getX() - this.getCoordX();
+        int vy = p.getY() - this.getCoordY();
+        // Top is 0 degrees
+        int ux = 0;
+        int uy = 1;
+
+        int num = (vx*ux + vy*uy);
+        double den = (Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2)) * (Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2))) );
+        // To avoid division by 0
+        if (den == 0) {
+            return Direction.UP;
+        }
+        double cos =  num / den;
+        double angle = Math.acos(cos);
+
+        if (angle < Math.PI / 4) {
+            return Direction.UP;
+        }
+        if (vx >= 0) {
+            if (angle < 3 * Math.PI / 4 ) {
+                return Direction.RIGHT;
+            }
+        } else {
+            if (angle < 3 * Math.PI / 4 ) {
+                return Direction.LEFT;
+            }
+        }
+        return Direction.DOWN;
     }
     /* // Probably should be in factory
     Monster(int coordX, int coordY) {
