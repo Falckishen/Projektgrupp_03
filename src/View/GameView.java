@@ -33,9 +33,9 @@ public class GameView implements ViewObserver {
     public void drawWorld() {
         Position playerPosition = game.getPlayerPosition();
         screenDirector.inputPlayerPosition(playerPosition.getX(), playerPosition.getY());
+        screenDirector.paintBackground();
         screenDirector.paintSpriteRelativeToWorld(ImageContainer.getImageFromTypeAndVariant(0,0), playerPosition.getX(), playerPosition.getY());
-        /*screenDirector.paintBackground();
-        paintEntities();
-        screenDirector.refreshScreen();*/
+        /*paintEntities();*/
+        screenDirector.refreshScreen();
     }
 }
