@@ -31,7 +31,7 @@ public class GameView implements ViewObserver {
     // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override
     public void drawWorld() {
-        Position playerPosition = game.getPlayerPosition;
+        Position playerPosition = game.getPlayerPosition();
         screenDirector.inputPlayerPosition(playerPosition.getX(), playerPosition.getY());
         screenDirector.paintSpriteRelativeToWorld(ImageContainer.getImageFromTypeAndVariant(0,0), playerPosition.getX(), playerPosition.getY());
         /*screenDirector.paintBackground();
