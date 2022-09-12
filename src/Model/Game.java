@@ -4,7 +4,6 @@ import Utilities.Direction;
 import Utilities.ViewObserver;
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 // The "main" class for Model.
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view
@@ -12,14 +11,11 @@ public class Game extends Thread {
 
     private WorldUpdate worldUpdate;
     private Entity[] Entities;
-    private ArrayList<Direction> listOfCurrentPlayerDirection;
+    private ArrayList<Direction> currentPlayerDirections;
     private Player player;
 
     public Game() {
-        this.player = new Player(0, 0, 25, 25, listOfCurrentPlayerDirection);
-        // Allt
-
-        this.worldUpdate = new WorldUpdate(player);
+        this.worldUpdate = new WorldUpdate(this);
     }
 
     public void addViewObserver(ViewObserver viewObserver) {
@@ -34,11 +30,19 @@ public class Game extends Thread {
         // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
     }
 
-    public void setListOfCurrentPlayerDirection(ArrayList<Direction> listOfCurrentPlayerDirection) {
-        this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
+    public ArrayList<Direction> getCurrentPlayerDirections() {
+        return currentPlayerDirections;
+    }
+
+    public void setCurrentPlayerDirections(ArrayList<Direction> currentPlayerDirections) {
+        this.currentPlayerDirections = currentPlayerDirections;
     }
 
     public Position getPlayerPosition() {
         return player.getCurrentPosition();
+    }
+
+    void setPlayer(Player player) {
+        this.player = player;
     }
 }

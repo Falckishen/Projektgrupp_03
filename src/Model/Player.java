@@ -19,8 +19,8 @@ public class Player extends Entity {
     */
 
     void move() {
-        int x = this.getCurrentPosition().getX();
-        int y = this.getCurrentPosition().getY();
+        int x = getCurrentPosition().getX();
+        int y = getCurrentPosition().getY();
 
         if(!listOfCurrentPlayerDirection.isEmpty()) {
             for (Direction direction : listOfCurrentPlayerDirection) {
