@@ -27,6 +27,13 @@ public abstract class Entity implements OnTick{
         return coordinate;
     }
 
+    protected int getX() {
+        return coordinate.getX();
+    }
+    protected int getY() {
+        return coordinate.getY();
+    }
+
     protected Direction getDirection() {
         return direction;
     }

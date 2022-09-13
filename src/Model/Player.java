@@ -1,42 +1,35 @@
 package Model;
+
+import java.util.HashMap;
+import java.util.ArrayList;
 import Utilities.Direction;
 import Utilities.JustAPlaceToKeepThePublicList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Player extends Entity {
-    private static HashMap<Integer, Entity> PLAYER = JustAPlaceToKeepThePublicList.ACTIVE_PLAYERS;
-    private ArrayList<Direction> listOfCurrentPlayerDirection;
+    private final HashMap<Integer, Entity> player;
+    private final ArrayList<Direction> currentPlayerDirection;
+    private int speed;
 
-    Player(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, ArrayList<Direction> listOfCurrentPlayerDirection) {
-        super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
-        this.listOfCurrentPlayerDirection = listOfCurrentPlayerDirection;
+    Player(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, ArrayList<Direction> currentPlayerDirection) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius);
+        this.player = JustAPlaceToKeepThePublicList.ACTIVE_PLAYERS;
+        this.currentPlayerDirection = currentPlayerDirection;
+        this.speed = 5;
         addToHashMap();
     }
 
-    /*
-    Player(int coordX, int coordY) {
-        super(coordX, coordY, 20, 20);
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
-    */
 
-    void move() {
-        int x = getCurrentPosition().getX();
-        int y = getCurrentPosition().getY();
+    @Override
+    protected void addToHashMap() {
+        player.put(this.getId(), this);
+    }
 
-        if(!listOfCurrentPlayerDirection.isEmpty()) {
-            for (Direction direction : listOfCurrentPlayerDirection) {
-                switch (direction) {
-                    case UP -> y -= 1;
-                    case DOWN -> y += 1;
-                    case LEFT -> x -= 1;
-                    case RIGHT -> x += 1;
-                }
-                setCoordX(x);
-                setCoordY(y);
-            }
-        }
+    @Override
+    protected void removeFromHashMap() {
+        player.remove(this.getId());
     }
 
     @Override
@@ -44,13 +37,16 @@ public class Player extends Entity {
         move();
     }
 
-    @Override
-    protected void addToHashMap() {
-        PLAYER.put(this.getId(), this);
-    }
-
-    @Override
-    protected void removeFromHashMap() {
-        PLAYER.remove(this.getId());
+    private void move() {
+        if(!currentPlayerDirection.isEmpty()) {
+            for (Direction direction : currentPlayerDirection) {
+                switch (direction) {
+                    case UP -> super.setCoordY((super.getY()-1)*speed);
+                    case DOWN -> super.setCoordY((super.getY()+1)*speed);
+                    case LEFT -> super.setCoordX((super.getX()-1)*speed);
+                    case RIGHT -> super.setCoordX((super.getX()+1)*speed);
+                }
+            }
+        }
     }
 }

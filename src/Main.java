@@ -1,7 +1,7 @@
-import Model.Game;
-import View.GameView;
-import Controller.KeyboardInput;
 import javax.swing.*;
+import Model.Game;
+import Controller.KeyboardInput;
+import View.GameView;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +12,5 @@ public class Main {
         GameView mainView = new GameView(game, mainFrame);      // View
 
         game.start();                                           // The world comes to life!
-
-        //test comment
-        //test comment 2
     }
 }

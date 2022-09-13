@@ -1,23 +1,20 @@
 package Model;
 
-import Utilities.ViewObserver;
-import java.util.ArrayList;
 import java.util.TimerTask;
+import java.util.ArrayList;
+import Utilities.ViewObserver;
 
 // This class is used as a TimerTask to update the world a amount of time every second
 class WorldUpdate extends TimerTask {
 
-    private Game game;
-    private ArrayList<ViewObserver> viewObservers = new ArrayList<ViewObserver>();
+    private final Game game;
+    private final ArrayList<ViewObserver> viewObservers;
     private Player player;
     private boolean firstTick = true;
 
     public WorldUpdate(Game game) {
         this.game = game;
-    }
-
-    public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
+        this.viewObservers = new ArrayList<ViewObserver>();
     }
 
     @Override
@@ -31,7 +28,6 @@ class WorldUpdate extends TimerTask {
 
         player.doOnTick();
 
-
         /* THIS CODE WILL BE USED LATER
 
         if (System.currentTimeMillis() - scheduledExecutionTime() >= 1000) {
@@ -44,5 +40,9 @@ class WorldUpdate extends TimerTask {
         for (ViewObserver viewObserver : viewObservers) {
             viewObserver.drawWorld();
         }
+    }
+
+    public void addViewObserver(ViewObserver viewObserver) {
+        viewObservers.add(viewObserver);
     }
 }
