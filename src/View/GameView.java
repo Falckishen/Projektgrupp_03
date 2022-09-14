@@ -7,6 +7,7 @@ import Utilities.ViewObserver;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 public class GameView implements ViewObserver {
     private ScreenDirector screenDirector;
@@ -22,6 +23,10 @@ public class GameView implements ViewObserver {
 
     public void addKeyListener(KeyListener keyListener){
         screenDirector.addKeyListener(keyListener);
+    }
+
+    public void addMouseListener(MouseListener mouseListener){
+        screenDirector.addMouseListener(mouseListener);
     }
 
     private void paintEntities(Entity[] entities){
