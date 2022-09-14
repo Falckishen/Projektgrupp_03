@@ -48,5 +48,6 @@ public class Player extends Entity {
                 }
             }
         }
+        System.out.println(getX() + " " + getY());
     }
 }
