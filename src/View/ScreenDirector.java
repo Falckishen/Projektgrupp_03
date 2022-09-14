@@ -5,6 +5,7 @@ import View.Version2Display.Game2Frame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -83,6 +84,10 @@ public class ScreenDirector {
 
     public void addKeyListener(KeyListener keyListener){
         display.implementKeyListener(keyListener);
+    }
+
+    public void addMouseListener(MouseListener mouseListener){
+        display.implementMouseListener(mouseListener);
     }
 
     class Vector{

@@ -5,6 +5,7 @@ import View.DisplayInterface;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class Game2Frame extends JFrame implements DisplayInterface {
@@ -47,5 +48,10 @@ public class Game2Frame extends JFrame implements DisplayInterface {
     @Override
     public void implementKeyListener(KeyListener keyListener) {
         addKeyListener(keyListener);
+    }
+
+    @Override
+    public void implementMouseListener(MouseListener mouseListener) {
+        addMouseListener(mouseListener);
     }
 }
