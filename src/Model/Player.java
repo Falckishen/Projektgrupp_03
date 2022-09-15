@@ -7,29 +7,23 @@ import Utilities.JustAPlaceToKeepThePublicList;
 
 public class Player extends Entity {
     private final HashMap<Integer, Entity> player;
-    private final ArrayList<Direction> currentPlayerDirection;
-    private int speed;
+    private final ArrayList<Direction> currentPlayerWalkingDirection;
 
-    Player(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, ArrayList<Direction> currentPlayerDirection) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius);
+    Player(int x, int y, ArrayList<Direction> currentPlayerWalkingDirection) {
+        super(x, y, 25, 25, 5);
         this.player = JustAPlaceToKeepThePublicList.ACTIVE_PLAYERS;
-        this.currentPlayerDirection = currentPlayerDirection;
-        this.speed = 5;
+        this.currentPlayerWalkingDirection = currentPlayerWalkingDirection;
         addToHashMap();
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     @Override
     protected void addToHashMap() {
-        player.put(this.getId(), this);
+        player.put(super.getId(), this);
     }
 
     @Override
     protected void removeFromHashMap() {
-        player.remove(this.getId());
+        player.remove(super.getId());
     }
 
     @Override
@@ -38,13 +32,13 @@ public class Player extends Entity {
     }
 
     private void move() {
-        if(!currentPlayerDirection.isEmpty()) {
-            for (Direction direction : currentPlayerDirection) {
+        if(!currentPlayerWalkingDirection.isEmpty()) {
+            for (Direction direction : currentPlayerWalkingDirection) {
                 switch (direction) {
-                    case UP -> super.setY(super.getY()-speed);
-                    case DOWN -> super.setY(super.getY()+speed);
-                    case LEFT -> super.setX(super.getX()-speed);
-                    case RIGHT -> super.setX(super.getX()+speed);
+                    case UP -> super.setY(super.getY()-super.getSpeed());
+                    case DOWN -> super.setY(super.getY()+super.getSpeed());
+                    case LEFT -> super.setX(super.getX()-super.getSpeed());
+                    case RIGHT -> super.setX(super.getX()+super.getSpeed());
                 }
             }
         }

@@ -8,15 +8,14 @@ public abstract class Entity implements OnTick{
     private int hitBoxRadiusX;
     private int hitBoxRadiusY;
     private Direction direction;
-    private int velocity;
+    private int speed;
 
-
-    protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY){
+    protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed){
         this.coordinate = new Position(x, y);
         this.hitBoxRadiusX = hitBoxRadiusX;
         this.hitBoxRadiusY = hitBoxRadiusY;
         this.direction = Direction.LEFT;
-        this.velocity = 10;
+        this.speed = speed;
     }
 
     protected int getId(){
@@ -30,6 +29,7 @@ public abstract class Entity implements OnTick{
     protected int getX() {
         return coordinate.getX();
     }
+
     protected int getY() {
         return coordinate.getY();
     }
@@ -38,16 +38,16 @@ public abstract class Entity implements OnTick{
         return direction;
     }
 
-    protected int getVelocity() {
-        return velocity;
+    protected int getSpeed() {
+        return speed;
     }
 
     protected void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    protected void setVelocity(int velocity) {
-        this.velocity = velocity;
+    protected void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     protected void setX(int x) {
