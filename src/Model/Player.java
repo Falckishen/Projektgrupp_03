@@ -41,10 +41,10 @@ public class Player extends Entity {
         if(!currentPlayerDirection.isEmpty()) {
             for (Direction direction : currentPlayerDirection) {
                 switch (direction) {
-                    case UP -> super.setCoordY((super.getY()-1)*speed);
-                    case DOWN -> super.setCoordY((super.getY()+1)*speed);
-                    case LEFT -> super.setCoordX((super.getX()-1)*speed);
-                    case RIGHT -> super.setCoordX((super.getX()+1)*speed);
+                    case UP -> super.setCoordY(super.getY()-speed);
+                    case DOWN -> super.setCoordY(super.getY()+speed);
+                    case LEFT -> super.setCoordX(super.getX()-speed);
+                    case RIGHT -> super.setCoordX(super.getX()+speed);
                 }
             }
         }
