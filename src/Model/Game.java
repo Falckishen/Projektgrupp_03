@@ -13,21 +13,30 @@ public class Game extends Thread {
     private Player player;
     private ArrayList<Monster> monsters;
     private ArrayList<Direction> currentPlayerDirections;
+    private int round;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
         this.viewObservers = new ArrayList<>();
+        this.round = 0;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
-    // For the View
+
+    public ArrayList<ViewObserver> getViewObservers() {
+        return viewObservers;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 
     public Position getPlayerPosition() {
         return player.getCurrentPosition();
     }
 
-    public ArrayList<Monster> getMonsters() {
+    ArrayList<Monster> getMonsters() {
         return monsters;
     }
 
@@ -37,22 +46,35 @@ public class Game extends Thread {
         this.currentPlayerDirections = currentPlayerDirections;
     }
 
-    /*-------------------------------------------------- Threading --------------------------------------------------*/
-
-    // This method runs as a thread, inputs are running parallel
-    public void run() {
-        this.player = new Player(0,0,25,25, currentPlayerDirections);
-        this.monsters = new ArrayList<>();
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new WorldUpdate(viewObservers, player, monsters), 0, 17);
-        // 1.task 2. delay 3. period
-        // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
-    }
-
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
 
     public void addViewObserver(ViewObserver viewObserver) {
         viewObservers.add(viewObserver);
+    }
+
+    /*-------------------------------------------------- Threading --------------------------------------------------*/
+
+    // This method runs as a thread, inputs are running parallel
+    public void run() {
+        this.player = new Player(0,0, currentPlayerDirections);
+        this.monsters = new ArrayList<>();
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new WorldUpdate(this), 0, 17);
+        // 1.task 2. delay 3. period
+        // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
+    }
+
+    /*----------------------------------------- WorldUpdate Methods -----------------------------------------*/
+
+    void nextRound() {
+        round++;
+        spawnEnemies(round);
+    }
+
+    private void spawnEnemies(int round) {
+        // TEMP TEST
+        // TODO finish
+        monsters.add(new Monster(50, 50, 10, 10));
     }
 }

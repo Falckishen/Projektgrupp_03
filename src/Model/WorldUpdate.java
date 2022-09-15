@@ -7,21 +7,21 @@ import Utilities.ViewObserver;
 // This class is used as a TimerTask to update the world an amount of time every second
 class WorldUpdate extends TimerTask {
 
+    private final Game game;
     private final ArrayList<ViewObserver> viewObservers;
     private final Player player;
     private final ArrayList<Monster> monsters;
 
     // TODO add a parameter "walls".
-    public WorldUpdate(ArrayList<ViewObserver> viewObservers, Player player, ArrayList<Monster> monsters) {
-        this.viewObservers = viewObservers;
-        this.player = player;
-        this.monsters = monsters;
+    public WorldUpdate(Game game) {
+        this.game = game;
+        this.viewObservers = game.getViewObservers();
+        this.player = game.getPlayer();
+        this.monsters = game.getMonsters();
     }
 
-    // WorldUpdate
     @Override
     public void run() {
-
         /*
         THIS CODE WILL BE USED LATER
 
@@ -38,6 +38,9 @@ class WorldUpdate extends TimerTask {
                 monster.doOnTick();
             }
         }
+        else {
+            game.nextRound();
+        }
 
         // TODO collision
 
@@ -45,9 +48,5 @@ class WorldUpdate extends TimerTask {
         for (ViewObserver viewObserver : viewObservers) {
             viewObserver.drawWorld();
         }
-    }
-
-    public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
     }
 }
