@@ -7,6 +7,7 @@ import Utilities.JustAPlaceToKeepThePublicList;
 import java.util.HashMap;
 
 class Projectile extends Entity {
+
     private static HashMap<Integer, Entity> PROJECTILES_IN_PLAY = JustAPlaceToKeepThePublicList.ACTIVE_PROJECTILES;
 
     private int lifeLeft;
@@ -21,14 +22,16 @@ class Projectile extends Entity {
     }
 
     //handles 360 degrees
-    /*protected Projectile(double direction, int velocity, int lifeLeft){
+    /*
+    protected Projectile(double direction, int velocity, int lifeLeft){
         super(0,0,10,10);
         setVelocity(velocity);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
 
         addToHashMap();
-    }*/
+    }
+    */
 
 
     @Override

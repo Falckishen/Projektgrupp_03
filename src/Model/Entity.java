@@ -1,20 +1,20 @@
 package Model;
+
 import Utilities.Direction;
 
 public abstract class Entity implements OnTick{
     private int id;
     private Position coordinate;
-    private int hitboxRadiusX;
-    private int hitboxRadiusY;
+    private int hitBoxRadiusX;
+    private int hitBoxRadiusY;
     private Direction direction;
     private int velocity;
 
 
-    protected Entity(int coordX, int coordY, int hitboxRadiusX, int hitboxRadiusY){
-        this.coordinate = new Position(coordX, coordY);
-        this.hitboxRadiusX = hitboxRadiusX;
-        this.hitboxRadiusY = hitboxRadiusY;
-
+    protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY){
+        this.coordinate = new Position(x, y);
+        this.hitBoxRadiusX = hitBoxRadiusX;
+        this.hitBoxRadiusY = hitBoxRadiusY;
         this.direction = Direction.LEFT;
         this.velocity = 10;
     }
@@ -50,20 +50,20 @@ public abstract class Entity implements OnTick{
         this.velocity = velocity;
     }
 
-    protected void setCoordX(int coordX) {
-        this.coordinate.setX(coordX);
+    protected void setX(int x) {
+        this.coordinate.setX(x);
     }
 
-    protected void setCoordY(int coordY) {
-        this.coordinate.setY(coordY);
+    protected void setY(int y) {
+        this.coordinate.setY(y);
     }
 
-    protected int getHitboxRadiusX() {
-        return hitboxRadiusX;
+    protected int getHitBoxRadiusX() {
+        return hitBoxRadiusX;
     }
 
-    protected int getHitboxRadiusY() {
-        return hitboxRadiusY;
+    protected int getHitBoxRadiusY() {
+        return hitBoxRadiusY;
     }
 
     protected abstract void addToHashMap();

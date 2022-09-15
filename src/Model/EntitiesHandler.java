@@ -47,5 +47,4 @@ public class EntitiesHandler {
     public Position getPlayerPosition(){
         return player.getCurrentPosition();
     }
-
 }

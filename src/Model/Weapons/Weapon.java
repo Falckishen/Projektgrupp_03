@@ -3,9 +3,8 @@ package Model.Weapons;
 import Utilities.Direction;
 
 abstract class Weapon {
+
     private static final int UPDATE_INTERVAL = 5; // Millisecond
-
-
     private final String WeaponType;
     private final int coolDownSec; //saved as seconds not milliseconds
 
@@ -29,9 +28,11 @@ abstract class Weapon {
     protected Direction getDirection() {
         return direction;
     }
+
     protected int getProjectileVelocity() {
         return projectileVelocity;
     }
+
     protected int getProjectileLife() {
         return projectileLife;
     }

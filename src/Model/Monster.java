@@ -1,20 +1,17 @@
 package Model;
-import Utilities.Direction;
-import Utilities.JustAPlaceToKeepThePublicList;
 
+import Utilities.JustAPlaceToKeepThePublicList;
+import Utilities.Direction;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-
-import static java.lang.Math.E;
-import static java.lang.Math.pow;
 
 public class Monster extends Entity{
     private static HashMap<Integer, Entity> ENEMIES = JustAPlaceToKeepThePublicList.ACTIVE_ENEMIES;
 
-    Monster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
-        super(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius);
         addToHashMap();
     }
 
@@ -28,18 +25,15 @@ public class Monster extends Entity{
         ENEMIES.remove(this.getId());
     }
 
-    //hej
     private Position findClosestPosition(List<Position> positionList) {
-        List<Double> playerDistances = new ArrayList<Double>();
+        List<Double> playerDistances = new ArrayList<>();
         for (Position p : positionList){
             Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
                     Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
             playerDistances.add(distance);
         }
-
         Double smallest = Collections.min(playerDistances);
         int indexOfSmallest = playerDistances.indexOf(smallest);
-
 
         return positionList.get(indexOfSmallest);
     }
@@ -91,26 +85,19 @@ public class Monster extends Entity{
         setDirection(goToDirection);
         int x = this.getCurrentPosition().getX();
         int y = this.getCurrentPosition().getY();
-        switch (getDirection()){
-            case UP:
-                y += 1;
-                break;
-            case DOWN:
-                y -= 1;
-                break;
-            case LEFT:
-                x -= 1;
-                break;
-            case RIGHT:
-                x += 1;
-                break;
+        switch (getDirection()) {
+            case UP -> y += 1;
+            case DOWN -> y -= 1;
+            case LEFT -> x -= 1;
+            case RIGHT -> x += 1;
         }
-        setCoordX(x);
-        setCoordY(y);
+        setX(x);
+        setY(y);
     }
 
     @Override
     public void doOnTick() {
+        // findClosestPosition()
         move();
     }
 }
