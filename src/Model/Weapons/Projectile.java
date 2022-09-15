@@ -13,8 +13,7 @@ class Projectile extends Entity {
     private int lifeLeft;
 
     protected Projectile(Direction direction, int velocity, int lifeLeft){
-        super(0,0,10,10);
-        setVelocity(velocity);
+        super(0,0,10,10, velocity);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
 
@@ -47,13 +46,13 @@ class Projectile extends Entity {
     private void move(){
         //doesnt handle collision
         if (getDirection() == Direction.LEFT){
-            getCurrentPosition().setX( getCurrentPosition().getX() - getVelocity() );
+            getCurrentPosition().setX( getCurrentPosition().getX() - getSpeed() );
         } else if (getDirection() == Direction.RIGHT){
-            getCurrentPosition().setX( getCurrentPosition().getX() + getVelocity() );
+            getCurrentPosition().setX( getCurrentPosition().getX() + getSpeed() );
         } else if (getDirection() == Direction.UP){
-            getCurrentPosition().setY( getCurrentPosition().getY() + getVelocity() );
+            getCurrentPosition().setY( getCurrentPosition().getY() + getSpeed() );
         } else if (getDirection() == Direction.DOWN){
-            getCurrentPosition().setY( getCurrentPosition().getY() - getVelocity() );
+            getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
         }
     }
 
