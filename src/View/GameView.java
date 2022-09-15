@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
-public class GameView implements ViewObserver {
+public class GameView extends JComponent implements ViewObserver {
     private ScreenDirector screenDirector;
     private Game game;
 
@@ -20,9 +20,11 @@ public class GameView implements ViewObserver {
         this.game = game;
     }
 
-    public void addKeyListener(KeyListener keyListener){
-        screenDirector.addKeyListener(keyListener);
+
+    public void addKeyListener(Game game){
+        screenDirector.addKeyListener(game);
     }
+
 
     private void paintEntities(Entity[] entities){
         //for()

@@ -1,5 +1,8 @@
 package View;
 
+import Model.Game;
+
+import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
@@ -12,5 +15,5 @@ public interface DisplayInterface {
 
     int getWindowHeight();
 
-    void implementKeyListener(KeyListener keyListener);
+    void implementKeyListener(Game game);
 }
