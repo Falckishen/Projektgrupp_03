@@ -4,37 +4,42 @@ import java.util.TimerTask;
 import java.util.ArrayList;
 import Utilities.ViewObserver;
 
-// This class is used as a TimerTask to update the world a amount of time every second
+// This class is used as a TimerTask to update the world an amount of time every second
 class WorldUpdate extends TimerTask {
 
-    private final Game game;
     private final ArrayList<ViewObserver> viewObservers;
-    private Player player;
-    private boolean firstTick = true;
+    private final Player player;
+    private final ArrayList<Monster> monsters;
 
-    public WorldUpdate(Game game) {
-        this.game = game;
-        this.viewObservers = new ArrayList<ViewObserver>();
+    // TODO add a parameter "walls".
+    public WorldUpdate(ArrayList<ViewObserver> viewObservers, Player player, ArrayList<Monster> monsters) {
+        this.viewObservers = viewObservers;
+        this.player = player;
+        this.monsters = monsters;
     }
 
+    // WorldUpdate
     @Override
     public void run() {
-        while(firstTick) {
-            // Create player
-            player = new Player(0, 0, 25, 25, game.getCurrentPlayerDirections());
-            game.setPlayer(player);
-            firstTick = false;
-        }
 
-        player.doOnTick();
-
-        /* THIS CODE WILL BE USED LATER
+        /*
+        THIS CODE WILL BE USED LATER
 
         if (System.currentTimeMillis() - scheduledExecutionTime() >= 1000) {
             System.out.println("Task");
             System.out.println(scheduledExecutionTime());
         }
         */
+
+        player.doOnTick();
+
+        if (!monsters.isEmpty()) {
+            for(Monster monster : monsters) {
+                monster.doOnTick();
+            }
+        }
+
+        // TODO collision
 
         // DRAWS WORLD
         for (ViewObserver viewObserver : viewObservers) {

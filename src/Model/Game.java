@@ -9,24 +9,26 @@ import Utilities.ViewObserver;
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game extends Thread {
 
-    private final WorldUpdate worldUpdate;
-    private ArrayList<Direction> currentPlayerDirections;
+    private final ArrayList<ViewObserver> viewObservers;
     private Player player;
+    private ArrayList<Monster> monsters;
+    private ArrayList<Direction> currentPlayerDirections;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
-        worldUpdate = new WorldUpdate(this);
+        this.viewObservers = new ArrayList<>();
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
-
-    public ArrayList<Direction> getCurrentPlayerDirections() {
-        return currentPlayerDirections;
-    }
+    // For the View
 
     public Position getPlayerPosition() {
         return player.getCurrentPosition();
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
     }
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
@@ -35,23 +37,22 @@ public class Game extends Thread {
         this.currentPlayerDirections = currentPlayerDirections;
     }
 
-    void setPlayer(Player player) {
-        this.player = player;
-    }
-
     /*-------------------------------------------------- Threading --------------------------------------------------*/
 
     // This method runs as a thread, inputs are running parallel
     public void run() {
-        //TimerTask worldUpdateTimerTask = worldUpdate;
+        this.player = new Player(0,0,25,25, currentPlayerDirections);
+        this.monsters = new ArrayList<>();
+
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(worldUpdate, 0, 17); // 1.task 2. delay 3. period
+        timer.scheduleAtFixedRate(new WorldUpdate(viewObservers, player, monsters), 0, 17);
+        // 1.task 2. delay 3. period
         // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
 
     public void addViewObserver(ViewObserver viewObserver) {
-        worldUpdate.addViewObserver(viewObserver);
+        viewObservers.add(viewObserver);
     }
 }
