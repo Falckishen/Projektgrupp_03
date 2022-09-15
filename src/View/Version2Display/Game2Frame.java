@@ -1,16 +1,15 @@
 package View.Version2Display;
 
-import Controller.KeyboardInput;
+import Controller.*;
 import Model.Game;
 import View.DisplayInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class Game2Frame extends JFrame implements DisplayInterface {
-    public Game2Frame(int width, int height, Game game){
+    public Game2Frame(int width, int height){
         setSize(new Dimension(width,height));
         setResizable(false);
         setTitle("(╯°□°）╯︵ ┻━┻");
@@ -19,7 +18,6 @@ public class Game2Frame extends JFrame implements DisplayInterface {
         setUndecorated(true);
         setVisible(true);
         createBufferStrategy(2);
-        addKeyListener(new KeyboardInput(game));
         setFocusable(true);
         requestFocus();
     }
@@ -46,7 +44,7 @@ public class Game2Frame extends JFrame implements DisplayInterface {
     }
 
     @Override
-    public void implementKeyListener(KeyListener keyListener) {
-        addKeyListener(keyListener);
+    public void implementKeyListener(Game game) {
+        new KeyboardInput(game, this.getRootPane());
     }
 }

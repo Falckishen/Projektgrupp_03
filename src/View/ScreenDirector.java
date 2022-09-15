@@ -4,8 +4,6 @@ import Model.Game;
 import View.Version2Display.Game2Frame;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class ScreenDirector {
      */
     public void startGameScreen(Game game){
         //display = new Game1Frame(x_width, y_width);
-        display = new Game2Frame(width, height, game);
+        display = new Game2Frame(width, height);
     }
 
     /**
@@ -82,8 +80,8 @@ public class ScreenDirector {
         display.paintImageAtVector(image, adjustedX, adjustedY);
     }
 
-    public void addKeyListener(KeyListener keyListener){
-        display.implementKeyListener(keyListener);
+    public void addKeyListener(Game game){
+        display.implementKeyListener(game);
     }
 
     class Vector{
