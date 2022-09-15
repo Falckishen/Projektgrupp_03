@@ -1,5 +1,6 @@
 package View;
 
+import Model.Game;
 import View.Version2Display.Game2Frame;
 
 import javax.imageio.ImageIO;
@@ -36,9 +37,9 @@ public class ScreenDirector {
      * Starts the display.
      * <p></p> Must be called before using other display related methods from GameView.
      */
-    public void startGameScreen(JPanel mainFrame){
+    public void startGameScreen(Game game){
         //display = new Game1Frame(x_width, y_width);
-        display = new Game2Frame(width, height, mainFrame);
+        display = new Game2Frame(width, height, game);
     }
 
     /**

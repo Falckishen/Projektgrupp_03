@@ -9,7 +9,7 @@ public class Main {
         KeyboardInput keyboardInput = new KeyboardInput(game);  // Controller
         JPanel mainFrame = new JPanel();
         mainFrame.addKeyListener(keyboardInput);
-        GameView mainView = new GameView(game, mainFrame);      // View
+        GameView mainView = new GameView(game);      // View
 
         game.start();                                           // The world comes to life!
     }

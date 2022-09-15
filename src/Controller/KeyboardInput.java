@@ -5,9 +5,10 @@ import Model.Game;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class KeyboardInput extends KeyAdapter {
+public class KeyboardInput implements KeyListener {
     private boolean upKeyPressed = false;
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
@@ -19,6 +20,11 @@ public class KeyboardInput extends KeyAdapter {
         this.game = game;
         playerDirections = new ArrayList<Direction>();
         game.setCurrentPlayerDirections(playerDirections);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 
     @Override

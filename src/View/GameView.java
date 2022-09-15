@@ -12,10 +12,10 @@ public class GameView implements ViewObserver {
     private ScreenDirector screenDirector;
     private Game game;
 
-    public GameView(Game game, JPanel mainFrame){
+    public GameView(Game game){
         screenDirector = new ScreenDirector();
         ImageContainer.compileImages();
-        screenDirector.startGameScreen(mainFrame);
+        screenDirector.startGameScreen(game);
         game.addViewObserver(this);
         this.game = game;
     }
