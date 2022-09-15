@@ -1,12 +1,9 @@
 package View;
 
-import Controller.newKeyboardInput;
 import Model.Game;
 import View.Version2Display.Game2Frame;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
