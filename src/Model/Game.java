@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Timer;
 
+import Model.Entities.EntityCreator;
 import Model.Entities.Monster;
 import Model.Entities.Player;
 import Model.Entities.Position;
@@ -19,9 +20,13 @@ public class Game extends Thread {
     private ArrayList<Direction> currentPlayerDirections;
     private int round;
 
+    private final EntityCreator entityCreator;
+
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
+        this.entityCreator = new EntityCreator();
+
         this.viewObservers = new ArrayList<>();
         this.round = 0;
     }
@@ -60,7 +65,7 @@ public class Game extends Thread {
 
     // This method runs as a thread, inputs are running parallel
     public void run() {
-        this.player = new Player(0,0, currentPlayerDirections);
+        this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
         this.monsters = new ArrayList<>();
 
         Timer timer = new Timer();
@@ -79,6 +84,6 @@ public class Game extends Thread {
     private void spawnEnemies(int round) {
         // TEMP TEST
         // TODO finish
-        monsters.add(new Monster(50, 50, 10, 10, 5));
+        monsters.add(entityCreator.createMonster(50, 50, 10, 10, 5));
     }
 }

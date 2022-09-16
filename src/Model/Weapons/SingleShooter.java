@@ -1,9 +1,11 @@
 package Model.Weapons;
 
+import Model.Entities.AddProjectile;
+
 class SingleShooter extends Weapon{
 
-    protected SingleShooter(String type, int coolDownSec, int projectileVelocity, int projectileLife) {
-        super(type, coolDownSec, projectileVelocity, projectileLife);
+    protected SingleShooter(AddProjectile projectileCreator, String type, int coolDownSec, int projectileVelocity, int projectileLife) {
+        super(projectileCreator, type, coolDownSec, projectileVelocity, projectileLife);
     }
 
     @Override
@@ -12,6 +14,6 @@ class SingleShooter extends Weapon{
     }
 
     private void addProjectile() {
-        super.addProjectile(getDirection(), getProjectileVelocity(), getProjectileLife());
+        getProjectileCreator().createSimpleProjectile(getDirection(), getProjectileVelocity(), getProjectileLife());
     }
 }

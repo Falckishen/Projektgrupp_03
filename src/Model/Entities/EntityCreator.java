@@ -1,9 +1,6 @@
 package Model.Entities;
 
 import Utilities.*;
-import Utilities.AddEnemy;
-import Utilities.AddFriendly;
-import Utilities.AddProjectile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.projectiles = new ArrayList<Projectile>();
     }
 
-    @Override
-    public void createEnemy(EntityTypes enemyType) {
-
-    }
 
     @Override
     public void createMonster() {
@@ -37,35 +30,33 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         int temp2 = 0;
         int temp3 = 10;
         int temp4 = 10;
-        enemies.add(new Monster(temp1, temp2, temp3, temp4));
+        int temp5 = 5;
+        enemies.add(new Monster(temp1, temp2, temp3, temp4, temp5));
     }
 
     @Override
-    public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius) {
-        Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius);
+    public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed) {
+        Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed);
         enemies.add(m);
         return m;
     }
 
-    @Override
-    public void createFriendly(EntityTypes friendlyType) {
-
-    }
 
     @Override
-    public Player createPlayer(int coordX, int coordY, int hitBoxWidthRadius, int hitBoxHeightRadius, List keyboardInputs) {
-        Player p = new Player(coordX, coordY, hitBoxWidthRadius, hitBoxHeightRadius, keyboardInputs);
+    public Player createPlayer(int coordX, int coordY, List keyboardInputs) {
+        Player p = new Player(coordX, coordY, keyboardInputs);
         friendlies.add(p);
         return p;
     }
 
+
     @Override
-    public void createProjectile(EntityTypes projectileType, Direction direction, int velocity, int life) {
-        projectiles.add(new Projectile(direction, velocity, life));
+    public void createSimpleProjectile(Direction direction, int velocity, int life) {
+        projectiles.add(new SimpleProjectile(direction, velocity, life));
     }
 
     @Override
-    public void createProjectile(EntityTypes projectileType, double direction, int velocity, int life) {
+    public void createSimpleProjectile(double direction, int velocity, int life) {
 
     }
 }

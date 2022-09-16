@@ -1,10 +1,11 @@
 package Model.Weapons;
 
+import Model.Entities.AddProjectile;
 import Utilities.Direction;
 
 abstract class Weapon {
 
-    private static final int UPDATE_INTERVAL = 5; // Millisecond
+    private final AddProjectile projectileCreator;
     private final String WeaponType;
     private final int coolDownSec; //saved as seconds not milliseconds
 
@@ -15,7 +16,8 @@ abstract class Weapon {
     private Direction direction = Direction.LEFT;
 
 
-    protected Weapon(String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife){
+    protected Weapon(AddProjectile projectileCreator, String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife){
+        this.projectileCreator = projectileCreator;
         this.WeaponType = WeaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
 
@@ -37,13 +39,7 @@ abstract class Weapon {
         return projectileLife;
     }
 
-    protected void addProjectile(Direction direction, int velocity, int life){
-        //new SimpleProjectile(direction, velocity, life);
-    }
-    //handles 360 degrees
-    /* protected void addProjectile(double direction, int velocity, int life){
-        new Projectile(direction, velocity, life);
-    }*/
+    protected AddProjectile getProjectileCreator(){return projectileCreator;}
 
     protected abstract void shoot();
 

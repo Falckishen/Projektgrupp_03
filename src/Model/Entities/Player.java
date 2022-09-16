@@ -2,15 +2,16 @@ package Model.Entities;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
 
 import Model.Entities.Entity;
 import Utilities.Direction;
 import Utilities.JustAPlaceToKeepThePublicList;
 
 public class Player extends Friendly {
-    private final ArrayList<Direction> currentPlayerWalkingDirection;
+    private final List<Direction> currentPlayerWalkingDirection;
 
-    Player(int x, int y, ArrayList<Direction> currentPlayerWalkingDirection) {
+    Player(int x, int y, List<Direction> currentPlayerWalkingDirection) {
         super(x, y, 25, 25, 5);
         this.currentPlayerWalkingDirection = currentPlayerWalkingDirection;
     }
