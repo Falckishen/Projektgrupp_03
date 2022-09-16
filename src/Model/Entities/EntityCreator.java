@@ -1,11 +1,13 @@
 package Model.Entities;
 
 import Utilities.*;
+import Utilities.AddEnemy;
+import Utilities.AddFriendly;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly{
+public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     List<Enemy> enemies;
     List<Friendly> friendlies;
     List<Projectile> projectiles;
