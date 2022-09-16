@@ -12,7 +12,7 @@ public class MonsterTest {
     public static void testAngle() {
         EntityCreator entityCreator = new EntityCreator();
         // int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius
-        Monster m = entityCreator.createMonster(0,0, 1, 1, 1);
+        Monster m = entityCreator.createMonster(0,0, 1, 1, 1, 1);
         System.out.println(m.findDirectionToPosition(new Position(1,1)));
         System.out.println(m.findDirectionToPosition(new Position(1,0)));
 

@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Monster extends Enemy {
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower);
     }
 
     private Position findClosestPosition(List<Position> positionList) {

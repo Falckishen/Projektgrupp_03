@@ -8,8 +8,14 @@ import java.util.HashMap;
 
 class SimpleProjectile extends Projectile {
 
-    protected SimpleProjectile(Direction direction, int velocity, int lifeLeft){
-        super(0,0,10,10, velocity, direction, lifeLeft);
+    protected SimpleProjectile(Direction direction, int velocity, int lifeLeft, int attackPower){
+        super(0,0,10,10, velocity, direction, lifeLeft, attackPower);
+    }
+
+    @Override
+    protected void CollidedWithEnemy() {
+        //whatever happens for a simple projectile when hit
+        // setIsDead(true);
     }
 
     //handles 360 degrees

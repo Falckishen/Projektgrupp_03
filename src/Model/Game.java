@@ -84,6 +84,6 @@ public class Game extends Thread {
     private void spawnEnemies(int round) {
         // TEMP TEST
         // TODO finish
-        monsters.add(entityCreator.createMonster(50, 50, 10, 10, 5));
+        monsters.add(entityCreator.createMonster(50, 50, 10, 10, 5, 1));
     }
 }

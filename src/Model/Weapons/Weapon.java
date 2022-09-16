@@ -11,18 +11,20 @@ abstract class Weapon {
 
     private final int projectileVelocity;
     private final int projectileLife;
+    private final int projectileAttackPower;
 
     private Long lastShotFired; //is saved as milliseconds
     private Direction direction = Direction.LEFT;
 
 
-    protected Weapon(AddProjectile projectileCreator, String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife){
+    protected Weapon(AddProjectile projectileCreator, String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
         this.WeaponType = WeaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
 
         this.projectileVelocity = projectileVelocity;
         this.projectileLife = projectileLife;
+        this.projectileAttackPower = projectileAttackPower;
 
         this.lastShotFired = System.currentTimeMillis();
     }
@@ -37,6 +39,10 @@ abstract class Weapon {
 
     protected int getProjectileLife() {
         return projectileLife;
+    }
+
+    protected int getProjectileAttackPower(){
+        return projectileAttackPower;
     }
 
     protected AddProjectile getProjectileCreator(){return projectileCreator;}

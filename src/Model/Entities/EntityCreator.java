@@ -39,12 +39,13 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         int temp3 = 10;
         int temp4 = 10;
         int temp5 = 5;
-        enemies.add(new Monster(temp1, temp2, temp3, temp4, temp5));
+        int temp6 = 1;
+        enemies.add(new Monster(temp1, temp2, temp3, temp4, temp5, temp6));
     }
 
     @Override
-    public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed) {
-        Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed);
+    public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed, int attackPower) {
+        Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed, attackPower);
         enemies.add(m);
         return m;
     }
@@ -59,12 +60,12 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
 
     @Override
-    public void createSimpleProjectile(Direction direction, int velocity, int life) {
-        projectiles.add(new SimpleProjectile(direction, velocity, life));
+    public void createSimpleProjectile(Direction direction, int velocity, int life, int attackPower) {
+        projectiles.add(new SimpleProjectile(direction, velocity, life, attackPower));
     }
 
     @Override
-    public void createSimpleProjectile(double direction, int velocity, int life) {
+    public void createSimpleProjectile(double direction, int velocity, int life, int attackPower) {
 
     }
 }
