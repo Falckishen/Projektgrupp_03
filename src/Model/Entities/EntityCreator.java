@@ -1,5 +1,6 @@
 package Model.Entities;
 
+import Model.OnTick;
 import Utilities.*;
 
 import java.util.ArrayList;
@@ -9,11 +10,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     List<Enemy> enemies;
     List<Friendly> friendlies;
     List<Projectile> projectiles;
+    List<OnTick> tickObservers;
 
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
+    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers){
         this.enemies = enemies;
         this.friendlies = friendlies;
         this.projectiles = projectiles;
+        this.tickObservers= tickObservers;
+
     }
 
     //used for testing
@@ -21,8 +25,12 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.enemies = new ArrayList<Enemy>();
         this.friendlies = new ArrayList<Friendly>();
         this.projectiles = new ArrayList<Projectile>();
+        this.tickObservers = new ArrayList<OnTick>();
     }
 
+    public List<OnTick> getTickObservers() {
+        return tickObservers;
+    }
 
     @Override
     public void createMonster() {
