@@ -1,12 +1,10 @@
 package View;
 
-import Model.Entity;
+import Model.Entities.Entity;
 import Model.Game;
-import Model.Position;
+import Model.Entities.Position;
 import Utilities.ViewObserver;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyListener;
 
 public class GameView extends JComponent implements ViewObserver {
     private ScreenDirector screenDirector;

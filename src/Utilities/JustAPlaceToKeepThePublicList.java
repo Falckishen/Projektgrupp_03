@@ -1,6 +1,6 @@
 package Utilities;
 
-import Model.Entity;
+import Model.Entities.Entity;
 
 import java.util.HashMap;
 

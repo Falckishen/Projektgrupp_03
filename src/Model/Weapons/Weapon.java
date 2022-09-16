@@ -38,7 +38,7 @@ abstract class Weapon {
     }
 
     protected void addProjectile(Direction direction, int velocity, int life){
-        new Projectile(direction, velocity, life);
+        //new SimpleProjectile(direction, velocity, life);
     }
     //handles 360 degrees
     /* protected void addProjectile(double direction, int velocity, int life){

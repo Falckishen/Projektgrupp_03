@@ -2,6 +2,9 @@ package Model;
 
 import java.util.TimerTask;
 import java.util.ArrayList;
+
+import Model.Entities.Monster;
+import Model.Entities.Player;
 import Utilities.ViewObserver;
 
 // This class is used as a TimerTask to update the world an amount of time every second

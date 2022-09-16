@@ -1,4 +1,6 @@
-package Model;
+package Model.Entities;
+
+import Model.OnTick;
 
 import java.util.ArrayList;
 import java.util.Objects;

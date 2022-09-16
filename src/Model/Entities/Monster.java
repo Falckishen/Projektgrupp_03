@@ -1,4 +1,4 @@
-package Model;
+package Model.Entities;
 
 import Utilities.JustAPlaceToKeepThePublicList;
 import Utilities.Direction;
@@ -7,22 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Monster extends Entity{
-    private static HashMap<Integer, Entity> ENEMIES = JustAPlaceToKeepThePublicList.ACTIVE_ENEMIES;
+public class Monster extends Enemy {
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius);
-        addToHashMap();
-    }
-
-    @Override
-    protected void addToHashMap() {
-        ENEMIES.put(this.getId(), this);
-    }
-
-    @Override
-    protected void removeFromHashMap() {
-        ENEMIES.remove(this.getId());
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
     }
 
     private Position findClosestPosition(List<Position> positionList) {
@@ -38,7 +26,7 @@ public class Monster extends Entity{
         return positionList.get(indexOfSmallest);
     }
 
-    Direction findDirectionToPosition(Position p) {
+    public Direction findDirectionToPosition(Position p) {
         int vx = p.getX() - this.getCurrentPosition().getX();
         int vy = p.getY() - this.getCurrentPosition().getY();
         // Top is 0 degrees

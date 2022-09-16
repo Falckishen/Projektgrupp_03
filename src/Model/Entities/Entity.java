@@ -1,8 +1,9 @@
-package Model;
+package Model.Entities;
 
+import Model.OnTick;
 import Utilities.Direction;
 
-public abstract class Entity implements OnTick{
+public abstract class Entity implements OnTick {
     private int id;
     private Position coordinate;
     private int hitBoxRadiusX;
@@ -22,16 +23,8 @@ public abstract class Entity implements OnTick{
         return id;
     }
 
-    protected Position getCurrentPosition() {
+    public Position getCurrentPosition() {
         return coordinate;
-    }
-
-    protected int getX() {
-        return coordinate.getX();
-    }
-
-    protected int getY() {
-        return coordinate.getY();
     }
 
     protected Direction getDirection() {
@@ -65,7 +58,4 @@ public abstract class Entity implements OnTick{
     protected int getHitBoxRadiusY() {
         return hitBoxRadiusY;
     }
-
-    protected abstract void addToHashMap();
-    protected abstract void removeFromHashMap();
 }

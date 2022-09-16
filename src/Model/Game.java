@@ -2,6 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Timer;
+
+import Model.Entities.Monster;
+import Model.Entities.Player;
+import Model.Entities.Position;
 import Utilities.Direction;
 import Utilities.ViewObserver;
 
@@ -75,6 +79,6 @@ public class Game extends Thread {
     private void spawnEnemies(int round) {
         // TEMP TEST
         // TODO finish
-        monsters.add(new Monster(50, 50, 10, 10));
+        monsters.add(new Monster(50, 50, 10, 10, 5));
     }
 }
