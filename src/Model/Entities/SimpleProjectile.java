@@ -10,8 +10,7 @@ class SimpleProjectile extends Projectile {
 
     @Override
     protected void CollidedWithEnemy() {
-        //whatever happens for a simple projectile when hit
-        // setIsDead(true);
+        setIsDead(true);
     }
 
     //handles 360 degrees

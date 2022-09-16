@@ -6,6 +6,6 @@ abstract class Friendly extends Entity {
     }
 
     protected void CollidedWithEnemy(int attackPower){
-        //attackPower = how much damage self takes
+        //TODO attackPower = how much damage self takes
     }
 }

@@ -13,14 +13,14 @@ abstract class Enemy extends Entity {
     }
 
     protected void collidedWithPlayer(Position playerPosition){
-        //knocked back from player
+        //TODO knocked back from player
     }
 
     protected void collidedWIthEnemy(Position enemyPosition){
-        //position needed together with self's direction to know which enemy walked into which
+        //TODO position needed together with self's direction to know which enemy walked into which
     }
 
     protected void collidedWithProjectile(int attackPower){
-        //looses health in relation to the attackPower
+        //TODO looses health in relation to the attackPower
     }
 }

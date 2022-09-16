@@ -10,6 +10,7 @@ public abstract class Entity implements OnTick {
     private int hitBoxRadiusY;
     private Direction direction;
     private int speed;
+    private boolean isDead = false;
 
     protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed){
         this.coordinate = new Position(x, y);
@@ -57,5 +58,13 @@ public abstract class Entity implements OnTick {
 
     protected int getHitBoxRadiusY() {
         return hitBoxRadiusY;
+    }
+
+    protected void setIsDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    protected boolean getIsDead() {
+        return isDead;
     }
 }
