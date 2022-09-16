@@ -3,6 +3,7 @@ package Model.Entities;
 import Utilities.*;
 import Utilities.AddEnemy;
 import Utilities.AddFriendly;
+import Utilities.AddProjectile;
 
 import java.util.ArrayList;
 import java.util.List;
