@@ -1,10 +1,6 @@
 package Model.Entities;
 
-import Model.Entities.Entity;
 import Utilities.Direction;
-import Utilities.JustAPlaceToKeepThePublicList;
-
-import java.util.HashMap;
 
 class SimpleProjectile extends Projectile {
 

@@ -1,12 +1,8 @@
 package Model.Entities;
 
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.List;
 
-import Model.Entities.Entity;
 import Utilities.Direction;
-import Utilities.JustAPlaceToKeepThePublicList;
 
 public class Player extends Friendly {
     private final List<Direction> currentPlayerWalkingDirection;
