@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Entities.Entity;
+import Model.Weapons.Weapon;
+import Model.Weapons.WeaponFactory;
 import Utilities.Direction;
 import Utilities.JustAPlaceToKeepThePublicList;
 
 public class Player extends Friendly {
     private final List<Direction> currentPlayerWalkingDirection;
+    private Weapon weapon;
+
 
     Player(int x, int y, List<Direction> currentPlayerWalkingDirection) {
         super(x, y, 25, 25, 5);
         this.currentPlayerWalkingDirection = currentPlayerWalkingDirection;
+        this.weapon = WeaponFactory.getGun(new EntityCreator());
     }
 
     @Override
@@ -31,6 +36,11 @@ public class Player extends Friendly {
                     case RIGHT -> super.setX(super.getCurrentPosition().getX()+super.getSpeed());
                 }
             }
+        }
+    }
+    public void shootAttack() {
+        if(this.weapon != null) {
+            this.weapon.actionShoot();
         }
     }
 }
