@@ -20,18 +20,19 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
     }
 
-    //used for testing
+    //used for testing (not connected to collision)
     public EntityCreator(){
         this.enemies = new ArrayList<Enemy>();
         this.friendlies = new ArrayList<Friendly>();
         this.projectiles = new ArrayList<Projectile>();
         this.tickObservers = new ArrayList<OnTick>();
     }
-
+    //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
         return tickObservers;
     }
 
+    //temporary
     @Override
     public void createMonster() {
         int temp1 = 0;

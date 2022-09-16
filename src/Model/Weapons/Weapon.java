@@ -45,7 +45,9 @@ abstract class Weapon {
         return projectileAttackPower;
     }
 
-    protected AddProjectile getProjectileCreator(){return projectileCreator;}
+    protected AddProjectile getProjectileCreator(){ //just to subclasses has access to the factory
+        return projectileCreator;
+    }
 
     protected abstract void shoot();
 
