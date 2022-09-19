@@ -1,8 +1,5 @@
 package Controller;
 
-import Model.Game;
-import Utilities.Direction;
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -13,8 +10,7 @@ public class KeyboardInput {
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
-    private final Game game;
-    private final ArrayList<Direction> playerDirections;
+    private final ArrayList<Integer> playerInput;
     Action walkUpActionPressed;
     Action walkLeftActionPressed;
     Action walkDownActionPressed;
@@ -23,12 +19,11 @@ public class KeyboardInput {
     Action walkLeftActionReleased;
     Action walkDownActionReleased;
     Action walkRightActionReleased;
-    Action pressSpaceAction;
+    Action spacePressed;
+    Action spaceReleased;
 
-    public KeyboardInput(Game game, JComponent steve){
-        this.game = game;
-        playerDirections = new ArrayList<Direction>();
-        game.setCurrentPlayerDirections(playerDirections);
+    public KeyboardInput(JComponent steve, ArrayList<Integer> playerInput){
+        this.playerInput = playerInput;
 
         walkUpActionPressed = new WalkUpActionPressed();
         walkLeftActionPressed = new WalkLeftActionPressed();
@@ -38,7 +33,8 @@ public class KeyboardInput {
         walkLeftActionReleased = new WalkLeftActionReleased();
         walkDownActionReleased = new WalkDownActionReleased();
         walkRightActionReleased = new WalkRightActionReleased();
-        pressSpaceAction = new PressSpaceAction();
+        spacePressed = new spacePressed();
+        spaceReleased = new spaceReleased();
 
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         steve.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
@@ -57,15 +53,17 @@ public class KeyboardInput {
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
         steve.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
 
-        steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"pressSpaceAction");
-        steve.getActionMap().put("pressSpaceAction", pressSpaceAction);
+        steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"spacePressed");
+        steve.getActionMap().put("spacePressed", spacePressed);
+        steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"spaceReleased");
+        steve.getActionMap().put("spaceReleased", spaceReleased);
     }
 
     public class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
-                playerDirections.add(Direction.UP);
+                playerInput.add(KeyEvent.VK_W);
                 upKeyPressed = true;
                 System.out.println("W pressed");
             }
@@ -75,7 +73,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
-                playerDirections.add(Direction.LEFT);
+                playerInput.add(KeyEvent.VK_A);
                 leftKeyPressed = true;
                 System.out.println("A pressed");
             }
@@ -85,7 +83,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
-                playerDirections.add(Direction.DOWN);
+                playerInput.add(KeyEvent.VK_S);
                 downKeyPressed = true;
                 System.out.println("S pressed");
             }
@@ -95,7 +93,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
-                playerDirections.add(Direction.RIGHT);
+                playerInput.add(KeyEvent.VK_D);
                 rightKeyPressed = true;
                 System.out.println("D pressed");
             }
@@ -104,7 +102,7 @@ public class KeyboardInput {
     public class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerDirections.remove(Direction.UP);
+            playerInput.remove(KeyEvent.VK_W);
             upKeyPressed = false;
             System.out.println("W released");
         }
@@ -112,7 +110,7 @@ public class KeyboardInput {
     public class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerDirections.remove(Direction.LEFT);
+            playerInput.remove(KeyEvent.VK_A);
             leftKeyPressed = false;
             System.out.println("A released");
         }
@@ -120,7 +118,7 @@ public class KeyboardInput {
     public class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerDirections.remove(Direction.DOWN);
+            playerInput.remove(KeyEvent.VK_S);
             downKeyPressed = false;
             System.out.println("S released");
         }
@@ -128,16 +126,24 @@ public class KeyboardInput {
     public class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerDirections.remove(Direction.RIGHT);
+            playerInput.remove(KeyEvent.VK_D);
             rightKeyPressed = false;
             System.out.println("D released");
         }
     }
-    public class PressSpaceAction extends AbstractAction{
+    public class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            game.getPlayer().shootAttack();
+            playerInput.add(KeyEvent.VK_SPACE)
             System.out.println("bam");
+        }
+    }
+
+    public class spaceReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInput.remove(KeyEvent.VK_SPACE)
+            System.out.println("inte längre bam");
         }
     }
 }
