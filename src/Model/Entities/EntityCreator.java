@@ -87,7 +87,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
 
     @Override
-    public Player createPlayer(int coordX, int coordY, List keyboardInputs, Weapon weapon) {
+    public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
         Player p = new Player(coordX, coordY, keyboardInputs, weapon);
         friendlies.add(p);
         tickObservers.add(p);
