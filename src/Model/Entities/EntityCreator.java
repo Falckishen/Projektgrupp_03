@@ -38,7 +38,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     }
 
     private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
-        tickObservers.add(new CollisionHandler(enemies, friendlies, projectiles));
+        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
     }
 
     //temporary

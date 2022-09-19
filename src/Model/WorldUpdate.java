@@ -3,8 +3,6 @@ package Model;
 import java.util.TimerTask;
 import java.util.ArrayList;
 
-import Model.Entities.Monster;
-import Model.Entities.Player;
 import Utilities.ViewObserver;
 
 // This class is used as a TimerTask to update the world an amount of time every second
@@ -12,7 +10,7 @@ class WorldUpdate extends TimerTask {
 
     private final Game game;
     private final ArrayList<ViewObserver> viewObservers;
-    private final ArrayList<OnTick> tickObervers;
+    private final ArrayList<OnTick> tickObservers;
  //   private final OnTick player;
  //   private final ArrayList<Monster> monstersAlive;
     private final int maxAllowedDelay;
@@ -21,7 +19,7 @@ class WorldUpdate extends TimerTask {
         this.game = game;
         this.maxAllowedDelay = maxAllowedDelay;
         this.viewObservers = game.getViewObservers();
-        this.tickObervers = game.getTickObservers();
+        this.tickObservers = game.getTickObservers();
     //    this.player = game.getPlayer();
     //    this.monstersAlive = game.getMonstersAlive();
     }
@@ -39,8 +37,8 @@ class WorldUpdate extends TimerTask {
 
     // New frame
     private void updateWorld() {
-        if(!tickObervers.isEmpty()){
-            for (OnTick observer: tickObervers) {
+        if(!tickObservers.isEmpty()){
+            for (OnTick observer: tickObservers) {
                 observer.doOnTick();
             }
         }

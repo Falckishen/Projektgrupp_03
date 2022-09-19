@@ -27,6 +27,7 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
+        this.viewObservers = new ArrayList<>();
         this.round = 0;
         this.entityCreator = new EntityCreator();
         this.enemiesSpawning = false;
@@ -75,6 +76,8 @@ public class Game {
 
     public void startGame() {
         this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections);
+        this.tickObservers = (ArrayList<OnTick>) this.entityCreator.getTickObservers();
+        System.out.println("test" + tickObservers);
        // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
       //  this.monstersAlive = new ArrayList<>();
 
