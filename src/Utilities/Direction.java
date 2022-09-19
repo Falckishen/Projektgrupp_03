@@ -2,7 +2,11 @@ package Utilities;
 
 public enum Direction {
     LEFT,
-    RIGHT,
+    LEFT_UP,
     UP,
-    DOWN
+    RIGHT_UP,
+    RIGHT,
+    RIGHT_DOWN,
+    DOWN,
+    LEFT_DOWN
 }
