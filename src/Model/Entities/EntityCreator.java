@@ -17,7 +17,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.friendlies = friendlies;
         this.projectiles = projectiles;
         this.tickObservers= tickObservers;
-
+        addCollisionHandler(enemies, friendlies, projectiles);
     }
 
     //used for testing (not connected to collision)
@@ -30,6 +30,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
         return tickObservers;
+    }
+
+    private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
+        tickObservers.add(new CollisionHandler(enemies, friendlies, projectiles));
     }
 
     //temporary
