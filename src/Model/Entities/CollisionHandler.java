@@ -122,5 +122,14 @@ public class CollisionHandler implements OnTick {
 
 
     private void removeDead() {
+        removeDeadFromList(players.iterator());
+        removeDeadFromList(enemies.iterator());
+        removeDeadFromList(projectiles.iterator());
+    }
+
+    private void removeDeadFromList(Iterator<? extends Entity> list){
+        while (list.hasNext()){
+            if (list.next().getIsDead()) {list.remove();} // Check that it removes correct object
+        }
     }
 }

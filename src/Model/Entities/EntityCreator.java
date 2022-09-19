@@ -6,6 +6,7 @@ import Utilities.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     List<Enemy> enemies;
@@ -57,6 +58,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     //temporary
     @Override
     public void createMonster() {
+       /* Random rand = new Random();
+        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
+        if (worldWidthRadius % 2 == 0){
+            worldWidthRadius = worldWidthRadius *(-1);}
+        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
+        if (worldHeightRadius % 2 == 0){
+            worldHeightRadius = worldHeightRadius *(-1);} */
+
         int temp1 = 0;
         int temp2 = 0;
         int temp3 = 10;
