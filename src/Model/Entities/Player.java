@@ -1,22 +1,22 @@
 package Model.Entities;
 
-import java.util.HashMap;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Entities.Entity;
 import Model.Weapons.Weapon;
-import Model.Weapons.WeaponFactory;
 import Utilities.Direction;
 
 public class Player extends Friendly {
-    private final List<Direction> currentPlayerWalkingDirection;
+    private final List<Integer> playerKeyInputs;
     private Weapon weapon;
+    private final int defaultSpeed;
 
 
-    Player(int x, int y, List<Direction> currentPlayerWalkingDirection, Weapon weapon) {
+    Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
         super(x, y, 25, 25, 5);
-        this.currentPlayerWalkingDirection = currentPlayerWalkingDirection;
+        defaultSpeed = getSpeed();
+        this.playerKeyInputs = playerInputs;
         this.weapon = weapon;
     }
 
@@ -26,9 +26,60 @@ public class Player extends Friendly {
 
     @Override
     public void doOnTick() {
-        //move();
+        changeDirection();
+        move(); // Change to super() when entity has doOnTick
     }
 
+    private void changeDirection() {
+        //set direction up left if playerKeyInputs.contains(W) && contains(A)
+        List<Direction> currentDirections = new ArrayList<>();
+        for (Integer input :
+                playerKeyInputs) {
+            switch (input) {
+                case KeyEvent.VK_W -> currentDirections.add(Direction.UP);
+                case KeyEvent.VK_A ->  currentDirections.add(Direction.LEFT);
+                case KeyEvent.VK_S -> currentDirections.add(Direction.DOWN);
+                case KeyEvent.VK_D -> currentDirections.add(Direction.RIGHT);
+            }
+        }
+        // FALL 1: Inga/alla knappar är nere
+        if(currentDirections.isEmpty() || currentDirections.size() == 4) {
+            setSpeed(0);
+        }
+        // FALL 2: 1 Knapp är nere
+        if(currentDirections.size() == 1) {
+            setSpeed(defaultSpeed);
+            setDirection(currentDirections.get(0));
+        }
+        // FALL 3: 2 Knappar är nere
+        if(currentDirections.size() == 2) {
+            setSpeed(defaultSpeed);
+            if(currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.LEFT)) {
+                setDirection(Direction.LEFT_UP);
+            }
+            if (currentDirections.contains(Direction.UP) && currentDirections.contains((Direction.RIGHT))) {
+                setDirection(Direction.RIGHT_UP);
+            }
+            if(currentDirections.contains(Direction.DOWN) && currentDirections.contains(Direction.LEFT)) {
+                setDirection(Direction.LEFT_DOWN);
+            }
+            if (currentDirections.contains(Direction.DOWN) && currentDirections.contains((Direction.RIGHT))) {
+                setDirection(Direction.RIGHT_DOWN);
+            }
+        }
+        // FALL 4: 3 knappar är nere
+        if(currentDirections.size() == 3) {
+            setSpeed(defaultSpeed);
+            if (currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.DOWN)) {
+                if(currentDirections.contains(Direction.LEFT)) setDirection(Direction.LEFT);
+                else setDirection(Direction.RIGHT);
+            }
+            if (currentDirections.contains(Direction.LEFT) && currentDirections.contains(Direction.RIGHT)) {
+                if(currentDirections.contains(Direction.UP)) setDirection(Direction.UP);
+                else setDirection(Direction.DOWN);
+            }
+        }
+    }
 /*    private void move() {
         if(!currentPlayerWalkingDirection.isEmpty()) {
             for (Direction direction : currentPlayerWalkingDirection) {
