@@ -95,7 +95,7 @@ public class Monster extends Enemy {
     @Override
     public void doOnTick() {
         // findClosestPosition()
-        move();
+        //move();
         // attack();
     }
 }

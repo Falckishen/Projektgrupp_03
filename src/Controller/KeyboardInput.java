@@ -134,7 +134,7 @@ public class KeyboardInput {
     public class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.add(KeyEvent.VK_SPACE)
+            playerInputArrayList.add(KeyEvent.VK_SPACE);
             System.out.println("bam");
         }
     }
@@ -142,7 +142,7 @@ public class KeyboardInput {
     public class spaceReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_SPACE)
+            playerInputArrayList.remove(KeyEvent.VK_SPACE);
             System.out.println("inte längre bam");
         }
     }

@@ -23,7 +23,7 @@ public class GameView extends JComponent implements ViewObserver {
         this.frame = UFrameInterface.createFrame(width, height);
         this.displayWidth = width;
         this.displayHeight = height;
-        new KeyboardInput(game, frame.getRootPane());
+        //new KeyboardInput(game, frame.getRootPane());
         game.addViewObserver(this);
         this.game = game;
         specialBorderBackground = generateSpecialBorderBackground();
@@ -33,6 +33,10 @@ public class GameView extends JComponent implements ViewObserver {
         screenDirector.startGameScreen(game);
         game.addViewObserver(this);
         this.game = game;*/
+    }
+
+    public JComponent getFrameRootPane() {
+        return frame.getRootPane();
     }
 
 
