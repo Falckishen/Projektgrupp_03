@@ -17,7 +17,6 @@ import Utilities.ViewObserver;
 public class Game {
 
     private ArrayList<ViewObserver> viewObservers;
-    private ArrayList<OnTick> tickObservers;
     private Player player;
    // private ArrayList<Monster> monstersAlive;
     private ArrayList<Direction> currentPlayerDirections;
@@ -32,11 +31,6 @@ public class Game {
         this.round = 0;
         this.entityCreator = new EntityCreator();
         this.enemiesSpawning = false;
-
-        List<OnTick> viewObservers1;
-        viewObservers1 = new ArrayList<>();
-        viewObservers1 = entityCreator.getTickObservers();
-        this.tickObservers = (ArrayList)viewObservers1;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
@@ -62,7 +56,19 @@ public class Game {
     }*/
 
     public ArrayList<OnTick> getTickObservers(){
-        return tickObservers;
+        return (ArrayList<OnTick>) entityCreator.getTickObservers();
+    }
+
+    public ArrayList<Entity> getEnemies() {
+        return (ArrayList<Entity>) entityCreator.getEnemies();
+    }
+
+    public ArrayList<Entity> getFriendlies() {
+        return (ArrayList<Entity>) entityCreator.getFriendlies();
+    }
+
+    public ArrayList<Entity> getProjectiles() {
+        return (ArrayList<Entity>) entityCreator.getProjectiles();
     }
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
