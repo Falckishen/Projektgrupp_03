@@ -58,4 +58,18 @@ public abstract class Entity implements OnTick {
     protected int getHitBoxRadiusY() {
         return hitBoxRadiusY;
     }
+
+    private void move() {
+        if(!currentPlayerWalkingDirection.isEmpty()) {
+            for (Direction direction : currentPlayerWalkingDirection) {
+                switch (direction) {
+                    case UP -> this.setY(super.getCurrentPosition().getY()-super.getSpeed());
+                 //   case LEFTUP -> this.setY()
+                    case DOWN -> super.setY(super.getCurrentPosition().getY()+super.getSpeed());
+                    case LEFT -> super.setX(super.getCurrentPosition().getX()-super.getSpeed());
+                    case RIGHT -> super.setX(super.getCurrentPosition().getX()+super.getSpeed());
+                }
+            }
+        }
+    }
 }
