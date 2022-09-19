@@ -55,10 +55,12 @@ public class Game {
     public Position getPlayerPosition() {
         return player.getCurrentPosition();
     }
+
     /*
     public ArrayList<Monster> getMonstersAlive() {
         return monstersAlive;
-    }*/
+    }
+    */
 
     public ArrayList<OnTick> getTickObservers(){
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
@@ -74,12 +76,6 @@ public class Game {
 
     public ArrayList<Entity> getProjectiles() {
         return (ArrayList<Entity>) entityCreator.getProjectiles();
-    }
-
-    /*--------------------------------------------------- Setters ---------------------------------------------------*/
-
-    public void setPlayerInputArrayList(ArrayList<Integer> playerInputArrayList) {
-        this.playerInputArrayList = playerInputArrayList;
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
@@ -113,7 +109,7 @@ public class Game {
         round++;
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         int delay = 5;
-        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, entityCreator.getEnemiesExist()), delay, TimeUnit.SECONDS);
+        scheduler.schedule(new SpawnEnemies(this, entityCreator, round), delay, TimeUnit.SECONDS);
         // 1. task 2. delay 3. time unit
     }
 

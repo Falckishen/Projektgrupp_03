@@ -20,8 +20,6 @@ class WorldUpdate extends TimerTask {
         this.maxAllowedDelay = maxAllowedDelay;
         this.viewObservers = game.getViewObservers();
         this.tickObservers = game.getTickObservers();
-    //    this.player = game.getPlayer();
-    //    this.monstersAlive = game.getMonstersAlive();
     }
 
     @Override
