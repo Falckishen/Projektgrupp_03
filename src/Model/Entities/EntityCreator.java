@@ -1,6 +1,7 @@
 package Model.Entities;
 
 import Model.OnTick;
+import Model.Weapons.Weapon;
 import Utilities.*;
 
 import java.util.ArrayList;
@@ -65,8 +66,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
 
     @Override
-    public Player createPlayer(int coordX, int coordY, List keyboardInputs, AddProjectile projectileCreator) {
-        Player p = new Player(coordX, coordY, keyboardInputs, projectileCreator);
+    public Player createPlayer(int coordX, int coordY, List keyboardInputs, Weapon weapon) {
+        Player p = new Player(coordX, coordY, keyboardInputs, weapon);
         friendlies.add(p);
         tickObservers.add(p);
         return p;

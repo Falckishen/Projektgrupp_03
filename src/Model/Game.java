@@ -8,6 +8,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import Model.Entities.*;
+import Model.Weapons.WeaponFactory;
 import Utilities.Direction;
 import Utilities.ViewObserver;
 
@@ -79,7 +80,7 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections, getProjectileCreator());
+        this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections, WeaponFactory.getGun(getProjectileCreator()));
 
        // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
       //  this.monstersAlive = new ArrayList<>();
