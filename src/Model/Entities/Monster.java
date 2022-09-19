@@ -72,7 +72,7 @@ public class Monster extends Enemy {
         return Direction.UP;
     }
 
-    void move() {
+/*    void move() {
         // Position closePosition = findClosestPosition(listOfPlayers);
         // Direction goToDirection = findDirectionToPosition(closePosition);
         Direction goToDirection = Direction.UP;
@@ -87,7 +87,7 @@ public class Monster extends Enemy {
         }
         setX(x);
         setY(y);
-    }
+    }*/
     private void attack() {
 
     }
@@ -96,6 +96,6 @@ public class Monster extends Enemy {
     public void doOnTick() {
         // findClosestPosition()
         move();
-        attack();
+        // attack();
     }
 }

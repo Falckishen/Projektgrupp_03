@@ -25,7 +25,7 @@ public class Player extends Friendly {
         move();
     }
 
-    private void move() {
+/*    private void move() {
         if(!currentPlayerWalkingDirection.isEmpty()) {
             for (Direction direction : currentPlayerWalkingDirection) {
                 switch (direction) {
@@ -36,7 +36,7 @@ public class Player extends Friendly {
                 }
             }
         }
-    }
+    }*/
     public void shootAttack() {
         if(this.weapon != null) {
             this.weapon.actionShoot();
