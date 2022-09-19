@@ -89,7 +89,6 @@ public class Game {
     }
 
     void enemiesHaveSpawned() {
-        System.out.println("Round " + round + " enemies have spawned!");
         enemiesSpawning = false;
     }
 
