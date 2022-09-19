@@ -44,6 +44,10 @@ public class Game {
         return viewObservers;
     }
 
+    public AddProjectile projectileCreator(){ //for player when creating weapon
+        return entityCreator;
+    }
+
     public Player getPlayer() {
         return player;
     }
