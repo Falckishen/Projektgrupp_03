@@ -136,6 +136,7 @@ public class KeyboardInput {
     public class PressSpaceAction extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
+            game.getPlayer().shootAttack();
             System.out.println("bam");
         }
     }

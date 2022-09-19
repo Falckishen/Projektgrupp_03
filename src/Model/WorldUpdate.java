@@ -13,35 +13,38 @@ class WorldUpdate extends TimerTask {
     private final Game game;
     private final ArrayList<ViewObserver> viewObservers;
     private final Player player;
-    private final ArrayList<Monster> monsters;
+    private final ArrayList<Monster> monstersAlive;
+    private final int maxAllowedDelay;
 
-    // TODO add a parameter "walls".
-    public WorldUpdate(Game game) {
+    public WorldUpdate(Game game, int maxAllowedDelay) {
         this.game = game;
+        this.maxAllowedDelay = maxAllowedDelay;
         this.viewObservers = game.getViewObservers();
         this.player = game.getPlayer();
-        this.monsters = game.getMonsters();
+        this.monstersAlive = game.getMonstersAlive();
     }
 
     @Override
     public void run() {
-        /*
-        THIS CODE WILL BE USED LATER
-
-        if (System.currentTimeMillis() - scheduledExecutionTime() >= 1000) {
-            System.out.println("Task");
-            System.out.println(scheduledExecutionTime());
+        int delay = (int) (System.currentTimeMillis() - scheduledExecutionTime());
+        if (delay <= maxAllowedDelay) {
+            updateWorld();
         }
-        */
+        else {
+            System.out.println("FRAME SKIPPED! Delay: " + delay + " ms");
+        }
+    }
 
+    // New frame
+    private void updateWorld() {
         player.doOnTick();
 
-        if (!monsters.isEmpty()) {
-            for(Monster monster : monsters) {
+        if (!monstersAlive.isEmpty()) {
+            for(Monster monster : monstersAlive) {
                 monster.doOnTick();
             }
         }
-        else {
+        else if (!game.isEnemiesSpawning()) {
             game.nextRound();
         }
 

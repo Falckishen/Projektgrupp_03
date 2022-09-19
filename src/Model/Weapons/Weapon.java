@@ -3,10 +3,10 @@ package Model.Weapons;
 import Model.Entities.AddProjectile;
 import Utilities.Direction;
 
-abstract class Weapon {
+public abstract class Weapon {
 
     private final AddProjectile projectileCreator;
-    private final String WeaponType;
+    private final String weaponType;
     private final int coolDownSec; //saved as seconds not milliseconds
 
     private final int projectileVelocity;
@@ -17,9 +17,9 @@ abstract class Weapon {
     private Direction direction = Direction.LEFT;
 
 
-    protected Weapon(AddProjectile projectileCreator, String WeaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
+    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
-        this.WeaponType = WeaponType;
+        this.weaponType = weaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
 
         this.projectileVelocity = projectileVelocity;

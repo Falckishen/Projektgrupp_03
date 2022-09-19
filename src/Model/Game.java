@@ -2,33 +2,33 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import Model.Entities.EntityCreator;
-import Model.Entities.Monster;
-import Model.Entities.Player;
-import Model.Entities.Position;
+import Model.Entities.*;
 import Utilities.Direction;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
-public class Game extends Thread {
+public class Game {
 
     private final ArrayList<ViewObserver> viewObservers;
     private Player player;
-    private ArrayList<Monster> monsters;
+    private ArrayList<Monster> monstersAlive;
     private ArrayList<Direction> currentPlayerDirections;
     private int round;
-
     private final EntityCreator entityCreator;
+    private boolean enemiesSpawning;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
-        this.entityCreator = new EntityCreator();
-
         this.viewObservers = new ArrayList<>();
         this.round = 0;
+        this.entityCreator = new EntityCreator();
+        this.enemiesSpawning = false;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
@@ -45,8 +45,8 @@ public class Game extends Thread {
         return player.getCurrentPosition();
     }
 
-    ArrayList<Monster> getMonsters() {
-        return monsters;
+    ArrayList<Monster> getMonstersAlive() {
+        return monstersAlive;
     }
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
@@ -61,29 +61,39 @@ public class Game extends Thread {
         viewObservers.add(viewObserver);
     }
 
-    /*-------------------------------------------------- Threading --------------------------------------------------*/
+    /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
-    // This method runs as a thread, inputs are running parallel
-    public void run() {
+    public void startGame() {
         this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
-        this.monsters = new ArrayList<>();
+        this.monstersAlive = new ArrayList<>();
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new WorldUpdate(this), 0, 17);
-        // 1.task 2. delay 3. period
-        // 60 FPS = one update every 17 (16.667) ms. 30 FPS = one update every 34 (33.333) ms
+        int period = 17;
+        timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
+        // WorldUpdate runs as a thread, inputs are running parallel
+        // 1. task 2. delay 3. period
+        // 165 FPS = one update every 7  (6.0606) ms.
+        // 144 FPS = one update every 7  (6.944) ms.
+        // 60 FPS  = one update every 17 (16.667) ms.
+        // 30 FPS  = one update every 34 (33.333) ms.
     }
 
-    /*----------------------------------------- WorldUpdate Methods -----------------------------------------*/
-
+    // Called when all enemies are dead
     void nextRound() {
+        enemiesSpawning = true;
         round++;
-        spawnEnemies(round);
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        int delay = 5;
+        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, monstersAlive), delay, TimeUnit.SECONDS);
+        // 1. task 2. delay 3. time unit
     }
 
-    private void spawnEnemies(int round) {
-        // TEMP TEST
-        // TODO finish
-        monsters.add(entityCreator.createMonster(50, 50, 10, 10, 5, 1));
+    void enemiesHaveSpawned() {
+        System.out.println("Round " + round + " enemies have spawned!");
+        enemiesSpawning = false;
+    }
+
+    boolean isEnemiesSpawning() {
+        return enemiesSpawning;
     }
 }
