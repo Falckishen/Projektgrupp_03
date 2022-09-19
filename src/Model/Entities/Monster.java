@@ -8,9 +8,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class Monster extends Enemy {
+    private float attackRange = 5;
+    private Player currentPlayer;
 
     Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed) {
         super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
+        currentPlayer = null;
+    }
+
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, Player currentPlayer) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
+        this.currentPlayer = currentPlayer;
     }
 
     private Position findClosestPosition(List<Position> positionList) {
@@ -82,10 +90,14 @@ public class Monster extends Enemy {
         setX(x);
         setY(y);
     }
+    private void attack() {
+
+    }
 
     @Override
     public void doOnTick() {
         // findClosestPosition()
         move();
+        attack();
     }
 }
