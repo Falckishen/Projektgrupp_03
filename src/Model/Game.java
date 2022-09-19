@@ -76,8 +76,7 @@ public class Game {
 
     public void startGame() {
         this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections);
-        this.tickObservers = (ArrayList<OnTick>) this.entityCreator.getTickObservers();
-        System.out.println("test" + tickObservers);
+
        // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
       //  this.monstersAlive = new ArrayList<>();
 
