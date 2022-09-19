@@ -16,7 +16,7 @@ public class oldKeyboardInput implements KeyListener {
 
     public oldKeyboardInput(Game game) {
         playerDirections = new ArrayList<Direction>();
-        game.setCurrentPlayerDirections(playerDirections);
+        game.setPlayerInputArrayList(playerDirections);
     }
 
     @Override

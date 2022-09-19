@@ -19,8 +19,7 @@ public class Game {
     private ArrayList<ViewObserver> viewObservers;
     private ArrayList<OnTick> tickObservers;
     private Player player;
-   // private ArrayList<Monster> monstersAlive;
-    private ArrayList<Direction> currentPlayerDirections;
+    private ArrayList<Integer> playerInputArrayList;
     private int round;
     private final EntityCreator entityCreator;
     private boolean enemiesSpawning;
@@ -28,6 +27,8 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game() {
+        this.playerInputArrayList = new ArrayList<Integer>();
+
         this.viewObservers = new ArrayList<>();
         this.round = 0;
         this.entityCreator = new EntityCreator();
@@ -40,6 +41,10 @@ public class Game {
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
+
+    public ArrayList<Integer> getPlayerInputArrayList() {
+        return playerInputArrayList;
+    }
 
     public ArrayList<ViewObserver> getViewObservers() {
         return viewObservers;
@@ -67,8 +72,8 @@ public class Game {
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
 
-    public void setCurrentPlayerDirections(ArrayList<Direction> currentPlayerDirections) {
-        this.currentPlayerDirections = currentPlayerDirections;
+    public void setPlayerInputArrayList(ArrayList<Direction> playerInputArrayList) {
+        this.playerInputArrayList = playerInputArrayList;
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
@@ -80,7 +85,7 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections, WeaponFactory.getGun(getProjectileCreator()));
+        this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
 
        // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
       //  this.monstersAlive = new ArrayList<>();

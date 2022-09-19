@@ -10,7 +10,7 @@ public class KeyboardInput {
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
-    private final ArrayList<Integer> playerInput;
+    private final ArrayList<Integer> playerInputArrayList;
     Action walkUpActionPressed;
     Action walkLeftActionPressed;
     Action walkDownActionPressed;
@@ -22,8 +22,8 @@ public class KeyboardInput {
     Action spacePressed;
     Action spaceReleased;
 
-    public KeyboardInput(JComponent steve, ArrayList<Integer> playerInput){
-        this.playerInput = playerInput;
+    public KeyboardInput(JComponent steve, ArrayList<Integer> playerInputArrayList){
+        this.playerInputArrayList = playerInputArrayList;
 
         walkUpActionPressed = new WalkUpActionPressed();
         walkLeftActionPressed = new WalkLeftActionPressed();
@@ -63,7 +63,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
-                playerInput.add(KeyEvent.VK_W);
+                playerInputArrayList.add(KeyEvent.VK_W);
                 upKeyPressed = true;
                 System.out.println("W pressed");
             }
@@ -73,7 +73,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
-                playerInput.add(KeyEvent.VK_A);
+                playerInputArrayList.add(KeyEvent.VK_A);
                 leftKeyPressed = true;
                 System.out.println("A pressed");
             }
@@ -83,7 +83,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
-                playerInput.add(KeyEvent.VK_S);
+                playerInputArrayList.add(KeyEvent.VK_S);
                 downKeyPressed = true;
                 System.out.println("S pressed");
             }
@@ -93,7 +93,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
-                playerInput.add(KeyEvent.VK_D);
+                playerInputArrayList.add(KeyEvent.VK_D);
                 rightKeyPressed = true;
                 System.out.println("D pressed");
             }
@@ -102,7 +102,7 @@ public class KeyboardInput {
     public class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.remove(KeyEvent.VK_W);
+            playerInputArrayList.remove(KeyEvent.VK_W);
             upKeyPressed = false;
             System.out.println("W released");
         }
@@ -110,7 +110,7 @@ public class KeyboardInput {
     public class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.remove(KeyEvent.VK_A);
+            playerInputArrayList.remove(KeyEvent.VK_A);
             leftKeyPressed = false;
             System.out.println("A released");
         }
@@ -118,7 +118,7 @@ public class KeyboardInput {
     public class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.remove(KeyEvent.VK_S);
+            playerInputArrayList.remove(KeyEvent.VK_S);
             downKeyPressed = false;
             System.out.println("S released");
         }
@@ -126,7 +126,7 @@ public class KeyboardInput {
     public class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.remove(KeyEvent.VK_D);
+            playerInputArrayList.remove(KeyEvent.VK_D);
             rightKeyPressed = false;
             System.out.println("D released");
         }
@@ -134,7 +134,7 @@ public class KeyboardInput {
     public class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.add(KeyEvent.VK_SPACE)
+            playerInputArrayList.add(KeyEvent.VK_SPACE)
             System.out.println("bam");
         }
     }
@@ -142,7 +142,7 @@ public class KeyboardInput {
     public class spaceReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInput.remove(KeyEvent.VK_SPACE)
+            playerInputArrayList.remove(KeyEvent.VK_SPACE)
             System.out.println("inte längre bam");
         }
     }
