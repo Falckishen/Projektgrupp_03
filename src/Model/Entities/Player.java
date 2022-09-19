@@ -8,7 +8,6 @@ import Model.Entities.Entity;
 import Model.Weapons.Weapon;
 import Model.Weapons.WeaponFactory;
 import Utilities.Direction;
-import Utilities.JustAPlaceToKeepThePublicList;
 
 public class Player extends Friendly {
     private final List<Direction> currentPlayerWalkingDirection;

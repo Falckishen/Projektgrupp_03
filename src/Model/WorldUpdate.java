@@ -12,16 +12,18 @@ class WorldUpdate extends TimerTask {
 
     private final Game game;
     private final ArrayList<ViewObserver> viewObservers;
-    private final Player player;
-    private final ArrayList<Monster> monstersAlive;
+    private final ArrayList<OnTick> tickObervers;
+ //   private final OnTick player;
+ //   private final ArrayList<Monster> monstersAlive;
     private final int maxAllowedDelay;
 
     public WorldUpdate(Game game, int maxAllowedDelay) {
         this.game = game;
         this.maxAllowedDelay = maxAllowedDelay;
         this.viewObservers = game.getViewObservers();
-        this.player = game.getPlayer();
-        this.monstersAlive = game.getMonstersAlive();
+        this.tickObervers = game.getTickObservers();
+    //    this.player = game.getPlayer();
+    //    this.monstersAlive = game.getMonstersAlive();
     }
 
     @Override
@@ -37,14 +39,14 @@ class WorldUpdate extends TimerTask {
 
     // New frame
     private void updateWorld() {
-        player.doOnTick();
-
-        if (!monstersAlive.isEmpty()) {
-            for(Monster monster : monstersAlive) {
-                monster.doOnTick();
+        if(!tickObervers.isEmpty()){
+            for (OnTick observer: tickObervers) {
+                observer.doOnTick();
             }
         }
-        else if (!game.isEnemiesSpawning()) {
+
+
+        if (!game.isEnemiesSpawning()) {
             game.nextRound();
         }
 

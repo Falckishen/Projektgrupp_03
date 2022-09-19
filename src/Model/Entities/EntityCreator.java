@@ -26,10 +26,15 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.friendlies = new ArrayList<Friendly>();
         this.projectiles = new ArrayList<Projectile>();
         this.tickObservers = new ArrayList<OnTick>();
+        addCollisionHandler(enemies, friendlies, projectiles);
     }
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
         return tickObservers;
+    }
+
+    public Boolean getEnemiesExist() {
+        return (!enemies.isEmpty());
     }
 
     private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){

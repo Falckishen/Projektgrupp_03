@@ -10,9 +10,9 @@ public class SpawnEnemies implements Runnable {
     private final Game game;
     private final EntityCreator entityCreator;
     private int round;
-    private final ArrayList<Monster> monstersAlive;
+    private boolean monstersAlive; //TODO doesnt update anymore fix
 
-    public SpawnEnemies(Game game, EntityCreator entityCreator, int round, ArrayList<Monster> monstersAlive) {
+    public SpawnEnemies(Game game, EntityCreator entityCreator, int round, boolean monstersAlive) {
         this.game = game;
         this.entityCreator = entityCreator;
         this.round = round;
