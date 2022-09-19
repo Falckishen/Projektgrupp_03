@@ -34,6 +34,18 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         return tickObservers;
     }
 
+    public List<? extends Entity> getEnemies() {
+        return enemies;
+    }
+
+    public List<? extends Entity> getFriendlies() {
+        return friendlies;
+    }
+
+    public List<? extends Entity> getProjectiles() {
+        return projectiles;
+    }
+
     public Boolean getEnemiesExist() {
         return (!enemies.isEmpty());
     }
