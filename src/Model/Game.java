@@ -44,7 +44,7 @@ public class Game {
         return viewObservers;
     }
 
-    public AddProjectile projectileCreator(){ //for player when creating weapon
+    public AddProjectile getProjectileCreator(){ //for player when creating weapon
         return entityCreator;
     }
 
@@ -79,7 +79,7 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections);
+        this.player = this.entityCreator.createPlayer(0,0,currentPlayerDirections, getProjectileCreator());
 
        // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
       //  this.monstersAlive = new ArrayList<>();

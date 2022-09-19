@@ -12,12 +12,14 @@ import Utilities.Direction;
 public class Player extends Friendly {
     private final List<Direction> currentPlayerWalkingDirection;
     private Weapon weapon;
+    private final AddProjectile projectileCreator;
 
 
-    Player(int x, int y, List<Direction> currentPlayerWalkingDirection) {
+    Player(int x, int y, List<Direction> currentPlayerWalkingDirection, AddProjectile projectileCreator) {
         super(x, y, 25, 25, 5);
         this.currentPlayerWalkingDirection = currentPlayerWalkingDirection;
         this.weapon = WeaponFactory.getGun(new EntityCreator());
+        this.projectileCreator = projectileCreator;
     }
 
     @Override
