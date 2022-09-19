@@ -5,5 +5,5 @@ import Model.Entities.Player;
 import java.util.List;
 
 public interface AddFriendly {
-    Player createPlayer(int coordX, int coordY, List keyboardInputs);
+    Player createPlayer(int coordX, int coordY, List keyboardInputs, AddProjectile projectileCreator);
 }

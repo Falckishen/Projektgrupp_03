@@ -1,15 +1,16 @@
 package Model.Entities;
 
-import Model.Entities.Entity;
 import Utilities.Direction;
-import Utilities.JustAPlaceToKeepThePublicList;
-
-import java.util.HashMap;
 
 class SimpleProjectile extends Projectile {
 
-    protected SimpleProjectile(Direction direction, int velocity, int lifeLeft){
-        super(0,0,10,10, velocity, direction, lifeLeft);
+    protected SimpleProjectile(Direction direction, int velocity, int lifeLeft, int attackPower){
+        super(0,0,10,10, velocity, direction, lifeLeft, attackPower);
+    }
+
+    @Override
+    protected void CollidedWithEnemy() {
+        setIsDead(true);
     }
 
     //handles 360 degrees

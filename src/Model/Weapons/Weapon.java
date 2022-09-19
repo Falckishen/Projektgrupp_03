@@ -11,18 +11,20 @@ public abstract class Weapon {
 
     private final int projectileVelocity;
     private final int projectileLife;
+    private final int projectileAttackPower;
 
     private Long lastShotFired; //is saved as milliseconds
     private Direction direction = Direction.LEFT;
 
 
-    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife){
+    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
         this.weaponType = weaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
 
         this.projectileVelocity = projectileVelocity;
         this.projectileLife = projectileLife;
+        this.projectileAttackPower = projectileAttackPower;
 
         this.lastShotFired = System.currentTimeMillis();
     }
@@ -39,7 +41,13 @@ public abstract class Weapon {
         return projectileLife;
     }
 
-    protected AddProjectile getProjectileCreator(){return projectileCreator;}
+    protected int getProjectileAttackPower(){
+        return projectileAttackPower;
+    }
+
+    protected AddProjectile getProjectileCreator(){ //just to subclasses has access to the factory
+        return projectileCreator;
+    }
 
     protected abstract void shoot();
 

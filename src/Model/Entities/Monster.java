@@ -1,8 +1,7 @@
 package Model.Entities;
 
-import Utilities.JustAPlaceToKeepThePublicList;
 import Utilities.Direction;
-import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,13 +10,12 @@ public class Monster extends Enemy {
     private float attackRange = 5;
     private Player currentPlayer;
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower);
         currentPlayer = null;
     }
-
     Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, Player currentPlayer) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed);
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, 1);
         this.currentPlayer = currentPlayer;
     }
 

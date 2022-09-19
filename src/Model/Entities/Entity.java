@@ -10,6 +10,7 @@ public abstract class Entity implements OnTick {
     private int hitBoxRadiusY;
     private Direction direction;
     private int speed;
+    private boolean isDead = false;
 
     protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed){
         this.coordinate = new Position(x, y);
@@ -59,17 +60,11 @@ public abstract class Entity implements OnTick {
         return hitBoxRadiusY;
     }
 
-    private void move() {
-        if(!currentPlayerWalkingDirection.isEmpty()) {
-            for (Direction direction : currentPlayerWalkingDirection) {
-                switch (direction) {
-                    case UP -> this.setY(super.getCurrentPosition().getY()-super.getSpeed());
-                 //   case LEFTUP -> this.setY()
-                    case DOWN -> super.setY(super.getCurrentPosition().getY()+super.getSpeed());
-                    case LEFT -> super.setX(super.getCurrentPosition().getX()-super.getSpeed());
-                    case RIGHT -> super.setX(super.getCurrentPosition().getX()+super.getSpeed());
-                }
-            }
-        }
+    protected void setIsDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    protected boolean getIsDead() {
+        return isDead;
     }
 }

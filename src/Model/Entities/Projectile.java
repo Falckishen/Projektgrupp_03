@@ -4,12 +4,20 @@ import Utilities.Direction;
 
 abstract class Projectile extends Entity {
     private int lifeLeft;
+    private int attackPower;
 
-    protected Projectile(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft) {
+    protected Projectile(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
         super(x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
+        this.attackPower = attackPower;
     }
+
+    protected int getAttackPower() {
+        return attackPower;
+    }
+
+    protected abstract void CollidedWithEnemy();
 
     @Override
     public void doOnTick() {
@@ -32,4 +40,6 @@ abstract class Projectile extends Entity {
             getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
         }
     }
+
+
 }
