@@ -78,7 +78,7 @@ public class Game {
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
 
-    public void setPlayerInputArrayList(ArrayList<Direction> playerInputArrayList) {
+    public void setPlayerInputArrayList(ArrayList<Integer> playerInputArrayList) {
         this.playerInputArrayList = playerInputArrayList;
     }
 

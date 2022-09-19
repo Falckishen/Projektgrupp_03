@@ -26,7 +26,7 @@ public class Player extends Friendly {
 
     @Override
     public void doOnTick() {
-        move();
+        //move();
     }
 
 /*    private void move() {
