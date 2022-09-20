@@ -41,7 +41,7 @@ class WorldUpdate extends TimerTask {
             }
         }
 
-
+        // TODO byt inte runda när enemies lever
         if (!game.isEnemiesSpawning()) {
             game.nextRound();
         }

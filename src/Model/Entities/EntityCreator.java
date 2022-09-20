@@ -65,9 +65,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         int worldHeightRadius = rand.nextInt(WorldHeightRadius);
         if (worldHeightRadius % 2 == 0){
             worldHeightRadius = worldHeightRadius *(-1);} */
-
-        int temp1 = 0;
-        int temp2 = 0;
+        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
         int temp3 = 10;
         int temp4 = 10;
         int temp5 = 5;
