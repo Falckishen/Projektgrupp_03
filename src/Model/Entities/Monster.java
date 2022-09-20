@@ -46,17 +46,19 @@ public class Monster extends Enemy {
         double cos =  num / den;
         double angle = Math.acos(cos);
 
-        if (angle < Math.PI / 4) {
+
+        if (angle < Math.PI / 8) {
             return Direction.UP;
         }
+
         if (vx >= 0) {
-            if (angle < 3 * Math.PI / 4 ) {
-                return Direction.RIGHT;
-            }
+            if (angle < 3 * Math.PI/8) return Direction.RIGHT_UP;
+            if (angle < 5 * Math.PI/8) return Direction.RIGHT;
+            if (angle < 7 * Math.PI / 8) return Direction.RIGHT_DOWN;
         } else {
-            if (angle < 3 * Math.PI / 4 ) {
-                return Direction.LEFT;
-            }
+            if (angle < 3 * Math.PI/8) return Direction.LEFT_UP;
+            if (angle < 5 * Math.PI/8) return Direction.LEFT;
+            if (angle < 7 * Math.PI / 8) return Direction.LEFT_DOWN;
         }
         return Direction.DOWN;
     }
