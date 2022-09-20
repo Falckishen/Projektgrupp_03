@@ -77,6 +77,31 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     }
 
     @Override
+    public void createMonster(Player p) {
+       /* Random rand = new Random();
+        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
+        if (worldWidthRadius % 2 == 0){
+            worldWidthRadius = worldWidthRadius *(-1);}
+        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
+        if (worldHeightRadius % 2 == 0){
+            worldHeightRadius = worldHeightRadius *(-1);} */
+
+        int temp1 = 0;
+        int temp2 = 0;
+        int temp3 = 10;
+        int temp4 = 10;
+        int temp5 = 5;
+        int temp6 = 1;
+        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
+        m.setCurrentPlayer(p);
+        enemies.add(m);
+        tickObservers.add(m);
+    }
+
+
+
+    // TESTING PURPOSES
+    @Override
     public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed, int attackPower) {
         Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed, attackPower);
         enemies.add(m);

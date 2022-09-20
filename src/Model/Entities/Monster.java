@@ -14,11 +14,9 @@ public class Monster extends Enemy {
         super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower);
         currentPlayer = null;
     }
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, Player currentPlayer) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, 1);
-        this.currentPlayer = currentPlayer;
-    }
 
+    public void setCurrentPlayer(Player p) {this.currentPlayer=p;}
+    // FOR MULTIPLAYER
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<>();
         for (Position p : positionList){
@@ -95,7 +93,11 @@ public class Monster extends Enemy {
     @Override
     public void doOnTick() {
         // findClosestPosition()
-        //move();
         // attack();
+        if(currentPlayer != null) {
+            findDirectionToPosition(currentPlayer.getCurrentPosition());
+            System.out.println("rawr");
+        }
+        move();
     }
 }
