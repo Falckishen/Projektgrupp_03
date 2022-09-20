@@ -32,9 +32,9 @@ public class Player extends Friendly {
 
     private void changeDirection() {
         //set direction up left if playerKeyInputs.contains(W) && contains(A)
+        // should this be moved to controller?
         List<Direction> currentDirections = new ArrayList<>();
-        for (Integer input :
-                playerKeyInputs) {
+        for (Integer input : playerKeyInputs) {
             switch (input) {
                 case KeyEvent.VK_W -> currentDirections.add(Direction.UP);
                 case KeyEvent.VK_A ->  currentDirections.add(Direction.LEFT);

@@ -20,7 +20,7 @@ public class SpawnEnemies implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < round*2; i++) {
-            entityCreator.createMonster();
+            entityCreator.createMonster(game.getPlayer());
         }
 
         game.enemiesHaveSpawned();
