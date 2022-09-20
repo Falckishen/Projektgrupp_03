@@ -44,39 +44,39 @@ public class Player extends Friendly {
         }
         // FALL 1: Inga/alla knappar är nere
         if(currentDirections.isEmpty() || currentDirections.size() == 4) {
-            setSpeed(0);
+            super.setSpeed(0);
         }
         // FALL 2: 1 Knapp är nere
         if(currentDirections.size() == 1) {
-            setSpeed(defaultSpeed);
-            setDirection(currentDirections.get(0));
+            super.setSpeed(defaultSpeed);
+            super.setDirection(currentDirections.get(0));
         }
         // FALL 3: 2 Knappar är nere
         if(currentDirections.size() == 2) {
-            setSpeed(defaultSpeed);
+            super.setSpeed(defaultSpeed);
             if(currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.LEFT)) {
-                setDirection(Direction.LEFT_UP);
+                super.setDirection(Direction.LEFT_UP);
             }
             if (currentDirections.contains(Direction.UP) && currentDirections.contains((Direction.RIGHT))) {
-                setDirection(Direction.RIGHT_UP);
+                super.setDirection(Direction.RIGHT_UP);
             }
             if(currentDirections.contains(Direction.DOWN) && currentDirections.contains(Direction.LEFT)) {
-                setDirection(Direction.LEFT_DOWN);
+                super.setDirection(Direction.LEFT_DOWN);
             }
             if (currentDirections.contains(Direction.DOWN) && currentDirections.contains((Direction.RIGHT))) {
-                setDirection(Direction.RIGHT_DOWN);
+                super.setDirection(Direction.RIGHT_DOWN);
             }
         }
         // FALL 4: 3 knappar är nere
         if(currentDirections.size() == 3) {
-            setSpeed(defaultSpeed);
+            super.setSpeed(defaultSpeed);
             if (currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.DOWN)) {
-                if(currentDirections.contains(Direction.LEFT)) setDirection(Direction.LEFT);
-                else setDirection(Direction.RIGHT);
+                if(currentDirections.contains(Direction.LEFT)) super.setDirection(Direction.LEFT);
+                else super.setDirection(Direction.RIGHT);
             }
             if (currentDirections.contains(Direction.LEFT) && currentDirections.contains(Direction.RIGHT)) {
-                if(currentDirections.contains(Direction.UP)) setDirection(Direction.UP);
-                else setDirection(Direction.DOWN);
+                if(currentDirections.contains(Direction.UP)) super.setDirection(Direction.UP);
+                else super.setDirection(Direction.DOWN);
             }
         }
     }
@@ -92,6 +92,7 @@ public class Player extends Friendly {
             }
         }
     }*/
+
     public void shootAttack() {
         if(this.weapon != null) {
             this.weapon.actionShoot();

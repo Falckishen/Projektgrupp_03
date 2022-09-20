@@ -89,9 +89,6 @@ public class Game {
     public void startGame() {
         this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
 
-       // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
-      //  this.monstersAlive = new ArrayList<>();
-
         Timer timer = new Timer();
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
@@ -110,6 +107,7 @@ public class Game {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         int delay = 5;
         scheduler.schedule(new SpawnEnemies(this, entityCreator, round), delay, TimeUnit.SECONDS);
+        System.out.println("ROUND: " + round);
         // 1. task 2. delay 3. time unit
     }
 

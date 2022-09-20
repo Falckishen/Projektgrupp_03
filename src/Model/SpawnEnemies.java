@@ -23,7 +23,7 @@ public class SpawnEnemies implements Runnable {
         for (int i = 0; i < Math.pow(round, 2); i++) {
             entityCreator.createMonster(game.getPlayer());
         }
-
         game.enemiesHaveSpawned();
+        System.out.println("ENEMIES SPAWNED: " + Math.pow(round, 2));
     }
 }

@@ -103,7 +103,6 @@ public class Monster extends Enemy {
         // attack();
         if(currentPlayer != null) {
             findDirectionToPosition(currentPlayer.getCurrentPosition());
-            System.out.println("rawr");
         }
         move();
     }
