@@ -30,6 +30,11 @@ public class Monster extends Enemy {
         return positionList.get(indexOfSmallest);
     }
 
+    /**
+     * Makes it so that a monster changes direction according to where the player is
+     * @param p
+     * @return a direction towards Position p
+     */
     public Direction findDirectionToPosition(Position p) {
         int vx = p.getX() - this.getCurrentPosition().getX();
         int vy = p.getY() - this.getCurrentPosition().getY();
