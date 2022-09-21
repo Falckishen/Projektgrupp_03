@@ -36,6 +36,7 @@ public class Player extends Friendly {
         // should this be moved to controller?
         List<Direction> currentDirections = new ArrayList<>();
         for (Integer input : playerKeyInputs) {
+          //  if ()
             switch (input) {
                 case KeyEvent.VK_W -> currentDirections.add(Direction.UP);
                 case KeyEvent.VK_A ->  currentDirections.add(Direction.LEFT);
