@@ -2,27 +2,30 @@ package Model.Entities;
 
 import Model.OnTick;
 import Utilities.Direction;
+import Utilities.EntityType;
 
 public abstract class Entity implements OnTick {
-    private int id;
+    //private final int id;
+    private final EntityType entityType;
+    private final int hitBoxRadiusX;
+    private final int hitBoxRadiusY;
+
     private Position coordinate;
-    private int hitBoxRadiusX;
-    private int hitBoxRadiusY;
     private Direction direction;
     private int speed;
     private boolean isDead = false;
 
-    protected Entity(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed){
-        this.coordinate = new Position(x, y);
+    protected Entity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed){
+        this.entityType = entityType;
         this.hitBoxRadiusX = hitBoxRadiusX;
         this.hitBoxRadiusY = hitBoxRadiusY;
+
+        this.coordinate = new Position(x, y);
         this.direction = Direction.LEFT;
         this.speed = speed;
     }
 
-    protected int getId(){
-        return id;
-    }
+    //protected int getId(){return id;}
 
     public Position getCurrentPosition() {
         return coordinate;
