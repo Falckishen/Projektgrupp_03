@@ -60,15 +60,17 @@ class Player extends Friendly {
             if(currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.LEFT)) {
                 super.setDirection(Direction.LEFT_UP);
             }
-            if (currentDirections.contains(Direction.UP) && currentDirections.contains((Direction.RIGHT))) {
+            else if (currentDirections.contains(Direction.UP) && currentDirections.contains((Direction.RIGHT))) {
                 super.setDirection(Direction.RIGHT_UP);
             }
-            if(currentDirections.contains(Direction.DOWN) && currentDirections.contains(Direction.LEFT)) {
+            else if(currentDirections.contains(Direction.DOWN) && currentDirections.contains(Direction.LEFT)) {
                 super.setDirection(Direction.LEFT_DOWN);
             }
-            if (currentDirections.contains(Direction.DOWN) && currentDirections.contains((Direction.RIGHT))) {
+            else if (currentDirections.contains(Direction.DOWN) && currentDirections.contains((Direction.RIGHT))) {
                 super.setDirection(Direction.RIGHT_DOWN);
             }
+            else super.setSpeed(0);
+
         }
         // FALL 4: 3 knappar är nere
         if(currentDirections.size() == 3) {
