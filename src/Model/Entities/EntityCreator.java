@@ -29,6 +29,11 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.tickObservers = new ArrayList<OnTick>();
         addCollisionHandler(enemies, friendlies, projectiles);
     }
+
+    private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
+        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
+    }
+
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
         return tickObservers;
@@ -48,10 +53,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
     public boolean isAnyEnemiesAlive() {
         return !enemies.isEmpty();
-    }
-
-    private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
-        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
     }
 
     //temporary
@@ -90,21 +91,11 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         int temp4 = 10;
         int temp5 = 5;
         int temp6 = 1;
-        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
+        int temp7 = 1;
+        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6, temp7, p.getCurrentPosition());
         m.setCurrentPlayer(p);
         enemies.add(m);
         tickObservers.add(m);
-    }
-
-
-
-    // TESTING PURPOSES
-    @Override
-    public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed, int attackPower) {
-        Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed, attackPower);
-        enemies.add(m);
-        tickObservers.add(m);
-        return m;
     }
 
 
