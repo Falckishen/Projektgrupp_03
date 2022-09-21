@@ -13,7 +13,7 @@ class Monster extends Enemy {
     }
 
     Monster(int x, int y, Iterable<Friendly> friendliesIterator) {
-        super(EntityType.monster, 10, 10, x, y, 5, 1, 5, friendliesIterator);
+        super(EntityType.monster, 50, 50, x, y, 5, 1, 5, friendliesIterator);
     }
 
     /**

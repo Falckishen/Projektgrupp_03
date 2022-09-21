@@ -5,13 +5,13 @@ import Model.OnTick;
 
 import java.util.Iterator;
 
-public class CollisionHandler implements OnTick {
-    Iterable<Player> players;
+class CollisionHandler implements OnTick {
+    Iterable<Friendly> friendlies;
     Iterable<Enemy> enemies;
     Iterable<Projectile> projectiles;
 
-    CollisionHandler(Iterable players, Iterable enemies, Iterable projectiles){
-        this.players = players;
+    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles){
+        this.friendlies = friendlies;
         this.enemies = enemies;
         this.projectiles = projectiles;
     }
@@ -25,12 +25,12 @@ public class CollisionHandler implements OnTick {
     }
 
     private void checkCollisionPlayerEnemy() {
-        Iterator<Player> itPlayers = players.iterator();
+        Iterator<Friendly> itFriendlies = friendlies.iterator();
         Iterator<Enemy> itEnemies = enemies.iterator();
-        Player p;
+        Friendly p;
         Enemy e;
-        while(itPlayers.hasNext()){
-            p = itPlayers.next();
+        while(itFriendlies.hasNext()){
+            p = itFriendlies.next();
             while(itEnemies.hasNext()){
                 e = itEnemies.next();
                 if(hasCollided(p, e)){
@@ -122,7 +122,7 @@ public class CollisionHandler implements OnTick {
 
 
     private void removeDead() {
-        removeDeadFromList(players.iterator());
+        removeDeadFromList(friendlies.iterator());
         removeDeadFromList(enemies.iterator());
         removeDeadFromList(projectiles.iterator());
     }
