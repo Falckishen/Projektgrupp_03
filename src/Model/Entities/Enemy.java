@@ -34,8 +34,8 @@ abstract class Enemy extends Entity {
     protected Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<>();
         for (Position p : positionList){
-            Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
-                    Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
+            Double distance = Math.pow(p.getX() - this.getPosition().getX(), 2) +
+                    Math.pow(p.getY() - this.getPosition().getY(),2);
             playerDistances.add(distance);
         }
         Double smallest = Collections.min(playerDistances);

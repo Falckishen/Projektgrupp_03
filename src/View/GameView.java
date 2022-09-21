@@ -1,6 +1,5 @@
 package View;
 
-import Controller.KeyboardInput;
 import Model.Entities.Entity;
 
 import Model.Game;
@@ -9,7 +8,6 @@ import Utilities.EntityType;
 import Utilities.ViewObserver;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -87,7 +85,7 @@ public class GameView extends JComponent implements ViewObserver {
     }
 
     private void paintEntity(Entity entity, Position playerPosition){
-        Position pos = entity.getCurrentPosition();
+        Position pos = entity.getPosition();
         pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
         int variant;
         if(entity.getEntityType() == EntityType.player){

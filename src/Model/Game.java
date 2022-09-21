@@ -53,12 +53,12 @@ public class Game {
         Position p = null;
         for (Entity e:entityCreator.getFriendlies()) {
             if (e.getEntityType() == EntityType.player ){
-                p = e.getCurrentPosition();
+                p = e.getPosition();
             }
         }
         return p;
 
-        //return player.getCurrentPosition();
+        //return player.getPosition();
     }
 
     public ArrayList<OnTick> getTickObservers(){

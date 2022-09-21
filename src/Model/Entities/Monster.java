@@ -22,8 +22,8 @@ class Monster extends Enemy {
      * @return a direction towards Position p
      */
     public Direction findDirectionToPosition(Position p) {
-        int vx = p.getX() - this.getCurrentPosition().getX();
-        int vy = p.getY() - this.getCurrentPosition().getY();
+        int vx = p.getX() - this.getPosition().getX();
+        int vy = p.getY() - this.getPosition().getY();
         // Top is 0 degrees
         int ux = 0;
         int uy = 1;
@@ -68,8 +68,8 @@ class Monster extends Enemy {
         // Direction goToDirection = findDirectionToPosition(closePosition);
         Direction goToDirection = Direction.UP;
         setDirection(goToDirection);
-        int x = this.getCurrentPosition().getX();
-        int y = this.getCurrentPosition().getY();
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
         switch (getDirection()) {
             case UP -> y += 1;
             case DOWN -> y -= 1;
@@ -90,7 +90,7 @@ class Monster extends Enemy {
         Iterator<Friendly> friendlyIterator = getFriendliesIterator().iterator();
         ArrayList<Position> positionsOfFriendlies = new ArrayList<>();
         while(friendlyIterator.hasNext()){
-            positionsOfFriendlies.add(friendlyIterator.next().getCurrentPosition());
+            positionsOfFriendlies.add(friendlyIterator.next().getPosition());
         }
         this.setDirection(findDirectionToPosition(findClosestPosition(positionsOfFriendlies)));
 

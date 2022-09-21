@@ -87,10 +87,10 @@ class Player extends Friendly {
         if(!currentPlayerWalkingDirection.isEmpty()) {
             for (Direction direction : currentPlayerWalkingDirection) {
                 switch (direction) {
-                    case UP -> super.setY(super.getCurrentPosition().getY()-super.getSpeed());
-                    case DOWN -> super.setY(super.getCurrentPosition().getY()+super.getSpeed());
-                    case LEFT -> super.setX(super.getCurrentPosition().getX()-super.getSpeed());
-                    case RIGHT -> super.setX(super.getCurrentPosition().getX()+super.getSpeed());
+                    case UP -> super.setY(super.getPosition().getY()-super.getSpeed());
+                    case DOWN -> super.setY(super.getPosition().getY()+super.getSpeed());
+                    case LEFT -> super.setX(super.getPosition().getX()-super.getSpeed());
+                    case RIGHT -> super.setX(super.getPosition().getX()+super.getSpeed());
                 }
             }
         }
