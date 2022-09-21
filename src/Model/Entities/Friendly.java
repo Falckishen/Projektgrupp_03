@@ -10,4 +10,8 @@ abstract class Friendly extends Entity {
     protected void CollidedWithEnemy(int attackPower){
         //TODO attackPower = how much damage self takes
     }
+
+    protected void collidedWithNonLivingObject(AllObjects object){
+        //TODO can't move in this direction
+    }
 }

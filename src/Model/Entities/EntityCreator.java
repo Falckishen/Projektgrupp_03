@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
+public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
     List<Enemy> enemies;
     List<Friendly> friendlies;
     List<Projectile> projectiles;
     List<OnTick> tickObservers;
+    List<AllObjects> nonLivingObjects;
 
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers){
+    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<AllObjects> nonLivingObjects){
         this.enemies = enemies;
         this.friendlies = friendlies;
         this.projectiles = projectiles;
         this.tickObservers= tickObservers;
-        addCollisionHandler(enemies, friendlies, projectiles);
+        this.nonLivingObjects = nonLivingObjects;
+        addCollisionHandler();
     }
 
     public EntityCreator(){
@@ -27,11 +29,12 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         this.friendlies = new ArrayList<Friendly>();
         this.projectiles = new ArrayList<Projectile>();
         this.tickObservers = new ArrayList<OnTick>();
-        addCollisionHandler(enemies, friendlies, projectiles);
+        this.nonLivingObjects = new ArrayList<AllObjects>();
+        addCollisionHandler();
     }
 
-    private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
-        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
+    private void addCollisionHandler(){
+        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles, nonLivingObjects));
     }
 
     /*------------------------------------------------ Getters ------------------------------------------------------*/
@@ -51,6 +54,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
     public List<? extends Entity> getProjectiles() {
         return projectiles;
+    }
+
+    public List<? extends AllObjects> getNonLivingObjects(){
+        return nonLivingObjects;
     }
 
     public boolean isAnyEnemiesAlive() {
@@ -98,5 +105,21 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     @Override
     public void createSimpleProjectile(double direction, int velocity, int life, int attackPower) {
 
+    }
+
+    /*----------------------------- AddNonLivingObjects (called then game created) ---------------------------------*/
+
+    @Override
+    public void createWall(int positionX, int positionY, int wallRadiusX, int wallRadiusY) {
+        nonLivingObjects.add(new Wall(wallRadiusX, wallRadiusY, positionX, positionY));
+    }
+
+    @Override
+    public void createWorldWalls(int worldRadiusX, int worldRadiusY) {
+        int wallThicknessRadius = 10;
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,(worldRadiusX*(-1)), 0)); //x left
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,worldRadiusX,0)); //x right
+        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,worldRadiusY)); //y top
+        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,(worldRadiusY*(-1)) )); //y bottom
     }
 }

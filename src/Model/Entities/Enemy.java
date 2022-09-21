@@ -56,4 +56,8 @@ abstract class Enemy extends Entity {
     protected void collidedWithProjectile(int attackPower){
         //TODO looses health in relation to the attackPower
     }
+
+    protected void collidedWithNonLivingObject(AllObjects object){
+        //TODO can't move in this direction
+    }
 }

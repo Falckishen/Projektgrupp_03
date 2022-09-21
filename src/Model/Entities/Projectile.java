@@ -20,6 +20,10 @@ abstract class Projectile extends Entity {
 
     protected abstract void CollidedWithEnemy();
 
+    protected void collidedWithNonLivingObject(){
+        setIsDead(true);
+    }
+
     @Override
     public void doOnTick() {
         if(lifeLeft>0){

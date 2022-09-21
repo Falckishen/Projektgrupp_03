@@ -9,33 +9,37 @@ class CollisionHandler implements OnTick {
     Iterable<Friendly> friendlies;
     Iterable<Enemy> enemies;
     Iterable<Projectile> projectiles;
+    Iterable<AllObjects> nonLivingObjects;
 
-    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles){
+    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles, Iterable<AllObjects> nonLivingObjects){
         this.friendlies = friendlies;
         this.enemies = enemies;
         this.projectiles = projectiles;
+        this.nonLivingObjects = nonLivingObjects;
     }
 
     @Override
     public void doOnTick() {
-        checkCollisionPlayerEnemy();
+        checkCollisionFriendlyEnemy();
         checkCollisionEnemyEnemy();
         checkCollisionEnemyProjectile();
+
+        checkCollisionWithNonLivingObjects();
         removeDead();
     }
 
-    private void checkCollisionPlayerEnemy() {
+    private void checkCollisionFriendlyEnemy() {
         Iterator<Friendly> itFriendlies = friendlies.iterator();
         Iterator<Enemy> itEnemies = enemies.iterator();
-        Friendly p;
+        Friendly f;
         Enemy e;
         while(itFriendlies.hasNext()){
-            p = itFriendlies.next();
+            f = itFriendlies.next();
             while(itEnemies.hasNext()){
                 e = itEnemies.next();
-                if(hasCollided(p, e)){
-                    p.CollidedWithEnemy(e.getAttackPower());
-                    e.collidedWithFriendly(p.getPosition());
+                if(hasCollided(f, e)){
+                    f.CollidedWithEnemy(e.getAttackPower());
+                    e.collidedWithFriendly(f.getPosition());
                 }
             }
         }
@@ -75,7 +79,43 @@ class CollisionHandler implements OnTick {
         }
     }
 
-    private boolean hasCollided(Entity entity1, Entity entity2) {
+    private void checkCollisionWithNonLivingObjects(){
+        Iterator<Friendly> itFriendlies = friendlies.iterator();
+        Friendly f;
+        Iterator<Projectile> itProjectiles = projectiles.iterator();
+        Projectile p;
+        Iterator<Enemy> itEnemies = enemies.iterator();
+        Enemy e;
+        Iterator<AllObjects> itNonLivingObjects = nonLivingObjects.iterator();
+        AllObjects n;
+
+        while(itNonLivingObjects.hasNext()){
+            n = itNonLivingObjects.next();
+            while(itFriendlies.hasNext()){
+                f = itFriendlies.next();
+                if(hasCollided(n, f)){
+                    f.collidedWithNonLivingObject(n);
+                }
+            }
+            while(itEnemies.hasNext()){
+                e = itEnemies.next();
+                if(hasCollided(n, e)){
+                    e.collidedWithNonLivingObject(n);
+                }
+            }
+            while(itProjectiles.hasNext()){
+                p = itProjectiles.next();
+                if(hasCollided(n, p)){
+                    p.collidedWithNonLivingObject();
+                }
+            }
+        }
+
+
+
+    }
+
+    private boolean hasCollided(AllObjects entity1, AllObjects entity2) {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitBoxRadiusX() ) >

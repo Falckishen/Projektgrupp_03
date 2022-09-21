@@ -2,7 +2,7 @@ package Model.Entities;
 
 import Utilities.EntityType;
 
-abstract class AllObjects {
+public abstract class AllObjects {
     private final EntityType entityType;
     private final int hitBoxRadiusX;
     private final int hitBoxRadiusY;
