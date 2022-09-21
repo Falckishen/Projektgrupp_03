@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 import Model.Entities.*;
 import Model.Weapons.WeaponFactory;
-import Utilities.Direction;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
@@ -56,18 +54,16 @@ public class Game {
         return player.getCurrentPosition();
     }
 
-    /*
-    public ArrayList<Monster> getMonstersAlive() {
-        return monstersAlive;
-    }
-    */
-
     public ArrayList<OnTick> getTickObservers(){
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
     }
 
     public ArrayList<Entity> getEnemies() {
         return (ArrayList<Entity>) entityCreator.getEnemies();
+    }
+
+    public boolean isAnyEnemiesAlive() {
+        return entityCreator.isAnyEnemiesAlive();
     }
 
     public ArrayList<Entity> getFriendlies() {

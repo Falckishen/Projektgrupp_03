@@ -6,7 +6,6 @@ import Utilities.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     List<Enemy> enemies;
@@ -47,8 +46,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         return projectiles;
     }
 
-    public Boolean getEnemiesExist() {
-        return (!enemies.isEmpty());
+    public boolean isAnyEnemiesAlive() {
+        return !enemies.isEmpty();
     }
 
     private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
