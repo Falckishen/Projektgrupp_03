@@ -3,9 +3,10 @@ package View;
 import Model.Entities.Entity;
 import Model.Entities.Monster;
 import Model.Entities.Player;
-import Model.Entities.Position;
+import Utilities.Position;
 
 public class ConversionQueryable {
+
     static Position transformWithPlayerPosition(Position position, Position playerPosition){
         return(new Position(position.getX()-playerPosition.getX(), position.getY()- playerPosition.getY()));
     }

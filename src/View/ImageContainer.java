@@ -1,18 +1,18 @@
 package View;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
-public class ImageContainer {
-    static String[] miscImagePaths = {"src/View/Images/NewBackgroundOOP.png", "src/View/Images/CrosshairImageOOP.png"};
-    static String[] PlayerImagePaths = {"src/View/Images/PlayerImageOOP.png"};
-    static String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
+class ImageContainer {
 
-    static BufferedImage[][] savedImagesMatrix;
+    private static final String[] miscImagePaths = {"src/View/Images/NewBackgroundOOP.png", "src/View/Images/CrosshairImageOOP.png"};
+    private static final String[] PlayerImagePaths = {"src/View/Images/PlayerImageOOP.png"};
+    private static final String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
+    private static BufferedImage[][] savedImagesMatrix;
 
-    public static void loadImages(){
+    static void loadImages() {
         savedImagesMatrix = new BufferedImage[UImageTypeEnum.values().length][0];
         savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.MISC)] = getLoadedFileList(miscImagePaths);
         savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.PLAYER)] = getLoadedFileList(PlayerImagePaths);
@@ -33,7 +33,7 @@ public class ImageContainer {
         return outputList;
     }
 
-    public static BufferedImage getImageFromTypeVariant(UImageTypeEnum type, int variant){
+    static BufferedImage getImageFromTypeVariant(UImageTypeEnum type, int variant){
         return(savedImagesMatrix[UImageTypeEnum.getIndex(type)][variant]);
     }
 }

@@ -1,11 +1,13 @@
 package Model.Entities;
 
 import Utilities.Direction;
+import Utilities.Position;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// TODO gör till ej public
 public class Monster extends Enemy {
     private Player currentPlayer;
     private Position playerPosition;
@@ -14,7 +16,7 @@ public class Monster extends Enemy {
         super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower, attackRange, playerPosition);
     }
 
-    public void setCurrentPlayer(Player p) {this.currentPlayer=p;}
+    void setCurrentPlayer(Player p) {this.currentPlayer=p;}
     // FOR MULTIPLAYER
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<>();
@@ -29,7 +31,7 @@ public class Monster extends Enemy {
         return positionList.get(indexOfSmallest);
     }
 
-    public Direction findDirectionToPosition(Position p) {
+    Direction findDirectionToPosition(Position p) {
         int vx = p.getX() - this.getCurrentPosition().getX();
         int vy = p.getY() - this.getCurrentPosition().getY();
         // Top is 0 degrees
@@ -87,6 +89,7 @@ public class Monster extends Enemy {
         setX(x);
         setY(y);
     }*/
+
     private void attack() {
 
     }

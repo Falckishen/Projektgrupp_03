@@ -2,6 +2,7 @@ package Model.Entities;
 
 import Model.OnTick;
 import Utilities.Direction;
+import Utilities.Position;
 
 public abstract class Entity implements OnTick {
     private int id;

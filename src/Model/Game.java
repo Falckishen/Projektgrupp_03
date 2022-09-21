@@ -5,34 +5,59 @@ import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import Model.Entities.*;
 import Model.Weapons.WeaponFactory;
+import Utilities.Position;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game {
 
-    private ArrayList<ViewObserver> viewObservers;
+    private final int mapRadius;
+    private final ArrayList<ViewObserver> viewObservers;
     private Player player;
-    private ArrayList<Integer> playerInputArrayList;
+    private final ArrayList<Integer> playerInputArrayList;
     private int round;
     private final EntityCreator entityCreator;
     private boolean enemiesSpawning;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
-    public Game() {
+    public Game(int mapRadius) {
+        this.mapRadius = mapRadius;
         this.playerInputArrayList = new ArrayList<Integer>();
-
         this.viewObservers = new ArrayList<>();
         this.round = 0;
         this.entityCreator = new EntityCreator();
         this.enemiesSpawning = false;
     }
 
+    /*------------------------------------------------- Start Game -------------------------------------------------*/
+
+    public void startGame() {
+        this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
+
+        Timer timer = new Timer();
+        int period = 17;
+        timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
+        // WorldUpdate runs as a thread, inputs are running parallel
+        // 1. task 2. delay 3. period
+        // 165 FPS = one update every 7  (6.0606) ms.
+        // 144 FPS = one update every 7  (6.944) ms.
+        // 60 FPS  = one update every 17 (16.667) ms.
+        // 30 FPS  = one update every 34 (33.333) ms.
+    }
+
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
+
+    public int getMapRadius() {
+        return mapRadius;
+    }
+
+    public AddProjectile getProjectileCreator(){ //for player when creating weapon
+        return entityCreator;
+    }
 
     public ArrayList<Integer> getPlayerInputArrayList() {
         return playerInputArrayList;
@@ -40,10 +65,6 @@ public class Game {
 
     public ArrayList<ViewObserver> getViewObservers() {
         return viewObservers;
-    }
-
-    public AddProjectile getProjectileCreator(){ //for player when creating weapon
-        return entityCreator;
     }
 
     public Player getPlayer() {
@@ -62,16 +83,16 @@ public class Game {
         return (ArrayList<Entity>) entityCreator.getEnemies();
     }
 
-    public boolean isAnyEnemiesAlive() {
-        return entityCreator.isAnyEnemiesAlive();
-    }
-
     public ArrayList<Entity> getFriendlies() {
         return (ArrayList<Entity>) entityCreator.getFriendlies();
     }
 
     public ArrayList<Entity> getProjectiles() {
         return (ArrayList<Entity>) entityCreator.getProjectiles();
+    }
+
+    public boolean isAnyEnemiesAlive() {
+        return entityCreator.isAnyEnemiesAlive();
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
@@ -81,20 +102,6 @@ public class Game {
     }
 
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
-
-    public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
-
-        Timer timer = new Timer();
-        int period = 17;
-        timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
-        // WorldUpdate runs as a thread, inputs are running parallel
-        // 1. task 2. delay 3. period
-        // 165 FPS = one update every 7  (6.0606) ms.
-        // 144 FPS = one update every 7  (6.944) ms.
-        // 60 FPS  = one update every 17 (16.667) ms.
-        // 30 FPS  = one update every 34 (33.333) ms.
-    }
 
     // Called when all enemies are dead
     void nextRound() {

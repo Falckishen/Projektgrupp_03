@@ -11,16 +11,16 @@ public class KeyboardInput {
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
     private final ArrayList<Integer> playerInputArrayList;
-    Action walkUpActionPressed;
-    Action walkLeftActionPressed;
-    Action walkDownActionPressed;
-    Action walkRightActionPressed;
-    Action walkUpActionReleased;
-    Action walkLeftActionReleased;
-    Action walkDownActionReleased;
-    Action walkRightActionReleased;
-    Action spacePressed;
-    Action spaceReleased;
+    private Action walkUpActionPressed;
+    private Action walkLeftActionPressed;
+    private Action walkDownActionPressed;
+    private Action walkRightActionPressed;
+    private Action walkUpActionReleased;
+    private Action walkLeftActionReleased;
+    private Action walkDownActionReleased;
+    private Action walkRightActionReleased;
+    private Action spacePressed;
+    private Action spaceReleased;
 
     public KeyboardInput(JComponent steve, ArrayList<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
@@ -95,6 +95,12 @@ public class KeyboardInput {
             }
         }
     }
+    public class spacePressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.add(KeyEvent.VK_SPACE);
+        }
+    }
     public class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -123,13 +129,6 @@ public class KeyboardInput {
             rightKeyPressed = false;
         }
     }
-    public class spacePressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.add(KeyEvent.VK_SPACE);
-        }
-    }
-
     public class spaceReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {

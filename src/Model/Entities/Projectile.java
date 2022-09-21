@@ -3,8 +3,9 @@ package Model.Entities;
 import Utilities.Direction;
 
 abstract class Projectile extends Entity {
+
     private int lifeLeft;
-    private int attackPower;
+    private final int attackPower;
 
     protected Projectile(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
         super(x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
@@ -24,7 +25,6 @@ abstract class Projectile extends Entity {
         if(lifeLeft>0){
             move();
             lifeLeft -= 1;
-        } else {
         }
     }
 
@@ -40,6 +40,4 @@ abstract class Projectile extends Entity {
 //            getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
 //        }
 //    }
-
-
 }

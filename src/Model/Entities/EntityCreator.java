@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
-    List<Enemy> enemies;
+    private List<Enemy> enemies;
     List<Friendly> friendlies;
     List<Projectile> projectiles;
     List<OnTick> tickObservers;
@@ -98,7 +98,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         tickObservers.add(m);
     }
 
-
     @Override
     public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
         Player p = new Player(coordX, coordY, keyboardInputs, weapon);
@@ -106,7 +105,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         tickObservers.add(p);
         return p;
     }
-
 
     @Override
     public void createSimpleProjectile(Direction direction, int velocity, int life, int attackPower) {

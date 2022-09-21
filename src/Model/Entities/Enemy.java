@@ -1,5 +1,7 @@
 package Model.Entities;
 
+import Utilities.Position;
+
 abstract class Enemy extends Entity {
     private final int attackPower;
     private final int attackRange;

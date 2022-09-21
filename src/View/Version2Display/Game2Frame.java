@@ -1,14 +1,13 @@
 package View.Version2Display;
 
-import Controller.*;
 import Model.Game;
-import View.DisplayInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Game2Frame extends JFrame implements DisplayInterface {
+
     public Game2Frame(int width, int height){
         setSize(new Dimension(width,height));
         setResizable(false);

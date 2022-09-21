@@ -3,24 +3,23 @@ package Model.Entities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import Model.Weapons.Weapon;
 import Utilities.Direction;
 
+// TODO Gör till ej public
 public class Player extends Friendly {
     private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 
-
     Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
         super(x, y, 25, 25, 5);
-        defaultSpeed = getSpeed();
         this.playerKeyInputs = playerInputs;
         this.weapon = weapon;
+        this.defaultSpeed = super.getSpeed();
     }
 
-    public void getNewWeapon(Weapon weapon){
+    void getNewWeapon(Weapon weapon){
         this.weapon = weapon;
     }
 
@@ -80,7 +79,8 @@ public class Player extends Friendly {
             }
         }
     }
-/*    private void move() {
+
+    /*    private void move() {
         if(!currentPlayerWalkingDirection.isEmpty()) {
             for (Direction direction : currentPlayerWalkingDirection) {
                 switch (direction) {
@@ -93,7 +93,7 @@ public class Player extends Friendly {
         }
     }*/
 
-    public void shootAttack() {
+    void shootAttack() {
         if(this.weapon != null) {
             this.weapon.actionShoot();
         }

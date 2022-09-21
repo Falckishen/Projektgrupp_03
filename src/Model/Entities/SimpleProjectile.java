@@ -24,7 +24,4 @@ class SimpleProjectile extends Projectile {
         addToHashMap();
     }
     */
-
-
-
 }

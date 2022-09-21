@@ -1,12 +1,11 @@
 package View;
 
-import Model.Entities.Position;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 class UFrameInterface {
+
     static JFrame createFrame(int width, int height){
         JFrame frame = new JFrame();
         frame.setSize(new Dimension(width,height));
@@ -23,7 +22,7 @@ class UFrameInterface {
         return(frame);
     }
 
-    static void paintImage(JFrame frame, BufferedImage image, int right, int down){
+    private static void paintImage(JFrame frame, BufferedImage image, int right, int down){
         Graphics g = frame.getBufferStrategy().getDrawGraphics();
         g.drawImage(image, right-(image.getWidth()/2), down-(image.getHeight()/2), null);
     }

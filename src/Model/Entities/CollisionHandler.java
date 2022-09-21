@@ -5,7 +5,7 @@ import Model.OnTick;
 
 import java.util.Iterator;
 
-public class CollisionHandler implements OnTick {
+class CollisionHandler implements OnTick {
     Iterable<Player> players;
     Iterable<Enemy> enemies;
     Iterable<Projectile> projectiles;

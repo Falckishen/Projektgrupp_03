@@ -1,33 +1,30 @@
 package View;
 
-import Controller.KeyboardInput;
-import Model.Entities.Entity;
-import Model.Entities.Monster;
-import Model.Game;
-import Model.Entities.Position;
-import Utilities.ViewObserver;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.swing.*;
+import Model.Entities.Entity;
+import Model.Game;
+import Utilities.Position;
+import Utilities.ViewObserver;
 
 public class GameView extends JComponent implements ViewObserver {
+
     private ScreenDirector screenDirector;
-    private Game game;
-    private JFrame frame;
-    private int displayWidth;
-    private int displayHeight;
-    private BufferedImage specialBorderBackground;
+    private final Game game;
+    private final JFrame frame;
+    private final int displayWidth;
+    private final int displayHeight;
+    private final BufferedImage specialBorderBackground;
 
     public GameView(Game game, int width, int height){
         ImageContainer.loadImages();
         this.frame = UFrameInterface.createFrame(width, height);
         this.displayWidth = width;
         this.displayHeight = height;
-        //new KeyboardInput(game, frame.getRootPane());
-        game.addViewObserver(this);
         this.game = game;
+        this.game.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
     }
 
@@ -35,14 +32,8 @@ public class GameView extends JComponent implements ViewObserver {
         return frame.getRootPane();
     }
 
-
-    /*public void addKeyListener(Game game){
-        screenDirector.addKeyListener(game);
-    }*/
-
-    // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override
-    public void drawWorld() {
+    public void drawFrame() {
         Position playerPosition = game.getPlayerPosition();
         paintBackground(playerPosition);
         paintEntities(game.getFriendlies(), playerPosition);

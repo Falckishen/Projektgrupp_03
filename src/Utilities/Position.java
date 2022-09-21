@@ -1,4 +1,4 @@
-package Model.Entities;
+package Utilities;
 
 public class Position {
 
