@@ -4,33 +4,16 @@ import Utilities.Direction;
 import Utilities.EntityType;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Iterator;
 
 public class Monster extends Enemy {
-    private Player currentPlayer; //remove
 
-    Monster(int hitBoxWidthRadius, int hitBoxHeightRadius, int x, int y, int speed, int attackPower, int attackRange, Position playerPosition) {
-        super(EntityType.monster, hitBoxWidthRadius, hitBoxHeightRadius, x, y, speed, attackPower, attackRange, playerPosition);
+    Monster(int hitBoxWidthRadius, int hitBoxHeightRadius, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
+        super(EntityType.monster, hitBoxWidthRadius, hitBoxHeightRadius, x, y, speed, attackPower, attackRange, friendliesIterator);
     }
 
-    Monster(int x, int y, Position playerPosition) {
-        super(EntityType.monster, 10, 10, x, y, 5, 1, 5, playerPosition);
-    }
-
-    public void setCurrentPlayer(Player p) {this.currentPlayer=p;}
-    // FOR MULTIPLAYER
-    private Position findClosestPosition(List<Position> positionList) {
-        List<Double> playerDistances = new ArrayList<>();
-        for (Position p : positionList){
-            Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
-                    Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
-            playerDistances.add(distance);
-        }
-        Double smallest = Collections.min(playerDistances);
-        int indexOfSmallest = playerDistances.indexOf(smallest);
-
-        return positionList.get(indexOfSmallest);
+    Monster(int x, int y, Iterable<Friendly> friendliesIterator) {
+        super(EntityType.monster, 10, 10, x, y, 5, 1, 5, friendliesIterator);
     }
 
     /**
@@ -104,9 +87,13 @@ public class Monster extends Enemy {
     public void doOnTick() {
         // findClosestPosition()
         // attack();
-        if(currentPlayer != null) {
-            this.setDirection(findDirectionToPosition(currentPlayer.getCurrentPosition()));
+        Iterator<Friendly> friendlyIterator = getFriendliesIterator().iterator();
+        ArrayList<Position> positionsOfFriendlies = new ArrayList<>();
+        while(friendlyIterator.hasNext()){
+            positionsOfFriendlies.add(friendlyIterator.next().getCurrentPosition());
         }
+        this.setDirection(findDirectionToPosition(findClosestPosition(positionsOfFriendlies)));
+
         move();
     }
 }
