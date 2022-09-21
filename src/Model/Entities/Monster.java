@@ -14,7 +14,7 @@ class Monster extends Enemy {
     }
 
     Monster(int x, int y, Iterable<Friendly> friendliesIterator) {
-        super(EntityType.monster, 50, 50, x, y, 5, 1, 5, friendliesIterator);
+        super(EntityType.monster, 50, 50, x, y, 3, 1, 5, friendliesIterator);
     }
 
     /**
@@ -24,7 +24,7 @@ class Monster extends Enemy {
      */
     public Direction findDirectionToPosition(Position p) {
         int vx = p.getX() - this.getPosition().getX();
-        int vy = p.getY() - this.getPosition().getY();
+        int vy = this.getPosition().getY() - p.getY();
         // Top is 0 degrees
         int ux = 0;
         int uy = 1;
