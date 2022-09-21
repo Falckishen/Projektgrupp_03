@@ -27,6 +27,10 @@ public abstract class Entity implements OnTick {
 
     //protected int getId(){return id;}
 
+    public EntityType getEntityType(){
+        return entityType;
+    }
+
     public Position getCurrentPosition() {
         return coordinate;
     }
