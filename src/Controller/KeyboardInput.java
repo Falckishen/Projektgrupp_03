@@ -65,7 +65,6 @@ public class KeyboardInput {
             if (!upKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_W);
                 upKeyPressed = true;
-                System.out.println("W pressed");
             }
         }
     }
@@ -75,7 +74,6 @@ public class KeyboardInput {
             if (!leftKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_A);
                 leftKeyPressed = true;
-                System.out.println("A pressed");
             }
         }
     }
@@ -85,7 +83,6 @@ public class KeyboardInput {
             if (!downKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_S);
                 downKeyPressed = true;
-                System.out.println("S pressed");
             }
         }
     }
@@ -95,7 +92,6 @@ public class KeyboardInput {
             if (!rightKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_D);
                 rightKeyPressed = true;
-                System.out.println("D pressed");
             }
         }
     }
@@ -104,7 +100,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
             upKeyPressed = false;
-            System.out.println("W released");
         }
     }
     public class WalkLeftActionReleased extends AbstractAction{
@@ -112,7 +107,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
             leftKeyPressed = false;
-            System.out.println("A released");
         }
     }
     public class WalkDownActionReleased extends AbstractAction{
@@ -120,7 +114,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
             downKeyPressed = false;
-            System.out.println("S released");
         }
     }
     public class WalkRightActionReleased extends AbstractAction{
@@ -128,14 +121,12 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
             rightKeyPressed = false;
-            System.out.println("D released");
         }
     }
     public class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.add(KeyEvent.VK_SPACE);
-            System.out.println("bam");
         }
     }
 
@@ -143,7 +134,6 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
-            System.out.println("inte längre bam");
         }
     }
 }
