@@ -35,7 +35,7 @@ public class CollisionHandler implements OnTick {
                 e = itEnemies.next();
                 if(hasCollided(p, e)){
                     p.CollidedWithEnemy(e.getAttackPower());
-                    e.collidedWithPlayer(p.getCurrentPosition());
+                    e.collidedWithFriendly(p.getCurrentPosition());
                 }
             }
         }

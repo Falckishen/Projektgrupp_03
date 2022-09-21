@@ -2,16 +2,21 @@ package Model.Entities;
 
 import Utilities.EntityType;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 abstract class Enemy extends Entity {
     private final int attackPower;
     private final int attackRange;
-    private Position playerPosition;
+    private Iterable<Friendly> friendliesIterator;
+    //private Position closestFriendlyPosition;
 
-    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int attackPower, int attackRange, Position playerPosition) {
+    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed);
         this.attackPower = attackPower;
         this.attackRange = attackRange;
-        this.playerPosition = playerPosition;
+        this.friendliesIterator = friendliesIterator;
     }
 
     protected int getAttackPower() {
@@ -21,7 +26,26 @@ abstract class Enemy extends Entity {
         return attackRange;
     }
 
-    protected void collidedWithPlayer(Position playerPosition){
+    protected Iterable<Friendly> getFriendliesIterator() {
+        return friendliesIterator;
+    }
+
+    // FOR MULTIPLAYER// (lists)
+    protected Position findClosestPosition(List<Position> positionList) {
+        List<Double> playerDistances = new ArrayList<>();
+        for (Position p : positionList){
+            Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
+                    Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
+            playerDistances.add(distance);
+        }
+        Double smallest = Collections.min(playerDistances);
+        int indexOfSmallest = playerDistances.indexOf(smallest);
+
+        return positionList.get(indexOfSmallest);
+    }
+
+
+    protected void collidedWithFriendly(Position friendlyPosition){
         //TODO knocked back from player
     }
 
