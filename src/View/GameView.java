@@ -2,8 +2,7 @@ package View;
 
 import Controller.KeyboardInput;
 import Model.Entities.Entity;
-import Model.Entities.Monster;
-import Model.Entities.Player;
+
 import Model.Game;
 import Model.Entities.Position;
 import Utilities.EntityType;

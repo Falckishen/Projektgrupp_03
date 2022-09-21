@@ -60,23 +60,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
     @Override
-    public void createMonster(Player p) {
-       /* Random rand = new Random();
-        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
-        if (worldWidthRadius % 2 == 0){
-            worldWidthRadius = worldWidthRadius *(-1);}
-        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
-        if (worldHeightRadius % 2 == 0){
-            worldHeightRadius = worldHeightRadius *(-1);} */
-
-        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-        Monster m = new Monster(temp1, temp2, friendlies);
-        enemies.add(m);
-        tickObservers.add(m);
-    }
-
-    @Override
     public void createMonster() {
         /* Random rand = new Random();
         int worldWidthRadius = rand.nextInt(WorldWidthRadius);

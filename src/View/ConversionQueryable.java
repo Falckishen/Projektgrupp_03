@@ -1,8 +1,8 @@
 package View;
 
 import Model.Entities.Entity;
-import Model.Entities.Monster;
-import Model.Entities.Player;
+
+
 import Model.Entities.Position;
 import Utilities.EntityType;
 

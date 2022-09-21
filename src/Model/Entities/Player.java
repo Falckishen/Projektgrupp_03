@@ -8,7 +8,7 @@ import Model.Weapons.Weapon;
 import Utilities.Direction;
 import Utilities.EntityType;
 
-public class Player extends Friendly {
+class Player extends Friendly {
     private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
