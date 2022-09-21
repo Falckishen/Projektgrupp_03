@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import Model.Entities.Player;
 import Model.Weapons.Weapon;
 
 import java.util.List;
