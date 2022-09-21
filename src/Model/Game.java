@@ -5,28 +5,29 @@ import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import Model.Entities.*;
 import Model.Weapons.WeaponFactory;
 import Utilities.EntityType;
+import Utilities.Position;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game {
 
-    private ArrayList<ViewObserver> viewObservers;
+    private final int worldMapRadius;
+    private final ArrayList<ViewObserver> viewObservers;
     //private Player player;
-    private ArrayList<Integer> playerInputArrayList;
+    private final ArrayList<Integer> playerInputArrayList;
     private int round;
     private final EntityCreator entityCreator;
     private boolean enemiesSpawning;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
-    public Game() {
+    public Game(int worldMapRadius) {
+        this.worldMapRadius = worldMapRadius;
         this.playerInputArrayList = new ArrayList<Integer>();
-
         this.viewObservers = new ArrayList<>();
         this.round = 0;
         this.entityCreator = new EntityCreator();

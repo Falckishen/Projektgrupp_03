@@ -6,9 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Game2Frame extends JFrame implements DisplayInterface {
+class Game2Frame extends JFrame implements DisplayInterface {
 
-    public Game2Frame(int width, int height){
+    Game2Frame(int width, int height){
         setSize(new Dimension(width,height));
         setResizable(false);
         setTitle("(╯°□°）╯︵ ┻━┻");

@@ -3,7 +3,7 @@ package View.Version2Display;
 import Model.Game;
 import java.awt.image.BufferedImage;
 
-public interface DisplayInterface {
+interface DisplayInterface {
 
     void paintImageAtVector(BufferedImage image, int x, int y);
 

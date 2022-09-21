@@ -1,11 +1,11 @@
 package View;
 
-public enum UImageTypeEnum {
+enum UImageTypeEnum {
     MISC, PLAYER, PLAYERPROJECTILE, GRUNT;
 
-    private static UImageTypeEnum[] allEnums = UImageTypeEnum.values();
+    private static final UImageTypeEnum[] allEnums = UImageTypeEnum.values();
 
-    public static int getIndex(UImageTypeEnum imageEnum){
+    static int getIndex(UImageTypeEnum imageEnum){
         for(int i=0; i < allEnums.length; i++){
             if(imageEnum.equals(allEnums[i])){
                 return(i);

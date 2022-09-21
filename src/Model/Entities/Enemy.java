@@ -1,6 +1,7 @@
 package Model.Entities;
 
 import Utilities.EntityType;
+import Utilities.Position;
 
 import java.util.ArrayList;
 import java.util.Collections;

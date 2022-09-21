@@ -1,6 +1,7 @@
 package Model.Entities;
 
 import Utilities.EntityType;
+import Utilities.Position;
 
 public abstract class AllObjects {
     private final EntityType entityType;

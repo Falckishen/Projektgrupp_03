@@ -1,12 +1,11 @@
 package View;
 
 import Model.Entities.Entity;
-
-
-import Model.Entities.Position;
 import Utilities.EntityType;
+import Utilities.Position;
 
-public class ConversionQueryable {
+class ConversionQueryable {
+
     static Position transformWithPlayerPosition(Position position, Position playerPosition){
         return(new Position(position.getX()-playerPosition.getX(), position.getY()- playerPosition.getY()));
     }

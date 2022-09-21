@@ -2,6 +2,7 @@ package Model.Entities;
 
 import Utilities.Direction;
 import Utilities.EntityType;
+import Utilities.Position;
 
 import java.util.ArrayList;
 import java.util.Iterator;
