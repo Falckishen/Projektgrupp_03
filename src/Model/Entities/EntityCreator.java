@@ -115,7 +115,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     }
 
     @Override
-    public void createWorldWalls(int worldRadiusX, int worldRadiusY) {
+    public void createWorldBorderWalls(int worldRadiusX, int worldRadiusY) {
         int wallThicknessRadius = 10;
         nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,(worldRadiusX*(-1)), 0)); //x left
         nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,worldRadiusX,0)); //x right
