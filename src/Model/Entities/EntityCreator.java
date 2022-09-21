@@ -6,6 +6,7 @@ import Utilities.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     List<Enemy> enemies;
@@ -55,8 +56,35 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     }
 
     //temporary
+//    @Override
+//    public void createMonster() {
+//       /* Random rand = new Random();
+//        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
+//        if (worldWidthRadius % 2 == 0){
+//            worldWidthRadius = worldWidthRadius *(-1);}
+//        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
+//        if (worldHeightRadius % 2 == 0){
+//            worldHeightRadius = worldHeightRadius *(-1);} */
+//        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+//        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+//        int temp3 = 10;
+//        int temp4 = 10;
+//        int temp5 = 5;
+//        int temp6 = 1;
+//        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
+//        enemies.add(m);
+//        tickObservers.add(m);
+//    }
     @Override
-    public void createMonster() {
+    public void createMonster(Player p) {
+       /* Random rand = new Random();
+        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
+        if (worldWidthRadius % 2 == 0){
+            worldWidthRadius = worldWidthRadius *(-1);}
+        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
+        if (worldHeightRadius % 2 == 0){
+            worldHeightRadius = worldHeightRadius *(-1);} */
+
         int temp1 = 0;
         int temp2 = 0;
         int temp3 = 10;
@@ -64,10 +92,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         int temp5 = 5;
         int temp6 = 1;
         Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
+        m.setCurrentPlayer(p);
         enemies.add(m);
         tickObservers.add(m);
     }
 
+
+
+    // TESTING PURPOSES
     @Override
     public Monster createMonster(int coordX, int coordY, int hitboxWidthRadius, int hitboxHeightRadius, int speed, int attackPower) {
         Monster m = new Monster(coordX, coordY, hitboxWidthRadius, hitboxHeightRadius, speed, attackPower);
@@ -78,7 +110,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
 
 
     @Override
-    public Player createPlayer(int coordX, int coordY, List keyboardInputs, Weapon weapon) {
+    public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
         Player p = new Player(coordX, coordY, keyboardInputs, weapon);
         friendlies.add(p);
         tickObservers.add(p);

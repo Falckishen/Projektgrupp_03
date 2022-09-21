@@ -14,11 +14,9 @@ public class Monster extends Enemy {
         super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower);
         currentPlayer = null;
     }
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, Player currentPlayer) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, 1);
-        this.currentPlayer = currentPlayer;
-    }
 
+    public void setCurrentPlayer(Player p) {this.currentPlayer=p;}
+    // FOR MULTIPLAYER
     private Position findClosestPosition(List<Position> positionList) {
         List<Double> playerDistances = new ArrayList<>();
         for (Position p : positionList){
@@ -48,17 +46,19 @@ public class Monster extends Enemy {
         double cos =  num / den;
         double angle = Math.acos(cos);
 
-        if (angle < Math.PI / 4) {
+
+        if (angle < Math.PI / 8) {
             return Direction.UP;
         }
+
         if (vx >= 0) {
-            if (angle < 3 * Math.PI / 4 ) {
-                return Direction.RIGHT;
-            }
+            if (angle < 3 * Math.PI/8) return Direction.RIGHT_UP;
+            if (angle < 5 * Math.PI/8) return Direction.RIGHT;
+            if (angle < 7 * Math.PI / 8) return Direction.RIGHT_DOWN;
         } else {
-            if (angle < 3 * Math.PI / 4 ) {
-                return Direction.LEFT;
-            }
+            if (angle < 3 * Math.PI/8) return Direction.LEFT_UP;
+            if (angle < 5 * Math.PI/8) return Direction.LEFT;
+            if (angle < 7 * Math.PI / 8) return Direction.LEFT_DOWN;
         }
         return Direction.DOWN;
     }
@@ -95,7 +95,10 @@ public class Monster extends Enemy {
     @Override
     public void doOnTick() {
         // findClosestPosition()
-        move();
         // attack();
+        if(currentPlayer != null) {
+            findDirectionToPosition(currentPlayer.getCurrentPosition());
+        }
+        move();
     }
 }

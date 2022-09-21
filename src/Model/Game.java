@@ -55,10 +55,12 @@ public class Game {
     public Position getPlayerPosition() {
         return player.getCurrentPosition();
     }
+
     /*
     public ArrayList<Monster> getMonstersAlive() {
         return monstersAlive;
-    }*/
+    }
+    */
 
     public ArrayList<OnTick> getTickObservers(){
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
@@ -76,12 +78,6 @@ public class Game {
         return (ArrayList<Entity>) entityCreator.getProjectiles();
     }
 
-    /*--------------------------------------------------- Setters ---------------------------------------------------*/
-
-    public void setPlayerInputArrayList(ArrayList<Direction> playerInputArrayList) {
-        this.playerInputArrayList = playerInputArrayList;
-    }
-
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
 
     public void addViewObserver(ViewObserver viewObserver) {
@@ -92,9 +88,6 @@ public class Game {
 
     public void startGame() {
         this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
-
-       // this.player = entityCreator.createPlayer(0,0, currentPlayerDirections);
-      //  this.monstersAlive = new ArrayList<>();
 
         Timer timer = new Timer();
         int period = 17;
@@ -113,7 +106,8 @@ public class Game {
         round++;
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         int delay = 5;
-        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, entityCreator.getEnemiesExist()), delay, TimeUnit.SECONDS);
+        scheduler.schedule(new SpawnEnemies(this, entityCreator, round), delay, TimeUnit.SECONDS);
+        System.out.println("ROUND: " + round);
         // 1. task 2. delay 3. time unit
     }
 

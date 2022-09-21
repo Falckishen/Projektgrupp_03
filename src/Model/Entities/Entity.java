@@ -67,4 +67,30 @@ public abstract class Entity implements OnTick {
     protected boolean getIsDead() {
         return isDead;
     }
+
+    protected void move(){
+        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
+        switch (direction) {
+            case UP -> setY(getCurrentPosition().getY()-getSpeed());
+            case LEFT_UP -> {
+                setX(getCurrentPosition().getX()-diagSpeed);
+                setY(getCurrentPosition().getY()-diagSpeed);
+            }
+            case RIGHT_UP -> {
+                setX(getCurrentPosition().getX()+diagSpeed);
+                setY(getCurrentPosition().getY()-diagSpeed);
+            }
+            case DOWN -> setY(getCurrentPosition().getY()+getSpeed());
+            case LEFT_DOWN -> {
+                setX(getCurrentPosition().getX()-diagSpeed);
+                setY(getCurrentPosition().getY()+diagSpeed);
+            }
+            case RIGHT_DOWN -> {
+                setX(getCurrentPosition().getX()+diagSpeed);
+                setY(getCurrentPosition().getY()+diagSpeed);
+            }
+            case LEFT -> setX(getCurrentPosition().getX()-getSpeed());
+            case RIGHT -> setX(getCurrentPosition().getX()+getSpeed());
+        }
+    }
 }

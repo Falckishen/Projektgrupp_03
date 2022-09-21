@@ -102,7 +102,7 @@ public class KeyboardInput {
     public class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_W);
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
             upKeyPressed = false;
             System.out.println("W released");
         }
@@ -110,7 +110,7 @@ public class KeyboardInput {
     public class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_A);
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
             leftKeyPressed = false;
             System.out.println("A released");
         }
@@ -118,7 +118,7 @@ public class KeyboardInput {
     public class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_S);
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
             downKeyPressed = false;
             System.out.println("S released");
         }
@@ -126,7 +126,7 @@ public class KeyboardInput {
     public class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_D);
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
             rightKeyPressed = false;
             System.out.println("D released");
         }
@@ -134,7 +134,7 @@ public class KeyboardInput {
     public class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.add(KeyEvent.VK_SPACE)
+            playerInputArrayList.add(KeyEvent.VK_SPACE);
             System.out.println("bam");
         }
     }
@@ -142,7 +142,7 @@ public class KeyboardInput {
     public class spaceReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(KeyEvent.VK_SPACE)
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
             System.out.println("inte längre bam");
         }
     }

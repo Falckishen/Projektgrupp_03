@@ -45,6 +45,6 @@ public class Game2Frame extends JFrame implements DisplayInterface {
 
     @Override
     public void implementKeyListener(Game game) {
-        new KeyboardInput(game, this.getRootPane());
+        //new KeyboardInput(game, this.getRootPane());
     }
 }

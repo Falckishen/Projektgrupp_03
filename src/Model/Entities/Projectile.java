@@ -28,18 +28,18 @@ abstract class Projectile extends Entity {
         }
     }
 
-    private void move(){
-        //doesnt handle collision
-        if (getDirection() == Direction.LEFT){
-            getCurrentPosition().setX( getCurrentPosition().getX() - getSpeed() );
-        } else if (getDirection() == Direction.RIGHT){
-            getCurrentPosition().setX( getCurrentPosition().getX() + getSpeed() );
-        } else if (getDirection() == Direction.UP){
-            getCurrentPosition().setY( getCurrentPosition().getY() + getSpeed() );
-        } else if (getDirection() == Direction.DOWN){
-            getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
-        }
-    }
+//    protected void move(){
+//        //doesnt handle collision
+//        if (getDirection() == Direction.LEFT){
+//            getCurrentPosition().setX( getCurrentPosition().getX() - getSpeed() );
+//        } else if (getDirection() == Direction.RIGHT){
+//            getCurrentPosition().setX( getCurrentPosition().getX() + getSpeed() );
+//        } else if (getDirection() == Direction.UP){
+//            getCurrentPosition().setY( getCurrentPosition().getY() + getSpeed() );
+//        } else if (getDirection() == Direction.DOWN){
+//            getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
+//        }
+//    }
 
 
 }

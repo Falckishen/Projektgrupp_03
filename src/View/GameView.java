@@ -25,11 +25,20 @@ public class GameView extends JComponent implements ViewObserver {
         this.frame = UFrameInterface.createFrame(width, height);
         this.displayWidth = width;
         this.displayHeight = height;
-        new KeyboardInput(game, frame.getRootPane());
+        //new KeyboardInput(game, frame.getRootPane());
         game.addViewObserver(this);
         this.game = game;
         specialBorderBackground = generateSpecialBorderBackground();
     }
+
+    public JComponent getFrameRootPane() {
+        return frame.getRootPane();
+    }
+
+
+    /*public void addKeyListener(Game game){
+        screenDirector.addKeyListener(game);
+    }*/
 
     // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override

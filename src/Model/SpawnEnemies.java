@@ -9,21 +9,21 @@ public class SpawnEnemies implements Runnable {
 
     private final Game game;
     private final EntityCreator entityCreator;
-    private int round;
-    private boolean monstersAlive; //TODO doesnt update anymore fix
+    private final int round;
 
-    public SpawnEnemies(Game game, EntityCreator entityCreator, int round, boolean monstersAlive) {
+    public SpawnEnemies(Game game, EntityCreator entityCreator, int round) {
         this.game = game;
         this.entityCreator = entityCreator;
         this.round = round;
-        this.monstersAlive = monstersAlive;
     }
 
     @Override
     public void run() {
-        // TODO finish monster-spawning
-        //monstersAlive.add(entityCreator.createMonster(50, 50, 10, 10, 5));
-
+        // Number of entities = round-number^2
+        for (int i = 0; i < Math.pow(round, 2); i++) {
+            entityCreator.createMonster(game.getPlayer());
+        }
         game.enemiesHaveSpawned();
+        System.out.println("ENEMIES SPAWNED: " + Math.pow(round, 2));
     }
 }

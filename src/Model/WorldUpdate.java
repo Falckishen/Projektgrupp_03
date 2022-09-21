@@ -20,8 +20,6 @@ class WorldUpdate extends TimerTask {
         this.maxAllowedDelay = maxAllowedDelay;
         this.viewObservers = game.getViewObservers();
         this.tickObservers = game.getTickObservers();
-    //    this.player = game.getPlayer();
-    //    this.monstersAlive = game.getMonstersAlive();
     }
 
     @Override
@@ -43,7 +41,7 @@ class WorldUpdate extends TimerTask {
             }
         }
 
-
+        // TODO byt inte runda när enemies lever
         if (!game.isEnemiesSpawning()) {
             game.nextRound();
         }
