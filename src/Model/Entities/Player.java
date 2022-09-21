@@ -28,6 +28,7 @@ public class Player extends Friendly {
     public void doOnTick() {
         changeDirection();
         move(); // Change to super() when entity has doOnTick
+        shootAttack();
     }
 
     private void changeDirection() {
@@ -94,7 +95,7 @@ public class Player extends Friendly {
     }*/
 
     public void shootAttack() {
-        if(this.weapon != null) {
+        if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
             this.weapon.actionShoot();
         }
     }

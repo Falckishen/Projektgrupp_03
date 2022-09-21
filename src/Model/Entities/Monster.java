@@ -57,12 +57,12 @@ public class Monster extends Enemy {
         }
 
         if (vx >= 0) {
-            if (angle < 3 * Math.PI/8) return Direction.RIGHT_UP;
-            if (angle < 5 * Math.PI/8) return Direction.RIGHT;
+            if (angle < 3 * Math.PI / 8) return Direction.RIGHT_UP;
+            if (angle < 5 * Math.PI / 8) return Direction.RIGHT;
             if (angle < 7 * Math.PI / 8) return Direction.RIGHT_DOWN;
         } else {
-            if (angle < 3 * Math.PI/8) return Direction.LEFT_UP;
-            if (angle < 5 * Math.PI/8) return Direction.LEFT;
+            if (angle < 3 * Math.PI / 8) return Direction.LEFT_UP;
+            if (angle < 5 * Math.PI / 8) return Direction.LEFT;
             if (angle < 7 * Math.PI / 8) return Direction.LEFT_DOWN;
         }
         return Direction.DOWN;
@@ -102,7 +102,7 @@ public class Monster extends Enemy {
         // findClosestPosition()
         // attack();
         if(currentPlayer != null) {
-            findDirectionToPosition(currentPlayer.getCurrentPosition());
+            this.setDirection(findDirectionToPosition(currentPlayer.getCurrentPosition()));
         }
         move();
     }
