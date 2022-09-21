@@ -1,13 +1,14 @@
 package Model.Entities;
 
 import Utilities.Direction;
+import Utilities.EntityType;
 
 abstract class Projectile extends Entity {
     private int lifeLeft;
     private int attackPower;
 
-    protected Projectile(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
-        super(x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
+    protected Projectile(EntityType entityType, int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
+        super(entityType, x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
         this.attackPower = attackPower;

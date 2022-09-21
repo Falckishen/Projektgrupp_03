@@ -1,12 +1,14 @@
 package Model.Entities;
 
+import Utilities.EntityType;
+
 abstract class Enemy extends Entity {
     private final int attackPower;
     private final int attackRange;
     private Position playerPosition;
 
-    protected Enemy(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed, int attackPower, int attackRange, Position playerPosition) {
-        super(x, y, hitBoxRadiusX, hitBoxRadiusY, speed);
+    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int attackPower, int attackRange, Position playerPosition) {
+        super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed);
         this.attackPower = attackPower;
         this.attackRange = attackRange;
         this.playerPosition = playerPosition;

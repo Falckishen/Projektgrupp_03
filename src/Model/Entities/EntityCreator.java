@@ -21,7 +21,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         addCollisionHandler(enemies, friendlies, projectiles);
     }
 
-    //used for testing (not connected to collision)
     public EntityCreator(){
         this.enemies = new ArrayList<Enemy>();
         this.friendlies = new ArrayList<Friendly>();
@@ -33,6 +32,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
         tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
     }
+
+    /*------------------------------------------------ Getters ------------------------------------------------------*/
 
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
@@ -55,26 +56,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         return !enemies.isEmpty();
     }
 
-    //temporary
-//    @Override
-//    public void createMonster() {
-//       /* Random rand = new Random();
-//        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
-//        if (worldWidthRadius % 2 == 0){
-//            worldWidthRadius = worldWidthRadius *(-1);}
-//        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
-//        if (worldHeightRadius % 2 == 0){
-//            worldHeightRadius = worldHeightRadius *(-1);} */
-//        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-//        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-//        int temp3 = 10;
-//        int temp4 = 10;
-//        int temp5 = 5;
-//        int temp6 = 1;
-//        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
-//        enemies.add(m);
-//        tickObservers.add(m);
-//    }
+    /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
+
     @Override
     public void createMonster(Player p) {
        /* Random rand = new Random();
@@ -85,19 +68,15 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         if (worldHeightRadius % 2 == 0){
             worldHeightRadius = worldHeightRadius *(-1);} */
 
-        int temp1 = 0;
-        int temp2 = 0;
-        int temp3 = 10;
-        int temp4 = 10;
-        int temp5 = 5;
-        int temp6 = 1;
-        int temp7 = 1;
-        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6, temp7, p.getCurrentPosition());
+        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+        Monster m = new Monster(temp1, temp2, p.getCurrentPosition());
         m.setCurrentPlayer(p);
         enemies.add(m);
         tickObservers.add(m);
     }
 
+    /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
     public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
@@ -107,6 +86,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         return p;
     }
 
+    /*----------------------------------- AddProjectile (used by Weapon class) --------------------------------------*/
 
     @Override
     public void createSimpleProjectile(Direction direction, int velocity, int life, int attackPower) {

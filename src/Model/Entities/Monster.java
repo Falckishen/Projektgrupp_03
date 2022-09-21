@@ -1,17 +1,21 @@
 package Model.Entities;
 
 import Utilities.Direction;
+import Utilities.EntityType;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Monster extends Enemy {
-    private Player currentPlayer;
-    private Position playerPosition;
+    private Player currentPlayer; //remove
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower, int attackRange, Position playerPosition) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower, attackRange, playerPosition);
+    Monster(int hitBoxWidthRadius, int hitBoxHeightRadius, int x, int y, int speed, int attackPower, int attackRange, Position playerPosition) {
+        super(EntityType.monster, hitBoxWidthRadius, hitBoxHeightRadius, x, y, speed, attackPower, attackRange, playerPosition);
+    }
+
+    Monster(int x, int y, Position playerPosition) {
+        super(EntityType.monster, 10, 10, x, y, 5, 1, 5, playerPosition);
     }
 
     public void setCurrentPlayer(Player p) {this.currentPlayer=p;}

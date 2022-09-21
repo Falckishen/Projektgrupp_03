@@ -6,6 +6,7 @@ import java.util.List;
 
 import Model.Weapons.Weapon;
 import Utilities.Direction;
+import Utilities.EntityType;
 
 public class Player extends Friendly {
     private final List<Integer> playerKeyInputs;
@@ -14,7 +15,7 @@ public class Player extends Friendly {
 
 
     Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
-        super(x, y, 25, 25, 5);
+        super(EntityType.player, x, y, 25, 25, 5);
         defaultSpeed = getSpeed();
         this.playerKeyInputs = playerInputs;
         this.weapon = weapon;
