@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageContainer {
-    static String[] miscImagePaths = {"src/View/Images/NewBackgroundOOP.png"};
+    static String[] miscImagePaths = {"src/View/Images/NewBackgroundOOP.png", "src/View/Images/CrosshairImageOOP.png"};
     static String[] PlayerImagePaths = {"src/View/Images/PlayerImageOOP.png"};
     static String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
 

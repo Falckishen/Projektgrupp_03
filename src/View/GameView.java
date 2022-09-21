@@ -2,6 +2,7 @@ package View;
 
 import Controller.KeyboardInput;
 import Model.Entities.Entity;
+import Model.Entities.Monster;
 import Model.Game;
 import Model.Entities.Position;
 import Utilities.ViewObserver;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class GameView extends JComponent implements ViewObserver {
     private ScreenDirector screenDirector;
@@ -27,41 +29,20 @@ public class GameView extends JComponent implements ViewObserver {
         game.addViewObserver(this);
         this.game = game;
         specialBorderBackground = generateSpecialBorderBackground();
-
-        /*screenDirector = new ScreenDirector();
-        ImageContainer.loadImages();
-        screenDirector.startGameScreen(game);
-        game.addViewObserver(this);
-        this.game = game;*/
     }
-
-
-    /*public void addKeyListener(Game game){
-        screenDirector.addKeyListener(game);
-    }*/
 
     // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override
     public void drawWorld() {
         Position playerPosition = game.getPlayerPosition();
         paintBackground(playerPosition);
-        paintPlayer();
+        paintEntities(game.getFriendlies(), playerPosition);
+        paintEntities(game.getEnemies(), playerPosition);
         refreshScreen();
-        /*Position playerPosition = game.getPlayerPosition();
-        screenDirector.inputPlayerPosition(playerPosition);
-        screenDirector.paintBackground();
-        screenDirector.paintSpriteRelativeToWorld(ImageContainer.getImageFromTypeAndVariant(0,0), playerPosition);
-        /*paintEntities();*/
-        //screenDirector.refreshScreen();
     }
 
     private void refreshScreen(){
         UFrameInterface.displayBuffer(frame);
-    }
-
-    private void paintPlayer(){
-        BufferedImage player = ImageContainer.getImageFromTypeVariant(UImageTypeEnum.PLAYER, 0);
-        UFrameInterface.paintImageRelativeToCenter(frame, player, 0, 0);
     }
 
     private void paintBackground(Position playerPosition){
@@ -89,10 +70,15 @@ public class GameView extends JComponent implements ViewObserver {
         return(outputImage);
     }
 
-    private void paintEntities(Entity[] entities){
-        /*for(Entity entity : entities){
-            Position pos = entity.getCurrentPosition();
-            screenDirector.paintSpriteRelativeToWorld(ImageContainer.getImageFromTypeAndVariant(entity.type, entity.state), pos.getX(), pos.getY());
-        }*/
+    private void paintEntities(ArrayList<Entity> entities, Position playerPosition){
+        for(Entity entity : entities){
+            paintEntity(entity, playerPosition);
+        }
+    }
+
+    private void paintEntity(Entity entity, Position playerPosition){
+        Position pos = entity.getCurrentPosition();
+        pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
+        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), 0), pos.getX(), pos.getY());
     }
 }

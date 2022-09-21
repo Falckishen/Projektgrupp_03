@@ -1,5 +1,7 @@
 package View;
 
+import Model.Entities.Position;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,6 +17,8 @@ class UFrameInterface {
         frame.setUndecorated(true);
         frame.setVisible(true);
         frame.createBufferStrategy(2);
+
+        frame.setCursor(frame.getToolkit().createCustomCursor(ImageContainer.getImageFromTypeVariant(UImageTypeEnum.MISC, 1), new Point(16, 16), null));
 
         return(frame);
     }
