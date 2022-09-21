@@ -1,11 +1,10 @@
 package Model.Entities;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import Utilities.Direction;
 import Utilities.EntityType;
 import Utilities.Position;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 class Monster extends Enemy {
 
@@ -22,14 +21,15 @@ class Monster extends Enemy {
      * @param p
      * @return a direction towards Position p
      */
-    public Direction findDirectionToPosition(Position p) {
+
+    private Direction findDirectionToPosition(Position p) {
         int vx = p.getX() - this.getPosition().getX();
         int vy = p.getY() - this.getPosition().getY();
         // Top is 0 degrees
         int ux = 0;
         int uy = 1;
 
-        int num = (vx*ux + vy*uy);
+        int num = vy * uy;
         double den = (Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2)) * (Math.sqrt(Math.pow(ux, 2) + Math.pow(uy, 2))) );
         // To avoid division by 0
         if (den == 0) {
@@ -64,7 +64,7 @@ class Monster extends Enemy {
         return Direction.UP;
     }
 
-/*    void move() {
+    /*    void move() {
         // Position closePosition = findClosestPosition(listOfPlayers);
         // Direction goToDirection = findDirectionToPosition(closePosition);
         Direction goToDirection = Direction.UP;
@@ -80,6 +80,7 @@ class Monster extends Enemy {
         setX(x);
         setY(y);
     }*/
+
     private void attack() {
 
     }

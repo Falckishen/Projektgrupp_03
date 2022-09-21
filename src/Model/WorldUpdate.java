@@ -8,9 +8,9 @@ import Utilities.ViewObserver;
 class WorldUpdate extends TimerTask {
 
     private final Game game;
+    private final int maxAllowedDelay;
     private final ArrayList<ViewObserver> viewObservers;
     private final ArrayList<OnTick> tickObservers;
-    private final int maxAllowedDelay;
 
     WorldUpdate(Game game, int maxAllowedDelay) {
         this.game = game;

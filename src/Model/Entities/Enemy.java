@@ -1,16 +1,15 @@
 package Model.Entities;
 
-import Utilities.EntityType;
-import Utilities.Position;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import Utilities.EntityType;
+import Utilities.Position;
 
 abstract class Enemy extends Entity {
     private final int attackPower;
     private final int attackRange;
-    private Iterable<Friendly> friendliesIterator;
+    private final Iterable<Friendly> friendliesIterator;
     //private Position closestFriendlyPosition;
 
     protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
@@ -23,6 +22,7 @@ abstract class Enemy extends Entity {
     protected int getAttackPower() {
         return attackPower;
     }
+
     protected int getAttackRange() {
         return attackRange;
     }
@@ -44,7 +44,6 @@ abstract class Enemy extends Entity {
 
         return positionList.get(indexOfSmallest);
     }
-
 
     protected void collidedWithFriendly(Position friendlyPosition){
         //TODO knocked back from player

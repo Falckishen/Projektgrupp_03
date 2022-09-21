@@ -1,8 +1,8 @@
 package Controller;
 
-import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 public class KeyboardInput {
 
@@ -11,30 +11,20 @@ public class KeyboardInput {
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
     private final ArrayList<Integer> playerInputArrayList;
-    private Action walkUpActionPressed;
-    private Action walkLeftActionPressed;
-    private Action walkDownActionPressed;
-    private Action walkRightActionPressed;
-    private Action walkUpActionReleased;
-    private Action walkLeftActionReleased;
-    private Action walkDownActionReleased;
-    private Action walkRightActionReleased;
-    private Action spacePressed;
-    private Action spaceReleased;
 
     public KeyboardInput(JComponent steve, ArrayList<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
 
-        walkUpActionPressed = new WalkUpActionPressed();
-        walkLeftActionPressed = new WalkLeftActionPressed();
-        walkDownActionPressed = new WalkDownActionPressed();
-        walkRightActionPressed = new WalkRightActionPressed();
-        walkUpActionReleased = new WalkUpActionReleased();
-        walkLeftActionReleased = new WalkLeftActionReleased();
-        walkDownActionReleased = new WalkDownActionReleased();
-        walkRightActionReleased = new WalkRightActionReleased();
-        spacePressed = new spacePressed();
-        spaceReleased = new spaceReleased();
+        Action walkUpActionPressed = new WalkUpActionPressed();
+        Action walkLeftActionPressed = new WalkLeftActionPressed();
+        Action walkDownActionPressed = new WalkDownActionPressed();
+        Action walkRightActionPressed = new WalkRightActionPressed();
+        Action walkUpActionReleased = new WalkUpActionReleased();
+        Action walkLeftActionReleased = new WalkLeftActionReleased();
+        Action walkDownActionReleased = new WalkDownActionReleased();
+        Action walkRightActionReleased = new WalkRightActionReleased();
+        Action spacePressed = new spacePressed();
+        Action spaceReleased = new spaceReleased();
 
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         steve.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
@@ -59,7 +49,7 @@ public class KeyboardInput {
         steve.getActionMap().put("spaceReleased", spaceReleased);
     }
 
-    public class WalkUpActionPressed extends AbstractAction{
+    class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
@@ -68,7 +58,7 @@ public class KeyboardInput {
             }
         }
     }
-    public class WalkLeftActionPressed extends AbstractAction{
+    class WalkLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
@@ -77,7 +67,7 @@ public class KeyboardInput {
             }
         }
     }
-    public class WalkDownActionPressed extends AbstractAction{
+    class WalkDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
@@ -86,7 +76,7 @@ public class KeyboardInput {
             }
         }
     }
-    public class WalkRightActionPressed extends AbstractAction{
+    class WalkRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
@@ -95,41 +85,41 @@ public class KeyboardInput {
             }
         }
     }
-    public class spacePressed extends AbstractAction{
+    class spacePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.add(KeyEvent.VK_SPACE);
         }
     }
-    public class WalkUpActionReleased extends AbstractAction{
+    class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
             upKeyPressed = false;
         }
     }
-    public class WalkLeftActionReleased extends AbstractAction{
+    class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
             leftKeyPressed = false;
         }
     }
-    public class WalkDownActionReleased extends AbstractAction{
+    class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
             downKeyPressed = false;
         }
     }
-    public class WalkRightActionReleased extends AbstractAction{
+    class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
             rightKeyPressed = false;
         }
     }
-    public class spaceReleased extends AbstractAction{
+    class spaceReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));

@@ -16,25 +16,28 @@ import Utilities.ViewObserver;
 public class Game {
 
     private final int worldMapRadius;
-    private final ArrayList<ViewObserver> viewObservers;
-    //private Player player;
     private final ArrayList<Integer> playerInputArrayList;
-    private int round;
+    private final ArrayList<ViewObserver> viewObservers;
     private final EntityCreator entityCreator;
     private boolean enemiesSpawning;
+    private int round;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game(int worldMapRadius) {
         this.worldMapRadius = worldMapRadius;
-        this.playerInputArrayList = new ArrayList<Integer>();
+        this.playerInputArrayList = new ArrayList<>();
         this.viewObservers = new ArrayList<>();
-        this.round = 0;
         this.entityCreator = new EntityCreator();
         this.enemiesSpawning = false;
+        this.round = 0;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
+
+    public int getWorldMapRadius() {
+        return worldMapRadius;
+    }
 
     public ArrayList<Integer> getPlayerInputArrayList() {
         return playerInputArrayList;

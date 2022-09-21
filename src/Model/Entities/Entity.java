@@ -9,7 +9,6 @@ public abstract class Entity extends AllObjects implements OnTick {
     private Direction direction;
     private int speed;
 
-
     protected Entity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed){
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
@@ -31,7 +30,6 @@ public abstract class Entity extends AllObjects implements OnTick {
     protected void setSpeed(int speed) {
         this.speed = speed;
     }
-
 
     protected void move(){
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);

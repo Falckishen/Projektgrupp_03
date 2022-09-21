@@ -33,7 +33,7 @@ abstract class Projectile extends Entity {
         }
     }
 
-//    protected void move(){
+    //    protected void move(){
 //        //doesnt handle collision
 //        if (getDirection() == Direction.LEFT){
 //            getPosition().setX( getPosition().getX() - getSpeed() );

@@ -3,20 +3,20 @@ package Model.Entities;
 import Utilities.EntityType;
 import Utilities.Position;
 
-public abstract class AllObjects {
+abstract class AllObjects {
+
     private final EntityType entityType;
     private final int hitBoxRadiusX;
     private final int hitBoxRadiusY;
-
-    private Position coordinate;
-    private boolean isDead = false;
+    private Position position;
+    private boolean isDead;
 
     AllObjects(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y){
         this.entityType = entityType;
         this.hitBoxRadiusX = hitBoxRadiusX;
         this.hitBoxRadiusY = hitBoxRadiusY;
-
-        this.coordinate = new Position(x, y);
+        this.position = new Position(x, y);
+        this.isDead = false;
     }
 
     public EntityType getEntityType(){
@@ -24,7 +24,7 @@ public abstract class AllObjects {
     }
 
     public Position getPosition() {
-        return coordinate;
+        return position;
     }
 
     protected int getHitBoxRadiusX() {
@@ -42,5 +42,4 @@ public abstract class AllObjects {
     protected boolean getIsDead() {
         return isDead;
     }
-
 }

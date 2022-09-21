@@ -3,16 +3,15 @@ package Model.Entities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import Model.Weapons.Weapon;
 import Utilities.Direction;
 import Utilities.EntityType;
 
 class Player extends Friendly {
+
     private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
-
 
     Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
         super(EntityType.player, x, y, 50, 50, 5);
@@ -21,7 +20,7 @@ class Player extends Friendly {
         this.weapon = weapon;
     }
 
-    public void getNewWeapon(Weapon weapon){
+    void getNewWeapon(Weapon weapon){
         this.weapon = weapon;
     }
 
@@ -96,7 +95,7 @@ class Player extends Friendly {
         }
     }*/
 
-    public void shootAttack() {
+    private void shootAttack() {
         if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
             this.weapon.actionShoot();
         }

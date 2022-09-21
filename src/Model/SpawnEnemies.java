@@ -21,6 +21,6 @@ public class SpawnEnemies implements Runnable {
             entityCreatorEnemy.createMonster();
         }
         game.enemiesHaveSpawned();
-        System.out.println("ENEMIES SPAWNED: " + Math.pow(round, 2));
+        System.out.println("ENEMIES SPAWNED: " + (int) Math.pow(round, 2));
     }
 }

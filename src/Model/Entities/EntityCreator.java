@@ -1,20 +1,20 @@
 package Model.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import Model.OnTick;
 import Model.Weapons.Weapon;
 import Utilities.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
-    List<Enemy> enemies;
-    List<Friendly> friendlies;
-    List<Projectile> projectiles;
-    List<OnTick> tickObservers;
-    List<AllObjects> nonLivingObjects;
 
+    private final List<Enemy> enemies;
+    private final List<Friendly> friendlies;
+    private final List<Projectile> projectiles;
+    private final List<OnTick> tickObservers;
+    private final List<AllObjects> nonLivingObjects;
+
+    /*
     public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<AllObjects> nonLivingObjects){
         this.enemies = enemies;
         this.friendlies = friendlies;
@@ -23,13 +23,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         this.nonLivingObjects = nonLivingObjects;
         addCollisionHandler();
     }
+    */
 
     public EntityCreator(){
-        this.enemies = new ArrayList<Enemy>();
-        this.friendlies = new ArrayList<Friendly>();
-        this.projectiles = new ArrayList<Projectile>();
-        this.tickObservers = new ArrayList<OnTick>();
-        this.nonLivingObjects = new ArrayList<AllObjects>();
+        this.enemies = new ArrayList<>();
+        this.friendlies = new ArrayList<>();
+        this.projectiles = new ArrayList<>();
+        this.tickObservers = new ArrayList<>();
+        this.nonLivingObjects = new ArrayList<>();
         addCollisionHandler();
     }
 
@@ -86,11 +87,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
-    public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
+    public void createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
         Player p = new Player(coordX, coordY, keyboardInputs, weapon);
         friendlies.add(p);
         tickObservers.add(p);
-        return p;
     }
 
     /*----------------------------------- AddProjectile (used by Weapon class) --------------------------------------*/

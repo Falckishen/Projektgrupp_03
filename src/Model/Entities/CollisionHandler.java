@@ -1,15 +1,14 @@
 package Model.Entities;
 
-
+import java.util.Iterator;
 import Model.OnTick;
 
-import java.util.Iterator;
-
 class CollisionHandler implements OnTick {
-    Iterable<Friendly> friendlies;
-    Iterable<Enemy> enemies;
-    Iterable<Projectile> projectiles;
-    Iterable<AllObjects> nonLivingObjects;
+
+    private final Iterable<Friendly> friendlies;
+    private final Iterable<Enemy> enemies;
+    private final Iterable<Projectile> projectiles;
+    private final Iterable<AllObjects> nonLivingObjects;
 
     CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles, Iterable<AllObjects> nonLivingObjects){
         this.friendlies = friendlies;
@@ -110,9 +109,6 @@ class CollisionHandler implements OnTick {
                 }
             }
         }
-
-
-
     }
 
     private boolean hasCollided(AllObjects entity1, AllObjects entity2) {
@@ -137,7 +133,8 @@ class CollisionHandler implements OnTick {
         }
     }
 
-/*    private Direction hasCollided(Entity entity1, Entity entity2) {
+    /*
+    private Direction hasCollided(Entity entity1, Entity entity2) {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitboxRadiusX() ) >
@@ -158,8 +155,8 @@ class CollisionHandler implements OnTick {
                     (entity2.getPosition().getY() + entity2.getHitboxRadiusY()) ) {return Direction.;}
         }
         return null;
-    }*/
-
+    }
+    */
 
     private void removeDead() {
         removeDeadFromList(friendlies.iterator());
