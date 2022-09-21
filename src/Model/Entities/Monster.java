@@ -6,7 +6,7 @@ import Utilities.EntityType;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Monster extends Enemy {
+class Monster extends Enemy {
 
     Monster(int hitBoxWidthRadius, int hitBoxHeightRadius, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
         super(EntityType.monster, hitBoxWidthRadius, hitBoxHeightRadius, x, y, speed, attackPower, attackRange, friendliesIterator);

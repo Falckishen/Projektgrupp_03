@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import Model.Entities.*;
 import Model.Weapons.WeaponFactory;
+import Utilities.EntityType;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
@@ -15,7 +16,7 @@ import Utilities.ViewObserver;
 public class Game {
 
     private ArrayList<ViewObserver> viewObservers;
-    private Player player;
+    //private Player player;
     private ArrayList<Integer> playerInputArrayList;
     private int round;
     private final EntityCreator entityCreator;
@@ -46,12 +47,18 @@ public class Game {
         return entityCreator;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
+    //public Player getPlayer() {return player;}
 
     public Position getPlayerPosition() {
-        return player.getCurrentPosition();
+        Position p = null;
+        for (Entity e:entityCreator.getFriendlies()) {
+            if (e.getEntityType() == EntityType.player ){
+                p = e.getCurrentPosition();
+            }
+        }
+        return p;
+
+        //return player.getCurrentPosition();
     }
 
     public ArrayList<OnTick> getTickObservers(){
@@ -83,7 +90,8 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
+
+        this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
 
         Timer timer = new Timer();
         int period = 17;
