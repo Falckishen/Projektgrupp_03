@@ -52,6 +52,7 @@ public abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(){
+        System.out.println("BOOM");
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
         }
