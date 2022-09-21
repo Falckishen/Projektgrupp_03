@@ -4,6 +4,7 @@ import Model.Entities.Entity;
 import Model.Entities.Monster;
 import Model.Entities.Player;
 import Model.Entities.Position;
+import Utilities.EntityType;
 
 public class ConversionQueryable {
     static Position transformWithPlayerPosition(Position position, Position playerPosition){
@@ -15,10 +16,10 @@ public class ConversionQueryable {
     }
 
     static UImageTypeEnum getImageType(Entity entity){
-        if(entity.getClass() == Player.class){
+        if(entity.getEntityType() == EntityType.player){
             return(UImageTypeEnum.PLAYER);
         }
-        if(entity.getClass() == Monster.class){
+        if(entity.getEntityType() == EntityType.monster){
             return(UImageTypeEnum.GRUNT);
         }
         return(null);

@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageContainer {
-    static String[] miscImagePaths = {"src/View/Images/NewBackgroundOOP.png", "src/View/Images/CrosshairImageOOP.png"};
-    static String[] PlayerImagePaths = {"src/View/Images/PlayerImageOOP.png"};
+    static String[] miscImagePaths = {"src/View/Images/NewerBackgroundImageOOP.png", "src/View/Images/CrosshairImageOOP.png"};
+    static String[] PlayerImagePaths = {"src/View/Images/PlayerMove0.png", "src/View/Images/PlayerMove1.png", "src/View/Images/PlayerMove2.png"};
     static String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
 
     static BufferedImage[][] savedImagesMatrix;

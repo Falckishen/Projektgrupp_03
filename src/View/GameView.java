@@ -3,8 +3,10 @@ package View;
 import Controller.KeyboardInput;
 import Model.Entities.Entity;
 import Model.Entities.Monster;
+import Model.Entities.Player;
 import Model.Game;
 import Model.Entities.Position;
+import Utilities.EntityType;
 import Utilities.ViewObserver;
 import javax.swing.*;
 import java.awt.*;
@@ -88,6 +90,16 @@ public class GameView extends JComponent implements ViewObserver {
     private void paintEntity(Entity entity, Position playerPosition){
         Position pos = entity.getCurrentPosition();
         pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
-        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), 0), pos.getX(), pos.getY());
+        int variant;
+        if(entity.getEntityType() == EntityType.player){
+            if((int)System.currentTimeMillis()/500%200 == 0){
+                variant = 2;
+            }else{
+                variant = (int)System.currentTimeMillis()/500%2;
+            }
+        }else{
+            variant = 0;
+        }
+        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
     }
 }
