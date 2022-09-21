@@ -3,23 +3,25 @@ package Model.Entities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import Model.Weapons.Weapon;
 import Utilities.Direction;
+import Utilities.EntityType;
 
-// TODO Gör till ej public
-public class Player extends Friendly {
+class Player extends Friendly {
     private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 
+
     Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
-        super(x, y, 25, 25, 5);
+        super(EntityType.player, x, y, 50, 50, 5);
+        defaultSpeed = getSpeed();
         this.playerKeyInputs = playerInputs;
         this.weapon = weapon;
-        this.defaultSpeed = super.getSpeed();
     }
 
-    void getNewWeapon(Weapon weapon){
+    public void getNewWeapon(Weapon weapon){
         this.weapon = weapon;
     }
 
@@ -27,6 +29,7 @@ public class Player extends Friendly {
     public void doOnTick() {
         changeDirection();
         move(); // Change to super() when entity has doOnTick
+        shootAttack();
     }
 
     private void changeDirection() {
@@ -34,6 +37,7 @@ public class Player extends Friendly {
         // should this be moved to controller?
         List<Direction> currentDirections = new ArrayList<>();
         for (Integer input : playerKeyInputs) {
+          //  if ()
             switch (input) {
                 case KeyEvent.VK_W -> currentDirections.add(Direction.UP);
                 case KeyEvent.VK_A ->  currentDirections.add(Direction.LEFT);
@@ -79,22 +83,21 @@ public class Player extends Friendly {
             }
         }
     }
-
-    /*    private void move() {
+/*    private void move() {
         if(!currentPlayerWalkingDirection.isEmpty()) {
             for (Direction direction : currentPlayerWalkingDirection) {
                 switch (direction) {
-                    case UP -> super.setY(super.getCurrentPosition().getY()-super.getSpeed());
-                    case DOWN -> super.setY(super.getCurrentPosition().getY()+super.getSpeed());
-                    case LEFT -> super.setX(super.getCurrentPosition().getX()-super.getSpeed());
-                    case RIGHT -> super.setX(super.getCurrentPosition().getX()+super.getSpeed());
+                    case UP -> super.setY(super.getPosition().getY()-super.getSpeed());
+                    case DOWN -> super.setY(super.getPosition().getY()+super.getSpeed());
+                    case LEFT -> super.setX(super.getPosition().getX()-super.getSpeed());
+                    case RIGHT -> super.setX(super.getPosition().getX()+super.getSpeed());
                 }
             }
         }
     }*/
 
-    void shootAttack() {
-        if(this.weapon != null) {
+    public void shootAttack() {
+        if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
             this.weapon.actionShoot();
         }
     }

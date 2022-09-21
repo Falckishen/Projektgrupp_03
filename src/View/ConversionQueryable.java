@@ -1,12 +1,12 @@
 package View;
 
 import Model.Entities.Entity;
-import Model.Entities.Monster;
-import Model.Entities.Player;
-import Utilities.Position;
+
+
+import Model.Entities.Position;
+import Utilities.EntityType;
 
 public class ConversionQueryable {
-
     static Position transformWithPlayerPosition(Position position, Position playerPosition){
         return(new Position(position.getX()-playerPosition.getX(), position.getY()- playerPosition.getY()));
     }
@@ -16,11 +16,14 @@ public class ConversionQueryable {
     }
 
     static UImageTypeEnum getImageType(Entity entity){
-        if(entity.getClass() == Player.class){
+        if(entity.getEntityType() == EntityType.player){
             return(UImageTypeEnum.PLAYER);
         }
-        if(entity.getClass() == Monster.class){
+        if(entity.getEntityType() == EntityType.monster){
             return(UImageTypeEnum.GRUNT);
+        }
+        if(entity.getEntityType() == EntityType.simpleProjectile){
+            return(UImageTypeEnum.PLAYERPROJECTILE);
         }
         return(null);
     }

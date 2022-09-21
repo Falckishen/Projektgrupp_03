@@ -7,14 +7,17 @@ public abstract class Weapon {
 
     private final AddProjectile projectileCreator;
     private final String weaponType;
-    private final int coolDownSec; // Saved as seconds not milliseconds
+    private final int coolDownSec; //saved as seconds not milliseconds
+
     private final int projectileVelocity;
     private final int projectileLife;
     private final int projectileAttackPower;
-    private Long lastShotFired; // Is saved as milliseconds
+
+    private Long lastShotFired; //is saved as milliseconds
     private Direction direction = Direction.LEFT;
 
-    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower) {
+
+    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
         this.weaponType = weaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
@@ -49,7 +52,8 @@ public abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(){
-        if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // Check that this correlates correctly
+        System.out.println("BOOM");
+        if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
         }
     }

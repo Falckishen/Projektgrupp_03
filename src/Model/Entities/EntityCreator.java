@@ -5,34 +5,39 @@ import Model.Weapons.Weapon;
 import Utilities.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
-    private List<Enemy> enemies;
+public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
+    List<Enemy> enemies;
     List<Friendly> friendlies;
     List<Projectile> projectiles;
     List<OnTick> tickObservers;
+    List<AllObjects> nonLivingObjects;
 
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers){
+    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<AllObjects> nonLivingObjects){
         this.enemies = enemies;
         this.friendlies = friendlies;
         this.projectiles = projectiles;
         this.tickObservers= tickObservers;
-        addCollisionHandler(enemies, friendlies, projectiles);
+        this.nonLivingObjects = nonLivingObjects;
+        addCollisionHandler();
     }
 
-    //used for testing (not connected to collision)
     public EntityCreator(){
         this.enemies = new ArrayList<Enemy>();
         this.friendlies = new ArrayList<Friendly>();
         this.projectiles = new ArrayList<Projectile>();
         this.tickObservers = new ArrayList<OnTick>();
-        addCollisionHandler(enemies, friendlies, projectiles);
+        this.nonLivingObjects = new ArrayList<AllObjects>();
+        addCollisionHandler();
     }
 
-    private void addCollisionHandler(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles){
-        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles));
+    private void addCollisionHandler(){
+        tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles, nonLivingObjects));
     }
+
+    /*------------------------------------------------ Getters ------------------------------------------------------*/
 
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
@@ -51,33 +56,19 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         return projectiles;
     }
 
+    public List<? extends AllObjects> getNonLivingObjects(){
+        return nonLivingObjects;
+    }
+
     public boolean isAnyEnemiesAlive() {
         return !enemies.isEmpty();
     }
 
-    //temporary
-//    @Override
-//    public void createMonster() {
-//       /* Random rand = new Random();
-//        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
-//        if (worldWidthRadius % 2 == 0){
-//            worldWidthRadius = worldWidthRadius *(-1);}
-//        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
-//        if (worldHeightRadius % 2 == 0){
-//            worldHeightRadius = worldHeightRadius *(-1);} */
-//        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-//        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-//        int temp3 = 10;
-//        int temp4 = 10;
-//        int temp5 = 5;
-//        int temp6 = 1;
-//        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6);
-//        enemies.add(m);
-//        tickObservers.add(m);
-//    }
+    /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
+
     @Override
-    public void createMonster(Player p) {
-       /* Random rand = new Random();
+    public void createMonster() {
+        /* Random rand = new Random();
         int worldWidthRadius = rand.nextInt(WorldWidthRadius);
         if (worldWidthRadius % 2 == 0){
             worldWidthRadius = worldWidthRadius *(-1);}
@@ -85,18 +76,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         if (worldHeightRadius % 2 == 0){
             worldHeightRadius = worldHeightRadius *(-1);} */
 
-        int temp1 = 0;
-        int temp2 = 0;
-        int temp3 = 10;
-        int temp4 = 10;
-        int temp5 = 5;
-        int temp6 = 1;
-        int temp7 = 1;
-        Monster m = new Monster(temp1, temp2, temp3, temp4, temp5, temp6, temp7, p.getCurrentPosition());
-        m.setCurrentPlayer(p);
+        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
+        Monster m = new Monster(temp1, temp2, friendlies);
         enemies.add(m);
         tickObservers.add(m);
     }
+
+    /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
     public Player createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
@@ -105,6 +92,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
         tickObservers.add(p);
         return p;
     }
+
+    /*----------------------------------- AddProjectile (used by Weapon class) --------------------------------------*/
 
     @Override
     public void createSimpleProjectile(Direction direction, int velocity, int life, int attackPower) {
@@ -116,5 +105,21 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly {
     @Override
     public void createSimpleProjectile(double direction, int velocity, int life, int attackPower) {
 
+    }
+
+    /*----------------------------- AddNonLivingObjects (called then game created) ---------------------------------*/
+
+    @Override
+    public void createWall(int positionX, int positionY, int wallRadiusX, int wallRadiusY) {
+        nonLivingObjects.add(new Wall(wallRadiusX, wallRadiusY, positionX, positionY));
+    }
+
+    @Override
+    public void createWorldBorderWalls(int worldRadiusX, int worldRadiusY) {
+        int wallThicknessRadius = 10;
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,(worldRadiusX*(-1)), 0)); //x left
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,worldRadiusX,0)); //x right
+        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,worldRadiusY)); //y top
+        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,(worldRadiusY*(-1)) )); //y bottom
     }
 }

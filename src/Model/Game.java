@@ -5,38 +5,93 @@ import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import Model.Entities.*;
 import Model.Weapons.WeaponFactory;
-import Utilities.Position;
+import Utilities.EntityType;
 import Utilities.ViewObserver;
 
 // The "main" class for Model.
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game {
 
-    private final int mapRadius;
-    private final ArrayList<ViewObserver> viewObservers;
-    private Player player;
-    private final ArrayList<Integer> playerInputArrayList;
+    private ArrayList<ViewObserver> viewObservers;
+    //private Player player;
+    private ArrayList<Integer> playerInputArrayList;
     private int round;
     private final EntityCreator entityCreator;
     private boolean enemiesSpawning;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
-    public Game(int mapRadius) {
-        this.mapRadius = mapRadius;
+    public Game() {
         this.playerInputArrayList = new ArrayList<Integer>();
+
         this.viewObservers = new ArrayList<>();
         this.round = 0;
         this.entityCreator = new EntityCreator();
         this.enemiesSpawning = false;
     }
 
-    /*------------------------------------------------- Start Game -------------------------------------------------*/
+    /*--------------------------------------------------- Getters ---------------------------------------------------*/
+
+    public ArrayList<Integer> getPlayerInputArrayList() {
+        return playerInputArrayList;
+    }
+
+    public ArrayList<ViewObserver> getViewObservers() {
+        return viewObservers;
+    }
+
+    public AddProjectile getProjectileCreator(){ //for player when creating weapon
+        return entityCreator;
+    }
+
+    //public Player getPlayer() {return player;}
+
+    public Position getPlayerPosition() {
+        Position p = null;
+        for (Entity e:entityCreator.getFriendlies()) {
+            if (e.getEntityType() == EntityType.player ){
+                p = e.getPosition();
+            }
+        }
+        return p;
+
+        //return player.getPosition();
+    }
+
+    public ArrayList<OnTick> getTickObservers(){
+        return (ArrayList<OnTick>) entityCreator.getTickObservers();
+    }
+
+    public ArrayList<Entity> getEnemies() {
+        return (ArrayList<Entity>) entityCreator.getEnemies();
+    }
+
+    public boolean isAnyEnemiesAlive() {
+        return entityCreator.isAnyEnemiesAlive();
+    }
+
+    public ArrayList<Entity> getFriendlies() {
+        return (ArrayList<Entity>) entityCreator.getFriendlies();
+    }
+
+    public ArrayList<Entity> getProjectiles() {
+        return (ArrayList<Entity>) entityCreator.getProjectiles();
+    }
+
+    /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
+
+    public void addViewObserver(ViewObserver viewObserver) {
+        viewObservers.add(viewObserver);
+    }
+
+    /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        this.player = this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
+
+        this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
 
         Timer timer = new Timer();
         int period = 17;
@@ -48,60 +103,6 @@ public class Game {
         // 60 FPS  = one update every 17 (16.667) ms.
         // 30 FPS  = one update every 34 (33.333) ms.
     }
-
-    /*--------------------------------------------------- Getters ---------------------------------------------------*/
-
-    public int getMapRadius() {
-        return mapRadius;
-    }
-
-    public AddProjectile getProjectileCreator(){ //for player when creating weapon
-        return entityCreator;
-    }
-
-    public ArrayList<Integer> getPlayerInputArrayList() {
-        return playerInputArrayList;
-    }
-
-    public ArrayList<ViewObserver> getViewObservers() {
-        return viewObservers;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Position getPlayerPosition() {
-        return player.getCurrentPosition();
-    }
-
-    public ArrayList<OnTick> getTickObservers(){
-        return (ArrayList<OnTick>) entityCreator.getTickObservers();
-    }
-
-    public ArrayList<Entity> getEnemies() {
-        return (ArrayList<Entity>) entityCreator.getEnemies();
-    }
-
-    public ArrayList<Entity> getFriendlies() {
-        return (ArrayList<Entity>) entityCreator.getFriendlies();
-    }
-
-    public ArrayList<Entity> getProjectiles() {
-        return (ArrayList<Entity>) entityCreator.getProjectiles();
-    }
-
-    public boolean isAnyEnemiesAlive() {
-        return entityCreator.isAnyEnemiesAlive();
-    }
-
-    /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
-
-    public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
-    }
-
-    /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     // Called when all enemies are dead
     void nextRound() {

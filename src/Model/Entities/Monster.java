@@ -1,39 +1,29 @@
 package Model.Entities;
 
 import Utilities.Direction;
-import Utilities.Position;
+import Utilities.EntityType;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Iterator;
 
-// TODO gör till ej public
-public class Monster extends Enemy {
-    private Player currentPlayer;
-    private Position playerPosition;
+class Monster extends Enemy {
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower, int attackRange, Position playerPosition) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower, attackRange, playerPosition);
+    Monster(int hitBoxWidthRadius, int hitBoxHeightRadius, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
+        super(EntityType.monster, hitBoxWidthRadius, hitBoxHeightRadius, x, y, speed, attackPower, attackRange, friendliesIterator);
     }
 
-    void setCurrentPlayer(Player p) {this.currentPlayer=p;}
-    // FOR MULTIPLAYER
-    private Position findClosestPosition(List<Position> positionList) {
-        List<Double> playerDistances = new ArrayList<>();
-        for (Position p : positionList){
-            Double distance = Math.pow(p.getX() - this.getCurrentPosition().getX(), 2) +
-                    Math.pow(p.getY() - this.getCurrentPosition().getY(),2);
-            playerDistances.add(distance);
-        }
-        Double smallest = Collections.min(playerDistances);
-        int indexOfSmallest = playerDistances.indexOf(smallest);
-
-        return positionList.get(indexOfSmallest);
+    Monster(int x, int y, Iterable<Friendly> friendliesIterator) {
+        super(EntityType.monster, 50, 50, x, y, 5, 1, 5, friendliesIterator);
     }
 
-    Direction findDirectionToPosition(Position p) {
-        int vx = p.getX() - this.getCurrentPosition().getX();
-        int vy = p.getY() - this.getCurrentPosition().getY();
+    /**
+     * Makes it so that a monster changes direction according to where the player is
+     * @param p
+     * @return a direction towards Position p
+     */
+    public Direction findDirectionToPosition(Position p) {
+        int vx = p.getX() - this.getPosition().getX();
+        int vy = p.getY() - this.getPosition().getY();
         // Top is 0 degrees
         int ux = 0;
         int uy = 1;
@@ -53,12 +43,12 @@ public class Monster extends Enemy {
         }
 
         if (vx >= 0) {
-            if (angle < 3 * Math.PI/8) return Direction.RIGHT_UP;
-            if (angle < 5 * Math.PI/8) return Direction.RIGHT;
+            if (angle < 3 * Math.PI / 8) return Direction.RIGHT_UP;
+            if (angle < 5 * Math.PI / 8) return Direction.RIGHT;
             if (angle < 7 * Math.PI / 8) return Direction.RIGHT_DOWN;
         } else {
-            if (angle < 3 * Math.PI/8) return Direction.LEFT_UP;
-            if (angle < 5 * Math.PI/8) return Direction.LEFT;
+            if (angle < 3 * Math.PI / 8) return Direction.LEFT_UP;
+            if (angle < 5 * Math.PI / 8) return Direction.LEFT;
             if (angle < 7 * Math.PI / 8) return Direction.LEFT_DOWN;
         }
         return Direction.DOWN;
@@ -78,8 +68,8 @@ public class Monster extends Enemy {
         // Direction goToDirection = findDirectionToPosition(closePosition);
         Direction goToDirection = Direction.UP;
         setDirection(goToDirection);
-        int x = this.getCurrentPosition().getX();
-        int y = this.getCurrentPosition().getY();
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
         switch (getDirection()) {
             case UP -> y += 1;
             case DOWN -> y -= 1;
@@ -89,7 +79,6 @@ public class Monster extends Enemy {
         setX(x);
         setY(y);
     }*/
-
     private void attack() {
 
     }
@@ -98,9 +87,13 @@ public class Monster extends Enemy {
     public void doOnTick() {
         // findClosestPosition()
         // attack();
-        if(currentPlayer != null) {
-            findDirectionToPosition(currentPlayer.getCurrentPosition());
+        Iterator<Friendly> friendlyIterator = getFriendliesIterator().iterator();
+        ArrayList<Position> positionsOfFriendlies = new ArrayList<>();
+        while(friendlyIterator.hasNext()){
+            positionsOfFriendlies.add(friendlyIterator.next().getPosition());
         }
+        this.setDirection(findDirectionToPosition(findClosestPosition(positionsOfFriendlies)));
+
         move();
     }
 }

@@ -1,14 +1,15 @@
 package Model.Entities;
 
 import Utilities.Direction;
+import Utilities.EntityType;
 
 abstract class Projectile extends Entity {
 
     private int lifeLeft;
     private final int attackPower;
 
-    protected Projectile(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
-        super(x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
+    protected Projectile(EntityType entityType, int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int velocity, Direction direction, int lifeLeft, int attackPower) {
+        super(entityType, x, y, hitBoxRadiusX, hitBoxRadiusY, velocity);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
         this.attackPower = attackPower;
@@ -19,6 +20,10 @@ abstract class Projectile extends Entity {
     }
 
     protected abstract void CollidedWithEnemy();
+
+    protected void collidedWithNonLivingObject(){
+        setIsDead(true);
+    }
 
     @Override
     public void doOnTick() {
@@ -31,13 +36,13 @@ abstract class Projectile extends Entity {
 //    protected void move(){
 //        //doesnt handle collision
 //        if (getDirection() == Direction.LEFT){
-//            getCurrentPosition().setX( getCurrentPosition().getX() - getSpeed() );
+//            getPosition().setX( getPosition().getX() - getSpeed() );
 //        } else if (getDirection() == Direction.RIGHT){
-//            getCurrentPosition().setX( getCurrentPosition().getX() + getSpeed() );
+//            getPosition().setX( getPosition().getX() + getSpeed() );
 //        } else if (getDirection() == Direction.UP){
-//            getCurrentPosition().setY( getCurrentPosition().getY() + getSpeed() );
+//            getPosition().setY( getPosition().getY() + getSpeed() );
 //        } else if (getDirection() == Direction.DOWN){
-//            getCurrentPosition().setY( getCurrentPosition().getY() - getSpeed() );
+//            getPosition().setY( getPosition().getY() - getSpeed() );
 //        }
 //    }
 }
