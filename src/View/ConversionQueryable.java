@@ -22,6 +22,9 @@ public class ConversionQueryable {
         if(entity.getEntityType() == EntityType.monster){
             return(UImageTypeEnum.GRUNT);
         }
+        if(entity.getEntityType() == EntityType.simpleProjectile){
+            return(UImageTypeEnum.PLAYERPROJECTILE);
+        }
         return(null);
     }
 }

@@ -1,7 +1,7 @@
 package View;
 
 public enum UImageTypeEnum {
-    MISC, PLAYER, GRUNT;
+    MISC, PLAYER, PLAYERPROJECTILE, GRUNT;
 
     private static UImageTypeEnum[] allEnums = UImageTypeEnum.values();
 
