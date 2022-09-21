@@ -1,15 +1,22 @@
 package Model.Entities;
 
 abstract class Enemy extends Entity {
-    private int attackPower;
+    private final int attackPower;
+    private final int attackRange;
+    private Position playerPosition;
 
-    protected Enemy(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed, int attackPower) {
+    protected Enemy(int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed, int attackPower, int attackRange, Position playerPosition) {
         super(x, y, hitBoxRadiusX, hitBoxRadiusY, speed);
         this.attackPower = attackPower;
+        this.attackRange = attackRange;
+        this.playerPosition = playerPosition;
     }
 
     protected int getAttackPower() {
         return attackPower;
+    }
+    protected int getAttackRange() {
+        return attackRange;
     }
 
     protected void collidedWithPlayer(Position playerPosition){

@@ -7,12 +7,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Monster extends Enemy {
-    private float attackRange = 5;
     private Player currentPlayer;
+    private Position playerPosition;
 
-    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower) {
-        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower);
-        currentPlayer = null;
+    Monster(int x, int y, int hitBoxWidthRadius, int hitBoxHeightRadius, int speed, int attackPower, int attackRange, Position playerPosition) {
+        super(x, y, hitBoxWidthRadius, hitBoxHeightRadius, speed, attackPower, attackRange, playerPosition);
     }
 
     public void setCurrentPlayer(Player p) {this.currentPlayer=p;}
