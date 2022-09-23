@@ -115,13 +115,16 @@ class CollisionHandler implements OnTick {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitBoxRadiusX() ) >
-                    (entity2.getPosition().getX() - entity2.getHitBoxRadiusX() )){return true;}
+                    (entity2.getPosition().getX() - entity2.getHitBoxRadiusX() )){return hasCollidedYAxis(entity1, entity2);}
         }
         else{
             if ( (entity1.getPosition().getX() - entity1.getHitBoxRadiusX() ) <
-                    (entity2.getPosition().getX() + entity2.getHitBoxRadiusX() )){return true;}
+                    (entity2.getPosition().getX() + entity2.getHitBoxRadiusX() )){return hasCollidedYAxis(entity1, entity2);}
         }
+        return false;
+    }
 
+    private Boolean hasCollidedYAxis(AllObjects entity1, AllObjects entity2){
         //collided on y-axis (Also simplified to return result)
         if (entity1.getPosition().getY() < entity2.getPosition().getY()) {//is entity1 lower than entity2
             return (entity1.getPosition().getY() + entity1.getHitBoxRadiusY()) >
