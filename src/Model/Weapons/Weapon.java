@@ -53,11 +53,11 @@ public abstract class Weapon {
 
     public void actionShoot(Direction shootDirection){
         System.out.println("BOOM");
-       // projectileCreator.createSimpleProjectile(
-       //         shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
+        projectileCreator.createSimpleProjectile(
+                shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
 
-       // if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
+        if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
-        //}
+        }
     }
 }
