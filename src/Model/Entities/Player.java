@@ -100,7 +100,7 @@ class Player extends Friendly {
 
     public void shootAttack() {
         if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
-            this.weapon.actionShoot();
+            this.weapon.actionShoot(this.getDirection());
         }
     }
 }

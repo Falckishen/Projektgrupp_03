@@ -3,6 +3,7 @@ package Controller;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class KeyboardInput {
 
@@ -10,7 +11,8 @@ public class KeyboardInput {
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
-    private final ArrayList<Integer> playerInputArrayList;
+    private boolean spacePressed = false;
+    private final List<Integer> playerInputArrayList;
     private Action walkUpActionPressed;
     private Action walkLeftActionPressed;
     private Action walkDownActionPressed;
@@ -19,8 +21,8 @@ public class KeyboardInput {
     private Action walkLeftActionReleased;
     private Action walkDownActionReleased;
     private Action walkRightActionReleased;
-    private Action spacePressed;
-    private Action spaceReleased;
+    private Action attackActionPressed;
+    private Action attackActionReleased;
 
     public KeyboardInput(JComponent steve, ArrayList<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
@@ -33,8 +35,8 @@ public class KeyboardInput {
         walkLeftActionReleased = new WalkLeftActionReleased();
         walkDownActionReleased = new WalkDownActionReleased();
         walkRightActionReleased = new WalkRightActionReleased();
-        spacePressed = new spacePressed();
-        spaceReleased = new spaceReleased();
+        attackActionPressed = new AttackActionPressed();
+        attackActionReleased = new AttackActionReleased();
 
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         steve.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
@@ -54,9 +56,9 @@ public class KeyboardInput {
         steve.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
 
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"spacePressed");
-        steve.getActionMap().put("spacePressed", spacePressed);
+        steve.getActionMap().put("spacePressed", attackActionPressed);
         steve.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"spaceReleased");
-        steve.getActionMap().put("spaceReleased", spaceReleased);
+        steve.getActionMap().put("spaceReleased", attackActionReleased);
     }
 
     public class WalkUpActionPressed extends AbstractAction{
@@ -95,10 +97,13 @@ public class KeyboardInput {
             }
         }
     }
-    public class spacePressed extends AbstractAction{
+    public class AttackActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.add(KeyEvent.VK_SPACE);
+            if (!spacePressed) {
+                playerInputArrayList.add(KeyEvent.VK_SPACE);
+                spacePressed = true;
+            }
         }
     }
     public class WalkUpActionReleased extends AbstractAction{
@@ -129,10 +134,11 @@ public class KeyboardInput {
             rightKeyPressed = false;
         }
     }
-    public class spaceReleased extends AbstractAction{
+    public class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
+            spacePressed = false;
         }
     }
 }
