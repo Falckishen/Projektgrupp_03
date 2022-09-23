@@ -56,4 +56,30 @@ public abstract class Entity extends AllObjects implements OnTick {
             case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed());
         }
     }
+
+    protected void move(int multiplier){ //Used in collision
+        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
+        switch (direction) {
+            case UP -> getPosition().setY(getPosition().getY()-getSpeed()*multiplier);
+            case LEFT_UP -> {
+                getPosition().setX(getPosition().getX()-diagSpeed*multiplier);
+                getPosition().setY(getPosition().getY()-diagSpeed*multiplier);
+            }
+            case RIGHT_UP -> {
+                getPosition().setX(getPosition().getX()+diagSpeed*multiplier);
+                getPosition().setY(getPosition().getY()-diagSpeed*multiplier);
+            }
+            case DOWN -> getPosition().setY(getPosition().getY()+getSpeed()*multiplier);
+            case LEFT_DOWN -> {
+                getPosition().setX(getPosition().getX()-diagSpeed*multiplier);
+                getPosition().setY(getPosition().getY()+diagSpeed*multiplier);
+            }
+            case RIGHT_DOWN -> {
+                getPosition().setX(getPosition().getX()+diagSpeed*multiplier);
+                getPosition().setY(getPosition().getY()+diagSpeed*multiplier);
+            }
+            case LEFT -> getPosition().setX(getPosition().getX()-getSpeed()*multiplier);
+            case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed()*multiplier);
+        }
+    }
 }

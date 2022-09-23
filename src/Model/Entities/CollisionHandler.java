@@ -53,9 +53,11 @@ class CollisionHandler implements OnTick {
             e1 = itEnemies1.next();
             while(itEnemies2.hasNext()){
                 e2 = itEnemies2.next();
-                if(hasCollided(e1, e2)){
-                    e1.collidedWIthEnemy(e2.getPosition());
-                    e2.collidedWIthEnemy(e1.getPosition());
+                if (e1 != e2){
+                    if(hasCollided(e1, e2)){
+                        e1.collidedWIthEnemy(e2.getPosition());
+                        e2.collidedWIthEnemy(e1.getPosition());
+                    }
                 }
             }
         }

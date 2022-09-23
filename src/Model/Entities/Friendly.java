@@ -9,11 +9,13 @@ abstract class Friendly extends Entity {
     }
 
     protected void CollidedWithEnemy(int attackPower){
-        //setIsDead(true);
+        //setIsDead(true);  // out commented since dying ends the game
         //TODO attackPower = how much damage self takes
     }
 
     protected void collidedWithNonLivingObject(AllObjects object){
-        //TODO can't move in this direction
+        //can't move in this direction
+        //gives small knock back so Friendly doesn't get stuck in wall
+        move(-2);
     }
 }

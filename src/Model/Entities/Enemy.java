@@ -3,6 +3,8 @@ package Model.Entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import Utilities.Direction;
 import Utilities.EntityType;
 import Utilities.Position;
 
@@ -47,35 +49,31 @@ abstract class Enemy extends Entity {
 
     protected void collidedWithFriendly(Position friendlyPosition){
         System.out.println("collided Player Monster");
-
         //knocked back from player
-        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
-        switch (getDirection()) {
-            case DOWN -> getPosition().setY(getPosition().getY()-getSpeed()*10);
-            case RIGHT_DOWN -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*10);
-                getPosition().setY(getPosition().getY()-diagSpeed*10);
-            }
-            case LEFT_DOWN -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*10);
-                getPosition().setY(getPosition().getY()-diagSpeed*10);
-            }
-            case UP -> getPosition().setY(getPosition().getY()+getSpeed()*10);
-            case RIGHT_UP -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*10);
-                getPosition().setY(getPosition().getY()+diagSpeed*10);
-            }
-            case LEFT_UP -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*10);
-                getPosition().setY(getPosition().getY()+diagSpeed*10);
-            }
-            case RIGHT -> getPosition().setX(getPosition().getX()-getSpeed()*10);
-            case LEFT -> getPosition().setX(getPosition().getX()+getSpeed()*10);
-        }
+        setIsDead(true);
+        move(-5);
     }
 
     protected void collidedWIthEnemy(Position enemyPosition){
-        //TODO position needed together with self's direction to know which enemy walked into which
+        //position needed together with self's direction to know which enemy walked into which
+
+        boolean iWalkedIntoYou = false;
+        if (getDirection() == Direction.LEFT_DOWN|| getDirection() == Direction.LEFT || getDirection() == Direction.LEFT_UP){
+            if (enemyPosition.getX() <= getPosition().getX()){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.RIGHT_DOWN|| getDirection() == Direction.RIGHT || getDirection() == Direction.RIGHT_UP){
+            if (enemyPosition.getX() >= getPosition().getX()){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.UP){
+            if (enemyPosition.getY() >= getPosition().getY()){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.DOWN){
+            if (enemyPosition.getY() <= getPosition().getY()){iWalkedIntoYou = true;}
+        }
+
+        if (iWalkedIntoYou){
+            move(-3);
+        }
     }
 
     protected void collidedWithProjectile(int attackPower){
@@ -85,31 +83,9 @@ abstract class Enemy extends Entity {
 
     protected void collidedWithNonLivingObject(AllObjects object){
         //can't move in this direction
-        //gives small knock back so enemy doesn't get stuck in wall
+        //gives small knock back so Enemy doesn't get stuck in wall
 
-        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
-        switch (getDirection()) {
-            case DOWN -> getPosition().setY(getPosition().getY()-getSpeed()*2);
-            case RIGHT_DOWN -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*2);
-                getPosition().setY(getPosition().getY()-diagSpeed*2);
-            }
-            case LEFT_DOWN -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*2);
-                getPosition().setY(getPosition().getY()-diagSpeed*2);
-            }
-            case UP -> getPosition().setY(getPosition().getY()+getSpeed()*2);
-            case RIGHT_UP -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*2);
-                getPosition().setY(getPosition().getY()+diagSpeed*2);
-            }
-            case LEFT_UP -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*2);
-                getPosition().setY(getPosition().getY()+diagSpeed*2);
-            }
-            case RIGHT -> getPosition().setX(getPosition().getX()-getSpeed()*2);
-            case LEFT -> getPosition().setX(getPosition().getX()+getSpeed()*2);
-        }
+        move(-2);
 
     }
 }
