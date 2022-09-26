@@ -2,25 +2,31 @@ package Model;
 
 import Model.Entities.AddEnemy;
 
-public class SpawnEnemies implements Runnable {
+class SpawnEnemies implements Runnable {
 
     private final Game game;
-    private final AddEnemy entityCreatorEnemy;
+    private final AddEnemy enemyEntityCreator;
     private final int round;
+    private final int difficulty;
 
-    public SpawnEnemies(Game game, AddEnemy entityCreatorEnemy, int round) {
+    SpawnEnemies(Game game, AddEnemy enemyEntityCreator, int round, int difficulty) {
         this.game = game;
-        this.entityCreatorEnemy = entityCreatorEnemy;
+        this.enemyEntityCreator = enemyEntityCreator;
         this.round = round;
+        this.difficulty = difficulty;
     }
 
     @Override
     public void run() {
-        // Number of entities = round-number^2
-        for (int i = 0; i < Math.pow(round, 2); i++) {
-            entityCreatorEnemy.createMonster();
+        int numberOfNewEnemies = numberOfNewEnemies();
+        for (int i = 0; i < numberOfNewEnemies; i++) {
+            enemyEntityCreator.createMonster();
         }
         game.enemiesHaveSpawned();
-        System.out.println("ENEMIES SPAWNED: " + (int) Math.pow(round, 2));
+        System.out.println("ENEMIES SPAWNED: " + numberOfNewEnemies); // Debug
+    }
+
+    private int numberOfNewEnemies() {
+        return (int) (Math.pow(round, 2) * difficulty);
     }
 }
