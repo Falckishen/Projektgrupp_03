@@ -8,11 +8,13 @@ public abstract class MovableEntity extends Entity implements OnTick {
 
     private Direction direction;
     private int speed;
+    private int health;
 
-    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed){
+    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health){
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
         this.speed = speed;
+        this.health= health;
     }
 
     protected Direction getDirection() {
@@ -29,6 +31,13 @@ public abstract class MovableEntity extends Entity implements OnTick {
 
     protected void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    protected void takeDamage(int attackPower){
+        health -= attackPower;
+        if (health <= 0){
+            setIsDead(true);
+        }
     }
 
     protected void move(){
