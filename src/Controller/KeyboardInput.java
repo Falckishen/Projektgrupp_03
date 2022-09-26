@@ -4,27 +4,40 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+
 public class KeyboardInput {
 
     private boolean upKeyPressed = false;
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
+    private boolean spacePressed = false;
+
     private final ArrayList<Integer> playerInputArrayList;
+    private Action walkUpActionPressed;
+    private Action walkLeftActionPressed;
+    private Action walkDownActionPressed;
+    private Action walkRightActionPressed;
+    private Action walkUpActionReleased;
+    private Action walkLeftActionReleased;
+    private Action walkDownActionReleased;
+    private Action walkRightActionReleased;
+    private Action attackActionPressed;
+    private Action attackActionReleased;
 
     public KeyboardInput(JComponent jComponent, ArrayList<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
 
-        Action walkUpActionPressed = new WalkUpActionPressed();
-        Action walkLeftActionPressed = new WalkLeftActionPressed();
-        Action walkDownActionPressed = new WalkDownActionPressed();
-        Action walkRightActionPressed = new WalkRightActionPressed();
-        Action walkUpActionReleased = new WalkUpActionReleased();
-        Action walkLeftActionReleased = new WalkLeftActionReleased();
-        Action walkDownActionReleased = new WalkDownActionReleased();
-        Action walkRightActionReleased = new WalkRightActionReleased();
-        Action spacePressed = new spacePressed();
-        Action spaceReleased = new spaceReleased();
+        walkUpActionPressed = new WalkUpActionPressed();
+        walkLeftActionPressed = new WalkLeftActionPressed();
+        walkDownActionPressed = new WalkDownActionPressed();
+        walkRightActionPressed = new WalkRightActionPressed();
+        walkUpActionReleased = new WalkUpActionReleased();
+        walkLeftActionReleased = new WalkLeftActionReleased();
+        walkDownActionReleased = new WalkDownActionReleased();
+        walkRightActionReleased = new WalkRightActionReleased();
+        attackActionPressed = new AttackActionPressed();
+        attackActionReleased = new AttackActionReleased();
 
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         jComponent.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
@@ -44,9 +57,9 @@ public class KeyboardInput {
         jComponent.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
 
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"spacePressed");
-        jComponent.getActionMap().put("spacePressed", spacePressed);
+        jComponent.getActionMap().put("spacePressed", attackActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"spaceReleased");
-        jComponent.getActionMap().put("spaceReleased", spaceReleased);
+        jComponent.getActionMap().put("spaceReleased", attackActionReleased);
     }
 
     class WalkUpActionPressed extends AbstractAction{
@@ -85,10 +98,14 @@ public class KeyboardInput {
             }
         }
     }
-    class spacePressed extends AbstractAction{
+
+    public class AttackActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.add(KeyEvent.VK_SPACE);
+            if (!spacePressed) {
+                playerInputArrayList.add(KeyEvent.VK_SPACE);
+                spacePressed = true;
+            }
         }
     }
     class WalkUpActionReleased extends AbstractAction{
@@ -119,10 +136,12 @@ public class KeyboardInput {
             rightKeyPressed = false;
         }
     }
-    class spaceReleased extends AbstractAction{
+
+    public class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
+            spacePressed = false;
         }
     }
 }

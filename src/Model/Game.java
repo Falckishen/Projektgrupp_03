@@ -95,7 +95,8 @@ public class Game {
 
     public void startGame() {
 
-        this.entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
+        this.entityCreator.createPlayer(
+                0,0, playerInputArrayList, WeaponFactory.getGun(getProjectileCreator()));
 
         Timer timer = new Timer();
         int period = 17;
