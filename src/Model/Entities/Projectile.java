@@ -3,7 +3,7 @@ package Model.Entities;
 import Utilities.Direction;
 import Utilities.EntityType;
 
-abstract class Projectile extends Entity {
+abstract class Projectile extends MovableEntity {
 
     private int lifeLeft;
     private final int attackPower;

@@ -2,7 +2,7 @@ package Model.Entities;
 
 import Utilities.EntityType;
 
-abstract class Friendly extends Entity {
+abstract class Friendly extends MovableEntity {
 
     protected Friendly(EntityType entityType, int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed) {
         super(entityType, x, y, hitBoxRadiusX, hitBoxRadiusY, speed);
@@ -13,7 +13,7 @@ abstract class Friendly extends Entity {
         //TODO attackPower = how much damage self takes
     }
 
-    protected void collidedWithNonLivingObject(AllObjects object){
+    protected void collidedWithNonLivingObject(Entity object){
         //can't move in this direction
         //gives small knock back so Friendly doesn't get stuck in wall
         move(-2);

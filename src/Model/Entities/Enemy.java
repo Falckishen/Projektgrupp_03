@@ -8,7 +8,7 @@ import Utilities.Direction;
 import Utilities.EntityType;
 import Utilities.Position;
 
-abstract class Enemy extends Entity {
+abstract class Enemy extends MovableEntity {
     private final int attackPower;
     private final int attackRange;
     private final Iterable<Friendly> friendliesIterator;
@@ -100,7 +100,7 @@ abstract class Enemy extends Entity {
         //TODO looses health in relation to the attackPower
     }
 
-    protected void collidedWithNonLivingObject(AllObjects object){
+    protected void collidedWithNonLivingObject(Entity object){
         //can't move in this direction
         //gives small knock back so Enemy doesn't get stuck in wall
 

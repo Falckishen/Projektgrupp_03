@@ -8,9 +8,9 @@ class CollisionHandler implements OnTick {
     private final Iterable<Friendly> friendlies;
     private final Iterable<Enemy> enemies;
     private final Iterable<Projectile> projectiles;
-    private final Iterable<AllObjects> nonLivingObjects;
+    private final Iterable<Entity> nonLivingObjects;
 
-    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles, Iterable<AllObjects> nonLivingObjects){
+    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles, Iterable<Entity> nonLivingObjects){
         this.friendlies = friendlies;
         this.enemies = enemies;
         this.projectiles = projectiles;
@@ -87,8 +87,8 @@ class CollisionHandler implements OnTick {
         Projectile p;
         Iterator<Enemy> itEnemies = enemies.iterator();
         Enemy e;
-        Iterator<AllObjects> itNonLivingObjects = nonLivingObjects.iterator();
-        AllObjects n;
+        Iterator<Entity> itNonLivingObjects = nonLivingObjects.iterator();
+        Entity n;
 
         while(itNonLivingObjects.hasNext()){
             n = itNonLivingObjects.next();
@@ -113,7 +113,7 @@ class CollisionHandler implements OnTick {
         }
     }
 
-    private boolean hasCollided(AllObjects entity1, AllObjects entity2) {
+    private boolean hasCollided(Entity entity1, Entity entity2) {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitBoxRadiusX() ) >
@@ -126,7 +126,7 @@ class CollisionHandler implements OnTick {
         return false;
     }
 
-    private Boolean hasCollidedYAxis(AllObjects entity1, AllObjects entity2){
+    private Boolean hasCollidedYAxis(Entity entity1, Entity entity2){
         //collided on y-axis (Also simplified to return result)
         if (entity1.getPosition().getY() < entity2.getPosition().getY()) {//is entity1 lower than entity2
             return (entity1.getPosition().getY() + entity1.getHitBoxRadiusY()) >
@@ -139,7 +139,7 @@ class CollisionHandler implements OnTick {
     }
 
     /*
-    private Direction hasCollided(Entity entity1, Entity entity2) {
+    private Direction hasCollided(MovableEntity entity1, MovableEntity entity2) {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitboxRadiusX() ) >
@@ -169,7 +169,7 @@ class CollisionHandler implements OnTick {
         removeDeadFromList(projectiles.iterator());
     }
 
-    private void removeDeadFromList(Iterator<? extends Entity> list){
+    private void removeDeadFromList(Iterator<? extends MovableEntity> list){
         while (list.hasNext()){
             if (list.next().getIsDead()) {list.remove();} // Check that it removes correct object
         }

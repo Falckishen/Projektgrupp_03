@@ -1,6 +1,6 @@
 package View;
 
-import Model.Entities.Entity;
+import Model.Entities.MovableEntity;
 import Utilities.EntityType;
 import Utilities.Position;
 
@@ -14,14 +14,14 @@ class ConversionQueryable {
         return(new Position(Math.floorMod(position.getX()+width/2, width) - width/2, Math.floorMod(position.getY()+height/2, height) - height/2));
     }
 
-    static UImageTypeEnum getImageType(Entity entity){
-        if(entity.getEntityType() == EntityType.player){
+    static UImageTypeEnum getImageType(MovableEntity movableEntity){
+        if(movableEntity.getEntityType() == EntityType.player){
             return(UImageTypeEnum.PLAYER);
         }
-        if(entity.getEntityType() == EntityType.monster){
+        if(movableEntity.getEntityType() == EntityType.monster){
             return(UImageTypeEnum.GRUNT);
         }
-        if(entity.getEntityType() == EntityType.simpleProjectile){
+        if(movableEntity.getEntityType() == EntityType.simpleProjectile){
             return(UImageTypeEnum.PLAYERPROJECTILE);
         }
         return(null);

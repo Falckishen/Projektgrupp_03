@@ -55,7 +55,7 @@ public class Game {
 
     public Position getPlayerPosition() {
         Position p = null;
-        for (Entity e:entityCreator.getFriendlies()) {
+        for (MovableEntity e:entityCreator.getFriendlies()) {
             if (e.getEntityType() == EntityType.player ){
                 p = e.getPosition();
             }
@@ -69,20 +69,20 @@ public class Game {
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
     }
 
-    public ArrayList<Entity> getEnemies() {
-        return (ArrayList<Entity>) entityCreator.getEnemies();
+    public ArrayList<MovableEntity> getEnemies() {
+        return (ArrayList<MovableEntity>) entityCreator.getEnemies();
     }
 
     public boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
     }
 
-    public ArrayList<Entity> getFriendlies() {
-        return (ArrayList<Entity>) entityCreator.getFriendlies();
+    public ArrayList<MovableEntity> getFriendlies() {
+        return (ArrayList<MovableEntity>) entityCreator.getFriendlies();
     }
 
-    public ArrayList<Entity> getProjectiles() {
-        return (ArrayList<Entity>) entityCreator.getProjectiles();
+    public ArrayList<MovableEntity> getProjectiles() {
+        return (ArrayList<MovableEntity>) entityCreator.getProjectiles();
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/

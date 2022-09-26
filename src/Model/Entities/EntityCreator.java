@@ -12,10 +12,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     private final List<Friendly> friendlies;
     private final List<Projectile> projectiles;
     private final List<OnTick> tickObservers;
-    private final List<AllObjects> nonLivingObjects;
+    private final List<Entity> nonLivingObjects;
 
     /*
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<AllObjects> nonLivingObjects){
+    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<Entity> nonLivingObjects){
         this.enemies = enemies;
         this.friendlies = friendlies;
         this.projectiles = projectiles;
@@ -45,19 +45,19 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return tickObservers;
     }
 
-    public List<? extends Entity> getEnemies() {
+    public List<? extends MovableEntity> getEnemies() {
         return enemies;
     }
 
-    public List<? extends Entity> getFriendlies() {
+    public List<? extends MovableEntity> getFriendlies() {
         return friendlies;
     }
 
-    public List<? extends Entity> getProjectiles() {
+    public List<? extends MovableEntity> getProjectiles() {
         return projectiles;
     }
 
-    public List<? extends AllObjects> getNonLivingObjects(){
+    public List<? extends Entity> getNonLivingObjects(){
         return nonLivingObjects;
     }
 

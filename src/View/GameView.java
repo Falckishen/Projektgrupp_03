@@ -1,6 +1,6 @@
 package View;
 
-import Model.Entities.Entity;
+import Model.Entities.MovableEntity;
 
 import Model.Game;
 import Utilities.EntityType;
@@ -79,17 +79,17 @@ public class GameView extends JComponent implements ViewObserver {
         return(outputImage);
     }
 
-    private void paintEntities(ArrayList<Entity> entities, Position playerPosition){
-        for(Entity entity : entities){
-            paintEntity(entity, playerPosition);
+    private void paintEntities(ArrayList<MovableEntity> entities, Position playerPosition){
+        for(MovableEntity movableEntity : entities){
+            paintEntity(movableEntity, playerPosition);
         }
     }
 
-    private void paintEntity(Entity entity, Position playerPosition){
-        Position pos = entity.getPosition();
+    private void paintEntity(MovableEntity movableEntity, Position playerPosition){
+        Position pos = movableEntity.getPosition();
         pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
         int variant;
-        if(entity.getEntityType() == EntityType.player){
+        if(movableEntity.getEntityType() == EntityType.player){
             if((int)System.currentTimeMillis()/500%200 == 0){
                 variant = 2;
             }else{
@@ -98,6 +98,6 @@ public class GameView extends JComponent implements ViewObserver {
         }else{
             variant = 0;
         }
-        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
+        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(movableEntity), variant), pos.getX(), pos.getY());
     }
 }

@@ -1,85 +1,45 @@
 package Model.Entities;
 
-import Model.OnTick;
-import Utilities.Direction;
 import Utilities.EntityType;
+import Utilities.Position;
 
-public abstract class Entity extends AllObjects implements OnTick {
+public abstract class Entity {
 
-    private Direction direction;
-    private int speed;
+    private final EntityType entityType;
+    private final int hitBoxRadiusX;
+    private final int hitBoxRadiusY;
+    private Position position;
+    private boolean isDead;
 
-    protected Entity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed){
-        super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
-        this.direction = Direction.LEFT;
-        this.speed = speed;
+    Entity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y){
+        this.entityType = entityType;
+        this.hitBoxRadiusX = hitBoxRadiusX;
+        this.hitBoxRadiusY = hitBoxRadiusY;
+        this.position = new Position(x, y);
+        this.isDead = false;
     }
 
-    protected Direction getDirection() {
-        return direction;
+    public EntityType getEntityType(){
+        return entityType;
     }
 
-    protected int getSpeed() {
-        return speed;
+    public Position getPosition() {
+        return position;
     }
 
-    protected void setDirection(Direction direction) {
-        this.direction = direction;
+    protected int getHitBoxRadiusX() {
+        return hitBoxRadiusX;
     }
 
-    protected void setSpeed(int speed) {
-        this.speed = speed;
+    protected int getHitBoxRadiusY() {
+        return hitBoxRadiusY;
     }
 
-    protected void move(){
-        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
-        switch (direction) {
-            case UP -> getPosition().setY(getPosition().getY()-getSpeed());
-            case LEFT_UP -> {
-                getPosition().setX(getPosition().getX()-diagSpeed);
-                getPosition().setY(getPosition().getY()-diagSpeed);
-            }
-            case RIGHT_UP -> {
-                getPosition().setX(getPosition().getX()+diagSpeed);
-                getPosition().setY(getPosition().getY()-diagSpeed);
-            }
-            case DOWN -> getPosition().setY(getPosition().getY()+getSpeed());
-            case LEFT_DOWN -> {
-                getPosition().setX(getPosition().getX()-diagSpeed);
-                getPosition().setY(getPosition().getY()+diagSpeed);
-            }
-            case RIGHT_DOWN -> {
-                getPosition().setX(getPosition().getX()+diagSpeed);
-                getPosition().setY(getPosition().getY()+diagSpeed);
-            }
-            case LEFT -> getPosition().setX(getPosition().getX()-getSpeed());
-            case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed());
-        }
+    protected void setIsDead(boolean isDead) {
+        this.isDead = isDead;
     }
 
-    protected void move(int multiplier){ //Used in collision
-        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
-        switch (direction) {
-            case UP -> getPosition().setY(getPosition().getY()-getSpeed()*multiplier);
-            case LEFT_UP -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*multiplier);
-                getPosition().setY(getPosition().getY()-diagSpeed*multiplier);
-            }
-            case RIGHT_UP -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*multiplier);
-                getPosition().setY(getPosition().getY()-diagSpeed*multiplier);
-            }
-            case DOWN -> getPosition().setY(getPosition().getY()+getSpeed()*multiplier);
-            case LEFT_DOWN -> {
-                getPosition().setX(getPosition().getX()-diagSpeed*multiplier);
-                getPosition().setY(getPosition().getY()+diagSpeed*multiplier);
-            }
-            case RIGHT_DOWN -> {
-                getPosition().setX(getPosition().getX()+diagSpeed*multiplier);
-                getPosition().setY(getPosition().getY()+diagSpeed*multiplier);
-            }
-            case LEFT -> getPosition().setX(getPosition().getX()-getSpeed()*multiplier);
-            case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed()*multiplier);
-        }
+    protected boolean getIsDead() {
+        return isDead;
     }
 }
