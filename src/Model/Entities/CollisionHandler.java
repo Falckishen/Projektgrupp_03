@@ -138,31 +138,6 @@ class CollisionHandler implements OnTick {
         }
     }
 
-    /*
-    private Direction hasCollided(MovableEntity entity1, MovableEntity entity2) {
-        //collided on x-axis
-        if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
-            if ( (entity1.getPosition().getX() + entity1.getHitboxRadiusX() ) >
-                    (entity2.getPosition().getX() - entity2.getHitboxRadiusX() )){return Direction.;}
-        }
-        else{
-            if ( (entity1.getPosition().getX() - entity1.getHitboxRadiusX() ) <
-                    (entity2.getPosition().getX() + entity2.getHitboxRadiusX() )){return Direction.;}
-        }
-
-        //collided on y-axis (Also simplified to return result)
-        if (entity1.getPosition().getY() < entity2.getPosition().getY()) {//is entity1 lower than entity2
-            if ( (entity1.getPosition().getY() + entity1.getHitboxRadiusY()) >
-                    (entity2.getPosition().getY() - entity2.getHitboxRadiusY()) ) {return Direction.;}
-        }
-        else{
-            if ( (entity1.getPosition().getY() - entity1.getHitboxRadiusY()) <
-                    (entity2.getPosition().getY() + entity2.getHitboxRadiusY()) ) {return Direction.;}
-        }
-        return null;
-    }
-    */
-
     private void removeDead() {
         removeDeadFromList(friendlies.iterator());
         removeDeadFromList(enemies.iterator());

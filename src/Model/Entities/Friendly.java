@@ -4,13 +4,15 @@ import Utilities.EntityType;
 
 abstract class Friendly extends MovableEntity {
 
-    protected Friendly(EntityType entityType, int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed) {
-        super(entityType, x, y, hitBoxRadiusX, hitBoxRadiusY, speed);
+    protected Friendly(EntityType entityType, int x, int y, int hitBoxRadiusX, int hitBoxRadiusY, int speed, int health) {
+        super(entityType, x, y, hitBoxRadiusX, hitBoxRadiusY, speed, health);
     }
 
     protected void CollidedWithEnemy(int attackPower){
-        //setIsDead(true);  // out commented since dying ends the game
-        //TODO attackPower = how much damage self takes
+        // attackPower = how much damage self takes
+        takeDamage(attackPower);
+        //TODO invulnerability frames
+
     }
 
     protected void collidedWithNonLivingObject(Entity object){

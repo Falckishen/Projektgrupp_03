@@ -10,23 +10,17 @@ import Utilities.Position;
 
 abstract class Enemy extends MovableEntity {
     private final int attackPower;
-    private final int attackRange;
     private final Iterable<Friendly> friendliesIterator;
     //private Position closestFriendlyPosition;
 
-    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int attackPower, int attackRange, Iterable<Friendly> friendliesIterator) {
-        super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed);
+    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health, int attackPower, Iterable<Friendly> friendliesIterator) {
+        super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed, health);
         this.attackPower = attackPower;
-        this.attackRange = attackRange;
         this.friendliesIterator = friendliesIterator;
     }
 
     protected int getAttackPower() {
         return attackPower;
-    }
-
-    protected int getAttackRange() {
-        return attackRange;
     }
 
     protected Iterable<Friendly> getFriendliesIterator() {
@@ -96,8 +90,8 @@ abstract class Enemy extends MovableEntity {
 
 
     protected void collidedWithProjectile(int attackPower){
-        setIsDead(true);
-        //TODO looses health in relation to the attackPower
+        //looses health in relation to the attackPower
+        takeDamage(attackPower);
     }
 
     protected void collidedWithNonLivingObject(Entity object){
