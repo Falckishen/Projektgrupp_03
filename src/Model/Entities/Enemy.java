@@ -58,23 +58,42 @@ abstract class Enemy extends Entity {
         //position needed together with self's direction to know which enemy walked into which
 
         boolean iWalkedIntoYou = false;
-        if (getDirection() == Direction.LEFT_DOWN|| getDirection() == Direction.LEFT || getDirection() == Direction.LEFT_UP){
-            if (enemyPosition.getX() <= getPosition().getX()){iWalkedIntoYou = true;}
+        if (getDirection() == Direction.LEFT){
+            if (enemyIsToTheLeft(enemyPosition)){iWalkedIntoYou = true;}
         }
-        else if (getDirection() == Direction.RIGHT_DOWN|| getDirection() == Direction.RIGHT || getDirection() == Direction.RIGHT_UP){
-            if (enemyPosition.getX() >= getPosition().getX()){iWalkedIntoYou = true;}
+        else if (getDirection() == Direction.RIGHT){
+            if (enemyIsToTheRight(enemyPosition)){iWalkedIntoYou = true;}
         }
         else if (getDirection() == Direction.UP){
-            if (enemyPosition.getY() >= getPosition().getY()){iWalkedIntoYou = true;}
+            if (enemyIsAbove(enemyPosition)){iWalkedIntoYou = true;}
         }
         else if (getDirection() == Direction.DOWN){
-            if (enemyPosition.getY() <= getPosition().getY()){iWalkedIntoYou = true;}
+            if (enemyIsBelow(enemyPosition)){iWalkedIntoYou = true;}
+        }
+
+        else if (getDirection() == Direction.LEFT_DOWN){
+            if (enemyIsToTheLeft(enemyPosition) && enemyIsBelow(enemyPosition)){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.LEFT_UP){
+            if (enemyIsToTheLeft(enemyPosition) && enemyIsAbove(enemyPosition)){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.RIGHT_DOWN){
+            if (enemyIsToTheRight(enemyPosition) && enemyIsBelow(enemyPosition)){iWalkedIntoYou = true;}
+        }
+        else if (getDirection() == Direction.RIGHT_UP){
+            if (enemyIsToTheRight(enemyPosition) && enemyIsAbove(enemyPosition)){iWalkedIntoYou = true;}
         }
 
         if (iWalkedIntoYou){
             move(-3);
         }
     }
+
+    private boolean enemyIsAbove(Position enemyPosition){return enemyPosition.getY() >= getPosition().getY();}
+    private boolean enemyIsBelow(Position enemyPosition){return enemyPosition.getY() <= getPosition().getY();}
+    private boolean enemyIsToTheLeft(Position enemyPosition){return enemyPosition.getX() <= getPosition().getX();}
+    private boolean enemyIsToTheRight(Position enemyPosition){return enemyPosition.getX() >= getPosition().getX();}
+
 
     protected void collidedWithProjectile(int attackPower){
         setIsDead(true);
