@@ -12,6 +12,7 @@ public class KeyboardInput {
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
     private boolean spacePressed = false;
+    private boolean escPressed = false;
 
     private final ArrayList<Integer> playerInputArrayList;
     private Action walkUpActionPressed;
@@ -24,6 +25,8 @@ public class KeyboardInput {
     private Action walkRightActionReleased;
     private Action attackActionPressed;
     private Action attackActionReleased;
+    private Action pauseActionPressed;
+    private Action pauseActionReleased;
 
     public KeyboardInput(JComponent jComponent, ArrayList<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
@@ -38,6 +41,8 @@ public class KeyboardInput {
         walkRightActionReleased = new WalkRightActionReleased();
         attackActionPressed = new AttackActionPressed();
         attackActionReleased = new AttackActionReleased();
+        pauseActionPressed = new PauseActionPressed();
+        pauseActionReleased = new PauseActionReleased();
 
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         jComponent.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
@@ -60,6 +65,11 @@ public class KeyboardInput {
         jComponent.getActionMap().put("spacePressed", attackActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"spaceReleased");
         jComponent.getActionMap().put("spaceReleased", attackActionReleased);
+
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false),"escPressed");
+        jComponent.getActionMap().put("escPressed", pauseActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
+        jComponent.getActionMap().put("escReleased", pauseActionReleased);
     }
 
     class WalkUpActionPressed extends AbstractAction{
@@ -98,23 +108,6 @@ public class KeyboardInput {
             }
         }
     }
-
-    public class AttackActionPressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!spacePressed) {
-                playerInputArrayList.add(KeyEvent.VK_SPACE);
-                spacePressed = true;
-            }
-        }
-    }
-    class WalkUpActionReleased extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
-            upKeyPressed = false;
-        }
-    }
     class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -136,12 +129,43 @@ public class KeyboardInput {
             rightKeyPressed = false;
         }
     }
-
     public class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
             spacePressed = false;
+        }
+    }
+    public class AttackActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!spacePressed) {
+                playerInputArrayList.add(KeyEvent.VK_SPACE);
+                spacePressed = true;
+            }
+        }
+    }
+    class WalkUpActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
+            upKeyPressed = false;
+        }
+    }
+    public class PauseActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!escPressed){
+                escPressed = true;
+                System.out.println("escPressed");
+            }
+        }
+    }
+    public class PauseActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            escPressed = false;
+            System.out.println("escReleased");
         }
     }
 }
