@@ -9,6 +9,7 @@ class ImageContainer {
 
     private static final String[] miscImagePaths = {"src/View/Images/NewerBackgroundImageOOP.png", "src/View/Images/CrosshairImageOOP.png"};
     private static final String[] PlayerImagePaths = {"src/View/Images/PlayerMove0.png", "src/View/Images/PlayerMove1.png", "src/View/Images/PlayerMove2.png"};
+    private static final String[] PlayerProjectileImagePaths = {"src/View/Images/EnemyImageOOP.png"};
     private static final String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
@@ -16,6 +17,7 @@ class ImageContainer {
         savedImagesMatrix = new BufferedImage[UImageTypeEnum.values().length][0];
         savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.MISC)] = getLoadedFileList(miscImagePaths);
         savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.PLAYER)] = getLoadedFileList(PlayerImagePaths);
+        savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.PLAYERPROJECTILE)] = getLoadedFileList(PlayerProjectileImagePaths);
         savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.GRUNT)] = getLoadedFileList(MonsterTestImagePaths);
     }
 

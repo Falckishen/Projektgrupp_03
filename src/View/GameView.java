@@ -1,5 +1,6 @@
 package View;
 
+import Model.Entities.Entity;
 import Model.Entities.MovableEntity;
 
 import Model.Game;
@@ -13,40 +14,44 @@ import java.util.ArrayList;
 
 public class GameView extends JComponent implements ViewObserver {
 
-    private ScreenDirector screenDirector;
     private final Game game;
-    private final JFrame frame;
+    private JFrame frame;
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
 
     public GameView(Game game, int width, int height){
         ImageContainer.loadImages();
-        this.frame = UFrameInterface.createFrame(width, height);
         this.displayWidth = width;
         this.displayHeight = height;
-        //new KeyboardInput(game, frame.getRootPane());
         game.addViewObserver(this);
         this.game = game;
         specialBorderBackground = generateSpecialBorderBackground();
+
+        startMenuFrame();
+        startGameFrame();
+    }
+
+    public void startGameFrame(){
+        this.frame = UFrameInterface.createFrame(displayWidth, displayHeight);
+    }
+
+    public void startMenuFrame(){
+        new MainMenuFrame();
     }
 
     public JComponent getFrameRootPane() {
         return frame.getRootPane();
     }
 
-
-    /*public void addKeyListener(Game game){
-        screenDirector.addKeyListener(game);
-    }*/
-
-    // THIS METHOD IS CALLED EVERY TICK, DRAWS WORLD
     @Override
     public void drawFrame() {
         Position playerPosition = game.getPlayerPosition();
         paintBackground(playerPosition);
         paintEntities(game.getFriendlies(), playerPosition);
         paintEntities(game.getEnemies(), playerPosition);
+        //paintEntities(game.getProjectiles(), playerPosition);
+        //paintEntities(game.getWalls(), playerPosition);
         refreshScreen();
     }
 
@@ -79,25 +84,37 @@ public class GameView extends JComponent implements ViewObserver {
         return(outputImage);
     }
 
-    private void paintEntities(ArrayList<MovableEntity> entities, Position playerPosition){
-        for(MovableEntity movableEntity : entities){
-            paintEntity(movableEntity, playerPosition);
+    private void paintEntities(ArrayList<? extends Entity> entities, Position playerPosition){
+        for(Entity entity : entities){
+            paintEntity(entity, playerPosition);
         }
     }
 
-    private void paintEntity(MovableEntity movableEntity, Position playerPosition){
-        Position pos = movableEntity.getPosition();
-        pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
-        int variant;
-        if(movableEntity.getEntityType() == EntityType.player){
-            if((int)System.currentTimeMillis()/500%200 == 0){
-                variant = 2;
+    private void paintEntity(Entity entity, Position playerPosition){
+        if(entity.getEntityType() != EntityType.wall){
+            Position pos = entity.getPosition();
+            pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
+            int variant;
+            if(entity.getEntityType() == EntityType.player){
+                if((int)System.currentTimeMillis()/500%200 == 0){
+                    variant = 2;
+                }else{
+                    variant = 1;
+                }
             }else{
-                variant = (int)System.currentTimeMillis()/500%2;
+                variant = 0;
             }
+            UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
         }else{
-            variant = 0;
+            //paintWall(entity.getHitBoxRadiusX(), entity.getHitBoxRadiusY(), entity.getPosition(), playerPosition);
         }
-        UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(movableEntity), variant), pos.getX(), pos.getY());
+    }
+
+    public void paintWall(int width, int height, Position position, Position playerPosition){
+        BufferedImage wall = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        wall.getGraphics().setColor(Color.BLACK);
+        wall.getGraphics().fillRect(0,0,width,height);
+        Position newPosition = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
+        UFrameInterface.paintImageRelativeToCenter(frame, wall, newPosition.getX(), newPosition.getY());
     }
 }
