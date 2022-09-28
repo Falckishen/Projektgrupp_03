@@ -46,6 +46,9 @@ public abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(Direction shootDirection){
+        System.out.println("Boom1");
+        //projectileCreator.createSimpleProjectile(
+        //        shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
         this.direction = shootDirection;
         //System.out.println("BOOM");
 
@@ -60,9 +63,9 @@ public abstract class Weapon {
         System.out.println(coolDownSec);
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
-            System.out.println("BOOM");
             shoot();
             this.lastShotFired = System.currentTimeMillis();
+            System.out.println("Boom2");
         }
         System.out.println("loading");
     }
