@@ -48,6 +48,25 @@ abstract class Enemy extends MovableEntity {
         move(-5);
     }
 
+   /* protected void collidedWIthEnemy(Position enemyPosition) {
+        double deltaX = getPosition().getX() - enemyPosition.getX();
+        double deltaY = getPosition().getY() - enemyPosition.getY();
+
+        double v = Math.atan(deltaY / deltaX);
+        double moveX = Math.cos(v) * getSpeed();
+        if (deltaX < 0) { //negative
+            moveX = moveX * (-1);
+        }
+        double moveY = Math.sin(v) * getSpeed();
+        if (deltaY < 0) { //negative
+            moveY = moveY * (-1);
+        }
+
+        getPosition().setX(getPosition().getX() + (int) moveX);
+        getPosition().setY(getPosition().getY() + (int) moveY);
+
+    }*/
+
     protected void collidedWIthEnemy(Position enemyPosition){
         //position needed together with self's direction to know which enemy walked into which
 
