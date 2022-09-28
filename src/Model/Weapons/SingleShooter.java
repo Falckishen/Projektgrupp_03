@@ -4,8 +4,8 @@ import Model.Entities.AddProjectile;
 
 class SingleShooter extends Weapon{
 
-    protected SingleShooter(AddProjectile projectileCreator, String type, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower) {
-        super(projectileCreator, type, coolDownSec, projectileVelocity, projectileLife, projectileAttackPower);
+    protected SingleShooter(AddProjectile projectileCreator, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower) {
+        super(projectileCreator, coolDownSec, projectileVelocity, projectileLife, projectileAttackPower);
     }
 
     @Override

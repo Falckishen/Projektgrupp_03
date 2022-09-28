@@ -6,7 +6,6 @@ import Utilities.Direction;
 public abstract class Weapon {
 
     private final AddProjectile projectileCreator;
-    private final String weaponType;
     private final int coolDownSec; //saved as seconds not milliseconds
     private final int projectileVelocity;
     private final int projectileLife;
@@ -14,9 +13,8 @@ public abstract class Weapon {
     private Long lastShotFired; //is saved as milliseconds
     private Direction direction;
 
-    protected Weapon(AddProjectile projectileCreator, String weaponType, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
+    protected Weapon(AddProjectile projectileCreator, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
-        this.weaponType = weaponType;
         this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
         this.projectileVelocity = projectileVelocity;
         this.projectileLife = projectileLife;
@@ -48,13 +46,24 @@ public abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(Direction shootDirection){
-        System.out.println("BOOM");
-        projectileCreator.createSimpleProjectile(
-                shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
+        this.direction = shootDirection;
+        //System.out.println("BOOM");
+
+        //shoot();
+
+      //  projectileCreator.createSimpleProjectile(
+       //         shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
+        System.out.println(System.currentTimeMillis());
+        System.out.println(lastShotFired);
+        System.out.println(System.currentTimeMillis() - lastShotFired);
+
+        System.out.println(coolDownSec);
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
+            System.out.println("BOOM");
             shoot();
             this.lastShotFired = System.currentTimeMillis();
         }
+        System.out.println("loading");
     }
 }
