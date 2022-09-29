@@ -6,14 +6,16 @@ import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import Model.Entities.*;
-import Model.Weapons.WeaponFactory;
+import Model.Entities.EntityCreator;
+import Model.Entities.MovableEntity;
 import Utilities.EntityType;
 import Utilities.Position;
 import Utilities.ViewObserver;
 
-// The "main" class for Model
-// Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
+/**
+ * The "main" class for Model that connects the other classes, responsible for starting the game. The only public
+ * class in Model, functions as a facade of Model for the views. One instance represents one game.
+ */
 public class Game {
 
     private final int difficulty;
@@ -27,6 +29,12 @@ public class Game {
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
+    /**
+     * Creates an instance of Game and starts a game.
+     *
+     * @param worldMapRadius    radius of the world map.
+     * @param difficulty        difficulty of the game.
+     */
     public Game(int worldMapRadius, int difficulty) {
         this.difficulty = difficulty;
         this.playerInputList = new ArrayList<>();
@@ -36,10 +44,15 @@ public class Game {
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
+
+        // TODO startGame()
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
 
+    /**
+     * @return position of the player.
+     */
     public Position getPlayerPosition() {
         Position p = null;
         for (MovableEntity e:entityCreator.getFriendlies()) {
@@ -48,14 +61,18 @@ public class Game {
             }
         }
         return p;
-
-        //return player.getPosition();
     }
 
+    /**
+     * @return true if any enemy is alive, false if all enemies is dead.
+     */
     public boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
     }
 
+    /**
+     * @return list of the current player input.
+     */
     public ArrayList<Integer> getPlayerInputList() {
         return playerInputList;
     }
@@ -123,6 +140,10 @@ public class Game {
     public void endGame() {
         timer.cancel();
         timer.purge();
+
+        // TODO kolla om round är high score
+
+        // TODO visa game-over skärm
     }
 
     /*---------------------------------------------- New Round Methods ----------------------------------------------*/

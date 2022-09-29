@@ -3,7 +3,8 @@ package Model;
 import Model.Entities.AddEnemy;
 
 /**
- * The class responsible for spawning enemies every new round.
+ * The class responsible for spawning enemies every new round. Used as a Runnable for
+ * ScheduledExecutorService.schedule()
  *
  * @author Samuel Falck
  */
@@ -30,7 +31,7 @@ class SpawnEnemies implements Runnable {
     }
 
     /**
-     * Spawns enemies. Should run a couple of seconds after the previous round ended.
+     * Spawns enemies. Runs a couple of seconds after the previous round ended.
      */
     @Override
     public void run() {

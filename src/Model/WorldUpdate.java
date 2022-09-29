@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.TimerTask;
 import Utilities.ViewObserver;
 
-// This class is used as a TimerTask to update the world an amount of time every second
+/**
+ * The class responsible for updating the world and calling on the view to draw a new frame a number of times every
+ * second (ticks). Used as a TimerTask for Timer.scheduleAtFixedRate().
+ *
+ * @author Samuel Falck
+ */
 class WorldUpdate extends TimerTask {
 
     private final Game game;
@@ -13,6 +18,12 @@ class WorldUpdate extends TimerTask {
     private final List<ViewObserver> viewObservers;
     private final List<OnTick> tickObservers;
 
+    /**
+     * Creates an instance of WorldUpdate.
+     *
+     * @param game              reference to the instance of Game.
+     * @param maxAllowedDelay   the longest execution time (ms) allowed for an update so as not to delay the next update.
+     */
     WorldUpdate(Game game, int maxAllowedDelay) {
         this.game = game;
         this.maxAllowedDelay = maxAllowedDelay;
@@ -20,6 +31,10 @@ class WorldUpdate extends TimerTask {
         this.tickObservers = game.getTickObservers();
     }
 
+    /**
+     * The method executed by Timer.scheduleAtFixedRate(), regularly updates the game. If the last execution took longer
+     * than maxAllowedDelay, it skips one update.
+     */
     @Override
     public void run() {
         if(game.isPlayerDead()) {
@@ -34,6 +49,9 @@ class WorldUpdate extends TimerTask {
         }
     }
 
+    /**
+     * Updates the world and calls on the views to draw a new frame.
+     */
     private void updateWorld() {
         updateTickObservers();
 
@@ -41,11 +59,12 @@ class WorldUpdate extends TimerTask {
             game.nextRound();
         }
 
-        for (ViewObserver viewObserver : viewObservers) {
-            viewObserver.drawFrame();
-        }
+        viewObservers.forEach(ViewObserver::drawFrame);
     }
 
+    /**
+     * Updates all objects that needs to be updated every update (tickObservers).
+     */
     private void updateTickObservers() {
         List<OnTick> ticks = new ArrayList<>(tickObservers);
         ticks.forEach(OnTick::doOnTick);
