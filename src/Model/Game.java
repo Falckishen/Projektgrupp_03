@@ -13,8 +13,8 @@ import Utilities.Position;
 import Utilities.ViewObserver;
 
 /**
- * The "main" class for Model that connects the other classes, responsible for starting the game. The only public
- * class in Model, functions as a facade of Model for the views. One instance represents one game.
+ * The "main" class for the model that connects the other classes, responsible for starting the game. The only public
+ * class in the model, functions as a facade of the model for the views. One instance represents one game.
  */
 public class Game {
 
@@ -30,10 +30,10 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     /**
-     * Creates an instance of Game and starts a game.
+     * Creates an instance of Game.
      *
-     * @param worldMapRadius    radius of the world map.
-     * @param difficulty        difficulty of the game.
+     * @param worldMapRadius    the radius of the world map.
+     * @param difficulty        the difficulty of the game.
      */
     public Game(int worldMapRadius, int difficulty) {
         this.difficulty = difficulty;
@@ -44,14 +44,12 @@ public class Game {
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
-
-        // TODO startGame()
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
 
     /**
-     * @return position of the player.
+     * @return position of player.
      */
     public Position getPlayerPosition() {
         Position p = null;
@@ -64,65 +62,101 @@ public class Game {
     }
 
     /**
-     * @return true if any enemy is alive, false if all enemies is dead.
+     * @return true if any enemy is alive, false if all enemies are dead.
      */
     public boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
     }
 
     /**
-     * @return list of the current player input.
+     * @return list of current user keyboard input.
      */
     public ArrayList<Integer> getPlayerInputList() {
         return playerInputList;
     }
 
+    /**
+     * @return list of the views.
+     */
     public List<ViewObserver> getViewObservers() {
         return viewObservers;
     }
 
+    /**
+     * @return list of the tick observers.
+     */
     public ArrayList<OnTick> getTickObservers(){
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
     }
 
+    /**
+     * @return list of enemies alive.
+     */
     public ArrayList<MovableEntity> getEnemies() {
         return (ArrayList<MovableEntity>) entityCreator.getEnemies();
     }
 
+    /**
+     * @return list of friendlies alive.
+     */
     public ArrayList<MovableEntity> getFriendlies() {
         return (ArrayList<MovableEntity>) entityCreator.getFriendlies();
     }
 
+    /**
+     * @return list of projectiles.
+     */
     public ArrayList<MovableEntity> getProjectiles() {
         return (ArrayList<MovableEntity>) entityCreator.getProjectiles();
     }
 
+    /**
+     * @return true if game is paused, false if game is not paused.
+     */
     public boolean isGamePaused() {
         return gamePaused;
     }
 
+    /**
+     * @return true if player is dead, false if player is alive.
+     */
     public boolean isPlayerDead() {
         return !entityCreator.isPlayerAlive();
     }
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
 
+    /**
+     * Pauses the game, sets gamePaused to true. updateWorld() in WorldUpdate stops running.
+     */
     public void pauseGame() {
         this.gamePaused = true;
     }
 
+    /**
+     * Unpauses the game, sets gamePaused to false. updateWorld() in WorldUpdate starts running.
+     */
     public void unPauseGame() {
         this.gamePaused = false;
     }
 
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
 
+    /**
+     * Adds a view to become an observer of the model.
+     *
+     * @param viewObserver the view to be added as an observer of the model.
+     */
     public void addViewObserver(ViewObserver viewObserver) {
         viewObservers.add(viewObserver);
     }
 
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
+    /**
+     * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
+     * run() is executed every 17 ms. An instance of Player is created.
+     */
     public void startGame() {
         entityCreator.createPlayer(0,0, playerInputList);
         int period = 17;
@@ -137,32 +171,42 @@ public class Game {
         */
     }
 
+    /**
+     * Stops the game, the world and the frame stops updating. run() in WorldUpdate stops being executed.
+     */
     public void endGame() {
         timer.cancel();
         timer.purge();
 
         // TODO kolla om round är high score
-
         // TODO visa game-over skärm
     }
 
     /*---------------------------------------------- New Round Methods ----------------------------------------------*/
 
+    /**
+     * Starts the next round and spawn the enemies of that round after a 5 s delay. Creates an instance of SpawnEnemies
+     * and its method run() is executed after a 5 s delay.
+     */
     void nextRound() {
         enemiesSpawning = true;
         round++;
-
         int delay = 5;
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), delay, TimeUnit.SECONDS);
-
         System.out.println("ROUND: " + round);
     }
 
+    /**
+     * Set enemiesSpawning to false. Called when SpawnEnemies has spawned enemies.
+     */
     void enemiesHaveSpawned() {
         enemiesSpawning = false;
     }
 
+    /**
+     * @return true if SpawnEnemies has spawned enemies, false if SpawnEnemies has not yet spawned enemies.
+     */
     boolean isEnemiesSpawning() {
         return enemiesSpawning;
     }

@@ -4,7 +4,7 @@ import Model.Entities.AddEnemy;
 
 /**
  * The class responsible for spawning enemies every new round. Used as a Runnable for
- * ScheduledExecutorService.schedule()
+ * ScheduledExecutorService.schedule().
  *
  * @author Samuel Falck
  */
@@ -18,8 +18,8 @@ class SpawnEnemies implements Runnable {
     /**
      * Creates an instance of SpawnEnemies.
      *
-     * @param game                  reference to the instance of Game.
-     * @param enemyEntityCreator    reference to the instance of EntityCreator.
+     * @param game                  a reference to the instance of Game.
+     * @param enemyEntityCreator    a reference to the instance of EntityCreator.
      * @param round                 the current round.
      * @param difficulty            the difficulty.
      */
@@ -31,7 +31,8 @@ class SpawnEnemies implements Runnable {
     }
 
     /**
-     * Spawns enemies. Runs a couple of seconds after the previous round ended.
+     * Spawns the enemies of the next round. Executed by ScheduledExecutorService.schedule() 5 s after the previous
+     * round ended.
      */
     @Override
     public void run() {
@@ -44,9 +45,9 @@ class SpawnEnemies implements Runnable {
     }
 
     /**
-     * Calculate and return the number if enemies to be spawned this round.
+     * Calculate and return the number of enemies to be spawned next round.
      *
-     * @return 1 if it is the first round. Otherwise, (int) (round^2)*difficulty/2.
+     * @return 1 if it is the first round. Otherwise, (round^2)*difficulty/2 rounded down to the nearest integer.
      */
     private int numberOfNewEnemies() {
         if (round == 1) {
