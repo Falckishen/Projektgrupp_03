@@ -107,7 +107,7 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        entityCreator.createPlayer(0,0, playerInputList, WeaponFactory.getGun(entityCreator));
+        entityCreator.createPlayer(0,0, playerInputList);
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
         /*
