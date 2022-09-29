@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -15,31 +16,27 @@ import Utilities.ViewObserver;
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game {
 
-    private final int worldMapRadius;
     private final int difficulty;
+    private final ArrayList<Integer> playerInputList;
+    private final List<ViewObserver> viewObservers;
+    private final EntityCreator entityCreator;
     private int round;
     private boolean enemiesSpawning;
-    private final ArrayList<Integer> playerInputArrayList;
-    private final ArrayList<ViewObserver> viewObservers;
-    private final EntityCreator entityCreator;
+    private boolean gamePaused;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game(int worldMapRadius, int difficulty) {
-        this.worldMapRadius = worldMapRadius;
         this.difficulty = difficulty;
+        this.playerInputList = new ArrayList<>();
+        this.viewObservers = new ArrayList<>();
+        this.entityCreator = new EntityCreator(worldMapRadius);
         this.round = 0;
         this.enemiesSpawning = false;
-        this.playerInputArrayList = new ArrayList<>();
-        this.viewObservers = new ArrayList<>();
-        this.entityCreator = new EntityCreator();
+        this.gamePaused = false;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
-
-    public int getWorldMapRadius() {
-        return worldMapRadius;
-    }
 
     public Position getPlayerPosition() {
         Position p = null;
@@ -57,11 +54,11 @@ public class Game {
         return entityCreator.isAnyEnemiesAlive();
     }
 
-    public ArrayList<Integer> getPlayerInputArrayList() {
-        return playerInputArrayList;
+    public ArrayList<Integer> getPlayerInputList() {
+        return playerInputList;
     }
 
-    public ArrayList<ViewObserver> getViewObservers() {
+    public List<ViewObserver> getViewObservers() {
         return viewObservers;
     }
 
@@ -77,6 +74,20 @@ public class Game {
         return (ArrayList<MovableEntity>) entityCreator.getFriendlies();
     }
 
+    public boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    /*--------------------------------------------------- Setters ---------------------------------------------------*/
+
+    public void pauseGame() {
+        this.gamePaused = true;
+    }
+
+    public void unPauseGame() {
+        this.gamePaused = false;
+    }
+
     /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
 
     public void addViewObserver(ViewObserver viewObserver) {
@@ -86,7 +97,7 @@ public class Game {
     /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
 
     public void startGame() {
-        entityCreator.createPlayer(0,0, playerInputArrayList, WeaponFactory.getGun(entityCreator));
+        entityCreator.createPlayer(0,0, playerInputList, WeaponFactory.getGun(entityCreator));
         Timer timer = new Timer();
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
@@ -105,9 +116,11 @@ public class Game {
     void nextRound() {
         enemiesSpawning = true;
         round++;
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
         int delay = 5;
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), delay, TimeUnit.SECONDS);
+
         System.out.println("ROUND: " + round);
     }
 
