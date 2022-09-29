@@ -32,8 +32,7 @@ class WorldUpdate extends TimerTask {
     }
 
     private void updateWorld() {
-        List<OnTick> ticks = new ArrayList<>(tickObservers);
-        ticks.forEach(OnTick::doOnTick);
+        updateTickObservers();
 
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
             game.nextRound();
@@ -42,5 +41,10 @@ class WorldUpdate extends TimerTask {
         for (ViewObserver viewObserver : viewObservers) {
             viewObserver.drawFrame();
         }
+    }
+
+    private void updateTickObservers() {
+        List<OnTick> ticks = new ArrayList<>(tickObservers);
+        ticks.forEach(OnTick::doOnTick);
     }
 }
