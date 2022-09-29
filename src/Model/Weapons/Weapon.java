@@ -2,6 +2,7 @@ package Model.Weapons;
 
 import Model.Entities.AddProjectile;
 import Utilities.Direction;
+import Utilities.Position;
 
 public abstract class Weapon {
 
@@ -12,8 +13,9 @@ public abstract class Weapon {
     private final int projectileAttackPower;
     private Long lastShotFired; //is saved as milliseconds
     private Direction direction;
+    private Position playerPosition;
 
-    protected Weapon(AddProjectile projectileCreator, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
+    protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
         this.coolDownSec = coolDownSec *100; //saved in seconds not milliseconds
         this.projectileVelocity = projectileVelocity;
@@ -21,10 +23,15 @@ public abstract class Weapon {
         this.projectileAttackPower = projectileAttackPower;
         this.lastShotFired = System.currentTimeMillis();
         this.direction = Direction.LEFT;
+        this.playerPosition = playerPosition;
     }
 
     protected Direction getDirection() {
         return direction;
+    }
+
+    protected Position getPlayerPosition(){
+        return playerPosition;
     }
 
     protected int getProjectileVelocity() {
@@ -47,11 +54,7 @@ public abstract class Weapon {
 
     public void actionShoot(Direction shootDirection){
         //System.out.println("Boom1");
-        projectileCreator.createSimpleProjectile(
-                shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
         this.direction = shootDirection;
-
-        //shoot();
 
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly

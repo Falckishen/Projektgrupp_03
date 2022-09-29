@@ -1,16 +1,18 @@
 package View;
 
 import Model.Entities.Entity;
-import Model.Entities.MovableEntity;
 
 import Model.Game;
 import Utilities.EntityType;
 import Utilities.Position;
 import Utilities.ViewObserver;
+import View.FramesAndPanels.GamePanel;
+import View.FramesAndPanels.MainFrame;
+import View.FramesAndPanels.MainMenuPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class GameView extends JComponent implements ViewObserver {
 
@@ -19,6 +21,10 @@ public class GameView extends JComponent implements ViewObserver {
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
+    private MainFrame mainFrame;
+
+    private GamePanel gamePanel;
+    private MainMenuPanel mainMenuPanel;
 
     public GameView(Game game, int width, int height){
         ImageContainer.loadImages();
@@ -28,35 +34,39 @@ public class GameView extends JComponent implements ViewObserver {
         this.game = game;
         specialBorderBackground = generateSpecialBorderBackground();
 
-        startMenuFrame();
-        startGameFrame();
+        mainFrame = new MainFrame(1000, 800);
+        startGame();
     }
 
-    public void startGameFrame(){
-        this.frame = UFrameInterface.createFrame(displayWidth, displayHeight);
+    public void startGame(){
+        this.gamePanel = new GamePanel();
+        mainFrame.replaceSubPanel(gamePanel);
     }
 
-    public void startMenuFrame(){
-        new MainMenuFrame();
+    public void startMainMenu(){
+        this.mainMenuPanel = new MainMenuPanel();
+        mainFrame.replaceSubPanel(mainMenuPanel);
     }
 
     public JComponent getFrameRootPane() {
-        return frame.getRootPane();
+        return mainFrame.getRootPane();
     }
 
     @Override
     public void drawFrame() {
         Position playerPosition = game.getPlayerPosition();
-        paintBackground(playerPosition);
-        paintEntities(game.getFriendlies(), playerPosition);
-        paintEntities(game.getEnemies(), playerPosition);
-        //paintEntities(game.getProjectiles(), playerPosition);
-        //paintEntities(game.getWalls(), playerPosition);
+        if(gamePanel != null){
+            paintBackground(playerPosition);
+            paintEntities(game.getFriendlies(), playerPosition);
+            paintEntities(game.getEnemies(), playerPosition);
+            paintEntities(game.getProjectiles(), playerPosition);
+            //paintEntities(game.getWalls(), playerPosition);
+        }
         refreshScreen();
     }
 
     private void refreshScreen(){
-        UFrameInterface.displayBuffer(frame);
+        mainFrame.refreshScreen();
     }
 
     private void paintBackground(Position playerPosition){
@@ -64,7 +74,7 @@ public class GameView extends JComponent implements ViewObserver {
         Position position = new Position(0, 0);
         position = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
         position = ConversionQueryable.repeatingEverySize(position, background.getWidth(), background.getHeight());
-        UFrameInterface.paintImageRelativeToCenter(frame, specialBorderBackground, position.getX(), position.getY());
+        gamePanel.paintImageRelativeToCenter(specialBorderBackground, position.getX(), position.getY());
     }
 
     private BufferedImage generateSpecialBorderBackground(){
@@ -84,7 +94,7 @@ public class GameView extends JComponent implements ViewObserver {
         return(outputImage);
     }
 
-    private void paintEntities(ArrayList<? extends Entity> entities, Position playerPosition){
+    private void paintEntities(Iterable<? extends Entity> entities, Position playerPosition){
         for(Entity entity : entities){
             paintEntity(entity, playerPosition);
         }
@@ -104,7 +114,7 @@ public class GameView extends JComponent implements ViewObserver {
             }else{
                 variant = 0;
             }
-            UFrameInterface.paintImageRelativeToCenter(frame, ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
+            gamePanel.paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
         }else{
             //paintWall(entity.getHitBoxRadiusX(), entity.getHitBoxRadiusY(), entity.getPosition(), playerPosition);
         }
@@ -115,6 +125,6 @@ public class GameView extends JComponent implements ViewObserver {
         wall.getGraphics().setColor(Color.BLACK);
         wall.getGraphics().fillRect(0,0,width,height);
         Position newPosition = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
-        UFrameInterface.paintImageRelativeToCenter(frame, wall, newPosition.getX(), newPosition.getY());
+        gamePanel.paintImageRelativeToCenter(wall, newPosition.getX(), newPosition.getY());
     }
 }

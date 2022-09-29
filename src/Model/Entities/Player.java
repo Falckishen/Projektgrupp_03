@@ -13,11 +13,11 @@ class Player extends Friendly {
     private Weapon weapon;
     private final int defaultSpeed;
 
-    Player(int x, int y, List<Integer> playerInputs, Weapon weapon) {
+    Player(int x, int y, List<Integer> playerInputs) {
         super(EntityType.player, x, y, 50, 50, 5,10);
         defaultSpeed = getSpeed();
         this.playerKeyInputs = playerInputs;
-        this.weapon = weapon;
+        this.weapon = null;
     }
 
     void getNewWeapon(Weapon weapon){

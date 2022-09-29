@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Model.OnTick;
 import Model.Weapons.Weapon;
+import Model.Weapons.WeaponFactory;
 import Utilities.*;
 
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
@@ -84,6 +85,15 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return false;
     }
 
+    public Position getPlayerPosition(){
+        for (Friendly f : friendlies){
+            if (f.getEntityType() == EntityType.player){
+                return f.getPosition();
+            }
+        }
+        return null;
+    }
+
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
     @Override
@@ -106,8 +116,9 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
-    public void createPlayer(int coordX, int coordY, List<Integer> keyboardInputs, Weapon weapon) {
-        Player p = new Player(coordX, coordY, keyboardInputs, weapon);
+    public void createPlayer(int coordX, int coordY, List<Integer> keyboardInputs) {
+        Player p = new Player(coordX, coordY, keyboardInputs);
+        p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition()));
         friendlies.add(p);
         tickObservers.add(p);
     }
@@ -115,14 +126,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddProjectile (used by Weapon class) --------------------------------------*/
 
     @Override
-    public void createSimpleProjectile(Direction direction, int velocity, int life, int attackPower) {
-        SimpleProjectile p = new SimpleProjectile(direction, velocity, life, attackPower);
+    public void createSimpleProjectile(Position position, Direction direction, int velocity, int life, int attackPower) {
+        SimpleProjectile p = new SimpleProjectile(position.getX(), position.getY(), direction, velocity, life, attackPower);
         projectiles.add(p);
         tickObservers.add(p);
     }
 
     @Override
-    public void createSimpleProjectile(double direction, int velocity, int life, int attackPower) {
+    public void createSimpleProjectile(Position position, double direction, int velocity, int life, int attackPower) {
 
     }
 
