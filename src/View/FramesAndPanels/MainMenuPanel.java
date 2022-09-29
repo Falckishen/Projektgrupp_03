@@ -1,46 +1,28 @@
-package View;
+package View.FramesAndPanels;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenuFrame extends JFrame {
+public class MainMenuPanel extends JPanel implements PanelInterface{
+
+    private JFrame parentFrame;
+
     private JLabel title;
-    private JSlider difficultySlider;
     private JButton startGameButton;
     private JButton endGameButton;
     boolean close = false;
     boolean start = false;
 
-    public MainMenuFrame(){
-        setSize(1000, 800);
-        setResizable(false);
-        setTitle("(╯°□°）╯︵ ┻━┻");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setFocusable(true);
-        requestFocus();
-        setLayout(null);
-
-        setUpParts();
-
-        setVisible(true);
-    }
+    public MainMenuPanel(){}
 
     private void setUpParts(){
-        title = new JLabel("Game Name", JLabel.CENTER);
+        title = new JLabel("Don't die, or else", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
         title.setBounds(0,0,1000,100);
         add(title, BorderLayout.CENTER);
         title.setVisible(true);
-
-        difficultySlider = new JSlider(1, 10);
-        difficultySlider.setBounds(300,300,400,100);
-        difficultySlider.setValue(1);
-        add(difficultySlider, BorderLayout.CENTER);
-        difficultySlider.setVisible(true);
 
         startGameButton = new JButton("Start Game");
         startGameButton.setBounds(300,500,400,100);
@@ -65,7 +47,22 @@ public class MainMenuFrame extends JFrame {
         endGameButton.setVisible(true);
     }
 
-    public int difficulty(){
-        return(difficultySlider.getValue());
+    @Override
+    public void startPanel(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+
+        setSize(parentFrame.getWidth(), parentFrame.getHeight());
+        setUpParts();
+        setVisible(true);
+    }
+
+    @Override
+    public void updateDisplay() {
+        //repaint();
+    }
+
+    @Override
+    public void destroyPanel() {
+        getParent().remove(this);
     }
 }

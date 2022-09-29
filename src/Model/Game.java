@@ -74,8 +74,16 @@ public class Game {
         return (ArrayList<MovableEntity>) entityCreator.getFriendlies();
     }
 
+    public ArrayList<MovableEntity> getProjectiles() {
+        return (ArrayList<MovableEntity>) entityCreator.getProjectiles();
+    }
+
     public boolean isGamePaused() {
         return gamePaused;
+    }
+
+    public boolean isPlayerDead() {
+        return !entityCreator.isPlayerAlive();
     }
 
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
