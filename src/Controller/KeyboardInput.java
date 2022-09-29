@@ -55,11 +55,10 @@ public class KeyboardInput {
         jComponent.getActionMap().put("walkDownActionReleased", walkDownActionReleased);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
         jComponent.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
-
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"spacePressed");
-        jComponent.getActionMap().put("spacePressed", attackActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"spaceReleased");
-        jComponent.getActionMap().put("spaceReleased", attackActionReleased);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"attackActionPressed");
+        jComponent.getActionMap().put("attackActionPressed", attackActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"attackActionReleased");
+        jComponent.getActionMap().put("attackActionReleased", attackActionReleased);
     }
 
     class WalkUpActionPressed extends AbstractAction{

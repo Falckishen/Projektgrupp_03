@@ -33,9 +33,10 @@ class WorldUpdate extends TimerTask {
 
     private void updateWorld() {
         List<OnTick> ticks = new ArrayList<>();
-        for (OnTick tickObserver : tickObservers) {
-            ticks.add(tickObserver);
-        }
+        ticks.addAll(tickObservers);
+//        for (OnTick tickObserver : tickObservers) {
+//            ticks.add(tickObserver);
+//        }
 
         ticks.forEach(onTick -> onTick.doOnTick());
 
