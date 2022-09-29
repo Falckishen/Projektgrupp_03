@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 import Utilities.ViewObserver;
@@ -31,7 +32,8 @@ class WorldUpdate extends TimerTask {
     }
 
     private void updateWorld() {
-        tickObservers.forEach(OnTick::doOnTick);
+        List<OnTick> ticks = new ArrayList<>(tickObservers);
+        ticks.forEach(OnTick::doOnTick);
 
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
             game.nextRound();
