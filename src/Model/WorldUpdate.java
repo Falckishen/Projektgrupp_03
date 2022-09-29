@@ -1,8 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
-import java.util.ArrayList;
 import Utilities.ViewObserver;
 
 // This class is used as a TimerTask to update the world an amount of time every second
@@ -10,8 +10,8 @@ class WorldUpdate extends TimerTask {
 
     private final Game game;
     private final int maxAllowedDelay;
-    private final ArrayList<ViewObserver> viewObservers;
-    private final ArrayList<OnTick> tickObservers;
+    private final List<ViewObserver> viewObservers;
+    private final List<OnTick> tickObservers;
 
     WorldUpdate(Game game, int maxAllowedDelay) {
         this.game = game;
@@ -23,22 +23,17 @@ class WorldUpdate extends TimerTask {
     @Override
     public void run() {
         int delay = (int) (System.currentTimeMillis() - scheduledExecutionTime());
-        if (delay <= maxAllowedDelay) {
+        if (delay <= maxAllowedDelay && !game.isGamePaused()) {
             updateWorld();
         }
-        else {
-            System.out.println("FRAME SKIPPED! Delay: " + delay + " ms");
+        else if(delay > maxAllowedDelay) {
+            System.out.println("FRAME SKIPPED! Lag: " + delay + " ms");
         }
     }
 
     private void updateWorld() {
-        List<OnTick> ticks = new ArrayList<>();
-        ticks.addAll(tickObservers);
-//        for (OnTick tickObserver : tickObservers) {
-//            ticks.add(tickObserver);
-//        }
 
-        ticks.forEach(onTick -> onTick.doOnTick());
+        updateTickObservers();
 
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
             game.nextRound();
@@ -47,5 +42,10 @@ class WorldUpdate extends TimerTask {
         for (ViewObserver viewObserver : viewObservers) {
             viewObserver.drawFrame();
         }
+    }
+
+    private void updateTickObservers() {
+        List<OnTick> ticks = new ArrayList<>(tickObservers);
+        ticks.forEach(OnTick::doOnTick);
     }
 }
