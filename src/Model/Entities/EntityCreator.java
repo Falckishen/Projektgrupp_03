@@ -66,6 +66,9 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     public boolean isAnyEnemiesAlive() {
         return !enemies.isEmpty();
     }
+    public boolean isPlayerAlive() {
+        return !friendlies.isEmpty();
+    }
 
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
