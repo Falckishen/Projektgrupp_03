@@ -9,7 +9,7 @@ class ImageContainer {
 
     private static final String[] miscImagePaths = {"src/View/Images/NewerBackgroundImageOOP.png", "src/View/Images/CrosshairImageOOP.png"};
     private static final String[] PlayerImagePaths = {"src/View/Images/PlayerMove0.png", "src/View/Images/PlayerMove1.png", "src/View/Images/PlayerMove2.png"};
-    private static final String[] PlayerProjectileImagePaths = {"src/View/Images/EnemyImageOOP.png"};
+    private static final String[] PlayerProjectileImagePaths = {"src/View/Images/PlayerProjectile.png"};
     private static final String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
