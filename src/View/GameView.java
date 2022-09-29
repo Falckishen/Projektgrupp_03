@@ -116,7 +116,7 @@ public class GameView extends JComponent implements ViewObserver {
             }
             gamePanel.paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
         }else{
-            paintWall(entity.getHitBoxRadiusX(), entity.getHitBoxRadiusY(), entity.getPosition(), playerPosition);
+            //paintWall(entity.getHitBoxRadiusX(), entity.getHitBoxRadiusY(), entity.getPosition(), playerPosition);
         }
     }
 
