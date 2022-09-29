@@ -20,6 +20,7 @@ public class Game {
     private final ArrayList<Integer> playerInputList;
     private final List<ViewObserver> viewObservers;
     private final EntityCreator entityCreator;
+    private final Timer timer;
     private int round;
     private boolean enemiesSpawning;
     private boolean gamePaused;
@@ -31,6 +32,7 @@ public class Game {
         this.playerInputList = new ArrayList<>();
         this.viewObservers = new ArrayList<>();
         this.entityCreator = new EntityCreator(worldMapRadius);
+        this.timer = new Timer();
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
@@ -106,7 +108,6 @@ public class Game {
 
     public void startGame() {
         entityCreator.createPlayer(0,0, playerInputList, WeaponFactory.getGun(entityCreator));
-        Timer timer = new Timer();
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
         /*
@@ -117,6 +118,11 @@ public class Game {
         60 FPS  = one update every 17 (16.667) ms.
         30 FPS  = one update every 34 (33.333) ms.
         */
+    }
+
+    public void endGame() {
+        timer.cancel();
+        timer.purge();
     }
 
     /*---------------------------------------------- New Round Methods ----------------------------------------------*/

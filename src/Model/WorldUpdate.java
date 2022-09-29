@@ -22,6 +22,9 @@ class WorldUpdate extends TimerTask {
 
     @Override
     public void run() {
+        if(game.isPlayerDead()) {
+            game.endGame();
+        }
         int delay = (int) (System.currentTimeMillis() - scheduledExecutionTime());
         if (delay <= maxAllowedDelay && !game.isGamePaused()) {
             updateWorld();
@@ -32,7 +35,6 @@ class WorldUpdate extends TimerTask {
     }
 
     private void updateWorld() {
-
         updateTickObservers();
 
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
