@@ -54,7 +54,7 @@ class Player extends Friendly {
             super.setDirection(currentDirections.get(0));
         }
         // FALL 3: 2 Knappar är nere
-        if(currentDirections.size() == 2) {
+        else if(currentDirections.size() == 2) {
             super.setSpeed(defaultSpeed);
             if(currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.LEFT)) {
                 super.setDirection(Direction.LEFT_UP);
@@ -72,7 +72,7 @@ class Player extends Friendly {
 
         }
         // FALL 4: 3 knappar är nere
-        if(currentDirections.size() == 3) {
+        else if(currentDirections.size() == 3) {
             super.setSpeed(defaultSpeed);
             if (currentDirections.contains(Direction.UP) && currentDirections.contains(Direction.DOWN)) {
                 if(currentDirections.contains(Direction.LEFT)) super.setDirection(Direction.LEFT);

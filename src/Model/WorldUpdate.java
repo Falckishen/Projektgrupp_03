@@ -32,6 +32,7 @@ class WorldUpdate extends TimerTask {
     }
 
     private void updateWorld() {
+
         updateTickObservers();
 
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
