@@ -15,7 +15,7 @@ public abstract class Weapon {
 
     protected Weapon(AddProjectile projectileCreator, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
-        this.coolDownSec = coolDownSec *1000; //saved in seconds not milliseconds
+        this.coolDownSec = coolDownSec *100; //saved in seconds not milliseconds
         this.projectileVelocity = projectileVelocity;
         this.projectileLife = projectileLife;
         this.projectileAttackPower = projectileAttackPower;
@@ -56,11 +56,7 @@ public abstract class Weapon {
 
       //  projectileCreator.createSimpleProjectile(
        //         shootDirection, getProjectileVelocity(),getProjectileLife(),getProjectileAttackPower());
-        System.out.println(System.currentTimeMillis());
-        System.out.println(lastShotFired);
-        System.out.println(System.currentTimeMillis() - lastShotFired);
 
-        System.out.println(coolDownSec);
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
