@@ -47,6 +47,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return tickObservers;
     }
 
+    public List<MovableEntity> getMovableEntities(){
+        ArrayList<MovableEntity> allMovableEntities = new ArrayList<>();
+        allMovableEntities.addAll(enemies);
+        allMovableEntities.addAll(friendlies);
+        allMovableEntities.addAll(projectiles);
+        return allMovableEntities;
+    }
+
     public List<? extends MovableEntity> getEnemies() {
         return enemies;
     }
