@@ -1,7 +1,9 @@
 package Model.Entities;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import Model.OnTick;
+import Utilities.Position;
 
 class CollisionHandler implements OnTick {
 
@@ -45,20 +47,24 @@ class CollisionHandler implements OnTick {
     }
 
     private void checkCollisionEnemyEnemy() {
-        Iterator<Enemy> itEnemies1 = enemies.iterator();
-        Iterator<Enemy> itEnemies2 = enemies.iterator();
+        ArrayList<Position> enemiesCollidedWithMe = new ArrayList<>();
         Enemy e1;
         Enemy e2;
-        while(itEnemies1.hasNext()){
+        Iterator<Enemy> itEnemies1 = enemies.iterator();
+        while(itEnemies1.hasNext()){ // don't use for-loop (not as accurate)
             e1 = itEnemies1.next();
-            while(itEnemies2.hasNext()){
+            Iterator<Enemy> itEnemies2 = enemies.iterator();
+            while(itEnemies2.hasNext()){ // don't use for-loop (not as accurate)
                 e2 = itEnemies2.next();
                 if (e1 != e2){
                     if(hasCollided(e1, e2)){
-                        e1.collidedWIthEnemy(e2.getPosition());
-                        e2.collidedWIthEnemy(e1.getPosition());
+                        enemiesCollidedWithMe.add(e2.getPosition());
                     }
                 }
+            }
+            if (!enemiesCollidedWithMe.isEmpty()){
+                e1.collidedWIthEnemy(enemiesCollidedWithMe.iterator());
+                enemiesCollidedWithMe.clear();
             }
         }
     }

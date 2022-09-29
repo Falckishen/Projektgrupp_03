@@ -1,8 +1,6 @@
 package Model.Entities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import Utilities.Direction;
 import Utilities.EntityType;
@@ -48,11 +46,78 @@ abstract class Enemy extends MovableEntity {
         move(-5);
     }
 
-   /* protected void collidedWIthEnemy(Position enemyPosition) {
-        double deltaX = getPosition().getX() - enemyPosition.getX();
-        double deltaY = getPosition().getY() - enemyPosition.getY();
+    protected void collidedWIthEnemy(Iterator<Position> enemyPositions) {
+        Random rand = new Random();
+        double nextDeltaX;
+        double nextDeltaY;
 
-        double v = Math.atan(deltaY / deltaX);
+        double deltaX = 0;
+        double deltaY = 0;
+        double v;
+
+        while(enemyPositions.hasNext()){
+            Position nextEnemyPosition = enemyPositions.next();
+
+            if (getPosition().getX() == nextEnemyPosition.getX() && nextEnemyPosition.getY() == getPosition().getY()){
+                double tempV = rand.nextInt(360);
+                nextDeltaX = Math.cos(tempV) * 2;
+                nextDeltaY = Math.sin(tempV) * 2;
+            } else {
+                nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
+                nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
+            }
+
+            deltaX += 10/nextDeltaX;
+            deltaY += 10/nextDeltaY;
+
+
+   //         if (Math.sqrt(Math.pow(nextDeltaX, 2) + Math.pow(nextDeltaY, 2)) < Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) || ( deltaX == 0 && deltaY == 0 ) ){
+     //           deltaX = nextDeltaX;
+       //         deltaY = nextDeltaY;
+         //   }
+        }
+
+        v = Math.atan(deltaY / deltaX);
+        double moveX = Math.cos(v) * getSpeed();
+        if (deltaX < 0) { //negative
+            moveX = moveX * (-1);
+        }
+        double moveY = Math.sin(v) * getSpeed();
+        if (deltaY < 0) { //negative
+            moveY = moveY * (-1);
+        }
+
+        getPosition().setX(getPosition().getX() + (int) moveX);
+        getPosition().setY(getPosition().getY() + (int) moveY);
+    }
+
+/*
+    protected void collidedWIthEnemy(Iterator<Position> enemyPositions) {
+        Random rand = new Random();
+        double nextDeltaX;
+        double nextDeltaY;
+
+        double deltaX = 0;
+        double deltaY = 0;
+        double v;
+
+        while(enemyPositions.hasNext()){
+            Position nextEnemyPosition = enemyPositions.next();
+
+            if (getPosition().getX() == nextEnemyPosition.getX() && nextEnemyPosition.getY() == getPosition().getY()){
+                double tempV = rand.nextInt(360);
+                nextDeltaX = Math.cos(tempV);
+                nextDeltaY = Math.sin(tempV);
+            } else {
+                nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
+                nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
+            }
+
+            deltaX += nextDeltaX;
+            deltaY += nextDeltaY;
+        }
+
+        v = Math.atan(deltaY / deltaX);
         double moveX = Math.cos(v) * getSpeed();
         if (deltaX < 0) { //negative
             moveX = moveX * (-1);
@@ -67,6 +132,7 @@ abstract class Enemy extends MovableEntity {
 
     }*/
 
+    /*
     protected void collidedWIthEnemy(Position enemyPosition){
         //position needed together with self's direction to know which enemy walked into which
 
@@ -106,7 +172,7 @@ abstract class Enemy extends MovableEntity {
     private boolean enemyIsBelow(Position enemyPosition){return enemyPosition.getY() <= getPosition().getY();}
     private boolean enemyIsToTheLeft(Position enemyPosition){return enemyPosition.getX() <= getPosition().getX();}
     private boolean enemyIsToTheRight(Position enemyPosition){return enemyPosition.getX() >= getPosition().getX();}
-
+*/
 
     protected void collidedWithProjectile(int attackPower){
         //looses health in relation to the attackPower
