@@ -13,6 +13,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     private final List<Projectile> projectiles;
     private final List<OnTick> tickObservers;
     private final List<Entity> nonLivingObjects;
+    private final int worldMapRadius;
 
     /*
     public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<Entity> nonLivingObjects){
@@ -25,13 +26,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     }
     */
 
-    public EntityCreator(){
+    public EntityCreator(int worldMapRadius) {
         this.enemies = new ArrayList<>();
         this.friendlies = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.tickObservers = new ArrayList<>();
         this.nonLivingObjects = new ArrayList<>();
         addCollisionHandler();
+        this.worldMapRadius = worldMapRadius;
     }
 
     private void addCollisionHandler(){

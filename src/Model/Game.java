@@ -16,7 +16,6 @@ import Utilities.ViewObserver;
 // Follows the facade pattern, this should be the only class in Model to communicate with controller and view.
 public class Game {
 
-    private final int worldMapRadius;
     private final int difficulty;
     private final ArrayList<Integer> playerInputList;
     private final List<ViewObserver> viewObservers;
@@ -28,21 +27,16 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     public Game(int worldMapRadius, int difficulty) {
-        this.worldMapRadius = worldMapRadius;
         this.difficulty = difficulty;
         this.playerInputList = new ArrayList<>();
         this.viewObservers = new ArrayList<>();
-        this.entityCreator = new EntityCreator();
+        this.entityCreator = new EntityCreator(worldMapRadius);
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
     }
 
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
-
-    public int getWorldMapRadius() {
-        return worldMapRadius;
-    }
 
     public Position getPlayerPosition() {
         Position p = null;
