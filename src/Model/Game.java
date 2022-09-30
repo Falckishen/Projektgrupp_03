@@ -1,5 +1,7 @@
 package Model;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -15,9 +17,12 @@ import Utilities.ViewObserver;
 /**
  * The "main" class for the model that connects the other classes, responsible for starting the game. The only public
  * class in the model, functions as a facade of the model for the views. One instance represents one game.
+ *
+ * @author Samuel Falck
  */
 public class Game {
 
+    private final String gameName;
     private final int difficulty;
     private final ArrayList<Integer> playerInputList;
     private final List<ViewObserver> viewObservers;
@@ -32,10 +37,12 @@ public class Game {
     /**
      * Creates an instance of Game.
      *
+     * @param gameName          the name of the game.
      * @param worldMapRadius    the radius of the world map.
      * @param difficulty        the difficulty of the game.
      */
-    public Game(int worldMapRadius, int difficulty) {
+    public Game(String gameName, int worldMapRadius, int difficulty) {
+        this.gameName = gameName;
         this.difficulty = difficulty;
         this.playerInputList = new ArrayList<>();
         this.viewObservers = new ArrayList<>();
@@ -49,6 +56,8 @@ public class Game {
     /*--------------------------------------------------- Getters ---------------------------------------------------*/
 
     /**
+     * Returns the position of player.
+     *
      * @return position of player.
      */
     public Position getPlayerPosition() {
@@ -62,6 +71,8 @@ public class Game {
     }
 
     /**
+     * Returns true if any enemy is alive, false if all enemies are dead.
+     *
      * @return true if any enemy is alive, false if all enemies are dead.
      */
     public boolean isAnyEnemiesAlive() {
@@ -69,6 +80,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of current user keyboard input.
+     *
      * @return list of current user keyboard input.
      */
     public ArrayList<Integer> getPlayerInputList() {
@@ -76,6 +89,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of the views.
+     *
      * @return list of the views.
      */
     public List<ViewObserver> getViewObservers() {
@@ -83,6 +98,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of the tick observers.
+     *
      * @return list of the tick observers.
      */
     public ArrayList<OnTick> getTickObservers(){
@@ -90,6 +107,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of enemies alive.
+     *
      * @return list of enemies alive.
      */
     public ArrayList<MovableEntity> getEnemies() {
@@ -97,6 +116,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of friendlies alive.
+     *
      * @return list of friendlies alive.
      */
     public ArrayList<MovableEntity> getFriendlies() {
@@ -104,6 +125,8 @@ public class Game {
     }
 
     /**
+     * Returns the list of projectiles.
+     *
      * @return list of projectiles.
      */
     public ArrayList<MovableEntity> getProjectiles() {
@@ -111,6 +134,8 @@ public class Game {
     }
 
     /**
+     * Returns true if game is paused, false if game is not paused.
+     *
      * @return true if game is paused, false if game is not paused.
      */
     public boolean isGamePaused() {
@@ -118,6 +143,8 @@ public class Game {
     }
 
     /**
+     * Returns true if player is dead, false if player is alive.
+     *
      * @return true if player is dead, false if player is alive.
      */
     public boolean isPlayerDead() {
@@ -140,7 +167,7 @@ public class Game {
         this.gamePaused = false;
     }
 
-    /*---------------------------------------- Public ViewObservers Methods ----------------------------------------*/
+    /*-------------------------------------------- ViewObservers methods --------------------------------------------*/
 
     /**
      * Adds a view to become an observer of the model.
@@ -151,7 +178,37 @@ public class Game {
         viewObservers.add(viewObserver);
     }
 
-    /*--------------------------------------------- WorldUpdate Methods ---------------------------------------------*/
+    /*---------------------------------------------- New Round methods ----------------------------------------------*/
+
+    /**
+     * Starts the next round and spawn the enemies of that round after a 5 s delay. Creates an instance of SpawnEnemies
+     * and its method run() is executed after a 5 s delay.
+     */
+    void nextRound() {
+        enemiesSpawning = true;
+        round++;
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), 5, TimeUnit.SECONDS);
+        System.out.println("ROUND: " + round);
+    }
+
+    /**
+     * Set enemiesSpawning to false. Called when SpawnEnemies has spawned enemies.
+     */
+    void enemiesHaveSpawned() {
+        enemiesSpawning = false;
+    }
+
+    /**
+     * Returns true if SpawnEnemies has spawned enemies, false if SpawnEnemies has not yet spawned enemies.
+     *
+     * @return true if SpawnEnemies has spawned enemies, false if SpawnEnemies has not yet spawned enemies.
+     */
+    boolean isEnemiesSpawning() {
+        return enemiesSpawning;
+    }
+
+    /*------------------------------------------- Start/Stop game methods -------------------------------------------*/
 
     /**
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
@@ -172,42 +229,66 @@ public class Game {
     }
 
     /**
-     * Stops the game, the world and the frame stops updating. run() in WorldUpdate stops being executed.
+     * Stops the game, the game ends, a game over-screen appears, and if the old high score was beaten the score of this
+     * game is saved as the new high score. run() in WorldUpdate stops being executed.
      */
     public void endGame() {
         timer.cancel();
         timer.purge();
 
-        // TODO kolla om round är high score
+        boolean highScoreBeaten = false;
+
+        String highScoreFolderPath = System.getProperty("user.home") + "\\Documents\\" + gameName;
+        File highScoreFile = new File(highScoreFolderPath + "\\high score.txt");
+        if (new File(highScoreFolderPath).mkdir()) {
+            System.out.println(highScoreFolderPath + " was created");
+            saveNewHighScore(highScoreFile);
+            highScoreBeaten = true;
+        }
+        else if (wasHighScoreBeaten(highScoreFile)) {
+            saveNewHighScore(highScoreFile);
+            highScoreBeaten = true;
+        }
+
         // TODO visa game-over skärm
     }
 
-    /*---------------------------------------------- New Round Methods ----------------------------------------------*/
+    /*------------------------------------------- saveHighScore methods -------------------------------------------*/
 
     /**
-     * Starts the next round and spawn the enemies of that round after a 5 s delay. Creates an instance of SpawnEnemies
-     * and its method run() is executed after a 5 s delay.
+     * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     *
+     * @param highScoreFile file where the new high score is saved.
      */
-    void nextRound() {
-        enemiesSpawning = true;
-        round++;
-        int delay = 5;
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), delay, TimeUnit.SECONDS);
-        System.out.println("ROUND: " + round);
+    private void saveNewHighScore(File highScoreFile) {
+        try {
+            Writer writer = new OutputStreamWriter(new FileOutputStream(highScoreFile), StandardCharsets.UTF_8);
+            writer.write(String.valueOf(round));
+            writer.close();
+        }
+        catch (Exception exception) {
+            System.out.println("Error when saving high score: " + exception.getMessage());
+        }
+        System.out.println("HIGH SCORE!");
     }
 
     /**
-     * Set enemiesSpawning to false. Called when SpawnEnemies has spawned enemies.
+     * Returns true if the score of this round is higher than the high score, otherwise false.
+     *
+     * @param highScoreFile file where the new high score is saved.
+     * @return              true if the score of this round is higher than the high score, otherwise false.
      */
-    void enemiesHaveSpawned() {
-        enemiesSpawning = false;
-    }
-
-    /**
-     * @return true if SpawnEnemies has spawned enemies, false if SpawnEnemies has not yet spawned enemies.
-     */
-    boolean isEnemiesSpawning() {
-        return enemiesSpawning;
+    private boolean wasHighScoreBeaten(File highScoreFile) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(highScoreFile), StandardCharsets.UTF_8));
+            if (round > Integer.parseInt(bufferedReader.readLine())) {
+                bufferedReader.close();
+                return true;
+            }
+        }
+        catch (Exception exception) {
+            System.out.println("Error when reading old high score: " + exception.getMessage());
+        }
+        return false;
     }
 }

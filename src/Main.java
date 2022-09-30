@@ -9,7 +9,8 @@ public class Main {
      * (Controller), and starts the game. First method to be executed.
      */
     public static void main(String[] args) {
-        Game game = new Game(1000, 1);
+        String gameName = "Projektgrupp 3 projekt";
+        Game game = new Game(gameName, 1000, 1);
         GameView mainView = new GameView(game, 1000, 800);
         KeyboardInput keyboardInput = new KeyboardInput(mainView.getFrameRootPane(), game.getPlayerInputList());
 

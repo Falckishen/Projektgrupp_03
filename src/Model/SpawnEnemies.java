@@ -47,7 +47,7 @@ class SpawnEnemies implements Runnable {
     /**
      * Calculate and return the number of enemies to be spawned next round.
      *
-     * @return 1 if it is the first round. Otherwise, (round^2)*difficulty/2 rounded down to the nearest integer.
+     * @return 1 if it is the first round., otherwise, (round^2)*difficulty/2 rounded down to the nearest integer.
      */
     private int numberOfNewEnemies() {
         if (round == 1) {
