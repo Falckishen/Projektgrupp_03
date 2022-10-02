@@ -151,6 +151,40 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
+    /**
+     * Returns the old high score.
+     *
+     * @return the old high score.
+     * @throws Exception if there is an error reading the old high score in
+     * C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     */
+    public int getHighScore() throws Exception {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile()), StandardCharsets.UTF_8));
+            int highScore = Integer.parseInt(bufferedReader.readLine());
+            bufferedReader.close();
+            return highScore;
+        }
+        catch (Exception exception) {
+            throw new Exception("Error when reading old high score: " + exception.getMessage());
+        }
+    }
+
+    /**
+     * Returns true if the score of this round is higher than the high score, otherwise false.
+     *
+     * @return true if the score of this round is higher than the high score, otherwise false.
+     */
+    public boolean wasHighScoreBeaten() {
+        try {
+            return round > getHighScore();
+        }
+        catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return true;
+        }
+    }
+
     /*--------------------------------------------------- Setters ---------------------------------------------------*/
 
     /**
@@ -265,40 +299,6 @@ public class Game {
         }
         catch (Exception exception) {
             System.out.println("Error when saving high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns the old high score.
-     *
-     * @return the old high score.
-     * @throws Exception if there is an error reading the old high score in
-     * C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    public int getHighScore() throws Exception {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile()), StandardCharsets.UTF_8));
-            int highScore = Integer.parseInt(bufferedReader.readLine());
-            bufferedReader.close();
-            return highScore;
-        }
-        catch (Exception exception) {
-            throw new Exception("Error when reading old high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns true if the score of this round is higher than the high score, otherwise false.
-     *
-     * @return true if the score of this round is higher than the high score, otherwise false.
-     */
-    private boolean wasHighScoreBeaten() {
-        try {
-            return round > getHighScore();
-        }
-        catch (Exception exception) {
-            System.out.println(exception.getMessage());
-            return true;
         }
     }
 
