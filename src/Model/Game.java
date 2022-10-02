@@ -75,7 +75,7 @@ public class Game {
      *
      * @return true if any enemy is alive, false if all enemies are dead.
      */
-    public boolean isAnyEnemiesAlive() {
+    boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
     }
 
@@ -93,7 +93,7 @@ public class Game {
      *
      * @return list of the views.
      */
-    public List<ViewObserver> getViewObservers() {
+    List<ViewObserver> getViewObservers() {
         return viewObservers;
     }
 
@@ -102,7 +102,7 @@ public class Game {
      *
      * @return list of the tick observers.
      */
-    public ArrayList<OnTick> getTickObservers(){
+    ArrayList<OnTick> getTickObservers(){
         return (ArrayList<OnTick>) entityCreator.getTickObservers();
     }
 
@@ -138,7 +138,7 @@ public class Game {
      *
      * @return true if game is paused, false if game is not paused.
      */
-    public boolean isGamePaused() {
+    boolean isGamePaused() {
         return gamePaused;
     }
 
@@ -147,7 +147,7 @@ public class Game {
      *
      * @return true if player is dead, false if player is alive.
      */
-    public boolean isPlayerDead() {
+    boolean isPlayerDead() {
         return !entityCreator.isPlayerAlive();
     }
 
@@ -190,6 +190,10 @@ public class Game {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), 5, TimeUnit.SECONDS);
         System.out.println("ROUND: " + round);
+
+        if (round == 3) {
+            endGame();
+        }
     }
 
     /**
@@ -236,18 +240,12 @@ public class Game {
         timer.cancel();
         timer.purge();
 
-        boolean highScoreBeaten = false;
-
-        String highScoreFolderPath = System.getProperty("user.home") + "\\Documents\\" + gameName;
-        File highScoreFile = new File(highScoreFolderPath + "\\high score.txt");
-        if (new File(highScoreFolderPath).mkdir()) {
-            System.out.println(highScoreFolderPath + " was created");
-            saveNewHighScore(highScoreFile);
-            highScoreBeaten = true;
+        if (new File(getHighScoreFolderPath()).mkdir()) {
+            System.out.println(getHighScoreFolderPath() + " was created");
+            saveNewHighScore();
         }
-        else if (wasHighScoreBeaten(highScoreFile)) {
-            saveNewHighScore(highScoreFile);
-            highScoreBeaten = true;
+        else if (wasHighScoreBeaten()) {
+            saveNewHighScore();
         }
 
         // TODO visa game-over skärm
@@ -257,38 +255,68 @@ public class Game {
 
     /**
      * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     *
-     * @param highScoreFile file where the new high score is saved.
      */
-    private void saveNewHighScore(File highScoreFile) {
+    private void saveNewHighScore() {
+        System.out.println("NEW HIGH SCORE! " + round + "!");
         try {
-            Writer writer = new OutputStreamWriter(new FileOutputStream(highScoreFile), StandardCharsets.UTF_8);
+            Writer writer = new OutputStreamWriter(new FileOutputStream(getHighScoreFile()), StandardCharsets.UTF_8);
             writer.write(String.valueOf(round));
             writer.close();
         }
         catch (Exception exception) {
             System.out.println("Error when saving high score: " + exception.getMessage());
         }
-        System.out.println("HIGH SCORE!");
+    }
+
+    /**
+     * Returns the old high score.
+     *
+     * @return the old high score.
+     * @throws Exception if there is an error reading the old high score in
+     * C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     */
+    public int getHighScore() throws Exception {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile()), StandardCharsets.UTF_8));
+            int highScore = Integer.parseInt(bufferedReader.readLine());
+            bufferedReader.close();
+            return highScore;
+        }
+        catch (Exception exception) {
+            throw new Exception("Error when reading old high score: " + exception.getMessage());
+        }
     }
 
     /**
      * Returns true if the score of this round is higher than the high score, otherwise false.
      *
-     * @param highScoreFile file where the new high score is saved.
-     * @return              true if the score of this round is higher than the high score, otherwise false.
+     * @return true if the score of this round is higher than the high score, otherwise false.
      */
-    private boolean wasHighScoreBeaten(File highScoreFile) {
+    private boolean wasHighScoreBeaten() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(highScoreFile), StandardCharsets.UTF_8));
-            if (round > Integer.parseInt(bufferedReader.readLine())) {
-                bufferedReader.close();
-                return true;
-            }
+            return round > getHighScore();
         }
         catch (Exception exception) {
-            System.out.println("Error when reading old high score: " + exception.getMessage());
+            System.out.println(exception.getMessage());
+            return true;
         }
-        return false;
+    }
+
+    /**
+     * Returns the File C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     *
+     * @return file C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     */
+    private File getHighScoreFile() {
+        return new File(getHighScoreFolderPath() + "\\high score.txt");
+    }
+
+    /**
+     * Returns "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt"
+     *
+     * @return "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt".
+     */
+    private String getHighScoreFolderPath() {
+        return System.getProperty("user.home") + "\\Documents\\" + gameName;
     }
 }
