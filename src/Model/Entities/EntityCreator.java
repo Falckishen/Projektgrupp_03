@@ -33,8 +33,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         this.projectiles = new ArrayList<>();
         this.tickObservers = new ArrayList<>();
         this.nonLivingObjects = new ArrayList<>();
-        addCollisionHandler();
         this.worldMapRadius = worldMapRadius;
+        addCollisionHandler();
     }
 
     private void addCollisionHandler(){
@@ -145,11 +145,11 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     }
 
     @Override
-    public void createWorldBorderWalls(int worldRadiusX, int worldRadiusY) {
+    public void createWorldBorderWalls() {
         int wallThicknessRadius = 10;
-        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,(worldRadiusX*(-1)), 0)); //x left
-        nonLivingObjects.add(new Wall(wallThicknessRadius, worldRadiusY,worldRadiusX,0)); //x right
-        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,worldRadiusY)); //y top
-        nonLivingObjects.add(new Wall(worldRadiusX, wallThicknessRadius,0,(worldRadiusY*(-1)) )); //y bottom
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldMapRadius,(worldMapRadius*(-1)), 0)); //x left
+        nonLivingObjects.add(new Wall(wallThicknessRadius, worldMapRadius,worldMapRadius,0)); //x right
+        nonLivingObjects.add(new Wall(worldMapRadius, wallThicknessRadius,0,worldMapRadius)); //y top
+        nonLivingObjects.add(new Wall(worldMapRadius, wallThicknessRadius,0,(worldMapRadius*(-1)) )); //y bottom
     }
 }
