@@ -86,13 +86,14 @@ public class GameView extends JComponent implements ViewObserver {
     @Override
     public void drawFrame() {
         Position playerPosition = game.getPlayerPosition();
-        if(activePanelType.equals(DisplayType.GAME)){
+        if(activePanelType.equals(DisplayType.GAME) && !(playerPosition == null)) {
             paintBackground(playerPosition);
             paintEntities(game.getFriendlies(), playerPosition);
             paintEntities(game.getEnemies(), playerPosition);
             paintEntities(game.getProjectiles(), playerPosition);
             paintEntities(game.getNonLivingObjects(), playerPosition);
-        }else if(activePanelType.equals(DisplayType.MAINMENU)){
+        }
+        else if(activePanelType.equals(DisplayType.MAINMENU)){
 
         }
         refreshScreen();

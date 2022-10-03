@@ -151,6 +151,12 @@ public class Game {
         }
     }
 
+    /*
+    public int getPlayerHP() {
+        // TODO fixa getter för player hp
+    }
+    */
+
     /*------------------------------------------- Package-private Getters -------------------------------------------*/
 
     /**
@@ -283,6 +289,10 @@ public class Game {
         timer.cancel();
         timer.purge();
 
+        System.out.println("Game ended");
+
+        viewObservers.clear();
+
         if (new File(getHighScoreFolderPath()).mkdir()) {
             System.out.println(getHighScoreFolderPath() + " was created");
             saveNewHighScore();
@@ -295,6 +305,8 @@ public class Game {
     }
 
     /*------------------------------------------- saveHighScore methods -------------------------------------------*/
+
+    // TODO flytta
 
     /**
      * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
