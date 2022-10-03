@@ -42,10 +42,10 @@ public class Game {
      * @param worldMapRadius    the radius of the world map.
      * @param difficulty        the difficulty of the game.
      */
-    public Game(String gameName, int worldMapRadius, int difficulty) {
+    public Game(String gameName, int worldMapRadius, int difficulty, List<Integer> playerInputList) {
         this.gameName = gameName;
         this.difficulty = difficulty;
-        this.playerInputList = new ArrayList<>();
+        this.playerInputList = playerInputList;
         this.viewObservers = new ArrayList<>();
         this.entityCreator = new EntityCreator(worldMapRadius);
         this.entityCreator.createWorldBorderWalls();
@@ -53,6 +53,8 @@ public class Game {
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
+
+        startGame();
     }
 
     /*----------------------------------------------- Public Getters -----------------------------------------------*/
@@ -210,14 +212,14 @@ public class Game {
      * Pauses the game, sets gamePaused to true. updateWorld() in WorldUpdate stops running.
      */
     public void pauseGame() {
-        this.gamePaused = true;
+        gamePaused = true;
     }
 
     /**
      * Unpauses the game, sets gamePaused to false. updateWorld() in WorldUpdate starts running.
      */
     public void unPauseGame() {
-        this.gamePaused = false;
+        gamePaused = false;
     }
 
     /*-------------------------------------------- ViewObservers methods --------------------------------------------*/
@@ -267,7 +269,7 @@ public class Game {
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
      * run() is executed every 17 ms. An instance of Player is created.
      */
-    public void startGame() {
+    private void startGame() {
         entityCreator.createPlayer(0,0, playerInputList);
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
@@ -285,13 +287,11 @@ public class Game {
      * Stops the game, the game ends, a game over-screen appears, and if the old high score was beaten the score of this
      * game is saved as the new high score. run() in WorldUpdate stops being executed.
      */
-    public void endGame() {
+    void endGame() {
         timer.cancel();
         timer.purge();
 
         System.out.println("Game ended");
-
-        viewObservers.clear();
 
         if (new File(getHighScoreFolderPath()).mkdir()) {
             System.out.println(getHighScoreFolderPath() + " was created");
