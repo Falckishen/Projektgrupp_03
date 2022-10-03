@@ -42,8 +42,7 @@ abstract class Enemy extends MovableEntity {
     protected void collidedWithFriendly(Position friendlyPosition){
         System.out.println("collided Player Monster");
         //knocked back from player
-        setIsDead(true);
-        move(-5);
+        move(-20);
     }
 
     protected void collidedWIthEnemy(Iterator<Position> enemyPositions) {
