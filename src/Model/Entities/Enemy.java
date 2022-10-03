@@ -33,6 +33,9 @@ abstract class Enemy extends MovableEntity {
                     Math.pow(p.getY() - this.getPosition().getY(),2);
             playerDistances.add(distance);
         }
+
+        if (playerDistances.isEmpty()){return null;}
+
         Double smallest = Collections.min(playerDistances);
         int indexOfSmallest = playerDistances.indexOf(smallest);
 

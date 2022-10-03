@@ -2,6 +2,8 @@ package Model.Entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import Utilities.Direction;
 import Utilities.EntityType;
 import Utilities.Position;
@@ -87,11 +89,19 @@ class Monster extends Enemy {
         // attack();
         Iterator<Friendly> friendlyIterator = getFriendliesIterator().iterator();
         ArrayList<Position> positionsOfFriendlies = new ArrayList<>();
-        while(friendlyIterator.hasNext()){
-            positionsOfFriendlies.add(friendlyIterator.next().getPosition());
-        }
-        this.setDirection(findDirectionToPosition(findClosestPosition(positionsOfFriendlies)));
+        if (friendlyIterator.hasNext()) {
+            while (friendlyIterator.hasNext()) {
+                positionsOfFriendlies.add(friendlyIterator.next().getPosition());
+            }
+            Position p;
+            try {
+                p = findClosestPosition(positionsOfFriendlies);
+            } catch (NullPointerException e){
+                p = new Position(0,0);
+            }
+            this.setDirection(findDirectionToPosition(p));
 
-        move();
+            move();
+        }
     }
 }

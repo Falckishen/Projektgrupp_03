@@ -3,13 +3,11 @@ package Model;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import Model.Entities.Entity;
 import Model.Entities.EntityCreator;
 import Model.Entities.MovableEntity;
@@ -27,7 +25,7 @@ public class Game {
 
     private final String gameName;
     private final int difficulty;
-    private final ArrayList<Integer> playerInputList;
+    private final List<Integer> playerInputList;
     private final List<ViewObserver> viewObservers;
     private final EntityCreator entityCreator;
     private final Timer timer;
@@ -36,8 +34,6 @@ public class Game {
     private boolean gamePaused;
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
-
-    // TODO: Gör om alla listor som endast ska itereras till itreble
 
     /**
      * Creates an instance of Game.
@@ -59,7 +55,7 @@ public class Game {
         this.gamePaused = false;
     }
 
-    /*--------------------------------------------------- Getters ---------------------------------------------------*/
+    /*----------------------------------------------- Public Getters -----------------------------------------------*/
 
     /**
      * Returns the position of player.
@@ -77,39 +73,12 @@ public class Game {
     }
 
     /**
-     * Returns true if any enemy is alive, false if all enemies are dead.
-     *
-     * @return true if any enemy is alive, false if all enemies are dead.
-     */
-    boolean isAnyEnemiesAlive() {
-        return entityCreator.isAnyEnemiesAlive();
-    }
-
-    /**
      * Returns the list of current user keyboard input.
      *
      * @return list of current user keyboard input.
      */
-    public ArrayList<Integer> getPlayerInputList() {
+    public List<Integer> getPlayerInputList() {
         return playerInputList;
-    }
-
-    /**
-     * Returns the list of the views.
-     *
-     * @return list of the views.
-     */
-    List<ViewObserver> getViewObservers() {
-        return viewObservers;
-    }
-
-    /**
-     * Returns the list of the tick observers.
-     *
-     * @return list of the tick observers.
-     */
-    List<OnTick> getTickObservers(){
-        return entityCreator.getTickObservers();
     }
 
     /**
@@ -139,26 +108,13 @@ public class Game {
         return (Iterable<MovableEntity>) entityCreator.getProjectiles();
     }
 
+    /**
+     * Return the list of non-living objects.
+     *
+     * @return List of non-living objects.
+     */
     public Iterable<Entity> getNonLivingObjects() {
         return (Iterable<Entity>) entityCreator.getNonLivingObjects();
-    }
-
-    /**
-     * Returns true if game is paused, false if game is not paused.
-     *
-     * @return true if game is paused, false if game is not paused.
-     */
-    boolean isGamePaused() {
-        return gamePaused;
-    }
-
-    /**
-     * Returns true if player is dead, false if player is alive.
-     *
-     * @return true if player is dead, false if player is alive.
-     */
-    boolean isPlayerDead() {
-        return !entityCreator.isPlayerAlive();
     }
 
     /**
@@ -195,7 +151,54 @@ public class Game {
         }
     }
 
-    /*--------------------------------------------------- Setters ---------------------------------------------------*/
+    /*------------------------------------------- Package-private Getters -------------------------------------------*/
+
+    /**
+     * Returns true if any enemy is alive, false if all enemies are dead.
+     *
+     * @return true if any enemy is alive, false if all enemies are dead.
+     */
+    boolean isAnyEnemiesAlive() {
+        return entityCreator.isAnyEnemiesAlive();
+    }
+
+    /**
+     * Returns the list of the views.
+     *
+     * @return list of the views.
+     */
+    Iterable<ViewObserver> getViewObservers() {
+        return viewObservers;
+    }
+
+    /**
+     * Returns the list of the tick observers.
+     *
+     * @return list of the tick observers.
+     */
+    Iterable<OnTick> getTickObservers(){
+        return entityCreator.getTickObservers();
+    }
+
+    /**
+     * Returns true if game is paused, false if game is not paused.
+     *
+     * @return true if game is paused, false if game is not paused.
+     */
+    boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    /**
+     * Returns true if player is dead, false if player is alive.
+     *
+     * @return true if player is dead, false if player is alive.
+     */
+    boolean isPlayerDead() {
+        return !entityCreator.isPlayerAlive();
+    }
+
+    /*----------------------------------------------- Public Setters -----------------------------------------------*/
 
     /**
      * Pauses the game, sets gamePaused to true. updateWorld() in WorldUpdate stops running.
