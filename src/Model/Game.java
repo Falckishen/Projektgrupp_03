@@ -3,11 +3,14 @@ package Model;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import Model.Entities.Entity;
 import Model.Entities.EntityCreator;
 import Model.Entities.MovableEntity;
 import Utilities.EntityType;
@@ -34,6 +37,8 @@ public class Game {
 
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
+    // TODO: Gör om alla listor som endast ska itereras till itreble
+
     /**
      * Creates an instance of Game.
      *
@@ -47,6 +52,7 @@ public class Game {
         this.playerInputList = new ArrayList<>();
         this.viewObservers = new ArrayList<>();
         this.entityCreator = new EntityCreator(worldMapRadius);
+        this.entityCreator.createWorldBorderWalls();
         this.timer = new Timer();
         this.round = 0;
         this.enemiesSpawning = false;
@@ -102,8 +108,8 @@ public class Game {
      *
      * @return list of the tick observers.
      */
-    ArrayList<OnTick> getTickObservers(){
-        return (ArrayList<OnTick>) entityCreator.getTickObservers();
+    List<OnTick> getTickObservers(){
+        return entityCreator.getTickObservers();
     }
 
     /**
@@ -111,8 +117,8 @@ public class Game {
      *
      * @return list of enemies alive.
      */
-    public ArrayList<MovableEntity> getEnemies() {
-        return (ArrayList<MovableEntity>) entityCreator.getEnemies();
+    public Iterable<MovableEntity> getEnemies() {
+        return (Iterable<MovableEntity>) entityCreator.getEnemies();
     }
 
     /**
@@ -120,8 +126,8 @@ public class Game {
      *
      * @return list of friendlies alive.
      */
-    public ArrayList<MovableEntity> getFriendlies() {
-        return (ArrayList<MovableEntity>) entityCreator.getFriendlies();
+    public Iterable<MovableEntity> getFriendlies() {
+        return (Iterable<MovableEntity>) entityCreator.getFriendlies();
     }
 
     /**
@@ -129,8 +135,12 @@ public class Game {
      *
      * @return list of projectiles.
      */
-    public ArrayList<MovableEntity> getProjectiles() {
-        return (ArrayList<MovableEntity>) entityCreator.getProjectiles();
+    public Iterable<MovableEntity> getProjectiles() {
+        return (Iterable<MovableEntity>) entityCreator.getProjectiles();
+    }
+
+    public Iterable<Entity> getNonLivingObjects() {
+        return (Iterable<Entity>) entityCreator.getNonLivingObjects();
     }
 
     /**
@@ -224,10 +234,6 @@ public class Game {
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), 5, TimeUnit.SECONDS);
         System.out.println("ROUND: " + round);
-
-        if (round == 3) {
-            endGame();
-        }
     }
 
     /**
