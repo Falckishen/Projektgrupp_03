@@ -104,7 +104,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
          int spawnY = 0;
          while(true){
              boolean toClose = false;
-             spawnX = rand.nextInt(worldMapRadius);
+             spawnX = rand.nextInt(worldMapRadius-100);
              if (spawnX % 2 == 0) {
                  spawnX = spawnX *(-1);
              }
@@ -125,7 +125,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
          }
          while(true){
              boolean toClose = false;
-             spawnY = rand.nextInt(worldMapRadius);
+             spawnY = rand.nextInt(worldMapRadius-100);
              if (spawnY % 2 == 0) {
                  spawnY = spawnY *(-1);
              }
