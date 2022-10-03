@@ -30,12 +30,12 @@ class CollisionHandler implements OnTick {
     }
 
     private void checkCollisionFriendlyEnemy() {
-        Iterator<Friendly> itFriendlies = friendlies.iterator();
-        Iterator<Enemy> itEnemies = enemies.iterator();
         Friendly f;
         Enemy e;
+        Iterator<Friendly> itFriendlies = friendlies.iterator();
         while(itFriendlies.hasNext()){
             f = itFriendlies.next();
+            Iterator<Enemy> itEnemies = enemies.iterator();
             while(itEnemies.hasNext()){
                 e = itEnemies.next();
                 if(hasCollided(f, e)){
@@ -70,12 +70,12 @@ class CollisionHandler implements OnTick {
     }
 
     private void checkCollisionEnemyProjectile() {
-        Iterator<Projectile> itProjectiles = projectiles.iterator();
-        Iterator<Enemy> itEnemies = enemies.iterator();
         Projectile p;
         Enemy e;
+        Iterator<Projectile> itProjectiles = projectiles.iterator();
         while(itProjectiles.hasNext()){
             p = itProjectiles.next();
+            Iterator<Enemy> itEnemies = enemies.iterator();
             while(itEnemies.hasNext()){
                 e = itEnemies.next();
                 if(hasCollided(p, e)){
@@ -87,29 +87,30 @@ class CollisionHandler implements OnTick {
     }
 
     private void checkCollisionWithNonLivingObjects(){
-        Iterator<Friendly> itFriendlies = friendlies.iterator();
-        Friendly f;
-        Iterator<Projectile> itProjectiles = projectiles.iterator();
-        Projectile p;
-        Iterator<Enemy> itEnemies = enemies.iterator();
-        Enemy e;
-        Iterator<Entity> itNonLivingObjects = nonLivingObjects.iterator();
         Entity n;
+        Friendly f;
+        Enemy e;
+        Projectile p;
 
+        Iterator<Entity> itNonLivingObjects = nonLivingObjects.iterator();
         while(itNonLivingObjects.hasNext()){
             n = itNonLivingObjects.next();
+
+            Iterator<Friendly> itFriendlies = friendlies.iterator();
             while(itFriendlies.hasNext()){
                 f = itFriendlies.next();
                 if(hasCollided(n, f)){
                     f.collidedWithNonLivingObject(n);
                 }
             }
+            Iterator<Enemy> itEnemies = enemies.iterator();
             while(itEnemies.hasNext()){
                 e = itEnemies.next();
                 if(hasCollided(n, e)){
                     e.collidedWithNonLivingObject(n);
                 }
             }
+            Iterator<Projectile> itProjectiles = projectiles.iterator();
             while(itProjectiles.hasNext()){
                 p = itProjectiles.next();
                 if(hasCollided(n, p)){

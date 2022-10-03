@@ -2,8 +2,9 @@ package Model.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import Model.OnTick;
-import Model.Weapons.Weapon;
 import Model.Weapons.WeaponFactory;
 import Utilities.*;
 
@@ -98,17 +99,58 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     @Override
     public void createMonster() {
-        /* Random rand = new Random();
-        int worldWidthRadius = rand.nextInt(WorldWidthRadius);
-        if (worldWidthRadius % 2 == 0){
-            worldWidthRadius = worldWidthRadius *(-1);}
-        int worldHeightRadius = rand.nextInt(WorldHeightRadius);
-        if (worldHeightRadius % 2 == 0){
-            worldHeightRadius = worldHeightRadius *(-1);} */
+         Random rand = new Random();
+         int spawnX = 0;
+         int spawnY = 0;
+         while(true){
+             boolean toClose = false;
+             spawnX = rand.nextInt(worldMapRadius);
+             if (spawnX % 2 == 0) {
+                 spawnX = spawnX *(-1);
+             }
+
+             if (friendlies.isEmpty()) {
+                 break;
+             } else {
+                 for (Entity e: friendlies) {
+                     if (e.getPosition().getX() > spawnX - 200 && e.getPosition().getX() < spawnX + 200) {
+                         toClose = true;
+                         break;
+                     }
+                 }
+                 if (!toClose){
+                     break;
+                 }
+             }
+         }
+         while(true){
+             boolean toClose = false;
+             spawnY = rand.nextInt(worldMapRadius);
+             if (spawnY % 2 == 0) {
+                 spawnY = spawnY *(-1);
+             }
+
+             if (friendlies.isEmpty()) {
+                 break;
+             } else {
+                 for (Entity e: friendlies) {
+                     if (e.getPosition().getY() > spawnY - 200 && e.getPosition().getY() < spawnY + 200) {
+                         toClose = true;
+                         break;
+                     }
+                 }
+                 if (!toClose){
+                     break;
+                 }
+             }
+         }
+
+
+
 
         int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
         int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-        Monster m = new Monster(temp1, temp2, friendlies);
+        Monster m = new Monster(spawnX, spawnY, friendlies);
         enemies.add(m);
         tickObservers.add(m);
     }
