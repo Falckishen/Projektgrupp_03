@@ -34,6 +34,12 @@ public class GameView extends JComponent implements ViewObserver {
     private GamePanel gamePanel;
     private MainMenuPanel mainMenuPanel;
 
+    /**
+     * Constructs an instance of the View
+     * @param game the model which the view is to render
+     * @param width the width of the frame
+     * @param height the height of the frame
+     */
     public GameView(Game game, int width, int height){
         ImageContainer.loadImages();
         this.displayWidth = width;
@@ -164,7 +170,7 @@ public class GameView extends JComponent implements ViewObserver {
             ((GamePanel)activePanel).paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
             paintHitBox(entity, pos);
         }else{
-            paintWall(entity.getHitBoxRadiusX(), entity.getHitBoxRadiusY(), entity.getPosition(), playerPosition);
+            paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition(), playerPosition);
         }
     }
 
