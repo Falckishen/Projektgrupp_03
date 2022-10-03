@@ -109,7 +109,7 @@ public class GameView extends JComponent implements ViewObserver {
      * Renders the background onto the gamePanel stored in activePanel.
      */
     private void paintBackground(Position playerPosition){
-        BufferedImage background = ImageContainer.getImageFromTypeVariant(UImageTypeEnum.MISC, 0);
+        BufferedImage background = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.MISC, 0);
         Position position = new Position(0, 0);
         position = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
         position = ConversionQueryable.repeatingEverySize(position, background.getWidth(), background.getHeight());
@@ -121,7 +121,7 @@ public class GameView extends JComponent implements ViewObserver {
      * a loop without it visibly teleporting.
      */
     private BufferedImage generateSpecialBorderBackground(){
-        BufferedImage background = ImageContainer.getImageFromTypeVariant(UImageTypeEnum.MISC, 0);
+        BufferedImage background = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.MISC, 0);
         int backW = background.getWidth();
         int backH = background.getHeight();
         int dispW = displayWidth;
@@ -159,11 +159,11 @@ public class GameView extends JComponent implements ViewObserver {
             pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
             int variant;
             if(entity.getEntityType() == EntityType.player){
-                if((int)System.currentTimeMillis()/500%200 == 0){
-                    variant = 2;
-                }else{
-                    variant = 1;
-                }
+                double changePerSec = 0.5;
+                variant = (int)((System.currentTimeMillis()/(changePerSec*1000))%2);
+            }else if(entity.getEntityType() == EntityType.monster && ConversionQueryable.gruntType == ImageTypeEnum.RICK){
+                double changePerSec = 0.2;
+                variant = (int)((System.currentTimeMillis()/(changePerSec*1000))%12);
             }else{
                 variant = 0;
             }

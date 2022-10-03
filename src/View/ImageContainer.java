@@ -11,14 +11,19 @@ class ImageContainer {
     private static final String[] PlayerImagePaths = {"src/View/Images/PlayerMove0.png", "src/View/Images/PlayerMove1.png", "src/View/Images/PlayerMove2.png"};
     private static final String[] PlayerProjectileImagePaths = {"src/View/Images/PlayerProjectile.png"};
     private static final String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
+    private static final String[] RickImagePaths = {"src/View/Images/Rick0Image.png", "src/View/Images/Rick1Image.png", "src/View/Images/Rick2Image.png",
+            "src/View/Images/Rick3Image.png", "src/View/Images/Rick4Image.png", "src/View/Images/Rick5Image.png", "src/View/Images/Rick6Image.png",
+            "src/View/Images/Rick7Image.png", "src/View/Images/Rick8Image.png", "src/View/Images/Rick9Image.png", "src/View/Images/Rick10Image.png",
+            "src/View/Images/Rick11Image.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
     static void loadImages(){
-        savedImagesMatrix = new BufferedImage[UImageTypeEnum.values().length][0];
-        savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.MISC)] = getLoadedFileList(miscImagePaths);
-        savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.PLAYER)] = getLoadedFileList(PlayerImagePaths);
-        savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.PLAYERPROJECTILE)] = getLoadedFileList(PlayerProjectileImagePaths);
-        savedImagesMatrix[UImageTypeEnum.getIndex(UImageTypeEnum.GRUNT)] = getLoadedFileList(MonsterTestImagePaths);
+        savedImagesMatrix = new BufferedImage[ImageTypeEnum.values().length][0];
+        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.MISC)] = getLoadedFileList(miscImagePaths);
+        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.PLAYER)] = getLoadedFileList(PlayerImagePaths);
+        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.PLAYERPROJECTILE)] = getLoadedFileList(PlayerProjectileImagePaths);
+        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.GRUNT)] = getLoadedFileList(MonsterTestImagePaths);
+        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.RICK)] = getLoadedFileList(RickImagePaths);
     }
 
     private static BufferedImage[] getLoadedFileList(String[] fileList){
@@ -35,7 +40,7 @@ class ImageContainer {
         return outputList;
     }
 
-    public static BufferedImage getImageFromTypeVariant(UImageTypeEnum type, int variant){
-        return(savedImagesMatrix[UImageTypeEnum.getIndex(type)][variant]);
+    public static BufferedImage getImageFromTypeVariant(ImageTypeEnum type, int variant){
+        return(savedImagesMatrix[ImageTypeEnum.getIndex(type)][variant]);
     }
 }
