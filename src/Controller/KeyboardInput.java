@@ -1,7 +1,6 @@
 package Controller;
 
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
@@ -14,7 +13,6 @@ public class KeyboardInput {
     private boolean rightKeyPressed = false;
     private boolean spacePressed = false;
     private boolean escPressed = false;
-
     private final List<Integer> playerInputArrayList;
     private Action walkUpActionPressed;
     private Action walkLeftActionPressed;

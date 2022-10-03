@@ -1,4 +1,3 @@
-import Model.Game;
 import Model.MainMenu;
 import View.GameView;
 import Controller.KeyboardInput;
@@ -12,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
         String gameName = "Projektgrupp 3 projekt";
         int worldMapRadius = 1000;
+
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
         GameView mainView = new GameView(mainMenu, 1000, 800);
-        KeyboardInput keyboardInput = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
-
+        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
     }
 }

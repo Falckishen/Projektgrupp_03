@@ -1,8 +1,11 @@
 package View;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.swing.*;
 import Model.Entities.Entity;
-
 import Model.Game;
+import Model.MainMenu;
 import Utilities.EntityType;
 import Utilities.Position;
 import Utilities.ViewObserver;
@@ -11,10 +14,6 @@ import View.FramesAndPanels.MainFrame;
 import View.FramesAndPanels.MainMenuPanel;
 import View.FramesAndPanels.PanelInterface;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 /**
  * View without outside input renders either menus or the world that a player might be playing in. It accesses
  * information from the Game class to know where to paint entities as well as the background, it therefore requires
@@ -22,13 +21,12 @@ import java.awt.image.BufferedImage;
  */
 public class GameView extends JComponent implements ViewObserver {
 
-    private final Game game;
+    private final MainMenu mainMenu;
     private JFrame frame;
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
     private MainFrame mainFrame;
-
     private PanelInterface activePanel;
     private DisplayType activePanelType;
     private GamePanel gamePanel;
@@ -40,12 +38,12 @@ public class GameView extends JComponent implements ViewObserver {
      * @param width the width of the frame
      * @param height the height of the frame
      */
-    public GameView(Game game, int width, int height){
+    public GameView(MainMenu mainMenu, int width, int height) {
+        this.mainMenu = mainMenu;
         ImageContainer.loadImages();
         this.displayWidth = width;
         this.displayHeight = height;
-        game.addViewObserver(this);
-        this.game = game;
+        mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
 
         mainFrame = new MainFrame(1000, 800);
@@ -85,6 +83,7 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void drawFrame() {
+        Game game = mainMenu.ge
         Position playerPosition = game.getPlayerPosition();
         if(activePanelType.equals(DisplayType.GAME) && !(playerPosition == null)) {
             paintBackground(playerPosition);

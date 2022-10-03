@@ -26,7 +26,7 @@ public class Game {
     private final String gameName;
     private final int difficulty;
     private final List<Integer> playerInputList;
-    private final List<ViewObserver> viewObservers;
+    private final Iterable<ViewObserver> viewObservers;
     private final EntityCreator entityCreator;
     private final Timer timer;
     private int round;
@@ -42,11 +42,11 @@ public class Game {
      * @param worldMapRadius    the radius of the world map.
      * @param difficulty        the difficulty of the game.
      */
-    public Game(String gameName, int worldMapRadius, int difficulty, List<Integer> playerInputList) {
+    public Game(String gameName, int worldMapRadius, int difficulty, List<Integer> playerInputList, Iterable<ViewObserver> viewObservers) {
         this.gameName = gameName;
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
-        this.viewObservers = new ArrayList<>();
+        this.viewObservers = viewObservers;
         this.entityCreator = new EntityCreator(worldMapRadius);
         this.entityCreator.createWorldBorderWalls();
         this.timer = new Timer();
@@ -57,7 +57,7 @@ public class Game {
         startGame();
     }
 
-    /*----------------------------------------------- Public Getters -----------------------------------------------*/
+    /*------------------------------------------------ Public Getters ------------------------------------------------*/
 
     /**
      * Returns the position of player.
@@ -72,15 +72,6 @@ public class Game {
             }
         }
         return p;
-    }
-
-    /**
-     * Returns the list of current user keyboard input.
-     *
-     * @return list of current user keyboard input.
-     */
-    public List<Integer> getPlayerInputList() {
-        return playerInputList;
     }
 
     /**
@@ -119,43 +110,9 @@ public class Game {
         return (Iterable<Entity>) entityCreator.getNonLivingObjects();
     }
 
-    /**
-     * Returns the old high score.
-     *
-     * @return the old high score.
-     * @throws Exception if there is an error reading the old high score in
-     * C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    public int getHighScore() throws Exception {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile()), StandardCharsets.UTF_8));
-            int highScore = Integer.parseInt(bufferedReader.readLine());
-            bufferedReader.close();
-            return highScore;
-        }
-        catch (Exception exception) {
-            throw new Exception("Error when reading old high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns true if the score of this round is higher than the high score, otherwise false.
-     *
-     * @return true if the score of this round is higher than the high score, otherwise false.
-     */
-    public boolean wasHighScoreBeaten() {
-        try {
-            return round > getHighScore();
-        }
-        catch (Exception exception) {
-            System.out.println(exception.getMessage());
-            return true;
-        }
-    }
-
     /*
-    public int getPlayerHP() {
-        // TODO fixa getter för player hp
+    public int getPlayerHealth() {
+    //TODO fixa
     }
     */
 
@@ -206,7 +163,7 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
-    /*----------------------------------------------- Public Setters -----------------------------------------------*/
+    /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
     /**
      * Pauses the game, sets gamePaused to true. updateWorld() in WorldUpdate stops running.
@@ -220,17 +177,6 @@ public class Game {
      */
     public void unPauseGame() {
         gamePaused = false;
-    }
-
-    /*-------------------------------------------- ViewObservers methods --------------------------------------------*/
-
-    /**
-     * Adds a view to become an observer of the model.
-     *
-     * @param viewObserver the view to be added as an observer of the model.
-     */
-    public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
     }
 
     /*---------------------------------------------- New Round methods ----------------------------------------------*/
@@ -292,52 +238,5 @@ public class Game {
         timer.purge();
 
         System.out.println("Game ended");
-
-        if (new File(getHighScoreFolderPath()).mkdir()) {
-            System.out.println(getHighScoreFolderPath() + " was created");
-            saveNewHighScore();
-        }
-        else if (wasHighScoreBeaten()) {
-            saveNewHighScore();
-        }
-
-        // TODO visa game-over skärm
-    }
-
-    /*------------------------------------------- saveHighScore methods -------------------------------------------*/
-
-    // TODO flytta
-
-    /**
-     * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    private void saveNewHighScore() {
-        System.out.println("NEW HIGH SCORE! " + round + "!");
-        try {
-            Writer writer = new OutputStreamWriter(new FileOutputStream(getHighScoreFile()), StandardCharsets.UTF_8);
-            writer.write(String.valueOf(round));
-            writer.close();
-        }
-        catch (Exception exception) {
-            System.out.println("Error when saving high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns the File C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     *
-     * @return file C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    private File getHighScoreFile() {
-        return new File(getHighScoreFolderPath() + "\\high score.txt");
-    }
-
-    /**
-     * Returns "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt"
-     *
-     * @return "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt".
-     */
-    private String getHighScoreFolderPath() {
-        return System.getProperty("user.home") + "\\Documents\\" + gameName;
     }
 }
