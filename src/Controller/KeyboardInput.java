@@ -2,6 +2,7 @@ package Controller;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 
 
@@ -14,7 +15,7 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
 
-    private final ArrayList<Integer> playerInputArrayList;
+    private final List<Integer> playerInputArrayList;
     private Action walkUpActionPressed;
     private Action walkLeftActionPressed;
     private Action walkDownActionPressed;
@@ -28,7 +29,7 @@ public class KeyboardInput {
     private Action pauseActionPressed;
     private Action pauseActionReleased;
 
-    public KeyboardInput(JComponent jComponent, ArrayList<Integer> playerInputArrayList){
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
 
         walkUpActionPressed = new WalkUpActionPressed();

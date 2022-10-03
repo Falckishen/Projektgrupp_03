@@ -1,7 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.TimerTask;
 import Utilities.ViewObserver;
 
@@ -15,8 +15,8 @@ class WorldUpdate extends TimerTask {
 
     private final Game game;
     private final int maxAllowedDelay;
-    private final List<ViewObserver> viewObservers;
-    private final List<OnTick> tickObservers;
+    private final Iterable<ViewObserver> viewObservers;
+    private final Iterable<OnTick> tickObservers;
 
     /**
      * Creates an instance of WorldUpdate.
@@ -67,7 +67,7 @@ class WorldUpdate extends TimerTask {
      * Updates all objects in the model that needs to be updated every update (tickObservers).
      */
     private void updateTickObservers() {
-        List<OnTick> ticks = new ArrayList<>(tickObservers);
+        Iterable<OnTick> ticks = new ArrayList<>((Collection<? extends OnTick>) tickObservers);
         ticks.forEach(OnTick::doOnTick);
     }
 }
