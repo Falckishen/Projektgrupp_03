@@ -10,7 +10,8 @@ public abstract class MovableEntity extends Entity implements OnTick {
     private int speed;
     private int health;
 
-    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health){
+    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,
+                            int speed, int health){
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
         this.speed = speed;

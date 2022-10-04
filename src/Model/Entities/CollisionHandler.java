@@ -12,7 +12,8 @@ class CollisionHandler implements OnTick {
     private final Iterable<Projectile> projectiles;
     private final Iterable<Entity> nonLivingObjects;
 
-    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles, Iterable<Entity> nonLivingObjects){
+    CollisionHandler(Iterable<Friendly> friendlies, Iterable<Enemy> enemies, Iterable<Projectile> projectiles,
+                     Iterable<Entity> nonLivingObjects){
         this.friendlies = friendlies;
         this.enemies = enemies;
         this.projectiles = projectiles;
@@ -124,11 +125,15 @@ class CollisionHandler implements OnTick {
         //collided on x-axis
         if (entity1.getPosition().getX() < entity2.getPosition().getX()) {//is entity1 to the left of entity2
             if ( (entity1.getPosition().getX() + entity1.getHitBoxRadiusX() ) >
-                    (entity2.getPosition().getX() - entity2.getHitBoxRadiusX() )){return hasCollidedYAxis(entity1, entity2);}
+                    (entity2.getPosition().getX() - entity2.getHitBoxRadiusX() )){
+                return hasCollidedYAxis(entity1, entity2);
+            }
         }
         else{
             if ( (entity1.getPosition().getX() - entity1.getHitBoxRadiusX() ) <
-                    (entity2.getPosition().getX() + entity2.getHitBoxRadiusX() )){return hasCollidedYAxis(entity1, entity2);}
+                    (entity2.getPosition().getX() + entity2.getHitBoxRadiusX() )){
+                return hasCollidedYAxis(entity1, entity2);
+            }
         }
         return false;
     }
@@ -151,9 +156,10 @@ class CollisionHandler implements OnTick {
         removeDeadFromList(projectiles.iterator());
     }
 
-    private void removeDeadFromList(Iterator<? extends MovableEntity> list){
-        while (list.hasNext()){
-            if (list.next().getIsDead()) {list.remove();} // Check that it removes correct object
+    private void removeDeadFromList(Iterator<? extends Entity> itList){
+        while (itList.hasNext()){
+            if (itList.next().getIsDead()) {
+                itList.remove();}
         }
     }
 }

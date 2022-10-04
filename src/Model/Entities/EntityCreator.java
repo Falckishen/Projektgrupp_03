@@ -18,7 +18,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     private final int worldMapRadius;
 
     /*
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles, List<OnTick> tickObservers, List<Entity> nonLivingObjects){
+    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles,
+                        List<OnTick> tickObservers, List<Entity> nonLivingObjects){
         this.enemies = enemies;
         this.friendlies = friendlies;
         this.projectiles = projectiles;
@@ -172,11 +173,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         SimpleProjectile p = new SimpleProjectile(position.getX(), position.getY(), direction, velocity, life, attackPower);
         projectiles.add(p);
         tickObservers.add(p);
-    }
-
-    @Override
-    public void createSimpleProjectile(Position position, double direction, int velocity, int life, int attackPower) {
-
     }
 
     /*----------------------------- AddNonLivingObjects (called then game created) ---------------------------------*/

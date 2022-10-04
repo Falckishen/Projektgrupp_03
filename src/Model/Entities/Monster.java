@@ -11,7 +11,8 @@ import Utilities.Position;
 class Monster extends Enemy {
 
     Monster(int x, int y, Iterable<Friendly> friendliesIterator) {
-        super(EntityType.monster, 50, 50, x, y, 3, 1, 1, friendliesIterator);
+        super(EntityType.monster, 50, 50, x, y, 3, 1, 1,
+                friendliesIterator);
     }
 
     /**
