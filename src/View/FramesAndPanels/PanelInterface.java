@@ -2,7 +2,7 @@ package View.FramesAndPanels;
 
 import javax.swing.*;
 
-interface PanelInterface {
+public interface PanelInterface {
     void startPanel(JFrame parentFrame);
 
     void updateDisplay();

@@ -1,11 +1,12 @@
 package Model.Weapons;
 
 import Model.Entities.AddProjectile;
+import Utilities.Position;
 
 class SingleShooter extends Weapon{
 
-    protected SingleShooter(AddProjectile projectileCreator, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower) {
-        super(projectileCreator, coolDownSec, projectileVelocity, projectileLife, projectileAttackPower);
+    protected SingleShooter(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower) {
+        super(projectileCreator, playerPosition, coolDownSec, projectileVelocity, projectileLife, projectileAttackPower);
     }
 
     @Override
@@ -14,7 +15,7 @@ class SingleShooter extends Weapon{
     }
 
     private void addProjectile() {
-        getProjectileCreator().createSimpleProjectile(getDirection(), getProjectileVelocity(),
+        getProjectileCreator().createSimpleProjectile(getPlayerPosition(), getDirection(), getProjectileVelocity(),
                 getProjectileLife(), getProjectileAttackPower());
     }
 }

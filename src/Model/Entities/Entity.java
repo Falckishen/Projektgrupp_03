@@ -27,11 +27,11 @@ public abstract class Entity {
         return position;
     }
 
-    protected int getHitBoxRadiusX() {
+    public int getHitBoxRadiusX() {
         return hitBoxRadiusX;
     }
 
-    protected int getHitBoxRadiusY() {
+    public int getHitBoxRadiusY() {
         return hitBoxRadiusY;
     }
 
