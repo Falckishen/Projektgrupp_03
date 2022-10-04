@@ -5,8 +5,6 @@ import Utilities.LabelButton;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class PauseMenuPanel extends JPanel {
     private Action buttonPressed;
@@ -19,7 +17,6 @@ public class PauseMenuPanel extends JPanel {
 
         JPanel topPanel = new JPanel();
         topPanel.setBackground(Color.GREEN);
-        //topPanel.setSize(size.width, size.height/3*2);
         JLabel title = new JLabel("Paused");
         title.setFont(new Font("Sans Serif", Font.PLAIN, 60));
         topPanel.setAlignmentY(FlowLayout.CENTER);
@@ -35,13 +32,12 @@ public class PauseMenuPanel extends JPanel {
 
         JPanel botPanel = new JPanel();
         botPanel.setBackground(Color.yellow);
-        //botPanel.setSize(size.width,size.height/3);
         botPanel.setLayout(new GridLayout(0,2));
 
         JPanel botLeft = new JPanel();
         botLeft.setBackground(Color.GRAY);
 
-        LabelButton quitLabel = new LabelButton(buttonPressed, "Quit", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK);
+        LabelButton quitLabel = new LabelButton(buttonPressed, "Quit", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK, new Color(9,205,218));
         botLeft.add(quitLabel);
 
         botPanel.add(botLeft);
@@ -49,7 +45,7 @@ public class PauseMenuPanel extends JPanel {
         JPanel botRight = new JPanel();
         botRight.setBackground(Color.DARK_GRAY);
 
-        LabelButton resumeLabel = new LabelButton(buttonPressed, "Resume", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK);
+        LabelButton resumeLabel = new LabelButton(buttonPressed, "Resume", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK, new Color(9,205,218));
         botRight.add(resumeLabel);
         resumeLabel.validate();
         botRight.validate();

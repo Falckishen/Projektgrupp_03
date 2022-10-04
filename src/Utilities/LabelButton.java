@@ -5,15 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class LabelButton extends JLabel{
     private Color color;
+    private Color highlightColor;
     private JLabel text;
     private Action buttonPressed;
 
-    public LabelButton(Action a, String buttonText, Font textFont, Color textColor){
+    public LabelButton(Action a, String buttonText, Font textFont, Color textColor, Color highlightColor){
         color = textColor;
+        this.highlightColor = highlightColor;
         buttonPressed = a;
         this.setText(buttonText);
         this.setFont(textFont);
@@ -32,7 +33,7 @@ public class LabelButton extends JLabel{
         @Override
         public void mouseEntered(MouseEvent e) {
             System.out.println("entered");
-            text.setForeground(new Color(9,205,218));
+            text.setForeground(highlightColor);
         }
 
         @Override
