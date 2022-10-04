@@ -7,10 +7,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LabelButton extends JLabel{
-    private Color color;
-    private Color highlightColor;
-    private JLabel text;
-    private Action buttonPressed;
+    private final Color color;
+    private final Color highlightColor;
+    private final JLabel text;
+    private final Action buttonPressed;
 
     public LabelButton(Action a, String buttonText, Font textFont, Color textColor, Color highlightColor){
         color = textColor;
@@ -19,6 +19,7 @@ public class LabelButton extends JLabel{
         this.setText(buttonText);
         this.setFont(textFont);
         this.setForeground(color);
+        this.setBackground(color);
         this.addMouseListener(new mouseHighlight());
         text = this;
     }
@@ -26,19 +27,16 @@ public class LabelButton extends JLabel{
     class mouseHighlight extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("clicked");
             buttonPressed.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            System.out.println("entered");
             text.setForeground(highlightColor);
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            System.out.println("exited");
             text.setForeground(color);
         }
     }

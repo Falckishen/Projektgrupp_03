@@ -1,65 +1,75 @@
 package View;
 
 import Utilities.LabelButton;
-
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class PauseMenuPanel extends JPanel {
-    private Action buttonPressed;
     public PauseMenuPanel(Dimension size){
-        buttonPressed = new ButtonPressed();
+        Color translucent = new Color(0,0,0,0);
+        int TITLE_SIZE = 80;
+        int OPTIONS_SIZE = 60;
 
-        setSize(size);
-        setBackground(new Color(0,0,0,200));
-        setLayout(new GridLayout(4,0));
+        this.setSize(size);
+        this.setBackground(new Color(0,0,0,200));
+        this.setLayout(new GridLayout(4,0));
 
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.GREEN);
-        JLabel title = new JLabel("Paused");
-        title.setFont(new Font("Sans Serif", Font.PLAIN, 60));
-        topPanel.setAlignmentY(FlowLayout.CENTER);
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        topPanel.setBackground(translucent);
+        JLabel title = new JLabel("PAUSED");
+        title.setFont(new Font("Sans Serif", Font.PLAIN, TITLE_SIZE));
+        title.setForeground(Color.BLACK);
         topPanel.add(title);
-        add(topPanel,0);
+        this.add(topPanel,0);
 
         JPanel middlePanel = new JPanel();
-        middlePanel.setBackground(new Color(0,0,0,0));
-        add(middlePanel,1);
+        middlePanel.setBackground(translucent);
+        this.add(middlePanel,1);
         JPanel middlePanel1 = new JPanel();
-        middlePanel1.setBackground(new Color(0,0,0,0));
-        add(middlePanel1,2);
+        middlePanel1.setBackground(translucent);
+        this.add(middlePanel1,2);
 
         JPanel botPanel = new JPanel();
-        botPanel.setBackground(Color.yellow);
+        botPanel.setBackground(translucent);
         botPanel.setLayout(new GridLayout(0,2));
 
-        JPanel botLeft = new JPanel();
-        botLeft.setBackground(Color.GRAY);
+        JPanel botLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        botLeft.setBackground(translucent);
 
-        LabelButton quitLabel = new LabelButton(buttonPressed, "Quit", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK, new Color(9,205,218));
+        LabelButton quitLabel = new LabelButton(new quitPressed(), "Exit to Menu", new Font("Sans Serif", Font.PLAIN, OPTIONS_SIZE), Color.BLACK, new Color(9,205,218));
+        botLeft.setBorder(new EmptyBorder((int)(size.getHeight()/4/100)*40,(int)(size.getWidth()/2/100)*15,0,0));
         botLeft.add(quitLabel);
 
         botPanel.add(botLeft);
 
-        JPanel botRight = new JPanel();
-        botRight.setBackground(Color.DARK_GRAY);
+        JPanel botRight = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        botRight.setBackground(translucent);
 
-        LabelButton resumeLabel = new LabelButton(buttonPressed, "Resume", new Font("Sans Serif", Font.PLAIN, 50), Color.BLACK, new Color(9,205,218));
+        LabelButton resumeLabel = new LabelButton(new resumePressed(), "Resume", new Font("Sans Serif", Font.PLAIN, OPTIONS_SIZE), Color.BLACK, new Color(9,205,218));
+        botRight.setBorder(new EmptyBorder((int)(size.getHeight()/4/100)*40,0,0,(int)(size.getWidth()/2/100)*15));
         botRight.add(resumeLabel);
-        resumeLabel.validate();
-        botRight.validate();
 
         botPanel.add(botRight);
 
-        add(botPanel,3);
-        setVisible(true);
+        this.add(botPanel,3);
+        this.setVisible(true);
     }
 
-    class ButtonPressed extends AbstractAction{
+    //TODO add/call method for quiting/giving up game in actionPerformed()
+    static class quitPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("I am pressed");
+            System.out.println("Quitting");
+        }
+    }
+    //TODO add/call method for resuming game in actionPerformed()
+    static class resumePressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Resuming");
+
         }
     }
 }
