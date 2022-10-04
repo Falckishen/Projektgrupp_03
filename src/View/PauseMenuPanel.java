@@ -3,9 +3,13 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PauseMenuPanel extends JPanel {
     private Action buttonPressed;
+    private JLabel resumeLabel;
+    private JLabel quitLabel;
     public PauseMenuPanel(Dimension size){
         buttonPressed = new ButtonPressed();
 
@@ -16,8 +20,10 @@ public class PauseMenuPanel extends JPanel {
         JPanel topPanel = new JPanel();
         topPanel.setBackground(Color.GREEN);
         //topPanel.setSize(size.width, size.height/3*2);
-        JLabel text = new JLabel("hej");
-        topPanel.add(text);
+        JLabel title = new JLabel("Paused");
+        title.setFont(new Font("Sans Serif", Font.PLAIN, 60));
+        topPanel.setAlignmentY(FlowLayout.CENTER);
+        topPanel.add(title);
         add(topPanel,0);
 
         JPanel middlePanel = new JPanel();
@@ -34,13 +40,20 @@ public class PauseMenuPanel extends JPanel {
 
         JPanel botLeft = new JPanel();
         botLeft.setBackground(Color.GRAY);
-        Label quitLabel = new Label("Quit");
+        quitLabel = new JLabel("Quit");
+        quitLabel.setFont(new Font("Sans Serif", Font.PLAIN, 50));
+        quitLabel.addMouseListener(new mouseHighlight());
 
         botLeft.add(quitLabel);
         botPanel.add(botLeft);
 
         JPanel botRight = new JPanel();
         botRight.setBackground(Color.DARK_GRAY);
+        resumeLabel = new JLabel("Resume");
+        resumeLabel.setFont(new Font("Sans Serif", Font.PLAIN, 50));
+        resumeLabel.addMouseListener(new mouseHighlight());
+
+        botRight.add(resumeLabel);
         botPanel.add(botRight);
 
         /*
@@ -62,6 +75,26 @@ public class PauseMenuPanel extends JPanel {
         setVisible(true);
     }
 
+    class mouseHighlight extends MouseAdapter{
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("clicked");
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            System.out.println("entered");
+            resumeLabel.setForeground(new Color(9,205,218));
+            quitLabel.setForeground(new Color(9,205,218));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            System.out.println("exited");
+            resumeLabel.setForeground(Color.BLACK);
+            quitLabel.setForeground(Color.BLACK);
+        }
+    }
     class ButtonPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
