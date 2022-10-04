@@ -175,7 +175,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         tickObservers.add(p);
     }
 
-    /*----------------------------- AddNonLivingObjects (called then game created) ---------------------------------*/
+    /*----------------------------- AddNonLivingEntities (called when game created) ---------------------------------*/
 
     @Override
     public void createWall(int positionX, int positionY, int wallRadiusX, int wallRadiusY) {
