@@ -8,7 +8,8 @@ abstract class Projectile extends MovableEntity {
     private int lifeLeft;
     private final int attackPower;
 
-    protected Projectile(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int velocity, int piercingPower, Direction direction, int lifeLeft, int attackPower) {
+    protected Projectile(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int velocity,
+                         int piercingPower, Direction direction, int lifeLeft, int attackPower) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, velocity,piercingPower);
         setDirection(direction);
         this.lifeLeft = lifeLeft;
