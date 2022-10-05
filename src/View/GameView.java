@@ -46,7 +46,9 @@ public class GameView extends JComponent implements ViewObserver {
         specialBorderBackground = generateSpecialBorderBackground();
 
         mainFrame = new MainFrame(1000, 800);
+
         this.activePanel = new GamePanel();
+        mainFrame.replaceSubPanel(activePanel);
     }
 
     /**
