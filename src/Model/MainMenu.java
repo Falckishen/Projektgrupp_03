@@ -1,10 +1,14 @@
 package Model;
 
+import java.util.List;
+import java.util.ArrayList;
 import Utilities.ViewObserver;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents the main menu. The first object created.
+ *
+ * @author Samuel Falck
+ */
 public class MainMenu {
 
     private final String gameName;
@@ -14,6 +18,12 @@ public class MainMenu {
     private int difficulty;
     private Game currentGame;
 
+    /**
+     * Creates an instance of MainMenu.
+     *
+     * @param gameName          the name of the game.
+     * @param worldMapRadius    the radius of the world map.
+     */
     public MainMenu(String gameName, int worldMapRadius) {
         this.gameName = gameName;
         this.worldMapRadius = worldMapRadius;
@@ -33,36 +43,59 @@ public class MainMenu {
         return playerInputList;
     }
 
+    /**
+     * Returns the current running game.
+     *
+     * @return the current running game.
+     */
     public Game getCurrentGame() {
         return currentGame;
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
+    /**
+     * Sets a new difficulty.
+     *
+     * @param difficulty the new difficulty.
+     */
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
-    public void startGame() {
-        currentGame = new Game(worldMapRadius, difficulty, playerInputList, outputHandler);
-        System.out.println("Game created");
-        currentGame.startGame();
-        /*
-        int round = currentGame.getRound();
-        currentGame = null;
-        HighScoreHandler.processScore(round, gameName);
-        */
-        // TODO visa game-over skärm
-    }
-
+    /**
+     * The main menu appears.
+     */
     public void showMainMenu() {
         outputHandler.showMainMenu();
     }
 
+    /**
+     * Starts a game.
+     */
+    public void startGame() {
+        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, outputHandler);
+        System.out.println("Game created");
+    }
+
+    /**
+     * The score of the last game is saved if it is a new highs-core and the game over screen appears
+     */
+    void gameEnded(int round) {
+        HighScoreHandler.processScore(round, gameName);
+
+        // TODO visa game-over skärm
+    }
+
     /*------------------------------------------------- View Methods -------------------------------------------------*/
 
+    /**
+     * Adds a new view as an observer of the model.
+     *
+     * @param viewObserver the new observer of the model.
+     */
     public void addViewObserver(ViewObserver viewObserver) {
         outputHandler.addViewObserver(viewObserver);
     }

@@ -3,8 +3,18 @@ package Model;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Static class to process the score of a game and to save the high score.
+ */
 class HighScoreHandler {
 
+    /**
+     * Saves the round as a new high score if no high score file exist (first time playing the game) or if the current
+     * high score was beaten.
+     *
+     * @param round     the round of the ended game.
+     * @param gameName  the name of the game.
+     */
     static void processScore(int round, String gameName) {
         try {
             if (new File(getHighScoreFolderPath(gameName)).mkdir()) {
@@ -21,7 +31,7 @@ class HighScoreHandler {
     }
 
     /**
-     * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     * The new HighScore is saved in C:\Users\%UserProfile%\Documents\%GameName%\high score.txt.
      */
     private static void saveNewHighScore(int round, String gameName) throws IOException {
         System.out.println("NEW HIGH SCORE! " + round + "!");
@@ -31,9 +41,9 @@ class HighScoreHandler {
     }
 
     /**
-     * Returns the old high score.
+     * Returns the current high score.
      *
-     * @return the old high score.
+     * @return the current high score.
      */
     private static int getHighScore(String gameName) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile(gameName)), StandardCharsets.UTF_8));
@@ -58,18 +68,18 @@ class HighScoreHandler {
     }
 
     /**
-     * Returns the File C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     * Returns the File C:\Users\%UserProfile%\Documents\%GameName%\high score.txt.
      *
-     * @return file C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
+     * @return the file C:\Users\%UserProfile%\Documents\%GameName%\high score.txt.
      */
     private static File getHighScoreFile(String gameName) {
         return new File(getHighScoreFolderPath(gameName) + "\\high score.txt");
     }
 
     /**
-     * Returns "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt"
+     * Returns "C:\Users\%UserProfile%\Documents\%GameName%"
      *
-     * @return "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt".
+     * @return "C:\Users\%UserProfile%\Documents\%GameName%".
      */
     private static String getHighScoreFolderPath(String gameName) {
         return System.getProperty("user.home") + "\\Documents\\" + gameName;

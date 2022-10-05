@@ -3,7 +3,6 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TimerTask;
-import Utilities.ViewObserver;
 
 /**
  * The class responsible for updating the world and calling on the view to draw a new frame every 17 ms. Used as a

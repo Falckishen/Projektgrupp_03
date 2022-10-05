@@ -23,7 +23,6 @@ public class GameView extends JComponent implements ViewObserver {
 
     private final MainMenu mainMenu;
     private JFrame frame;
-    private Game currentGame;
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
@@ -34,6 +33,7 @@ public class GameView extends JComponent implements ViewObserver {
 
     /**
      * Constructs an instance of the View
+     *
      * @param width the width of the frame
      * @param height the height of the frame
      */
@@ -44,15 +44,13 @@ public class GameView extends JComponent implements ViewObserver {
         this.displayHeight = height;
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
-
         mainFrame = new MainFrame(1000, 800);
-
         this.activePanel = new GamePanel();
         mainFrame.replaceSubPanel(activePanel);
     }
 
     /**
-     * This method configures the View into MAINMENU mode in which the View renders the main menu.
+     * Render the main menu.
      */
     @Override
     public void showMainMenu() {
@@ -60,12 +58,11 @@ public class GameView extends JComponent implements ViewObserver {
     }
 
     /**
-     * Renders onto the frame depending on the current mode either the world as it is in the Game instance or the
-     * main menu if the mode is GAME or MAINMENU respectively.
+     * Renders a frame of the current game.
      */
     @Override
-    public void drawFrame() {
-        currentGame = mainMenu.getCurrentGame();
+    public void renderFrame() {
+        Game currentGame = mainMenu.getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
             paintBackground(playerPosition);

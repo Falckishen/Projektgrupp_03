@@ -1,12 +1,19 @@
 package Utilities;
 
+/**
+ * Interface for all the views.
+ *
+ * @author Samue Falck
+ */
 public interface ViewObserver {
 
     /**
-     * Renders onto the frame depending on the current mode either the world as it is in the Game instance or the
-     * main menu if the mode is GAME or MAINMENU respectively.
+     * Renders a frame of the current game.
      */
-    void drawFrame();
+    void renderFrame();
 
+    /**
+     * Renders the main menu.
+     */
     void showMainMenu();
 }

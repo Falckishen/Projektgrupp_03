@@ -10,16 +10,16 @@ import Model.Entities.EntityCreator;
 import Model.Entities.MovableEntity;
 import Utilities.EntityType;
 import Utilities.Position;
-import Utilities.ViewObserver;
 
 /**
- * The "main" class for the model that connects the other classes, responsible for starting the game. The only public
- * class in the model, functions as a facade of the model for the views. One instance represents one game.
+ * Represents a game. Is the central class in the Model that binds the other classes. Acts as a facade, the view only
+ * interacts with Game when it retrieves the required data to draw frames.
  *
  * @author Samuel Falck
  */
 public class Game {
 
+    private final MainMenu mainMenu;
     private final int difficulty;
     private final List<Integer> playerInputList;
     private final OutputHandler outputHandler;
@@ -32,12 +32,16 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     /**
-     * Creates an instance of Game.
+     * Creates an instance of Game and starts the game.
      *
+     * @param mainMenu          a reference to the MainMenu.
      * @param worldMapRadius    the radius of the world map.
-     * @param difficulty        the difficulty of the game.
+     * @param difficulty        the difficulty.
+     * @param playerInputList   a reference to the list of current user keyboard input.
+     * @param outputHandler     a reference to the outputHandler.
      */
-    public Game(int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
+    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
+        this.mainMenu = mainMenu;
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
         this.outputHandler = outputHandler;
@@ -47,6 +51,8 @@ public class Game {
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
+
+        startGame();
     }
 
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
@@ -146,6 +152,11 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
+    /**
+     * Returns the current round.
+     *
+     * @return the current round.
+     */
     int getRound() {
         return round;
     }
@@ -217,13 +228,14 @@ public class Game {
     }
 
     /**
-     * Stops the game, the game ends, a game over-screen appears, and if the old high score was beaten the score of this
-     * game is saved as the new high score. run() in WorldUpdate stops being executed.
+     * Stops the game. The game ends, run() in WorldUpdate stops being executed and mainMenu.gameEnded() is called.
      */
     void endGame() {
         timer.cancel();
         timer.purge();
 
-        System.out.println("Game ended");
+        System.out.println("Game over");
+
+        mainMenu.gameEnded(round);
     }
 }

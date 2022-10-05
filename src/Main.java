@@ -5,7 +5,7 @@ import Controller.KeyboardInput;
 public class Main {
 
     /**
-     * First method to be executed, initiates an instance of Game (Model), mainView (View) and keyboardInput
+     * First method to be executed, initiates an instance of MainMenu (Model), GameView (View) and KeyboardInput
      * (Controller), and starts the game. First method to be executed.
      */
     public static void main(String[] args) {
@@ -16,6 +16,6 @@ public class Main {
         GameView mainView = new GameView(mainMenu, 1000, 800);
         new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
 
-        mainMenu.startGame();
+        mainMenu.startGame(); // Temp
     }
 }
