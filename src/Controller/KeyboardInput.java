@@ -4,6 +4,9 @@ import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
+/**
+ * @author Alfred Berglöf and Samuel Falck
+ */
 public class KeyboardInput {
 
     private final List<Integer> playerInputArrayList;
