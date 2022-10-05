@@ -1,13 +1,12 @@
 package Controller;
 
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-
 public class KeyboardInput {
 
+    private final List<Integer> playerInputArrayList;
     private boolean upKeyPressed = false;
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
@@ -15,35 +14,21 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
 
-    private final List<Integer> playerInputArrayList;
-    private Action walkUpActionPressed;
-    private Action walkLeftActionPressed;
-    private Action walkDownActionPressed;
-    private Action walkRightActionPressed;
-    private Action walkUpActionReleased;
-    private Action walkLeftActionReleased;
-    private Action walkDownActionReleased;
-    private Action walkRightActionReleased;
-    private Action attackActionPressed;
-    private Action attackActionReleased;
-    private Action pauseActionPressed;
-    private Action pauseActionReleased;
-
     public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList){
         this.playerInputArrayList = playerInputArrayList;
 
-        walkUpActionPressed = new WalkUpActionPressed();
-        walkLeftActionPressed = new WalkLeftActionPressed();
-        walkDownActionPressed = new WalkDownActionPressed();
-        walkRightActionPressed = new WalkRightActionPressed();
-        walkUpActionReleased = new WalkUpActionReleased();
-        walkLeftActionReleased = new WalkLeftActionReleased();
-        walkDownActionReleased = new WalkDownActionReleased();
-        walkRightActionReleased = new WalkRightActionReleased();
-        attackActionPressed = new AttackActionPressed();
-        attackActionReleased = new AttackActionReleased();
-        pauseActionPressed = new PauseActionPressed();
-        pauseActionReleased = new PauseActionReleased();
+        Action walkUpActionPressed = new WalkUpActionPressed();
+        Action walkLeftActionPressed = new WalkLeftActionPressed();
+        Action walkDownActionPressed = new WalkDownActionPressed();
+        Action walkRightActionPressed = new WalkRightActionPressed();
+        Action walkUpActionReleased = new WalkUpActionReleased();
+        Action walkLeftActionReleased = new WalkLeftActionReleased();
+        Action walkDownActionReleased = new WalkDownActionReleased();
+        Action walkRightActionReleased = new WalkRightActionReleased();
+        Action attackActionPressed = new AttackActionPressed();
+        Action attackActionReleased = new AttackActionReleased();
+        Action pauseActionPressed = new PauseActionPressed();
+        Action pauseActionReleased = new PauseActionReleased();
 
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
         jComponent.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
