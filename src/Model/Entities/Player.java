@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import Model.Weapons.Weapon;
-import Utilities.Direction;
 import Utilities.EntityType;
 
 class Player extends Friendly {

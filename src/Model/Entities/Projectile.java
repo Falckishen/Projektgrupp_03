@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import Utilities.Direction;
 import Utilities.EntityType;
 
 abstract class Projectile extends MovableEntity {

@@ -1,7 +1,6 @@
 package Model.Entities;
 
 import Model.OnTick;
-import Utilities.Direction;
 import Utilities.EntityType;
 
 public abstract class MovableEntity extends Entity implements OnTick {

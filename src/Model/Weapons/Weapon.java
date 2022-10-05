@@ -1,7 +1,7 @@
 package Model.Weapons;
 
 import Model.Entities.AddProjectile;
-import Utilities.Direction;
+import Model.Entities.Direction;
 import Utilities.Position;
 
 public abstract class Weapon {

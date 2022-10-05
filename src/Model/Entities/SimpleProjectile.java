@@ -1,8 +1,6 @@
 package Model.Entities;
 
-import Utilities.Direction;
 import Utilities.EntityType;
-import Utilities.Position;
 
 class SimpleProjectile extends Projectile {
 

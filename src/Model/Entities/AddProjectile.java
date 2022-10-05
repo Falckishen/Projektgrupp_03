@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import Utilities.Direction;
 import Utilities.Position;
 
 public interface AddProjectile {

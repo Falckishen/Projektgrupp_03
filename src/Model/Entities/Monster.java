@@ -2,9 +2,7 @@ package Model.Entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-import Utilities.Direction;
 import Utilities.EntityType;
 import Utilities.Position;
 
