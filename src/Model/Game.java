@@ -1,8 +1,5 @@
 package Model;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
@@ -13,20 +10,19 @@ import Model.Entities.EntityCreator;
 import Model.Entities.MovableEntity;
 import Utilities.EntityType;
 import Utilities.Position;
-import Utilities.ViewObserver;
 
 /**
- * The "main" class for the model that connects the other classes, responsible for starting the game. The only public
- * class in the model, functions as a facade of the model for the views. One instance represents one game.
+ * Represents a game. Is the central class in the Model that binds the other classes. Acts as a facade, the view only
+ * interacts with Game when it retrieves the required data to draw frames.
  *
  * @author Samuel Falck
  */
 public class Game {
 
-    private final String gameName;
+    private final MainMenu mainMenu;
     private final int difficulty;
     private final List<Integer> playerInputList;
-    private final List<ViewObserver> viewObservers;
+    private final OutputHandler outputHandler;
     private final EntityCreator entityCreator;
     private final Timer timer;
     private int round;
@@ -36,26 +32,30 @@ public class Game {
     /*------------------------------------------------- Constructor -------------------------------------------------*/
 
     /**
-     * Creates an instance of Game.
+     * Creates an instance of Game and starts the game.
      *
-     * @param gameName          the name of the game.
+     * @param mainMenu          a reference to the MainMenu.
      * @param worldMapRadius    the radius of the world map.
-     * @param difficulty        the difficulty of the game.
+     * @param difficulty        the difficulty.
+     * @param playerInputList   a reference to the list of current user keyboard input.
+     * @param outputHandler     a reference to the outputHandler.
      */
-    public Game(String gameName, int worldMapRadius, int difficulty) {
-        this.gameName = gameName;
+    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
+        this.mainMenu = mainMenu;
         this.difficulty = difficulty;
-        this.playerInputList = new ArrayList<>();
-        this.viewObservers = new ArrayList<>();
+        this.playerInputList = playerInputList;
+        this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius);
         this.entityCreator.createWorldBorderWalls();
         this.timer = new Timer();
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
+
+        startGame();
     }
 
-    /*----------------------------------------------- Public Getters -----------------------------------------------*/
+    /*------------------------------------------------ Public Getters ------------------------------------------------*/
 
     /**
      * Returns the position of player.
@@ -70,15 +70,6 @@ public class Game {
             }
         }
         return p;
-    }
-
-    /**
-     * Returns the list of current user keyboard input.
-     *
-     * @return list of current user keyboard input.
-     */
-    public List<Integer> getPlayerInputList() {
-        return playerInputList;
     }
 
     /**
@@ -117,43 +108,9 @@ public class Game {
         return (Iterable<Entity>) entityCreator.getNonLivingObjects();
     }
 
-    /**
-     * Returns the old high score.
-     *
-     * @return the old high score.
-     * @throws Exception if there is an error reading the old high score in
-     * C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    public int getHighScore() throws Exception {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(getHighScoreFile()), StandardCharsets.UTF_8));
-            int highScore = Integer.parseInt(bufferedReader.readLine());
-            bufferedReader.close();
-            return highScore;
-        }
-        catch (Exception exception) {
-            throw new Exception("Error when reading old high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns true if the score of this round is higher than the high score, otherwise false.
-     *
-     * @return true if the score of this round is higher than the high score, otherwise false.
-     */
-    public boolean wasHighScoreBeaten() {
-        try {
-            return round > getHighScore();
-        }
-        catch (Exception exception) {
-            System.out.println(exception.getMessage());
-            return true;
-        }
-    }
-
     /*
-    public int getPlayerHP() {
-        // TODO fixa getter för player hp
+    public int getPlayerHealth() {
+    //TODO fixa
     }
     */
 
@@ -166,15 +123,6 @@ public class Game {
      */
     boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
-    }
-
-    /**
-     * Returns the list of the views.
-     *
-     * @return list of the views.
-     */
-    Iterable<ViewObserver> getViewObservers() {
-        return viewObservers;
     }
 
     /**
@@ -204,31 +152,29 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
-    /*----------------------------------------------- Public Setters -----------------------------------------------*/
+    /**
+     * Returns the current round.
+     *
+     * @return the current round.
+     */
+    int getRound() {
+        return round;
+    }
+
+    /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
     /**
      * Pauses the game, sets gamePaused to true. updateWorld() in WorldUpdate stops running.
      */
     public void pauseGame() {
-        this.gamePaused = true;
+        gamePaused = true;
     }
 
     /**
      * Unpauses the game, sets gamePaused to false. updateWorld() in WorldUpdate starts running.
      */
     public void unPauseGame() {
-        this.gamePaused = false;
-    }
-
-    /*-------------------------------------------- ViewObservers methods --------------------------------------------*/
-
-    /**
-     * Adds a view to become an observer of the model.
-     *
-     * @param viewObserver the view to be added as an observer of the model.
-     */
-    public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
+        gamePaused = false;
     }
 
     /*---------------------------------------------- New Round methods ----------------------------------------------*/
@@ -270,7 +216,7 @@ public class Game {
     public void startGame() {
         entityCreator.createPlayer(0,0, playerInputList);
         int period = 17;
-        timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
+        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);
         /*
         WorldUpdate runs as a thread, inputs are running parallel
         1. task 2. delay 3. period
@@ -282,62 +228,14 @@ public class Game {
     }
 
     /**
-     * Stops the game, the game ends, a game over-screen appears, and if the old high score was beaten the score of this
-     * game is saved as the new high score. run() in WorldUpdate stops being executed.
+     * Stops the game. The game ends, run() in WorldUpdate stops being executed and mainMenu.gameEnded() is called.
      */
-    public void endGame() {
+    void endGame() {
         timer.cancel();
         timer.purge();
 
-        System.out.println("Game ended");
+        System.out.println("Game over");
 
-        viewObservers.clear();
-
-        if (new File(getHighScoreFolderPath()).mkdir()) {
-            System.out.println(getHighScoreFolderPath() + " was created");
-            saveNewHighScore();
-        }
-        else if (wasHighScoreBeaten()) {
-            saveNewHighScore();
-        }
-
-        // TODO visa game-over skärm
-    }
-
-    /*------------------------------------------- saveHighScore methods -------------------------------------------*/
-
-    // TODO flytta
-
-    /**
-     * The new HighScore is saved in C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    private void saveNewHighScore() {
-        System.out.println("NEW HIGH SCORE! " + round + "!");
-        try {
-            Writer writer = new OutputStreamWriter(new FileOutputStream(getHighScoreFile()), StandardCharsets.UTF_8);
-            writer.write(String.valueOf(round));
-            writer.close();
-        }
-        catch (Exception exception) {
-            System.out.println("Error when saving high score: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Returns the File C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     *
-     * @return file C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt\high score.txt.
-     */
-    private File getHighScoreFile() {
-        return new File(getHighScoreFolderPath() + "\\high score.txt");
-    }
-
-    /**
-     * Returns "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt"
-     *
-     * @return "C:\Users\%UserProfile%\Documents\Projektgrupp 3 projekt".
-     */
-    private String getHighScoreFolderPath() {
-        return System.getProperty("user.home") + "\\Documents\\" + gameName;
+        mainMenu.gameEnded(round);
     }
 }

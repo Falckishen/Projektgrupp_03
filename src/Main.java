@@ -1,19 +1,21 @@
-import Model.Game;
+import Model.MainMenu;
 import View.GameView;
 import Controller.KeyboardInput;
 
 public class Main {
 
     /**
-     * First method to be executed, initiates an instance of Game (Model), mainView (View) and keyboardInput
+     * First method to be executed, initiates an instance of MainMenu (Model), GameView (View) and KeyboardInput
      * (Controller), and starts the game. First method to be executed.
      */
     public static void main(String[] args) {
         String gameName = "Projektgrupp 3 projekt";
-        Game game = new Game(gameName, 1000, 1);
-        GameView mainView = new GameView(game, 1000, 800);
-        KeyboardInput keyboardInput = new KeyboardInput(mainView.getFrameRootPane(), game.getPlayerInputList());
+        int worldMapRadius = 1000;
 
-        game.startGame(); // The world comes to life!
+        MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
+        GameView mainView = new GameView(mainMenu, 1000, 800);
+        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
+
+        mainMenu.startGame(); // Temp
     }
 }

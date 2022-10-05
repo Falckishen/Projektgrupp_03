@@ -1,9 +1,19 @@
 package Utilities;
 
+/**
+ * Interface for all the views.
+ *
+ * @author Samue Falck
+ */
 public interface ViewObserver {
 
     /**
-     * Tells the ViewObserver to render the screen.
+     * Renders a frame of the current game.
      */
-    void drawFrame();
+    void renderFrame();
+
+    /**
+     * Renders the main menu.
+     */
+    void showMainMenu();
 }
