@@ -46,7 +46,6 @@ public class GameView extends JComponent implements ViewObserver {
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(1000, 800);
         this.activePanel = new GamePanel();
-        mainFrame.replaceSubPanel(activePanel);
     }
 
     /**
@@ -62,6 +61,7 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void renderFrame() {
+        mainFrame.replaceSubPanel(activePanel);
         Game currentGame = mainMenu.getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
