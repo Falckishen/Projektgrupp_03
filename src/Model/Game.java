@@ -163,6 +163,10 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
+    int getRound() {
+        return round;
+    }
+
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
     /**
