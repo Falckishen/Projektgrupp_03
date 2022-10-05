@@ -10,7 +10,7 @@ public class MainMenu {
     private final String gameName;
     private final int worldMapRadius;
     private final List<Integer> playerInputList;
-    private List<ViewObserver> viewObservers;
+    private final OutputHandler outputHandler;
     private int difficulty;
     private Game currentGame;
 
@@ -18,27 +18,11 @@ public class MainMenu {
         this.gameName = gameName;
         this.worldMapRadius = worldMapRadius;
         this.playerInputList = new ArrayList<>();
-        this.viewObservers = new ArrayList<>();
+        this.outputHandler = new OutputHandler();
         this.difficulty = 1;
     }
 
-    public void createGame() {
-        currentGame = new Game(gameName, worldMapRadius, difficulty, playerInputList, viewObservers);
-        int round = currentGame.getRound();
-        HighScoreHandler.processScore(round, gameName);
-
-        // TODO visa game-over skärm
-    }
-
-    private void showMainMenu() {
-
-    }
-
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
-
-    public Game getCurrentGame() {
-        return currentGame;
-    }
 
     /**
      * Returns the list of current user keyboard input.
@@ -49,20 +33,37 @@ public class MainMenu {
         return playerInputList;
     }
 
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
 
-    /*-------------------------------------------- ViewObservers methods --------------------------------------------*/
+    /*----------------------------------------------------------------------------------------------------------------*/
 
-    /**
-     * Adds a view to become an observer of the model.
-     *
-     * @param viewObserver the view to be added as an observer of the model.
-     */
+    public void startGame() {
+        currentGame = new Game(worldMapRadius, difficulty, playerInputList, outputHandler);
+        System.out.println("Game created");
+        currentGame.startGame();
+        /*
+        int round = currentGame.getRound();
+        currentGame = null;
+        HighScoreHandler.processScore(round, gameName);
+        */
+        // TODO visa game-over skärm
+    }
+
+    public void showMainMenu() {
+        outputHandler.showMainMenu();
+    }
+
+    /*------------------------------------------------- View Methods -------------------------------------------------*/
+
     public void addViewObserver(ViewObserver viewObserver) {
-        viewObservers.add(viewObserver);
+        outputHandler.addViewObserver(viewObserver);
     }
 }

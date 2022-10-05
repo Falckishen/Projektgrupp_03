@@ -14,8 +14,8 @@ import Utilities.ViewObserver;
 class WorldUpdate extends TimerTask {
 
     private final Game game;
+    private final OutputHandler outputHandler;
     private final int maxAllowedDelay;
-    private final Iterable<ViewObserver> viewObservers;
     private final Iterable<OnTick> tickObservers;
 
     /**
@@ -25,10 +25,10 @@ class WorldUpdate extends TimerTask {
      * @param maxAllowedDelay   the longest execution time (in ms) allowed for an update so as not to delay the next
      *                          update. Same as the time between executions of run(), 17 ms.
      */
-    WorldUpdate(Game game, int maxAllowedDelay) {
+    WorldUpdate(Game game, OutputHandler outputHandler, int maxAllowedDelay) {
         this.game = game;
+        this.outputHandler = outputHandler;
         this.maxAllowedDelay = maxAllowedDelay;
-        this.viewObservers = game.getViewObservers();
         this.tickObservers = game.getTickObservers();
     }
 
@@ -60,7 +60,7 @@ class WorldUpdate extends TimerTask {
             game.nextRound();
         }
 
-        viewObservers.forEach(ViewObserver::drawFrame);
+        outputHandler.updateGameFrame();
     }
 
     /**

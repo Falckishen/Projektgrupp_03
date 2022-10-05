@@ -1,8 +1,5 @@
 package Model;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
@@ -23,10 +20,9 @@ import Utilities.ViewObserver;
  */
 public class Game {
 
-    private final String gameName;
     private final int difficulty;
     private final List<Integer> playerInputList;
-    private final Iterable<ViewObserver> viewObservers;
+    private final OutputHandler outputHandler;
     private final EntityCreator entityCreator;
     private final Timer timer;
     private int round;
@@ -38,23 +34,19 @@ public class Game {
     /**
      * Creates an instance of Game.
      *
-     * @param gameName          the name of the game.
      * @param worldMapRadius    the radius of the world map.
      * @param difficulty        the difficulty of the game.
      */
-    public Game(String gameName, int worldMapRadius, int difficulty, List<Integer> playerInputList, Iterable<ViewObserver> viewObservers) {
-        this.gameName = gameName;
+    public Game(int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
-        this.viewObservers = viewObservers;
+        this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius);
         this.entityCreator.createWorldBorderWalls();
         this.timer = new Timer();
         this.round = 0;
         this.enemiesSpawning = false;
         this.gamePaused = false;
-
-        startGame();
     }
 
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
@@ -125,15 +117,6 @@ public class Game {
      */
     boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
-    }
-
-    /**
-     * Returns the list of the views.
-     *
-     * @return list of the views.
-     */
-    Iterable<ViewObserver> getViewObservers() {
-        return viewObservers;
     }
 
     /**
@@ -219,10 +202,10 @@ public class Game {
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
      * run() is executed every 17 ms. An instance of Player is created.
      */
-    private void startGame() {
+    public void startGame() {
         entityCreator.createPlayer(0,0, playerInputList);
         int period = 17;
-        timer.scheduleAtFixedRate(new WorldUpdate(this, period), 0, period);
+        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);
         /*
         WorldUpdate runs as a thread, inputs are running parallel
         1. task 2. delay 3. period

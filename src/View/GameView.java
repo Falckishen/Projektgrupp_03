@@ -23,18 +23,17 @@ public class GameView extends JComponent implements ViewObserver {
 
     private final MainMenu mainMenu;
     private JFrame frame;
+    private Game currentGame;
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
     private MainFrame mainFrame;
     private PanelInterface activePanel;
-    private DisplayType activePanelType;
     private GamePanel gamePanel;
     private MainMenuPanel mainMenuPanel;
 
     /**
      * Constructs an instance of the View
-     * @param game the model which the view is to render
      * @param width the width of the frame
      * @param height the height of the frame
      */
@@ -47,34 +46,15 @@ public class GameView extends JComponent implements ViewObserver {
         specialBorderBackground = generateSpecialBorderBackground();
 
         mainFrame = new MainFrame(1000, 800);
-        startGame();
-        //startMainMenu();
-    }
-
-    /**
-     * This method configures the View into GAME mode in which the View renders the current world and everything in it
-     * as it's stored in the Game instance.
-     */
-    public void startGame(){
-        activePanel = new GamePanel();
-        mainFrame.replaceSubPanel(activePanel);
-        activePanelType = DisplayType.GAME;
+        this.activePanel = new GamePanel();
     }
 
     /**
      * This method configures the View into MAINMENU mode in which the View renders the main menu.
      */
-    public void startMainMenu(){
-        activePanel = new MainMenuPanel();
+    @Override
+    public void showMainMenu() {
         mainFrame.replaceSubPanel(activePanel);
-        activePanelType = DisplayType.MAINMENU;
-    }
-
-    /**
-     * @return the root pane of the frame.
-     */
-    public JComponent getFrameRootPane() {
-        return mainFrame.getRootPane();
     }
 
     /**
@@ -83,19 +63,23 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void drawFrame() {
-        Game game = mainMenu.ge
-        Position playerPosition = game.getPlayerPosition();
-        if(activePanelType.equals(DisplayType.GAME) && !(playerPosition == null)) {
+        currentGame = mainMenu.getCurrentGame();
+        Position playerPosition = currentGame.getPlayerPosition();
+        if (!(playerPosition == null)) {
             paintBackground(playerPosition);
-            paintEntities(game.getFriendlies(), playerPosition);
-            paintEntities(game.getEnemies(), playerPosition);
-            paintEntities(game.getProjectiles(), playerPosition);
-            paintEntities(game.getNonLivingObjects(), playerPosition);
+            paintEntities(currentGame.getFriendlies(), playerPosition);
+            paintEntities(currentGame.getEnemies(), playerPosition);
+            paintEntities(currentGame.getProjectiles(), playerPosition);
+            paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+            refreshScreen();
         }
-        else if(activePanelType.equals(DisplayType.MAINMENU)){
+    }
 
-        }
-        refreshScreen();
+    /**
+     * @return the root pane of the frame.
+     */
+    public JComponent getFrameRootPane() {
+        return mainFrame.getRootPane();
     }
 
     /**

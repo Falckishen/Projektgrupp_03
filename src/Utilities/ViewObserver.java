@@ -3,7 +3,10 @@ package Utilities;
 public interface ViewObserver {
 
     /**
-     * Tells the ViewObserver to render the screen.
+     * Renders onto the frame depending on the current mode either the world as it is in the Game instance or the
+     * main menu if the mode is GAME or MAINMENU respectively.
      */
     void drawFrame();
+
+    void showMainMenu();
 }
