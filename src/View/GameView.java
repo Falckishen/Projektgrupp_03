@@ -91,11 +91,8 @@ public class GameView extends JComponent implements ViewObserver {
      * the user.
      */
     @Override
-    public void renderFrame() {
-        if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
-            activePanel = new GamePanel();
     public void renderGame() {
-        if(activePanel.getClass() != GamePanel.class){
+        if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
             startGame();
         }
         Game currentGame = mainMenu.getCurrentGame();

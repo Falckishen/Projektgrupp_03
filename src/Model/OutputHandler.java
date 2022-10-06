@@ -34,7 +34,7 @@ class OutputHandler {
      * All the views renders a frame of the current game.
      */
     public void updateGameFrame() {
-        viewObservers.forEach(ViewObserver::renderFrame);
+        viewObservers.forEach(ViewObserver::renderGame);
     }
 
     /**
