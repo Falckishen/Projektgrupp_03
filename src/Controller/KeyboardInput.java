@@ -1,7 +1,7 @@
 package Controller;
 
-import java.awt.event.*;
 import java.util.List;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -21,7 +21,7 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList){
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList) {
         this.playerInputArrayList = playerInputArrayList;
 
         Action walkUpActionPressed = new WalkUpActionPressed();
@@ -35,6 +35,7 @@ public class KeyboardInput {
 
         Action attackActionPressed = new AttackActionPressed();
         Action attackActionReleased = new AttackActionReleased();
+
         Action attackUpActionPressed = new AttackUpActionPressed();
         Action attackUpActionReleased = new AttackUpActionReleased();
         Action attackLeftActionPressed = new AttackLeftActionPressed();
@@ -89,10 +90,9 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
-
     }
 
-    class WalkUpActionPressed extends AbstractAction{
+    private class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!wKeyPressed) {
@@ -101,7 +101,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkLeftActionPressed extends AbstractAction{
+
+    private class WalkLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!aKeyPressed) {
@@ -110,7 +111,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkDownActionPressed extends AbstractAction{
+
+    private class WalkDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!sKeyPressed) {
@@ -119,7 +121,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkRightActionPressed extends AbstractAction{
+
+    private class WalkRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!dKeyPressed) {
@@ -128,35 +131,40 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkUpActionReleased extends AbstractAction{
+
+    private class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
             wKeyPressed = false;
         }
     }
-    class WalkLeftActionReleased extends AbstractAction{
+
+    private class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
             aKeyPressed = false;
         }
     }
-    class WalkDownActionReleased extends AbstractAction{
+
+    private class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
             sKeyPressed = false;
         }
     }
-    class WalkRightActionReleased extends AbstractAction{
+
+    private class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
             dKeyPressed = false;
         }
     }
-    class AttackActionPressed extends AbstractAction{
+
+    private class AttackActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!spacePressed) {
@@ -165,14 +173,16 @@ public class KeyboardInput {
             }
         }
     }
-    class AttackActionReleased extends AbstractAction{
+
+    private class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
             spacePressed = false;
         }
     }
-    class AttackUpActionPressed extends AbstractAction{
+
+    private class AttackUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
@@ -182,7 +192,8 @@ public class KeyboardInput {
             }
         }
     }
-    class AttackLeftActionPressed extends AbstractAction{
+
+    private class AttackLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
@@ -193,7 +204,8 @@ public class KeyboardInput {
             }
         }
     }
-    class AttackDownActionPressed extends AbstractAction{
+
+    private class AttackDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
@@ -204,7 +216,8 @@ public class KeyboardInput {
             }
         }
     }
-    class AttackRightActionPressed extends AbstractAction{
+
+    private class AttackRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
@@ -215,7 +228,8 @@ public class KeyboardInput {
             }
         }
     }
-    class AttackUpActionReleased extends AbstractAction{
+
+    private class AttackUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_UP));
@@ -224,7 +238,8 @@ public class KeyboardInput {
 
         }
     }
-    class AttackLeftActionReleased extends AbstractAction{
+
+    private class AttackLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_LEFT));
@@ -232,7 +247,8 @@ public class KeyboardInput {
             System.out.println("released");
         }
     }
-    class AttackDownActionReleased extends AbstractAction{
+
+    private class AttackDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_DOWN));
@@ -240,7 +256,8 @@ public class KeyboardInput {
             System.out.println("released");
         }
     }
-    class AttackRightActionReleased extends AbstractAction{
+
+    private class AttackRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_RIGHT));
@@ -248,7 +265,8 @@ public class KeyboardInput {
             System.out.println("released");
         }
     }
-    public class PauseActionPressed extends AbstractAction{
+
+    private class PauseActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!escPressed){
@@ -257,7 +275,8 @@ public class KeyboardInput {
             }
         }
     }
-    public class PauseActionReleased extends AbstractAction{
+
+    private class PauseActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e){
             escPressed = false;

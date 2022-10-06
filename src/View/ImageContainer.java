@@ -17,15 +17,24 @@ class ImageContainer {
             "src/View/Images/Rick11Image.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
+    /**
+     * Loads all the images contained in the different image paths and places them in a general image matrix that can be
+     * accessed through getImageFromTypeVariant.
+     */
     static void loadImages(){
         savedImagesMatrix = new BufferedImage[ImageTypeEnum.values().length][0];
-        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.MISC)] = getLoadedFileList(miscImagePaths);
-        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.PLAYER)] = getLoadedFileList(PlayerImagePaths);
-        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.PLAYERPROJECTILE)] = getLoadedFileList(PlayerProjectileImagePaths);
-        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.GRUNT)] = getLoadedFileList(MonsterTestImagePaths);
-        savedImagesMatrix[ImageTypeEnum.getIndex(ImageTypeEnum.RICK)] = getLoadedFileList(RickImagePaths);
+        savedImagesMatrix[ImageTypeEnum.MISC.ordinal()] = getLoadedFileList(miscImagePaths);
+        savedImagesMatrix[ImageTypeEnum.PLAYER.ordinal()] = getLoadedFileList(PlayerImagePaths);
+        savedImagesMatrix[ImageTypeEnum.PLAYERPROJECTILE.ordinal()] = getLoadedFileList(PlayerProjectileImagePaths);
+        savedImagesMatrix[ImageTypeEnum.GRUNT.ordinal()] = getLoadedFileList(MonsterTestImagePaths);
+        savedImagesMatrix[ImageTypeEnum.RICK.ordinal()] = getLoadedFileList(RickImagePaths);
     }
 
+    /**
+     * Loads a list of filepaths and returns the loaded BufferedImages in a list
+     * @param fileList Filepaths to load
+     * @return List of loaded images
+     */
     private static BufferedImage[] getLoadedFileList(String[] fileList){
         String filePath;
         BufferedImage[] outputList = new BufferedImage[fileList.length];
@@ -41,6 +50,6 @@ class ImageContainer {
     }
 
     public static BufferedImage getImageFromTypeVariant(ImageTypeEnum type, int variant){
-        return(savedImagesMatrix[ImageTypeEnum.getIndex(type)][variant]);
+        return(savedImagesMatrix[type.ordinal()][variant]);
     }
 }
