@@ -5,5 +5,7 @@ package Model.Entities;
  * @author Ida Altenstedt
  */
 public interface AddEnemy {
-    void createMonster();
+    void createWeakMonster();
+
+    void createStrongMonster();
 }

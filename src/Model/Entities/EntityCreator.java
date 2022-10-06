@@ -102,7 +102,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
     @Override
-    public void createMonster() {
+    public void createWeakMonster() {
          Random rand = new Random();
          int spawnX = 0;
          int spawnY = 0;
@@ -112,7 +112,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
              if (spawnX % 2 == 0) {
                  spawnX = spawnX *(-1);
              }
-
              if (friendlies.isEmpty()) {
                  break;
              } else {
@@ -133,7 +132,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
              if (spawnY % 2 == 0) {
                  spawnY = spawnY *(-1);
              }
-
              if (friendlies.isEmpty()) {
                  break;
              } else {
@@ -154,6 +152,11 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         Monster m = new Monster(spawnX, spawnY, friendlies);
         enemies.add(m);
         tickObservers.add(m);
+    }
+
+    @Override
+    public void createStrongMonster() {
+
     }
 
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
