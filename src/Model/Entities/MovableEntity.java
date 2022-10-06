@@ -40,6 +40,10 @@ public abstract class MovableEntity extends Entity implements OnTick {
         }
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     protected void move(){
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
         switch (direction) {

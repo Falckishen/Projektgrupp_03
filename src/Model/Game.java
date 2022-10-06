@@ -108,11 +108,9 @@ public class Game {
         return (Iterable<Entity>) entityCreator.getNonLivingObjects();
     }
 
-    /*
     public int getPlayerHealth() {
-    //TODO fixa
+        return getPlayer().getHealth();
     }
-    */
 
     /*------------------------------------------- Package-private Getters -------------------------------------------*/
 
@@ -159,6 +157,17 @@ public class Game {
      */
     int getRound() {
         return round;
+    }
+
+    /*------------------------------------------------ Private Getters ------------------------------------------------*/
+
+    private MovableEntity getPlayer() {
+        for (MovableEntity e : entityCreator.getFriendlies()) {
+            if (e.getEntityType() == EntityType.player){
+                return e;
+            }
+        }
+        return null;
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
