@@ -2,6 +2,9 @@ package Model.Entities;
 
 import Utilities.EntityType;
 
+/**
+ * @author Ida Altenstedt
+ */
 abstract class Friendly extends MovableEntity {
 
     protected Friendly(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,

@@ -2,6 +2,9 @@ import Model.MainMenu;
 import View.GameView;
 import Controller.KeyboardInput;
 
+/**
+ * @author
+ */
 public class Main {
 
     /**

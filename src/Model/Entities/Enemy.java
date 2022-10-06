@@ -5,6 +5,9 @@ import java.util.*;
 import Utilities.EntityType;
 import Utilities.Position;
 
+/**
+ * @author Ida Altenstedt
+ */
 abstract class Enemy extends MovableEntity {
     private final int attackPower;
     private final Iterable<Friendly> friendliesIterator;

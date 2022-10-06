@@ -4,6 +4,9 @@ import Model.Entities.AddProjectile;
 import Model.Entities.Direction;
 import Utilities.Position;
 
+/**
+ * @author Ida Altenstedt
+ */
 public abstract class Weapon {
 
     private final AddProjectile projectileCreator;
@@ -50,6 +53,9 @@ public abstract class Weapon {
         return projectileCreator;
     }
 
+    /**
+     * What happens when the weapon shoots one(1) time.
+     */
     protected abstract void shoot();
 
     public void actionShoot(Direction shootDirection){

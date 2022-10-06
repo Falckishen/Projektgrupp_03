@@ -2,6 +2,9 @@ package Model.Entities;
 
 import Utilities.EntityType;
 
+/**
+ * @author Ida Altenstedt
+ */
 class SimpleProjectile extends Projectile {
 
     protected SimpleProjectile(int x, int y, Direction direction, int velocity, int lifeLeft, int attackPower){
