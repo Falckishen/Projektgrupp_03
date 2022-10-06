@@ -17,35 +17,27 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
         Color translucent = new Color(0,0,0,0);
         int TITLE_SIZE = 80;
         int OPTIONS_SIZE = 60;
+        Action quitPressed = new quitPressed();
+        Action resumePressed = new resumePressed();
 
         //this.setBackground(new Color(0,0,0,200));
 
         JLabel title = new JLabel("PAUSED", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_SIZE));
         title.setBounds(0,0, GSW(1),GSH(0.125));
+        title.setForeground(Color.BLACK);
         add(title, BorderLayout.CENTER);
         title.setVisible(true);
 
-        JButton quitButton = new JButton("Exit to Menu");
-        quitButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+        LabelButton quitButton = new LabelButton(quitPressed, "Exit to Menu",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
         quitButton.setBounds(GSW(0.15), GSH(0.85), GSW(0.3), GSH(0.1));
-        add(quitButton, BorderLayout.CENTER);
-        quitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("quit");
-            }
-        });
+        add(quitButton,BorderLayout.CENTER);
         quitButton.setVisible(true);
 
-        JButton resumeButton = new JButton("Resume");
-        resumeButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
-        resumeButton.setBounds(GSW(0.55), GSH(0.85), GSW(0.3), GSH(0.1));
+
+        LabelButton resumeButton = new LabelButton(resumePressed, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
+        resumeButton.setBounds(GSW(0.70), GSH(0.85), GSW(0.3), GSH(0.1));
         add(resumeButton, BorderLayout.CENTER);
-        resumeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("resume");
-            }
-        });
         quitButton.setVisible(true);
     }
 
