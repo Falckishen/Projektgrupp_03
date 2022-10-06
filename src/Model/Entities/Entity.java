@@ -11,7 +11,7 @@ public abstract class Entity {
     private final EntityType entityType;
     private final int hitBoxRadiusX;
     private final int hitBoxRadiusY;
-    private Position position;
+    private final Position position;
     private boolean isDead;
 
     Entity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y){
@@ -38,8 +38,8 @@ public abstract class Entity {
         return hitBoxRadiusY;
     }
 
-    protected void setIsDead(boolean isDead) {
-        this.isDead = isDead;
+    protected void setIsDead() {
+        this.isDead = true;
     }
 
     protected boolean getIsDead() {

@@ -39,7 +39,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
     protected void takeDamage(int attackPower){
         health -= attackPower;
         if (health <= 0){
-            setIsDead(true);
+            setIsDead();
         }
     }
 

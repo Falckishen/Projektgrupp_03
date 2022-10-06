@@ -3,7 +3,7 @@ import View.GameView;
 import Controller.KeyboardInput;
 
 /**
- * @author
+ * @author Samuel Fack
  */
 public class Main {
 

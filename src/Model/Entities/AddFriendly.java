@@ -7,5 +7,5 @@ import java.util.List;
  * @author Ida Altenstedt
  */
 interface AddFriendly {
-    void createPlayer(int coordX, int coordY, List<Integer> keyboardInputs);
+    void createPlayer(int x, int y, List<Integer> keyboardInputs);
 }

@@ -27,7 +27,7 @@ abstract class Projectile extends MovableEntity {
     }
 
     protected void collidedWithNonLivingObject(){
-        setIsDead(true);
+        setIsDead();
     }
 
     @Override
@@ -36,7 +36,7 @@ abstract class Projectile extends MovableEntity {
             move();
             lifeLeft -= 1;
         } else {
-            setIsDead(true);
+            setIsDead();
         }
     }
 
