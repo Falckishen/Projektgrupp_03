@@ -1,6 +1,8 @@
 package View;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 import Model.Entities.Entity;
@@ -9,10 +11,7 @@ import Model.MainMenu;
 import Utilities.EntityType;
 import Utilities.Position;
 import Utilities.ViewObserver;
-import View.FramesAndPanels.GamePanel;
-import View.FramesAndPanels.MainFrame;
-import View.FramesAndPanels.MainMenuPanel;
-import View.FramesAndPanels.PanelInterface;
+import View.FramesAndPanels.*;
 
 /**
  * View without outside input renders either menus or the world that a player might be playing in. It accesses
@@ -33,7 +32,7 @@ public class GameView extends JComponent implements ViewObserver {
 
     /**
      * Constructs an instance of the View
-     *
+     * @param mainMenu the model for which the view is to render the main menu and the world
      * @param width the width of the frame
      * @param height the height of the frame
      */
@@ -45,27 +44,60 @@ public class GameView extends JComponent implements ViewObserver {
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(1000, 800);
+        startMainMenu();
     }
 
     /**
-     * Render the main menu.
+     * This method configures the View into GAME mode in which the View renders the current world and everything in it
+     * as it's stored in the Game instance.
+     */
+    public void startGame(){
+        activePanel = new GamePanel();
+        mainFrame.replaceSubPanel(activePanel);
+    }
+
+    /**
+     * This method configures the View into MAINMENU mode in which the View renders the main menu.
+     */
+    public void startMainMenu(){
+        ActionListener ac = new ActionListener() {public void actionPerformed(ActionEvent e) {
+            mainMenu.startGame();
+        }};
+        activePanel = new MainMenuPanel(ac);
+        mainFrame.replaceSubPanel(activePanel);
+    }
+
+    /**
+     * This method configures the View into PAUSE mode in which the View renders the pause menu.
+     */
+    public void startPauseMenu(){
+        activePanel = new PauseMenuPanel();
+        mainFrame.replaceSubPanel(activePanel);
+    }
+
+    /**
+     * Renders the main menu through a mainMenuPanel onto the mainFrame.
      */
     @Override
     public void showMainMenu() {
-        activePanel = new MainMenuPanel();
-        mainFrame.replaceSubPanel(activePanel);
-        refreshScreen();
+        if(activePanel.getClass() != MainMenuPanel.class){
+            startMainMenu();
+        }
+        mainFrame.refreshScreen();
     }
 
     /**
-     * Renders a frame of the current game.
+     * Renders the world as it is in the Game inside the MainMenu onto the currently active panel and shows the frame to
+     * the user.
      */
     @Override
     public void renderFrame() {
         if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
             activePanel = new GamePanel();
+    public void renderGame() {
+        if(activePanel.getClass() != GamePanel.class){
+            startGame();
         }
-        mainFrame.replaceSubPanel(activePanel);
         Game currentGame = mainMenu.getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
@@ -74,8 +106,8 @@ public class GameView extends JComponent implements ViewObserver {
             paintEntities(currentGame.getEnemies(), playerPosition);
             paintEntities(currentGame.getProjectiles(), playerPosition);
             paintEntities(currentGame.getNonLivingObjects(), playerPosition);
-            refreshScreen();
         }
+        refreshScreen();
     }
 
     /**

@@ -16,7 +16,11 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     boolean close = false;
     boolean start = false;
 
-    public MainMenuPanel(){}
+    ActionListener startListener;
+
+    public MainMenuPanel(ActionListener ac){
+        this.startListener = ac;
+    }
 
 
     private void setUpParts(){
@@ -54,12 +58,7 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         startGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         startGameButton.setBounds(GSW(0.55), GSH(0.85), GSW(0.3), GSH(0.1));
         add(startGameButton, BorderLayout.CENTER);
-        startGameButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                start = true;
-                close = true;
-            }
-        });
+        startGameButton.addActionListener(startListener);
         startGameButton.setVisible(true);
 
         endGameButton = new JButton("Close");
