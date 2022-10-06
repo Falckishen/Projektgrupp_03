@@ -16,6 +16,6 @@ public class Main {
         GameView mainView = new GameView(mainMenu, 1000, 800);
         new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
 
-        mainMenu.startGame(); // Temp
+        mainMenu.showMainMenu(); // Temp
     }
 }
