@@ -35,7 +35,7 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
         quitButton.setVisible(true);
 
 
-        LabelButton resumeButton = new LabelButton(quitPressed, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
+        LabelButton resumeButton = new LabelButton(resumePressed, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
         resumeButton.setBounds(GSW(0.70), GSH(0.85), GSW(0.3), GSH(0.1));
         add(resumeButton, BorderLayout.CENTER);
         quitButton.setVisible(true);
