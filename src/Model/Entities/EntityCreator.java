@@ -19,6 +19,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     private final List<OnTick> tickObservers;
     private final List<Entity> nonLivingObjects;
     private final int worldMapRadius;
+    private final int difficulty;
 
     /*
     public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles,
@@ -32,13 +33,14 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     }
     */
 
-    public EntityCreator(int worldMapRadius) {
+    public EntityCreator(int worldMapRadius, int difficulty) {
         this.enemies = new ArrayList<>();
         this.friendlies = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.tickObservers = new ArrayList<>();
         this.nonLivingObjects = new ArrayList<>();
         this.worldMapRadius = worldMapRadius;
+        this.difficulty = difficulty;
         addCollisionHandler();
     }
 
@@ -103,58 +105,67 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     @Override
     public void createMonster() {
-         Random rand = new Random();
-         int spawnX = 0;
-         int spawnY = 0;
-         while(true){
-             boolean toClose = false;
-             spawnX = rand.nextInt(worldMapRadius-100);
-             if (spawnX % 2 == 0) {
-                 spawnX = spawnX *(-1);
-             }
-
-             if (friendlies.isEmpty()) {
-                 break;
-             } else {
-                 for (Entity e: friendlies) {
-                     if (e.getPosition().getX() > spawnX - 200 && e.getPosition().getX() < spawnX + 200) {
-                         toClose = true;
-                         break;
-                     }
-                 }
-                 if (!toClose){
-                     break;
-                 }
-             }
-         }
-         while(true){
-             boolean toClose = false;
-             spawnY = rand.nextInt(worldMapRadius-100);
-             if (spawnY % 2 == 0) {
-                 spawnY = spawnY *(-1);
-             }
-
-             if (friendlies.isEmpty()) {
-                 break;
-             } else {
-                 for (Entity e: friendlies) {
-                     if (e.getPosition().getY() > spawnY - 200 && e.getPosition().getY() < spawnY + 200) {
-                         toClose = true;
-                         break;
-                     }
-                 }
-                 if (!toClose){
-                     break;
-                 }
-             }
-         }
-
-        int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-        int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
-        Monster m = new Monster(spawnX, spawnY, friendlies);
+        int health = 1*difficulty;
+        int attackPower = 1*difficulty;
+        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3, health, attackPower);
         enemies.add(m);
         tickObservers.add(m);
     }
+
+    private int getXCoordinateInWorld(){
+        Random rand = new Random();
+        int spawnX = 0;
+        while(true){
+            boolean toClose = false;
+            spawnX = rand.nextInt(worldMapRadius-100);
+            if (spawnX % 2 == 0) {
+                spawnX = spawnX *(-1);
+            }
+
+            if (friendlies.isEmpty()) {
+                break;
+            } else {
+                for (Entity e: friendlies) {
+                    if (e.getPosition().getX() > spawnX - 200 && e.getPosition().getX() < spawnX + 200) {
+                        toClose = true;
+                        break;
+                    }
+                }
+                if (!toClose){
+                    break;
+                }
+            }
+        }
+        return spawnX;
+    }
+
+    private int getYCoordinateInWorld(){
+        Random rand = new Random();
+        int spawnY = 0;
+        while(true){
+            boolean toClose = false;
+            spawnY = rand.nextInt(worldMapRadius-100);
+            if (spawnY % 2 == 0) {
+                spawnY = spawnY *(-1);
+            }
+
+            if (friendlies.isEmpty()) {
+                break;
+            } else {
+                for (Entity e: friendlies) {
+                    if (e.getPosition().getY() > spawnY - 200 && e.getPosition().getY() < spawnY + 200) {
+                        toClose = true;
+                        break;
+                    }
+                }
+                if (!toClose){
+                    break;
+                }
+            }
+        }
+        return spawnY;
+    }
+
 
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
