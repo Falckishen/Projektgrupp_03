@@ -269,8 +269,8 @@ public class KeyboardInput {
             if (!escPressed){
                 escPressed = true;
                 if (!getCurrentGame().isGamePaused()){
-                    //mainView.startPauseMenu();
                     getCurrentGame().pauseGame();
+                    //mainView.startPauseMenu();
                 }
                 else if (getCurrentGame().isGamePaused()) {
                     //mainView.startGame();
