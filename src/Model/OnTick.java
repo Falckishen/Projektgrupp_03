@@ -2,6 +2,7 @@ package Model;
 
 /**
  * An interface used by every object that will update when a tick occurs.
+ * @author Ida Altenstedt
  */
 public interface OnTick {
     /**
