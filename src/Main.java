@@ -3,7 +3,7 @@ import View.GameView;
 import Controller.KeyboardInput;
 
 /**
- * @author
+ * @author Samuel Fack
  */
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
 
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
         GameView mainView = new GameView(mainMenu, 1000, 800);
-        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList());
+        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu);
 
         mainMenu.showMainMenu();
     }

@@ -2,7 +2,6 @@ package Model.Entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import Utilities.EntityType;
 import Utilities.Position;
 

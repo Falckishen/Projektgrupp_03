@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.Game;
+import Model.MainMenu;
+
 import java.util.List;
 import java.awt.event.*;
 import javax.swing.*;
@@ -20,8 +23,9 @@ public class KeyboardInput {
     private boolean rightKeyPressed = false;
     private boolean spacePressed = false;
     private boolean escPressed = false;
+    private final MainMenu mainMenu;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList) {
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu) {
         this.playerInputArrayList = playerInputArrayList;
 
         Action walkUpActionPressed = new WalkUpActionPressed();
@@ -90,6 +94,8 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
+
+        this.mainMenu = mainMenu;
     }
 
     private class WalkUpActionPressed extends AbstractAction{
@@ -282,5 +288,9 @@ public class KeyboardInput {
             escPressed = false;
             System.out.println("escReleased");
         }
+    }
+
+    private Game getCurrentGame() {
+        return mainMenu.getCurrentGame();
     }
 }

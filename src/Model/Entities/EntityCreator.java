@@ -149,9 +149,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
              }
          }
 
-
-
-
         int temp1 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
         int temp2 = 0; // TODO fixa random startvärde (får dock inte spawna på player)
         Monster m = new Monster(spawnX, spawnY, friendlies);
@@ -162,8 +159,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
-    public void createPlayer(int coordX, int coordY, List<Integer> keyboardInputs) {
-        Player p = new Player(coordX, coordY, keyboardInputs);
+    public void createPlayer(int x, int y, List<Integer> keyboardInputs) {
+        Player p = new Player(x, y, keyboardInputs);
         p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition()));
         friendlies.add(p);
         tickObservers.add(p);

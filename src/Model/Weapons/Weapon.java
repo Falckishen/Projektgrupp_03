@@ -14,9 +14,9 @@ public abstract class Weapon {
     private final int projectileVelocity;
     private final int projectileLife;
     private final int projectileAttackPower;
+    private final Position playerPosition;
     private Long lastShotFired; //is saved as milliseconds
     private Direction direction;
-    private Position playerPosition;
 
     protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
         this.projectileCreator = projectileCreator;
