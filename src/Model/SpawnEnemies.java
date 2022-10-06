@@ -41,18 +41,16 @@ class SpawnEnemies implements Runnable {
             enemyEntityCreator.createWeakMonster();
         }
         game.enemiesHaveSpawned();
-        System.out.println("ENEMIES SPAWNED: " + numberOfNewEnemies); // Debug
+        System.out.println("ENEMIES SPAWNED: " + numberOfNewEnemies);
     }
 
     /**
      * Calculate and return the number of enemies to be spawned next round.
      *
-     * @return 1 if it is the first round., otherwise, (round^2)*difficulty/2 rounded down to the nearest integer.
+     * @return (round^2)*difficulty/2 rounded down to the nearest integer if its 1 or higher, otherwise 1.
      */
     private int numberOfNewEnemies() {
-        if (round == 1) {
-            return 1;
-        }
-        return (int) (Math.pow(round, 2)*difficulty/2);
+        int n = (int) (Math.pow(round, 2)*difficulty/2);
+        return Math.max(n, 1);
     }
 }

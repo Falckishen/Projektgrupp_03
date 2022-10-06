@@ -91,6 +91,8 @@ public class MainMenu {
         highScoreHandler.processScore(round);
 
         // TODO visa game-over skärm
+
+        quitApplication();
     }
 
     public void quitApplication() {

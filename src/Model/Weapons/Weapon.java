@@ -59,14 +59,12 @@ public abstract class Weapon {
     protected abstract void shoot();
 
     public void actionShoot(Direction shootDirection){
-        //System.out.println("Boom1");
         this.direction = shootDirection;
-
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
             this.lastShotFired = System.currentTimeMillis();
-            System.out.println("Boom2");
+            System.out.println("Shot fired");
         }
         System.out.println("loading");
     }
