@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import Utilities.ViewObserver;
@@ -11,24 +12,23 @@ import Utilities.ViewObserver;
  */
 public class MainMenu {
 
-    private final String gameName;
     private final int worldMapRadius;
     private final List<Integer> playerInputList;
     private final OutputHandler outputHandler;
+    private final HighScoreHandler highScoreHandler;
     private int difficulty;
     private Game currentGame;
 
     /**
      * Creates an instance of MainMenu.
      *
-     * @param gameName          the name of the game.
      * @param worldMapRadius    the radius of the world map.
      */
     public MainMenu(String gameName, int worldMapRadius) {
-        this.gameName = gameName;
         this.worldMapRadius = worldMapRadius;
         this.playerInputList = new ArrayList<>();
         this.outputHandler = new OutputHandler();
+        this.highScoreHandler = new HighScoreHandler(gameName);
         this.difficulty = 1;
     }
 
@@ -50,6 +50,10 @@ public class MainMenu {
      */
     public Game getCurrentGame() {
         return currentGame;
+    }
+
+    public int getHighScore() throws IOException {
+        return highScoreHandler.getHighScore();
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
@@ -84,7 +88,7 @@ public class MainMenu {
      * The score of the last game is saved if it is a new highs-core and the game over screen appears
      */
     void gameEnded(int round) {
-        HighScoreHandler.processScore(round, gameName);
+        highScoreHandler.processScore(round);
 
         // TODO visa game-over skärm
     }
