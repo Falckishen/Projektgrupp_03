@@ -103,6 +103,19 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
+    @Override
+    public void createMonster() {
+        int health = 1*difficulty;
+        int attackPower = 1*difficulty;
+        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3, health, attackPower);
+        enemies.add(m);
+        tickObservers.add(m);
+    }
+
+    /**
+     * checks for a random x coordinate that isn't too close to the player.
+     * @return int x
+     */
     private int getXCoordinateInWorld(){
         Random rand = new Random();
         int spawnX = 0;
@@ -131,6 +144,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return spawnX;
     }
 
+    /**
+     * checks for a random y coordinate that isn't too close to the player.
+     * @return int y
+     */
     private int getYCoordinateInWorld(){
         Random rand = new Random();
         int spawnY = 0;
