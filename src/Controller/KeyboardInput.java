@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Game;
 import Model.MainMenu;
+import View.GameView;
 
 import java.util.List;
 import java.awt.event.*;
@@ -24,8 +25,9 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
     private final MainMenu mainMenu;
+    private final GameView mainView;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu) {
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, GameView mainView) {
         this.playerInputArrayList = playerInputArrayList;
 
         Action walkUpActionPressed = new WalkUpActionPressed();
@@ -96,6 +98,7 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
 
         this.mainMenu = mainMenu;
+        this.mainView = mainView;
     }
 
     private class WalkUpActionPressed extends AbstractAction{
@@ -194,7 +197,6 @@ public class KeyboardInput {
             if (!upKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_UP);
                 upKeyPressed = true;
-                System.out.println("pressed");
             }
         }
     }
@@ -205,8 +207,6 @@ public class KeyboardInput {
             if (!leftKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_LEFT);
                 leftKeyPressed = true;
-                System.out.println("pressed");
-
             }
         }
     }
@@ -217,8 +217,6 @@ public class KeyboardInput {
             if (!downKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_DOWN);
                 downKeyPressed = true;
-                System.out.println("pressed");
-
             }
         }
     }
@@ -229,8 +227,6 @@ public class KeyboardInput {
             if (!rightKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_RIGHT);
                 rightKeyPressed = true;
-                System.out.println("pressed");
-
             }
         }
     }
@@ -240,8 +236,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_UP));
             upKeyPressed = false;
-            System.out.println("released");
-
         }
     }
 
@@ -250,7 +244,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_LEFT));
             leftKeyPressed = false;
-            System.out.println("released");
         }
     }
 
@@ -259,7 +252,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_DOWN));
             downKeyPressed = false;
-            System.out.println("released");
         }
     }
 
@@ -268,7 +260,6 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_RIGHT));
             rightKeyPressed = false;
-            System.out.println("released");
         }
     }
 
@@ -277,6 +268,14 @@ public class KeyboardInput {
         public void actionPerformed(ActionEvent e) {
             if (!escPressed){
                 escPressed = true;
+                if (!getCurrentGame().isGamePaused()){
+                    //mainView.showMainMenu();
+                    getCurrentGame().pauseGame();
+                }
+                else if (getCurrentGame().isGamePaused()) {
+                    //mainView.startGame();
+                    getCurrentGame().unPauseGame();
+                }
                 System.out.println("escPressed");
             }
         }

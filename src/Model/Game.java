@@ -151,7 +151,7 @@ public class Game {
      *
      * @return true if game is paused, false if game is not paused.
      */
-    boolean isGamePaused() {
+    public boolean isGamePaused() {
         return gamePaused;
     }
 
