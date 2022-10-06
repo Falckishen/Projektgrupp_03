@@ -47,6 +47,8 @@ class HighScoreHandler {
         return highScore;
     }
 
+    /*----------------------------------------------- Private Methods -----------------------------------------------*/
+
     /**
      * The new HighScore is saved in C:\Users\%UserProfile%\Documents\%GameName%\high score.txt.
      */
