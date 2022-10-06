@@ -3,6 +3,9 @@ package Model.Entities;
 import Utilities.EntityType;
 import Utilities.Position;
 
+/**
+ * @author Ida Altenstedt
+ */
 public abstract class Entity {
 
     private final EntityType entityType;

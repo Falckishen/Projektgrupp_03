@@ -6,6 +6,9 @@ import java.util.Iterator;
 import Utilities.EntityType;
 import Utilities.Position;
 
+/**
+ * @author Ida Altenstedt
+ */
 class Monster extends Enemy {
 
     Monster(int x, int y, Iterable<Friendly> friendliesIterator) {

@@ -1,5 +1,8 @@
 package Utilities;
 
+/**
+ * @author
+ */
 public class Position {
 
     private int x;

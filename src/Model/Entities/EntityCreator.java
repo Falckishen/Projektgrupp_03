@@ -8,6 +8,9 @@ import Model.OnTick;
 import Model.Weapons.WeaponFactory;
 import Utilities.*;
 
+/**
+ * @author Ida Altenstedt
+ */
 public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
 
     private final List<Enemy> enemies;

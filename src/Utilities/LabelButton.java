@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * @author
+ */
 public class LabelButton extends JLabel{
     private final Color color;
     private final Color highlightColor;

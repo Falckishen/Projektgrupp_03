@@ -6,6 +6,9 @@ import java.util.List;
 import Model.Weapons.Weapon;
 import Utilities.EntityType;
 
+/**
+ * @author Ida Altenstedt
+ */
 class Player extends Friendly {
 
     private final List<Integer> playerKeyInputs;

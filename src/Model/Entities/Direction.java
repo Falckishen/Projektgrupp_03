@@ -1,5 +1,9 @@
 package Model.Entities;
 
+/**
+ * An enum containing all the different directions entities can move.
+ * @author Ida Altenstedt
+ */
 public enum Direction {
     LEFT,
     LEFT_UP,
