@@ -10,6 +10,10 @@ import javax.swing.*;
 public class KeyboardInput {
 
     private final List<Integer> playerInputArrayList;
+    private boolean wKeyPressed = false;
+    private boolean aKeyPressed = false;
+    private boolean sKeyPressed = false;
+    private boolean dKeyPressed = false;
     private boolean upKeyPressed = false;
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
@@ -32,6 +36,14 @@ public class KeyboardInput {
         Action attackActionPressed = new AttackActionPressed();
         Action attackActionReleased = new AttackActionReleased();
 
+        Action attackUpActionPressed = new AttackUpActionPressed();
+        Action attackUpActionReleased = new AttackUpActionReleased();
+        Action attackLeftActionPressed = new AttackLeftActionPressed();
+        Action attackLeftActionReleased = new AttackLeftActionReleased();
+        Action attackDownActionPressed = new AttackDownActionPressed();
+        Action attackDownActionReleased = new AttackDownActionReleased();
+        Action attackRightActionPressed = new AttackRightActionPressed();
+        Action attackRightActionReleased = new AttackRightActionReleased();
         Action pauseActionPressed = new PauseActionPressed();
         Action pauseActionReleased = new PauseActionReleased();
 
@@ -57,18 +69,36 @@ public class KeyboardInput {
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"attackActionReleased");
         jComponent.getActionMap().put("attackActionReleased", attackActionReleased);
 
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),"attackUpActionPressed");
+        jComponent.getActionMap().put("attackUpActionPressed", attackUpActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false),"attackLeftActionPressed");
+        jComponent.getActionMap().put("attackLeftActionPressed", attackLeftActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),"attackDownActionPressed");
+        jComponent.getActionMap().put("attackDownActionPressed", attackDownActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false),"attackRightActionPressed");
+        jComponent.getActionMap().put("attackRightActionPressed", attackRightActionPressed);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, true),"attackUpActionReleased");
+        jComponent.getActionMap().put("attackUpActionReleased", attackUpActionReleased);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true),"attackLeftActionReleased");
+        jComponent.getActionMap().put("attackLeftActionReleased", attackLeftActionReleased);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true),"attackDownActionReleased");
+        jComponent.getActionMap().put("attackDownActionReleased", attackDownActionReleased);
+        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true),"attackRightActionReleased");
+        jComponent.getActionMap().put("attackRightActionReleased", attackRightActionReleased);
+
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false),"escPressed");
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
+
     }
 
     private class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!upKeyPressed) {
+            if (!wKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_W);
-                upKeyPressed = true;
+                wKeyPressed = true;
             }
         }
     }
@@ -76,9 +106,9 @@ public class KeyboardInput {
     private class WalkLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!leftKeyPressed) {
+            if (!aKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_A);
-                leftKeyPressed = true;
+                aKeyPressed = true;
             }
         }
     }
@@ -86,9 +116,9 @@ public class KeyboardInput {
     private class WalkDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!downKeyPressed) {
+            if (!sKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_S);
-                downKeyPressed = true;
+                sKeyPressed = true;
             }
         }
     }
@@ -96,18 +126,24 @@ public class KeyboardInput {
     private class WalkRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!rightKeyPressed) {
+            if (!dKeyPressed) {
                 playerInputArrayList.add(KeyEvent.VK_D);
-                rightKeyPressed = true;
+                dKeyPressed = true;
             }
         }
     }
-
-    private class WalkLeftActionReleased extends AbstractAction{
+    class WalkUpActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
+            wKeyPressed = false;
+        }
+    }
+    class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
-            leftKeyPressed = false;
+            aKeyPressed = false;
         }
     }
 
@@ -115,7 +151,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
-            downKeyPressed = false;
+            sKeyPressed = false;
         }
     }
 
@@ -123,19 +159,10 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
-            rightKeyPressed = false;
+            dKeyPressed = false;
         }
     }
-
-    private class AttackActionReleased extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
-            spacePressed = false;
-        }
-    }
-
-    private class AttackActionPressed extends AbstractAction{
+    class AttackActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!spacePressed) {
@@ -144,12 +171,87 @@ public class KeyboardInput {
             }
         }
     }
-
-    private class WalkUpActionReleased extends AbstractAction{
+    class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
+            spacePressed = false;
+        }
+    }
+    class AttackUpActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!upKeyPressed) {
+                playerInputArrayList.add(KeyEvent.VK_UP);
+                upKeyPressed = true;
+                System.out.println("pressed");
+            }
+        }
+    }
+    class AttackLeftActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!leftKeyPressed) {
+                playerInputArrayList.add(KeyEvent.VK_LEFT);
+                leftKeyPressed = true;
+                System.out.println("pressed");
+
+            }
+        }
+    }
+    class AttackDownActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!downKeyPressed) {
+                playerInputArrayList.add(KeyEvent.VK_DOWN);
+                downKeyPressed = true;
+                System.out.println("pressed");
+
+            }
+        }
+    }
+    class AttackRightActionPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!rightKeyPressed) {
+                playerInputArrayList.add(KeyEvent.VK_RIGHT);
+                rightKeyPressed = true;
+                System.out.println("pressed");
+
+            }
+        }
+    }
+    class AttackUpActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_UP));
             upKeyPressed = false;
+            System.out.println("released");
+
+        }
+    }
+    class AttackLeftActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_LEFT));
+            leftKeyPressed = false;
+            System.out.println("released");
+        }
+    }
+    class AttackDownActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_DOWN));
+            downKeyPressed = false;
+            System.out.println("released");
+        }
+    }
+    class AttackRightActionReleased extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_RIGHT));
+            rightKeyPressed = false;
+            System.out.println("released");
         }
     }
 
