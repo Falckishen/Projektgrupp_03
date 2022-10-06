@@ -14,9 +14,9 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
 
     private void setUpParts(){
         this.setLayout(null);
-        Color translucent = new Color(0,0,0,0);
+        //Color translucent = new Color(0,0,0,0);
         int TITLE_SIZE = 80;
-        int OPTIONS_SIZE = 60;
+        int OPTIONS_SIZE = 40;
         Action quitPressed = new quitPressed();
         Action resumePressed = new resumePressed();
 
@@ -29,13 +29,13 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
         add(title, BorderLayout.CENTER);
         title.setVisible(true);
 
-        LabelButton quitButton = new LabelButton(quitPressed, "Exit to Menu",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
+        LabelButton quitButton = new LabelButton(quitPressed, "Exit to Menu",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
         quitButton.setBounds(GSW(0.15), GSH(0.85), GSW(0.3), GSH(0.1));
         add(quitButton,BorderLayout.CENTER);
         quitButton.setVisible(true);
 
 
-        LabelButton resumeButton = new LabelButton(resumePressed, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, 40),Color.BLACK,Color.red);
+        LabelButton resumeButton = new LabelButton(resumePressed, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
         resumeButton.setBounds(GSW(0.70), GSH(0.85), GSW(0.3), GSH(0.1));
         add(resumeButton, BorderLayout.CENTER);
         quitButton.setVisible(true);

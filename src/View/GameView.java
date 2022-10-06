@@ -62,7 +62,8 @@ public class GameView extends JComponent implements ViewObserver {
      */
     void startMainMenu(){
         ActionListener ac = e -> mainMenu.startGame();
-        activePanel = new MainMenuPanel(ac);
+        //activePanel = new MainMenuPanel(ac);
+        activePanel = new DeathMenuPanel();
         mainFrame.replaceSubPanel(activePanel);
     }
 
@@ -83,6 +84,9 @@ public class GameView extends JComponent implements ViewObserver {
             startMainMenu();
         }
         mainFrame.refreshScreen();
+    }
+    public void showDeathMenu() {
+
     }
 
     /**
