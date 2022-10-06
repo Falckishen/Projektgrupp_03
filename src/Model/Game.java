@@ -45,7 +45,7 @@ public class Game {
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
         this.outputHandler = outputHandler;
-        this.entityCreator = new EntityCreator(worldMapRadius);
+        this.entityCreator = new EntityCreator(worldMapRadius, difficulty);
         this.entityCreator.createWorldBorderWalls();
         this.timer = new Timer();
         this.round = 0;

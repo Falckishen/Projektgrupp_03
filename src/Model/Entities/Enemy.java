@@ -11,7 +11,6 @@ import Utilities.Position;
 abstract class Enemy extends MovableEntity {
     private final int attackPower;
     private final Iterable<Friendly> friendliesIterator;
-    //private Position closestFriendlyPosition;
 
     protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health, int attackPower, Iterable<Friendly> friendliesIterator) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed, health);
