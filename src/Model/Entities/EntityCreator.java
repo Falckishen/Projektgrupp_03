@@ -103,15 +103,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
 
-    @Override
-    public void createMonster() {
-        int health = 1*difficulty;
-        int attackPower = 1*difficulty;
-        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3, health, attackPower);
-        enemies.add(m);
-        tickObservers.add(m);
-    }
-
     /**
      * checks for a random x coordinate that isn't too close to the player.
      * @return int x
@@ -128,7 +119,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
             if (friendlies.isEmpty()) {
                 break;
-            } else {
+            }
+            else {
                 for (Entity e: friendlies) {
                     if (e.getPosition().getX() > spawnX - 200 && e.getPosition().getX() < spawnX + 200) {
                         toClose = true;
@@ -156,10 +148,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
             if (spawnY % 2 == 0) {
                 spawnY = spawnY *(-1);
             }
-
             if (friendlies.isEmpty()) {
                 break;
-            } else {
+            }
+            else {
                 for (Entity e: friendlies) {
                     if (e.getPosition().getY() > spawnY - 200 && e.getPosition().getY() < spawnY + 200) {
                         toClose = true;
@@ -174,6 +166,12 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return spawnY;
     }
 
+    @Override
+    public void createWeakMonster() {
+        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3, difficulty, difficulty);
+        enemies.add(m);
+        tickObservers.add(m);
+    }
 
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 

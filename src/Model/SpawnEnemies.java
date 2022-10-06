@@ -38,7 +38,7 @@ class SpawnEnemies implements Runnable {
     public void run() {
         int numberOfNewEnemies = numberOfNewEnemies();
         for (int i = 0; i < numberOfNewEnemies; i++) {
-            enemyEntityCreator.createMonster();
+            enemyEntityCreator.createWeakMonster();
         }
         game.enemiesHaveSpawned();
         System.out.println("ENEMIES SPAWNED: " + numberOfNewEnemies); // Debug
