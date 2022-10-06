@@ -17,7 +17,7 @@ class OutputHandler {
     /**
      * Creates an instance of OutputHandler.
      */
-    public OutputHandler() {
+    OutputHandler() {
         this.viewObservers = new ArrayList<>();
     }
 

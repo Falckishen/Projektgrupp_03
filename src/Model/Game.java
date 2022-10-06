@@ -34,13 +34,13 @@ public class Game {
     /**
      * Creates an instance of Game and starts the game.
      *
-     * @param mainMenu          a reference to the MainMenu.
-     * @param worldMapRadius    the radius of the world map.
-     * @param difficulty        the difficulty.
-     * @param playerInputList   a reference to the list of current user keyboard input.
-     * @param outputHandler     a reference to the outputHandler.
+     * @param mainMenu          reference to the MainMenu.
+     * @param worldMapRadius    radius of the world map.
+     * @param difficulty        difficulty.
+     * @param playerInputList   reference to the list of current user keyboard input.
+     * @param outputHandler     reference to the outputHandler.
      */
-    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
+    Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
@@ -108,8 +108,22 @@ public class Game {
         return (Iterable<Entity>) entityCreator.getNonLivingObjects();
     }
 
+    /**
+     * Returns the current health of the player.
+     *
+     * @return current health of the player.
+     */
     public int getPlayerHealth() {
         return getPlayer().getHealth();
+    }
+
+    /**
+     * Returns the current round.
+     *
+     * @return the current round.
+     */
+    public int getRound() {
+        return round;
     }
 
     /*------------------------------------------- Package-private Getters -------------------------------------------*/
@@ -150,17 +164,13 @@ public class Game {
         return !entityCreator.isPlayerAlive();
     }
 
-    /**
-     * Returns the current round.
-     *
-     * @return the current round.
-     */
-    int getRound() {
-        return round;
-    }
-
     /*------------------------------------------------ Private Getters ------------------------------------------------*/
 
+    /**
+     * Returns the player.
+     *
+     * @return player.
+     */
     private MovableEntity getPlayer() {
         for (MovableEntity e : entityCreator.getFriendlies()) {
             if (e.getEntityType() == EntityType.player){
@@ -239,7 +249,7 @@ public class Game {
     /**
      * Stops the game. The game ends, run() in WorldUpdate stops being executed and mainMenu.gameEnded() is called.
      */
-    void endGame() {
+    void stopGame() {
         timer.cancel();
         timer.purge();
 

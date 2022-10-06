@@ -1,7 +1,7 @@
 package Controller;
 
-import java.awt.event.*;
 import java.util.List;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -17,7 +17,7 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList){
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList) {
         this.playerInputArrayList = playerInputArrayList;
 
         Action walkUpActionPressed = new WalkUpActionPressed();
@@ -28,8 +28,10 @@ public class KeyboardInput {
         Action walkLeftActionReleased = new WalkLeftActionReleased();
         Action walkDownActionReleased = new WalkDownActionReleased();
         Action walkRightActionReleased = new WalkRightActionReleased();
+
         Action attackActionPressed = new AttackActionPressed();
         Action attackActionReleased = new AttackActionReleased();
+
         Action pauseActionPressed = new PauseActionPressed();
         Action pauseActionReleased = new PauseActionReleased();
 
@@ -49,20 +51,19 @@ public class KeyboardInput {
         jComponent.getActionMap().put("walkDownActionReleased", walkDownActionReleased);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
         jComponent.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
+
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"attackActionPressed");
         jComponent.getActionMap().put("attackActionPressed", attackActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"attackActionReleased");
         jComponent.getActionMap().put("attackActionReleased", attackActionReleased);
 
-
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false),"escPressed");
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
-
     }
 
-    class WalkUpActionPressed extends AbstractAction{
+    private class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
@@ -71,7 +72,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkLeftActionPressed extends AbstractAction{
+
+    private class WalkLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
@@ -80,7 +82,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkDownActionPressed extends AbstractAction{
+
+    private class WalkDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
@@ -89,7 +92,8 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkRightActionPressed extends AbstractAction{
+
+    private class WalkRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
@@ -98,35 +102,40 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkLeftActionReleased extends AbstractAction{
+
+    private class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_A));
             leftKeyPressed = false;
         }
     }
-    class WalkDownActionReleased extends AbstractAction{
+
+    private class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_S));
             downKeyPressed = false;
         }
     }
-    class WalkRightActionReleased extends AbstractAction{
+
+    private class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_D));
             rightKeyPressed = false;
         }
     }
-    public class AttackActionReleased extends AbstractAction{
+
+    private class AttackActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
             spacePressed = false;
         }
     }
-    public class AttackActionPressed extends AbstractAction{
+
+    private class AttackActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!spacePressed) {
@@ -135,14 +144,16 @@ public class KeyboardInput {
             }
         }
     }
-    class WalkUpActionReleased extends AbstractAction{
+
+    private class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_W));
             upKeyPressed = false;
         }
     }
-    public class PauseActionPressed extends AbstractAction{
+
+    private class PauseActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!escPressed){
@@ -151,7 +162,8 @@ public class KeyboardInput {
             }
         }
     }
-    public class PauseActionReleased extends AbstractAction{
+
+    private class PauseActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e){
             escPressed = false;

@@ -89,6 +89,10 @@ public class MainMenu {
         // TODO visa game-over skärm
     }
 
+    public void quitApplication() {
+        System.exit(0);
+    }
+
     /*------------------------------------------------- View Methods -------------------------------------------------*/
 
     /**
