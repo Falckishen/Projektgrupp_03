@@ -1,12 +1,11 @@
 package View.FramesAndPanels;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    PanelInterface subPanel;
+    private PanelInterface subPanel;
 
     public MainFrame(int width, int height){
         setSize(new Dimension(width,height));

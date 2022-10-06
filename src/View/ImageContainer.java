@@ -1,9 +1,9 @@
 package View;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 class ImageContainer {
 
@@ -49,7 +49,7 @@ class ImageContainer {
         return outputList;
     }
 
-    public static BufferedImage getImageFromTypeVariant(ImageTypeEnum type, int variant){
+    static BufferedImage getImageFromTypeVariant(ImageTypeEnum type, int variant){
         return(savedImagesMatrix[type.ordinal()][variant]);
     }
 }

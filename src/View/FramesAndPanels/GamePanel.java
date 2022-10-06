@@ -1,13 +1,12 @@
 package View.FramesAndPanels;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 public class GamePanel extends JPanel implements PanelInterface{
 
-    private JFrame parentFrame;
     private BufferStrategy bufferStrategy;
 
     public GamePanel(){}
@@ -24,7 +23,6 @@ public class GamePanel extends JPanel implements PanelInterface{
 
     @Override
     public void startPanel(JFrame parentFrame) {
-        this.parentFrame = parentFrame;
         setSize(parentFrame.getWidth(), parentFrame.getHeight());
         parentFrame.createBufferStrategy(2);
         this.bufferStrategy = parentFrame.getBufferStrategy();

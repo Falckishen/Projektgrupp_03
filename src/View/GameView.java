@@ -1,9 +1,9 @@
 package View;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import javax.swing.*;
 import Model.Entities.Entity;
 import Model.Game;
@@ -21,14 +21,11 @@ import View.FramesAndPanels.*;
 public class GameView extends JComponent implements ViewObserver {
 
     private final MainMenu mainMenu;
-    private JFrame frame;
     private final int displayWidth;
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
-    private MainFrame mainFrame;
+    private final MainFrame mainFrame;
     private PanelInterface activePanel;
-    private GamePanel gamePanel;
-    private MainMenuPanel mainMenuPanel;
 
     /**
      * Constructs an instance of the View
@@ -51,7 +48,7 @@ public class GameView extends JComponent implements ViewObserver {
      * This method configures the View into GAME mode in which the View renders the current world and everything in it
      * as it's stored in the Game instance.
      */
-    public void startGame(){
+    void startGame(){
         activePanel = new GamePanel();
         mainFrame.replaceSubPanel(activePanel);
     }
@@ -59,10 +56,8 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * This method configures the View into MAINMENU mode in which the View renders the main menu.
      */
-    public void startMainMenu(){
-        ActionListener ac = new ActionListener() {public void actionPerformed(ActionEvent e) {
-            mainMenu.startGame();
-        }};
+    void startMainMenu(){
+        ActionListener ac = e -> mainMenu.startGame();
         activePanel = new MainMenuPanel(ac);
         mainFrame.replaceSubPanel(activePanel);
     }
@@ -70,7 +65,7 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * This method configures the View into PAUSE mode in which the View renders the pause menu.
      */
-    public void startPauseMenu(){
+    void startPauseMenu(){
         activePanel = new PauseMenuPanel();
         mainFrame.replaceSubPanel(activePanel);
     }
@@ -183,7 +178,7 @@ public class GameView extends JComponent implements ViewObserver {
             }else{
                 variant = 0;
             }
-            ((GamePanel)activePanel).paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant), pos.getX(), pos.getY());
+            ((GamePanel)activePanel).paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(Objects.requireNonNull(ConversionQueryable.getImageType(entity)), variant), pos.getX(), pos.getY());
             paintHitBox(entity, pos);
         }else{
             paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition(), playerPosition);

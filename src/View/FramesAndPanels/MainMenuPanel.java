@@ -1,22 +1,15 @@
 package View.FramesAndPanels;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class MainMenuPanel extends JPanel implements PanelInterface{
 
     private JFrame parentFrame;
-
-    private JLabel title;
     private JLabel[] scoreBoard;
-    private JButton startGameButton;
-    private JButton endGameButton;
-    boolean close = false;
-    boolean start = false;
-
-    ActionListener startListener;
+    private final ActionListener startListener;
 
     public MainMenuPanel(ActionListener ac){
         this.startListener = ac;
@@ -25,7 +18,7 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
 
     private void setUpParts(){
         this.setLayout(null);
-        title = new JLabel("Don't die, or else", JLabel.CENTER);
+        JLabel title = new JLabel("Don't die, or else", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
         title.setBounds(0,0, GSW(1),GSH(0.125));
         add(title, BorderLayout.CENTER);
@@ -54,21 +47,19 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         add(borderPanel, BorderLayout.CENTER);
         borderPanel.setVisible(true);
 
-        startGameButton = new JButton("Start Game");
+        JButton startGameButton = new JButton("Start Game");
         startGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         startGameButton.setBounds(GSW(0.55), GSH(0.85), GSW(0.3), GSH(0.1));
         add(startGameButton, BorderLayout.CENTER);
         startGameButton.addActionListener(startListener);
         startGameButton.setVisible(true);
 
-        endGameButton = new JButton("Close");
+        JButton endGameButton = new JButton("Close");
         endGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         endGameButton.setBounds(GSW(0.15), GSH(0.85), GSW(0.3), GSH(0.1));
         add(endGameButton, BorderLayout.CENTER);
         endGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                start = false;
-                close = true;
             }
         });
         endGameButton.setVisible(true);
