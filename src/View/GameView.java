@@ -44,6 +44,10 @@ public class GameView extends JComponent implements ViewObserver {
         startMainMenu();
     }
 
+    public Game getCurrentGame() {
+        return mainMenu.getCurrentGame();
+    }
+
     /**
      * This method configures the View into GAME mode in which the View renders the current world and everything in it
      * as it's stored in the Game instance.
@@ -90,7 +94,7 @@ public class GameView extends JComponent implements ViewObserver {
         if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
             startGame();
         }
-        Game currentGame = mainMenu.getCurrentGame();
+        Game currentGame = getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
             paintBackground(playerPosition);
