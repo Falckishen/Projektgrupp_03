@@ -20,16 +20,19 @@ class CollisionHandler implements OnTick {
      * They are all subtypes of the abstract class Friendly.
      */
     private final Iterable<Friendly> friendlies;
+
     /**
      * An Iterable of objects that is subject to the abstract class Enemy's collision methods.
      * They are all subtypes of the abstract class Enemy.
      */
     private final Iterable<Enemy> enemies;
+
     /**
      * An Iterable of objects that is subject to the abstract class Projectile's collision methods.
      * They are all subtypes of the abstract class Projectile.
      */
     private final Iterable<Projectile> projectiles;
+
     /**
      * An Iterable of only non-living entities that isn't subject to any collision of its own.
      * They are all subtypes of the abstract class Entity,
