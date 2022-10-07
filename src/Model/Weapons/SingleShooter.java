@@ -15,7 +15,7 @@ class SingleShooter extends Weapon{
     }
 
     private void addProjectile() {
-        getProjectileCreator().createSimpleProjectile(getPlayerPosition(), getDirection(), getProjectileVelocity(),
+        getProjectileCreator().createSimpleProjectile(getPlayerPosition(), getWeaponDirection(), getProjectileVelocity(),
                 getProjectileLife(), getProjectileAttackPower());
     }
 }

@@ -1,56 +1,31 @@
-package Model.Entities;
+package Utilities;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-import Model.Weapons.Weapon;
-import Utilities.EntityType;
+import Controller.KeyboardInput;
+import Model.Entities.Direction;
 
-class Player extends Friendly {
+import java.util.*;
 
-    private final List<Integer> playerKeyInputs;
-    private Weapon weapon;
-    private final int defaultSpeed;
+public class KeyboardHandler {
+    private final List<Integer> keyBoardInputs;
 
-    Player(int x, int y, List<Integer> playerInputs) {
-        super(EntityType.player, 50, 50, x, y, 5,10);
-        defaultSpeed = getSpeed();
-        this.playerKeyInputs = playerInputs;
-        this.weapon = null;
+    KeyboardHandler(List<Integer> keyInputs) {
+        this.keyBoardInputs = keyInputs;
     }
 
-    void getNewWeapon(Weapon weapon){
-        this.weapon = weapon;
+
+    private void setNewDirection(Direction direction){
     }
 
-    @Override
-    public void doOnTick() {
-        changeDirection();
-        move(); // Change to super() when entity has doOnTick
-        shootAttack();
-    }
-
-    private void changeDirection() {
-        //set direction up left if playerKeyInputs.contains(W) && contains(A)
-        // should this be moved to controller?
-        List<Direction> currentDirections = new ArrayList<>();
-        for (Integer input : playerKeyInputs) {
-          //  if ()
-            switch (input) {
-                case KeyEvent.VK_W -> currentDirections.add(Direction.UP);
-                case KeyEvent.VK_A ->  currentDirections.add(Direction.LEFT);
-                case KeyEvent.VK_S -> currentDirections.add(Direction.DOWN);
-                case KeyEvent.VK_D -> currentDirections.add(Direction.RIGHT);
-            }
-        }
+    private Direction findDirection(List<Integer> currentDirections){
+        Direction newDirection = Direction.DOWN;
         // FALL 1: Inga/alla knappar är nere
         if(currentDirections.isEmpty() || currentDirections.size() == 4) {
-            super.setSpeed(0);
+            return Direction.NONE;
         }
         // FALL 2: 1 Knapp är nere
         if(currentDirections.size() == 1) {
-            super.setSpeed(defaultSpeed);
-            super.setDirection(currentDirections.get(0));
+            setNewDirection(currentDirections.get(0));
+            return newDirection;
         }
         // FALL 3: 2 Knappar är nere
         else if(currentDirections.size() == 2) {
@@ -81,12 +56,6 @@ class Player extends Friendly {
                 if(currentDirections.contains(Direction.UP)) super.setDirection(Direction.UP);
                 else super.setDirection(Direction.DOWN);
             }
-        }
-    }
-
-    private void shootAttack() {
-        if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
-            weapon.actionShoot();
         }
     }
 }

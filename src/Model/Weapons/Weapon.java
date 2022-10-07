@@ -12,7 +12,7 @@ public abstract class Weapon {
     private final int projectileLife;
     private final int projectileAttackPower;
     private Long lastShotFired; //is saved as milliseconds
-    private Direction direction;
+    private Direction weaponDirection;
     private Position playerPosition;
 
     protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
@@ -22,12 +22,12 @@ public abstract class Weapon {
         this.projectileLife = projectileLife;
         this.projectileAttackPower = projectileAttackPower;
         this.lastShotFired = System.currentTimeMillis();
-        this.direction = Direction.LEFT;
+        this.weaponDirection = Direction.LEFT;
         this.playerPosition = playerPosition;
     }
 
-    protected Direction getDirection() {
-        return direction;
+    protected Direction getWeaponDirection() {
+        return weaponDirection;
     }
 
     protected Position getPlayerPosition(){
@@ -50,18 +50,18 @@ public abstract class Weapon {
         return projectileCreator;
     }
 
+
+    private void changeDirection(){
+
+    }
+
     protected abstract void shoot();
 
-    public void actionShoot(Direction shootDirection){
-        //System.out.println("Boom1");
-        this.direction = shootDirection;
-
+    public void actionShoot(){
 
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
             this.lastShotFired = System.currentTimeMillis();
-            System.out.println("Boom2");
         }
-        System.out.println("loading");
     }
 }
