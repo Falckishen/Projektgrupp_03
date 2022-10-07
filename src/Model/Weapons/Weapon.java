@@ -2,7 +2,12 @@ package Model.Weapons;
 
 import Model.Entities.AddProjectile;
 import Model.Entities.Direction;
+import Utilities.KeyboardHandler;
 import Utilities.Position;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Weapon {
 
@@ -13,9 +18,11 @@ public abstract class Weapon {
     private final int projectileAttackPower;
     private Long lastShotFired; //is saved as milliseconds
     private Direction weaponDirection;
+    private List<Integer> keyInputs;
     private Position playerPosition;
 
-    protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity, int projectileLife, int projectileAttackPower){
+    protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity,
+                     int projectileLife, int projectileAttackPower, List<Integer> keyInputs){
         this.projectileCreator = projectileCreator;
         this.coolDownSec = coolDownSec *100; //saved in seconds not milliseconds
         this.projectileVelocity = projectileVelocity;
@@ -24,10 +31,15 @@ public abstract class Weapon {
         this.lastShotFired = System.currentTimeMillis();
         this.weaponDirection = Direction.LEFT;
         this.playerPosition = playerPosition;
+        this.keyInputs = keyInputs;
     }
 
     protected Direction getWeaponDirection() {
         return weaponDirection;
+    }
+
+    private void setWeaponDirection(Direction newDirection) {
+        weaponDirection = newDirection;
     }
 
     protected Position getPlayerPosition(){
@@ -51,14 +63,27 @@ public abstract class Weapon {
     }
 
 
-    private void changeDirection(){
-
+    private void changeWeaponDirection() {
+        //set direction up left if playerKeyInputs.contains(W) && contains(A)
+        // should this be moved to controller?
+        List<Direction> currentDirections = new ArrayList<>();
+        for (Integer input : keyInputs) {
+            //  if ()
+            switch (input) {
+                case KeyEvent.VK_UP -> currentDirections.add(Direction.UP);
+                case KeyEvent.VK_LEFT -> currentDirections.add(Direction.LEFT);
+                case KeyEvent.VK_DOWN -> currentDirections.add(Direction.DOWN);
+                case KeyEvent.VK_RIGHT -> currentDirections.add(Direction.RIGHT);
+            }
+        }
+        Direction newDirection = KeyboardHandler.findDirection(currentDirections);
+        setWeaponDirection(newDirection);
     }
 
     protected abstract void shoot();
 
     public void actionShoot(){
-
+        changeWeaponDirection();
         if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
             shoot();
             this.lastShotFired = System.currentTimeMillis();

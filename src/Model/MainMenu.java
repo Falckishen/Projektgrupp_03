@@ -14,6 +14,7 @@ public class MainMenu {
     private final String gameName;
     private final int worldMapRadius;
     private final List<Integer> playerInputList;
+    private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private int difficulty;
     private Game currentGame;
@@ -28,6 +29,7 @@ public class MainMenu {
         this.gameName = gameName;
         this.worldMapRadius = worldMapRadius;
         this.playerInputList = new ArrayList<>();
+        this.weaponInputList = new ArrayList<>();
         this.outputHandler = new OutputHandler();
         this.difficulty = 1;
     }
@@ -41,6 +43,15 @@ public class MainMenu {
      */
     public List<Integer> getPlayerInputList() {
         return playerInputList;
+    }
+
+    /**
+     * Returns the list of current user keyboard input.
+     *
+     * @return list of current user keyboard input.
+     */
+    public List<Integer> getWeaponInputList() {
+        return weaponInputList;
     }
 
     /**
@@ -76,7 +87,7 @@ public class MainMenu {
      * Starts a game.
      */
     public void startGame() {
-        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, outputHandler);
+        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, weaponInputList, outputHandler);
         System.out.println("Game created");
     }
 

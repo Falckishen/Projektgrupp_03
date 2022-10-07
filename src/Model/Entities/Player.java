@@ -3,12 +3,15 @@ package Model.Entities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import Model.ControllableDirection;
 import Model.Weapons.Weapon;
 import Utilities.EntityType;
+import Utilities.KeyboardHandler;
 
 class Player extends Friendly {
 
-    private final List<Integer> playerKeyInputs;
+    private List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 
@@ -43,6 +46,11 @@ class Player extends Friendly {
                 case KeyEvent.VK_D -> currentDirections.add(Direction.RIGHT);
             }
         }
+        Direction newDirection = KeyboardHandler.findDirection(currentDirections);
+        super.setDirection(newDirection);
+        if (newDirection == Direction.NONE) setSpeed(0);
+        else setSpeed(defaultSpeed);
+        /*
         // FALL 1: Inga/alla knappar är nere
         if(currentDirections.isEmpty() || currentDirections.size() == 4) {
             super.setSpeed(0);
@@ -81,7 +89,7 @@ class Player extends Friendly {
                 if(currentDirections.contains(Direction.UP)) super.setDirection(Direction.UP);
                 else super.setDirection(Direction.DOWN);
             }
-        }
+        }*/
     }
 
     private void shootAttack() {
