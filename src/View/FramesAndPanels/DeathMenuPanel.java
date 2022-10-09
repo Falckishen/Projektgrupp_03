@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Alfred Berglöf
+ */
+
 public class DeathMenuPanel extends JPanel implements PanelInterface {
     private JFrame parentFrame;
     private void setUpParts(){

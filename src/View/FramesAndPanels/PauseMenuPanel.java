@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Alfred Berglöf and William Johansson
+ */
 public class PauseMenuPanel extends JPanel implements PanelInterface{
     private JFrame parentFrame;
 
