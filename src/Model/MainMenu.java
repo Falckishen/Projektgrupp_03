@@ -22,7 +22,7 @@ public class MainMenu {
     /**
      * Creates an instance of MainMenu.
      *
-     * @param worldMapRadius    the radius of the world map.
+     * @param worldMapRadius the radius of the world map.
      */
     public MainMenu(String gameName, int worldMapRadius) {
         this.worldMapRadius = worldMapRadius;
@@ -52,6 +52,12 @@ public class MainMenu {
         return currentGame;
     }
 
+    /**
+     * Returns the high score.
+     *
+     * @return the high score.
+     * @throws IOException if high score could not be read.
+     */
     public int getHighScore() throws IOException {
         return highScoreHandler.getHighScore();
     }
@@ -85,16 +91,16 @@ public class MainMenu {
     }
 
     /**
-     * The score of the last game is saved if it is a new highs-core and the game over screen appears
+     * The score of the last game is saved if it is a new high score and the game over screen appears. Used by Game.
      */
     void gameEnded(int round) {
         highScoreHandler.processScore(round);
-
-        // TODO visa game-over skärm
-
-        quitApplication();
+        outputHandler.showGameOverScreen();
     }
 
+    /**
+     * The application shuts down.
+     */
     public void quitApplication() {
         System.exit(0);
     }

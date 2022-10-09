@@ -14,9 +14,11 @@ public class Main {
     public static void main(String[] args) {
         String gameName = "Projektgrupp 3 projekt";
         int worldMapRadius = 1000;
+        int width = 1000;
+        int height = 800;
 
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
-        GameView mainView = new GameView(mainMenu, 1000, 800);
+        GameView mainView = new GameView(mainMenu, width, height);
         new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView);
 
         mainMenu.showMainMenu();
