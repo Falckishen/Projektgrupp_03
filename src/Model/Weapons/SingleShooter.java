@@ -11,7 +11,8 @@ import java.util.List;
 class SingleShooter extends Weapon{
 
     protected SingleShooter(AddProjectile projectileCreator, Position playerPosition, int coolDownSec,
-                            int projectileVelocity, int projectileLife, int projectileAttackPower, List<Integer> keyInputs) {
+                            int projectileVelocity, int projectileLife, int projectileAttackPower,
+                            List<Integer> keyInputs) {
         super(projectileCreator, playerPosition, coolDownSec, projectileVelocity, projectileLife,
                 projectileAttackPower, keyInputs);
     }
@@ -22,7 +23,7 @@ class SingleShooter extends Weapon{
     }
 
     private void addProjectile() {
-        getProjectileCreator().createSimpleProjectile(getPlayerPosition(), getWeaponDirection(), getProjectileVelocity(),
-                getProjectileLife(), getProjectileAttackPower());
+        getProjectileCreator().createSimpleProjectile(getPlayerPosition(), getWeaponDirection(),
+                getProjectileVelocity(), getProjectileLife(), getProjectileAttackPower());
     }
 }
