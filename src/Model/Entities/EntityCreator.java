@@ -207,9 +207,24 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     @Override
     public void createWorldBorderWalls() {
         int wallThicknessRadius = 10;
-        nonLivingObjects.add(new Wall(wallThicknessRadius, worldMapRadius,(worldMapRadius*(-1)), 0)); //x left
-        nonLivingObjects.add(new Wall(wallThicknessRadius, worldMapRadius,worldMapRadius,0)); //x right
-        nonLivingObjects.add(new Wall(worldMapRadius, wallThicknessRadius,0,worldMapRadius)); //y top
-        nonLivingObjects.add(new Wall(worldMapRadius, wallThicknessRadius,0,(worldMapRadius*(-1)) )); //y bottom
+        int wallSectionRadius = 100; //how wide the wall parts of the border are.
+
+        int wallWidth = wallSectionRadius *2;
+        int currentWallPosition = worldMapRadius*(-1) + wallSectionRadius - (wallThicknessRadius*2); //makes clean corner
+        for (; currentWallPosition < worldMapRadius- wallSectionRadius +(wallThicknessRadius*2);
+             currentWallPosition = currentWallPosition + wallWidth){
+
+            createBorderWallSegment(wallThicknessRadius, wallSectionRadius, currentWallPosition);
+        }
+        currentWallPosition = worldMapRadius- wallSectionRadius +(wallThicknessRadius*2); //Make last clean corner
+        createBorderWallSegment(wallThicknessRadius, wallSectionRadius, currentWallPosition);
+    }
+
+    private void createBorderWallSegment(int wallThicknessRadius, int wallSectionRadius, int currentWallPosition){
+        int distanceFromCentre = worldMapRadius+wallThicknessRadius; //world radius + wall radius thickness
+        nonLivingObjects.add(new Wall(wallThicknessRadius, wallSectionRadius,(distanceFromCentre*(-1)), currentWallPosition)); //x left
+        nonLivingObjects.add(new Wall(wallThicknessRadius, wallSectionRadius,distanceFromCentre,currentWallPosition)); //x right
+        nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,distanceFromCentre)); //y top
+        nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,(distanceFromCentre*(-1)) )); //y bottom
     }
 }

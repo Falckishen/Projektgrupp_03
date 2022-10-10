@@ -67,10 +67,14 @@ public class MainMenu {
      * Returns the high score.
      *
      * @return the high score.
-     * @throws IOException if high score could not be read.
      */
-    public int getHighScore() throws IOException {
-        return highScoreHandler.getHighScore();
+    public int getHighScore() {
+        try {
+            return highScoreHandler.getHighScore();
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/

@@ -8,46 +8,63 @@ import javax.swing.*;
 public class MainMenuPanel extends JPanel implements PanelInterface{
 
     private JFrame parentFrame;
-    private JLabel[] scoreBoard;
     private final ActionListener startListener;
     private final ActionListener quitListener;
+    private final ActionListener firstListener;
+    private final ActionListener secondListener;
+    private final ActionListener thirdListener;
+    private String gameName;
+    private int highscore;
 
-    public MainMenuPanel(ActionListener acStart, ActionListener acQuit){
+    public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, String gameName, int highscore){
         this.startListener = acStart;
         this.quitListener = acQuit;
+        this.firstListener = firstListener;
+        this.secondListener = secondListener;
+        this.thirdListener = thirdListener;
+        this.gameName = gameName;
+        this.highscore = highscore;
     }
 
 
     private void setUpParts(){
         this.setLayout(null);
-        JLabel title = new JLabel("Don't die, or else", JLabel.CENTER);
+        JLabel title = new JLabel(gameName, JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
         title.setBounds(0,0, GSW(1),GSH(0.125));
         add(title, BorderLayout.CENTER);
         title.setVisible(true);
 
-        scoreBoard = new JLabel[10];
         JLabel score;
-        for(int i=0; i < 10; i++){
-            score = new JLabel("100", JLabel.CENTER);
-            score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-            score.setBounds(GSW(0.15), GSH(0.15+0.05*i) ,GSW(0.7), GSH(0.05));
-            if(i%2 == 0){
-                score.setBackground(Color.WHITE);
-            }else{
-                score.setBackground(Color.LIGHT_GRAY);
-            }
-            score.setOpaque(true);
-            add(score, BorderLayout.CENTER);
-            score.setVisible(true);
-            scoreBoard[i] = score;
-        }
+        score = new JLabel(highscore + "", JLabel.CENTER);
+        score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+        score.setBounds(GSW(0.15), GSH(0.5) ,GSW(0.7), GSH(0.05));
+        score.setOpaque(true);
+        add(score, BorderLayout.CENTER);
+        score.setVisible(true);
 
-        JPanel borderPanel = new JPanel();
-        borderPanel.setBounds(GSW(0.13), GSH(0.13) ,GSW(0.74), GSH(0.54));
-        borderPanel.setBackground(Color.GRAY);
-        add(borderPanel, BorderLayout.CENTER);
-        borderPanel.setVisible(true);
+        ButtonGroup difficultyGroup = new ButtonGroup();
+        JRadioButton firstDifficulty = new JRadioButton();
+        difficultyGroup.add(firstDifficulty);
+        JRadioButton secondDifficulty = new JRadioButton();
+        difficultyGroup.add(secondDifficulty);
+        JRadioButton thirdDifficulty = new JRadioButton();
+        difficultyGroup.add(thirdDifficulty);
+        firstDifficulty.setBounds(GSW(0.15), GSH(0.75) ,GSW(0.10), GSH(0.05));
+        secondDifficulty.setBounds(GSW(0.45), GSH(0.75) ,GSW(0.10), GSH(0.05));
+        thirdDifficulty.setBounds(GSW(0.75), GSH(0.75) ,GSW(0.10), GSH(0.05));
+        firstDifficulty.setText("First");
+        secondDifficulty.setText("Second");
+        thirdDifficulty.setText("Third");
+        add(firstDifficulty, BorderLayout.CENTER);
+        firstDifficulty.setVisible(true);
+        add(secondDifficulty, BorderLayout.CENTER);
+        secondDifficulty.setVisible(true);
+        add(thirdDifficulty, BorderLayout.CENTER);
+        thirdDifficulty.setVisible(true);
+        firstDifficulty.addActionListener(firstListener);
+        secondDifficulty.addActionListener(secondListener);
+        thirdDifficulty.addActionListener(thirdListener);
 
         JButton startGameButton = new JButton("Start Game");
         startGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
@@ -62,28 +79,6 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         add(endGameButton, BorderLayout.CENTER);
         endGameButton.addActionListener(quitListener);
         endGameButton.setVisible(true);
-
-        String[] names = {"Alpha", "Bravo", "Charlie", "Delta", null};
-        int[] scores = {5, 4, 3, 0, 1, 1};
-        setScoreBoard(names, scores);
-    }
-
-    public void setScoreBoard(String[] names, int[] score){
-        for(int i=0; i < scoreBoard.length; i++){
-            if(i < names.length && i < score.length){
-                if(names[i] != null && score[i] != 0){
-                    scoreBoard[i].setText(names[i] + ": " + score[i]);
-                }else{
-                    scoreBoard[i].setText("Error: name is null or score is 0");
-                }
-            }else{
-                if(names.length != score.length){
-                    scoreBoard[i].setText("Error: more names than scores or vice versa");
-                }else{
-                    scoreBoard[i].setText(" ");
-                }
-            }
-        }
     }
 
     private int GSW(double scale){
