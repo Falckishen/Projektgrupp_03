@@ -101,7 +101,7 @@ public class MainMenu {
      * Starts a game.
      */
     public void startGame() {
-        currentGame = new Game(this, worldMapRadius, 3, playerInputList, weaponInputList, outputHandler);
+        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, weaponInputList, outputHandler);
         System.out.println("Game created");
     }
 
