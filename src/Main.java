@@ -18,7 +18,6 @@ public class Main {
         int height = 800;
 
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
-
         GameView mainView = new GameView(mainMenu, width, height);
         new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
         mainMenu.showMainMenu();
