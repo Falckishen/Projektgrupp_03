@@ -56,11 +56,15 @@ public class GameView extends JComponent implements ViewObserver {
         Game currentGame = getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
-            paintBackground(playerPosition);
-            paintEntities(currentGame.getFriendlies(), playerPosition);
-            paintEntities(currentGame.getEnemies(), playerPosition);
-            paintEntities(currentGame.getProjectiles(), playerPosition);
-            paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+            try {
+                paintBackground(playerPosition);
+                paintEntities(currentGame.getFriendlies(), playerPosition);
+                paintEntities(currentGame.getEnemies(), playerPosition);
+                paintEntities(currentGame.getProjectiles(), playerPosition);
+                paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+            }catch (Exception e){
+                System.out.println(e);
+            }
         }
         refreshScreen();
     }
@@ -94,7 +98,7 @@ public class GameView extends JComponent implements ViewObserver {
      * This method configures the View into GAME mode in which the View renders the current world and everything in it
      * as it's stored in the Game instance.
      */
-    void startGame(){
+    public void startGame(){
         activePanel = new GamePanel();
         mainFrame.replaceSubPanel(activePanel);
     }
@@ -102,23 +106,26 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * This method configures the View into MAINMENU mode in which the View renders the main menu.
      */
-    void startMainMenu(){
-        ActionListener ac = e -> mainMenu.startGame();
-        activePanel = new MainMenuPanel(ac);
-        //activePanel = new DeathMenuPanel();
+    public void startMainMenu(){
+        ActionListener acStart = e -> mainMenu.startGame();
+        ActionListener acQuit = e -> mainMenu.quitApplication();
+        activePanel = new MainMenuPanel(acStart, acQuit);
         mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
     }
 
     /**
      * This method configures the View into PAUSE mode in which the View renders the pause menu.
      */
-    void startPauseMenu(){
+    public void startPauseMenu(){
         activePanel = new PauseMenuPanel();
         mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
     }
 
     public void showDeathMenu() {
-
+        activePanel = new DeathMenuPanel();
+        mainFrame.replaceSubPanel(activePanel);
     }
 
     /**

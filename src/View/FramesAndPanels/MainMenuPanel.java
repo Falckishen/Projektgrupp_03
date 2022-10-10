@@ -10,9 +10,11 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private JFrame parentFrame;
     private JLabel[] scoreBoard;
     private final ActionListener startListener;
+    private final ActionListener quitListener;
 
-    public MainMenuPanel(ActionListener ac){
-        this.startListener = ac;
+    public MainMenuPanel(ActionListener acStart, ActionListener acQuit){
+        this.startListener = acStart;
+        this.quitListener = acQuit;
     }
 
 
@@ -58,10 +60,7 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         endGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         endGameButton.setBounds(GSW(0.15), GSH(0.85), GSW(0.3), GSH(0.1));
         add(endGameButton, BorderLayout.CENTER);
-        endGameButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        endGameButton.addActionListener(quitListener);
         endGameButton.setVisible(true);
 
         String[] names = {"Alpha", "Bravo", "Charlie", "Delta", null};
