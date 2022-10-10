@@ -88,7 +88,7 @@ public class GameView extends JComponent implements ViewObserver {
 
     @Override
     public void showGameOverScreen() {
-        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed());
+        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed(), mainMenu.getHighScore(), mainMenu.getCurrentGame().getRound());
         mainFrame.replaceSubPanel(activePanel);
         mainFrame.refreshScreen();
     }

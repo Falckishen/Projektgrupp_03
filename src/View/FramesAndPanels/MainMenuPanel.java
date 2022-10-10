@@ -13,9 +13,9 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private final ActionListener firstListener;
     private final ActionListener secondListener;
     private final ActionListener thirdListener;
-    private double highscore;
+    private int highscore;
 
-    public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, double highscore){
+    public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, int highscore){
         this.startListener = acStart;
         this.quitListener = acQuit;
         this.firstListener = firstListener;
