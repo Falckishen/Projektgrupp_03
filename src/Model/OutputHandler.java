@@ -34,7 +34,7 @@ class OutputHandler {
      * All the views renders a frame of the current game.
      */
     public void updateGameFrame() {
-        viewObservers.forEach(ViewObserver::renderGame);
+        viewObservers.forEach(ViewObserver::renderGameFrame);
     }
 
     /**
@@ -42,5 +42,12 @@ class OutputHandler {
      */
     public void showMainMenu() {
         viewObservers.forEach(ViewObserver::showMainMenu);
+    }
+
+    /**
+     * All the views renders the game over screen.
+     */
+    public void showGameOverScreen() {
+        viewObservers.forEach(ViewObserver::showGameOverScreen);
     }
 }

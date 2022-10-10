@@ -10,10 +10,15 @@ public interface ViewObserver {
     /**
      * Renders a frame of the current game.
      */
-    void renderGame();
+    void renderGameFrame();
 
     /**
      * Renders the main menu.
      */
     void showMainMenu();
+
+    /**
+     * Renders the game over screen.
+     */
+    void showGameOverScreen();
 }

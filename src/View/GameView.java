@@ -44,6 +44,43 @@ public class GameView extends JComponent implements ViewObserver {
         startMainMenu();
     }
 
+    /**
+     * Renders the world as it is in the Game inside the MainMenu onto the currently active panel and shows the frame to
+     * the user.
+     */
+    @Override
+    public void renderGameFrame() {
+        if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
+            startGame();
+        }
+        Game currentGame = getCurrentGame();
+        Position playerPosition = currentGame.getPlayerPosition();
+        if (!(playerPosition == null)) {
+            paintBackground(playerPosition);
+            paintEntities(currentGame.getFriendlies(), playerPosition);
+            paintEntities(currentGame.getEnemies(), playerPosition);
+            paintEntities(currentGame.getProjectiles(), playerPosition);
+            paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+        }
+        refreshScreen();
+    }
+
+    /**
+     * Renders the main menu through a mainMenuPanel onto the mainFrame.
+     */
+    @Override
+    public void showMainMenu() {
+        if(activePanel.getClass() != MainMenuPanel.class){
+            startMainMenu();
+        }
+        mainFrame.refreshScreen();
+    }
+
+    @Override
+    public void showGameOverScreen() {
+
+    }
+
     public Game getCurrentGame() {
         return mainMenu.getCurrentGame();
     }
@@ -75,39 +112,8 @@ public class GameView extends JComponent implements ViewObserver {
         mainFrame.replaceSubPanel(activePanel);
     }
 
-    /**
-     * Renders the main menu through a mainMenuPanel onto the mainFrame.
-     */
-    @Override
-    public void showMainMenu() {
-        if(activePanel.getClass() != MainMenuPanel.class){
-            startMainMenu();
-        }
-        mainFrame.refreshScreen();
-    }
     public void showDeathMenu() {
 
-    }
-
-    /**
-     * Renders the world as it is in the Game inside the MainMenu onto the currently active panel and shows the frame to
-     * the user.
-     */
-    @Override
-    public void renderGame() {
-        if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
-            startGame();
-        }
-        Game currentGame = getCurrentGame();
-        Position playerPosition = currentGame.getPlayerPosition();
-        if (!(playerPosition == null)) {
-            paintBackground(playerPosition);
-            paintEntities(currentGame.getFriendlies(), playerPosition);
-            paintEntities(currentGame.getEnemies(), playerPosition);
-            paintEntities(currentGame.getProjectiles(), playerPosition);
-            paintEntities(currentGame.getNonLivingObjects(), playerPosition);
-        }
-        refreshScreen();
     }
 
     /**
