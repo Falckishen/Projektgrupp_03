@@ -16,7 +16,7 @@ class KeyboardInputTest {
     void initClasses(){
         MainMenu mainMenu = new MainMenu("testWorld", 1000);
         GameView mainView = new GameView(mainMenu, 1000, 800);
-        var keyboardInput = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView);
+        var keyboardInput = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
         playerInputList = mainMenu.getPlayerInputList();
         mainView.showMainMenu();
     }
