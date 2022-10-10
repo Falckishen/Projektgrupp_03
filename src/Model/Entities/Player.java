@@ -3,15 +3,18 @@ package Model.Entities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import Model.ControllableDirection;
 import Model.Weapons.Weapon;
 import Utilities.EntityType;
+import Utilities.KeyboardHandler;
 
 /**
  * @author Ida Altenstedt
  */
 class Player extends Friendly {
 
-    private final List<Integer> playerKeyInputs;
+    private List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 
@@ -46,6 +49,11 @@ class Player extends Friendly {
                 case KeyEvent.VK_D -> currentDirections.add(Direction.RIGHT);
             }
         }
+        Direction newDirection = KeyboardHandler.findDirection(currentDirections);
+        super.setDirection(newDirection);
+        if (newDirection == Direction.NONE) setSpeed(0);
+        else setSpeed(defaultSpeed);
+        /*
         // FALL 1: Inga/alla knappar är nere
         if(currentDirections.isEmpty() || currentDirections.size() == 4) {
             super.setSpeed(0);
@@ -84,24 +92,12 @@ class Player extends Friendly {
                 if(currentDirections.contains(Direction.UP)) super.setDirection(Direction.UP);
                 else super.setDirection(Direction.DOWN);
             }
-        }
+        }*/
     }
-/*    private void move() {
-        if(!currentPlayerWalkingDirection.isEmpty()) {
-            for (Direction direction : currentPlayerWalkingDirection) {
-                switch (direction) {
-                    case UP -> super.setY(super.getPosition().getY()-super.getSpeed());
-                    case DOWN -> super.setY(super.getPosition().getY()+super.getSpeed());
-                    case LEFT -> super.setX(super.getPosition().getX()-super.getSpeed());
-                    case RIGHT -> super.setX(super.getPosition().getX()+super.getSpeed());
-                }
-            }
-        }
-    }*/
 
     private void shootAttack() {
-        if(this.weapon != null && playerKeyInputs.contains(KeyEvent.VK_SPACE)) {
-            this.weapon.actionShoot(this.getDirection());
+        if(this.weapon != null) {
+            weapon.actionShoot();
         }
     }
 }

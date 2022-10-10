@@ -50,4 +50,11 @@ class OutputHandler {
     public void showGameOverScreen() {
         viewObservers.forEach(ViewObserver::showGameOverScreen);
     }
+
+    /**
+     * All the views renders the pause menu.
+     */
+    public void showPauseMenu() {
+        viewObservers.forEach(ViewObserver::showPauseMenu);
+    }
 }

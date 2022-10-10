@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class GameView extends JComponent implements ViewObserver {
     private final BufferedImage specialBorderBackground;
     private final MainFrame mainFrame;
     private PanelInterface activePanel;
+    private String gameName;
 
     /**
      * Constructs an instance of the View
@@ -33,11 +35,12 @@ public class GameView extends JComponent implements ViewObserver {
      * @param width the width of the frame
      * @param height the height of the frame
      */
-    public GameView(MainMenu mainMenu, int width, int height) {
+    public GameView(MainMenu mainMenu, int width, int height, String gameName) {
         this.mainMenu = mainMenu;
         ImageContainer.loadImages();
         this.displayWidth = width;
         this.displayHeight = height;
+        this.gameName = gameName;
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(1000, 800);
@@ -56,11 +59,15 @@ public class GameView extends JComponent implements ViewObserver {
         Game currentGame = getCurrentGame();
         Position playerPosition = currentGame.getPlayerPosition();
         if (!(playerPosition == null)) {
-            paintBackground(playerPosition);
-            paintEntities(currentGame.getFriendlies(), playerPosition);
-            paintEntities(currentGame.getEnemies(), playerPosition);
-            paintEntities(currentGame.getProjectiles(), playerPosition);
-            paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+            try {
+                paintBackground(playerPosition);
+                paintEntities(currentGame.getFriendlies(), playerPosition);
+                paintEntities(currentGame.getEnemies(), playerPosition);
+                paintEntities(currentGame.getProjectiles(), playerPosition);
+                paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+            }catch (Exception e){
+                System.out.println(e);
+            }
         }
         refreshScreen();
     }
@@ -70,15 +77,29 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void showMainMenu() {
-        if(activePanel.getClass() != MainMenuPanel.class){
-            startMainMenu();
-        }
+        ActionListener acStart = e -> mainMenu.startGame();
+        ActionListener acQuit = e -> mainMenu.quitApplication();
+        ActionListener acFirstDifficulty = e -> mainMenu.setDifficulty(1);
+        ActionListener acSecondDifficulty = e -> mainMenu.setDifficulty(2);
+        ActionListener acThirdDifficulty = e -> mainMenu.setDifficulty(3);
+        activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, gameName, mainMenu.getHighScore());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
         mainFrame.refreshScreen();
     }
 
     @Override
     public void showGameOverScreen() {
+        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed(), mainMenu.getHighScore(), mainMenu.getCurrentGame().getRound());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
+    }
 
+    @Override
+    public void showPauseMenu() {
+        activePanel = new PauseMenuPanel(new resumePressed(), new forfeitPressed());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
     }
 
     public Game getCurrentGame() {
@@ -89,7 +110,7 @@ public class GameView extends JComponent implements ViewObserver {
      * This method configures the View into GAME mode in which the View renders the current world and everything in it
      * as it's stored in the Game instance.
      */
-    void startGame(){
+    public void startGame(){
         activePanel = new GamePanel();
         mainFrame.replaceSubPanel(activePanel);
     }
@@ -97,23 +118,16 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * This method configures the View into MAINMENU mode in which the View renders the main menu.
      */
-    void startMainMenu(){
-        ActionListener ac = e -> mainMenu.startGame();
-        activePanel = new MainMenuPanel(ac);
-        //activePanel = new DeathMenuPanel();
-        mainFrame.replaceSubPanel(activePanel);
+    public void startMainMenu(){
     }
 
     /**
      * This method configures the View into PAUSE mode in which the View renders the pause menu.
      */
-    void startPauseMenu(){
-        activePanel = new PauseMenuPanel();
-        mainFrame.replaceSubPanel(activePanel);
+    public void startPauseMenu(){
     }
 
     public void showDeathMenu() {
-
     }
 
     /**
@@ -228,5 +242,22 @@ public class GameView extends JComponent implements ViewObserver {
         wall.getGraphics().fillRect(0,0,width,height);
         Position newPosition = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
         ((GamePanel)activePanel).paintImageRelativeToCenter(wall, newPosition.getX(), newPosition.getY());
+    }
+
+    class resumePressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().unPauseGame();}
+    }
+    class forfeitPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().stopGame();}
+    }
+    class retryPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().startGame();}
+    }
+    class exitPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.showMainMenu();}
     }
 }

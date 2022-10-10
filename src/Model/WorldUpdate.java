@@ -32,8 +32,9 @@ class WorldUpdate extends TimerTask {
     }
 
     /**
-     * The method executed every 17 ms by Timer.scheduleAtFixedRate(). If the last execution took longer than
+     * Method executed every 17 ms by Timer.scheduleAtFixedRate(). If the last execution took longer than
      * maxAllowedDelay, it skips one update of the world and frame. If the player is dead, calls endGame() in Game.
+     * Represents one tick.
      */
     @Override
     public void run() {

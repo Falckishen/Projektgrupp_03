@@ -22,6 +22,7 @@ public class Game {
     private final MainMenu mainMenu;
     private final int difficulty;
     private final List<Integer> playerInputList;
+    private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private final EntityCreator entityCreator;
     private final Timer timer;
@@ -40,10 +41,14 @@ public class Game {
      * @param playerInputList   reference to the list of current user keyboard input.
      * @param outputHandler     reference to the outputHandler.
      */
-    Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, OutputHandler outputHandler) {
+
+    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList,
+                List<Integer> weaponInputList, OutputHandler outputHandler) {
+
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
+        this.weaponInputList = weaponInputList;
         this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius, difficulty);
         this.entityCreator.createWorldBorderWalls();
@@ -187,6 +192,7 @@ public class Game {
      */
     public void pauseGame() {
         gamePaused = true;
+        outputHandler.showPauseMenu();
     }
 
     /**
@@ -233,7 +239,7 @@ public class Game {
      * run() is executed every 17 ms. An instance of Player is created.
      */
     public void startGame() {
-        entityCreator.createPlayer(0,0, playerInputList);
+        entityCreator.createPlayer(0,0, playerInputList, weaponInputList);
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);
         /*
@@ -249,7 +255,7 @@ public class Game {
     /**
      * Stops the game. The game ends, run() in WorldUpdate stops being executed and mainMenu.gameEnded() is called.
      */
-    void stopGame() {
+    public void stopGame() {
         timer.cancel();
         timer.purge();
 

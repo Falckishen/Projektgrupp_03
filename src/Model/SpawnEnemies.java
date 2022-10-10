@@ -51,6 +51,6 @@ class SpawnEnemies implements Runnable {
      */
     private int numberOfNewEnemies() {
         int n = (int) (Math.pow(round, 2)*difficulty/2);
-        return Math.max(n, 1);
+        return Math.max(1, n);
     }
 }

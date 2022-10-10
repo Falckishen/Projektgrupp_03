@@ -14,6 +14,7 @@ public class MainMenu {
 
     private final int worldMapRadius;
     private final List<Integer> playerInputList;
+    private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private final HighScoreHandler highScoreHandler;
     private int difficulty;
@@ -27,6 +28,7 @@ public class MainMenu {
     public MainMenu(String gameName, int worldMapRadius) {
         this.worldMapRadius = worldMapRadius;
         this.playerInputList = new ArrayList<>();
+        this.weaponInputList = new ArrayList<>();
         this.outputHandler = new OutputHandler();
         this.highScoreHandler = new HighScoreHandler(gameName);
         this.difficulty = 1;
@@ -44,6 +46,15 @@ public class MainMenu {
     }
 
     /**
+     * Returns the list of current user keyboard input.
+     *
+     * @return list of current user keyboard input.
+     */
+    public List<Integer> getWeaponInputList() {
+        return weaponInputList;
+    }
+
+    /**
      * Returns the current running game.
      *
      * @return the current running game.
@@ -56,10 +67,14 @@ public class MainMenu {
      * Returns the high score.
      *
      * @return the high score.
-     * @throws IOException if high score could not be read.
      */
-    public int getHighScore() throws IOException {
-        return highScoreHandler.getHighScore();
+    public int getHighScore() {
+        try {
+            return highScoreHandler.getHighScore();
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
@@ -86,7 +101,7 @@ public class MainMenu {
      * Starts a game.
      */
     public void startGame() {
-        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, outputHandler);
+        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, weaponInputList, outputHandler);
         System.out.println("Game created");
     }
 
