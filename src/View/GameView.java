@@ -81,6 +81,11 @@ public class GameView extends JComponent implements ViewObserver {
 
     }
 
+    @Override
+    public void showPauseMenu() {
+
+    }
+
     public Game getCurrentGame() {
         return mainMenu.getCurrentGame();
     }

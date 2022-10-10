@@ -21,4 +21,9 @@ public interface ViewObserver {
      * Renders the game over screen.
      */
     void showGameOverScreen();
+
+    /**
+     * Renders the pause menu.
+     */
+    void showPauseMenu();
 }

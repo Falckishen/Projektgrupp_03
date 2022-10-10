@@ -192,6 +192,7 @@ public class Game {
      */
     public void pauseGame() {
         gamePaused = true;
+        outputHandler.showPauseMenu();
     }
 
     /**
