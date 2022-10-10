@@ -2,6 +2,8 @@ package Model.Entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import Model.OnTick;
 import Utilities.Position;
 
@@ -64,9 +66,10 @@ class CollisionHandler implements OnTick {
     public void doOnTick() {
         checkCollisionFriendlyEnemy();
         checkCollisionEnemyEnemy();
+        checkCollisionFriendlyNonLivingObjects(); //use while testing TODO fix
         checkCollisionEnemyProjectile();
 
-        checkCollisionWithNonLivingObjects();
+       // checkCollisionWithNonLivingObjects();
         removeDead();
     }
 
@@ -85,39 +88,98 @@ class CollisionHandler implements OnTick {
                 e = itEnemies.next();
                 if(hasCollided(f, e)){
                     f.CollidedWithEnemy(e.getAttackPower());
-                    e.collidedWithFriendly(f.getPosition());
+                    e.collidedWithFriendly();
                 }
             }
         }
     }
 
-    /**
-     * checks for collision between enemies and enemies.
-     * And calls objects that has collided, with the specific collision that has occurred.
-     *              Can handle collision with multiple enemies at once.
-     */
-    private void checkCollisionEnemyEnemy() {
-        ArrayList<Position> enemiesCollidedWithMe = new ArrayList<>();
-        Enemy e1;
-        Enemy e2;
-        Iterator<Enemy> itEnemies1 = enemies.iterator();
-        while(itEnemies1.hasNext()){ // don't use for-loop (not as accurate)
-            e1 = itEnemies1.next();
-            Iterator<Enemy> itEnemies2 = enemies.iterator();
-            while(itEnemies2.hasNext()){ // don't use for-loop (not as accurate)
-                e2 = itEnemies2.next();
-                if (e1 != e2){
-                    if(hasCollided(e1, e2)){
-                        enemiesCollidedWithMe.add(e2.getPosition());
-                    }
-                }
-            }
-            if (!enemiesCollidedWithMe.isEmpty()){
-                e1.collidedWIthEnemy(enemiesCollidedWithMe.iterator());
-                enemiesCollidedWithMe.clear();
+    private void checkCollisionFriendlyNonLivingObjects(){
+        ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
+        Friendly f;
+        Iterator<Friendly> itFriendlies = friendlies.iterator();
+        while(itFriendlies.hasNext()){ // don't use for-loop (not as accurate)
+            f = itFriendlies.next();
+            addCollidedNonLivingPositionToList(entitiesCollidedWithMe, f);
+
+            if (!entitiesCollidedWithMe.isEmpty()){
+                f.collidedWithNotProjectile(entitiesCollidedWithMe.iterator());
+                entitiesCollidedWithMe.clear();
             }
         }
     }
+
+ /*   private void checkCollisionEnemyNotProjectile() {
+        ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
+        Enemy e;
+        Iterator<Enemy> itEnemies = enemies.iterator();
+        while(itEnemies.hasNext()){ // don't use for-loop (not as accurate)
+            e = itEnemies.next();
+            addCollidedEnemiesPositionToList(entitiesCollidedWithMe, e);
+            addCollidedFriendliesPositionToList(entitiesCollidedWithMe, e);
+            addCollidedNonLivingPositionToList(entitiesCollidedWithMe, e);
+
+            if (!entitiesCollidedWithMe.isEmpty()){
+                e.collidedWithNonLiving(entitiesCollidedWithMe.iterator());
+                entitiesCollidedWithMe.clear();
+            }
+        }
+    }*/
+
+    private void checkCollisionEnemyEnemy() {
+        ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
+        Enemy e;
+        Iterator<Enemy> itEnemies = enemies.iterator();
+        while(itEnemies.hasNext()){ // don't use for-loop (not as accurate)
+            e = itEnemies.next();
+            addCollidedEnemiesPositionToList(entitiesCollidedWithMe, e);
+
+            if (!entitiesCollidedWithMe.isEmpty()){
+                e.collidedWithEnemy(entitiesCollidedWithMe.iterator());
+                entitiesCollidedWithMe.clear();
+            }
+        }
+    }
+
+    private void addCollidedEnemiesPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
+        Entity e;
+        Iterator<Enemy> itEnemies = enemies.iterator();
+        while(itEnemies.hasNext()){ // don't use for-loop (not as accurate)
+            e = itEnemies.next();
+            if (me != e){
+                if(hasCollided(me, e)){
+                    entitiesCollidedWithMe.add(e.getPosition());
+                }
+            }
+        }
+    }
+
+    private void addCollidedFriendliesPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
+        Entity f;
+        Iterator<Friendly> itFriendlies = friendlies.iterator();
+        while(itFriendlies.hasNext()){ // don't use for-loop (not as accurate)
+            f = itFriendlies.next();
+            if (me != f){
+                if(hasCollided(me, f)){
+                    entitiesCollidedWithMe.add(f.getPosition());
+                }
+            }
+        }
+    }
+
+    private void addCollidedNonLivingPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
+        Entity n;
+        Iterator<Entity> itEntities = nonLivingObjects.iterator();
+        while(itEntities.hasNext()){ // don't use for-loop (not as accurate)
+            n = itEntities.next();
+            if (me != n){
+                if(hasCollided(me, n)){
+                    entitiesCollidedWithMe.add(n.getPosition());
+                }
+            }
+        }
+    };
+
 
     /**
      * checks for collision between enemies and projectiles.
@@ -147,7 +209,6 @@ class CollisionHandler implements OnTick {
     private void checkCollisionWithNonLivingObjects(){
         Entity n;
         Friendly f;
-        Enemy e;
         Projectile p;
 
         Iterator<Entity> itNonLivingObjects = nonLivingObjects.iterator();
@@ -161,13 +222,7 @@ class CollisionHandler implements OnTick {
                     f.collidedWithNonLivingObject(n);
                 }
             }
-            Iterator<Enemy> itEnemies = enemies.iterator();
-            while(itEnemies.hasNext()){
-                e = itEnemies.next();
-                if(hasCollided(n, e)){
-                    e.collidedWithNonLivingObject(n);
-                }
-            }
+
             Iterator<Projectile> itProjectiles = projectiles.iterator();
             while(itProjectiles.hasNext()){
                 p = itProjectiles.next();
