@@ -11,6 +11,14 @@ import java.awt.event.ActionEvent;
 
 public class DeathMenuPanel extends JPanel implements PanelInterface {
     private JFrame parentFrame;
+    private Action retryListener;
+    private Action exitListener;
+
+    public DeathMenuPanel(Action retryListener, Action exitListener) {
+        this.retryListener = retryListener;
+        this.exitListener = exitListener;
+    }
+
     private void setUpParts(){
         this.setLayout(null);
         int TITLE_SIZE = 80;
@@ -21,7 +29,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         Action backPressed = new backPressed();
         Action retryPressed = new retryPressed();
 
-        JLabel title = new JLabel("Yah dead", JLabel.CENTER);
+        JLabel title = new JLabel("Yah dead lmao", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_SIZE));
         title.setBounds(0,0, GSW(1),GSH(0.2));
         title.setForeground(Color.BLACK);
@@ -42,19 +50,19 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         add(scoreLabel, BorderLayout.CENTER);
         scoreLabel.setVisible(true);
 
-
-        LabelButton resumeButton = new LabelButton(retryPressed, "Retry",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
+        LabelButton resumeButton = new LabelButton(retryListener, "Retry",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
         resumeButton.setHorizontalAlignment(JLabel.CENTER);
         resumeButton.setBounds(0, GSH(0.70), GSW(1), GSH(0.1));
         add(resumeButton, BorderLayout.CENTER);
         resumeButton.setVisible(true);
 
-        LabelButton quitButton = new LabelButton(backPressed, "Exit to Menu",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
+        LabelButton quitButton = new LabelButton(exitListener, "Exit to Menu",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
         quitButton.setHorizontalAlignment(JLabel.CENTER);
         quitButton.setBounds(GSW(0), GSH(0.80), GSW(1), GSH(0.1));
         add(quitButton,BorderLayout.CENTER);
         quitButton.setVisible(true);
     }
+
     @Override
     public void startPanel(JFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -64,6 +72,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         setVisible(true);
         setUpParts();
     }
+
     @Override
     public void updateDisplay() {
         parentFrame.repaint();
@@ -73,6 +82,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
     public void destroyPanel() {
         getParent().remove(this);
     }
+
     private int GSW(double scale){
         return(getScaledWidth(scale));
     }
@@ -96,6 +106,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
             System.out.println("Back");
         }
     }
+
     //TODO add/call method for resuming game in actionPerformed()
     static class retryPressed extends AbstractAction{
         @Override

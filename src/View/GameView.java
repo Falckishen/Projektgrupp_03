@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
@@ -74,20 +75,29 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void showMainMenu() {
-        if(activePanel.getClass() != MainMenuPanel.class){
-            startMainMenu();
-        }
+        ActionListener acStart = e -> mainMenu.startGame();
+        ActionListener acQuit = e -> mainMenu.quitApplication();
+        ActionListener acFirstDifficulty = e -> mainMenu.setDifficulty(1);
+        ActionListener acSecondDifficulty = e -> mainMenu.setDifficulty(2);
+        ActionListener acThirdDifficulty = e -> mainMenu.setDifficulty(3);
+        activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, mainMenu.getHighScore());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
         mainFrame.refreshScreen();
     }
 
     @Override
     public void showGameOverScreen() {
-
+        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
     }
 
     @Override
     public void showPauseMenu() {
-
+        activePanel = new PauseMenuPanel(new resumePressed(), new forfeitPressed());
+        mainFrame.replaceSubPanel(activePanel);
+        mainFrame.refreshScreen();
     }
 
     public Game getCurrentGame() {
@@ -107,25 +117,15 @@ public class GameView extends JComponent implements ViewObserver {
      * This method configures the View into MAINMENU mode in which the View renders the main menu.
      */
     public void startMainMenu(){
-        ActionListener acStart = e -> mainMenu.startGame();
-        ActionListener acQuit = e -> mainMenu.quitApplication();
-        activePanel = new MainMenuPanel(acStart, acQuit);
-        mainFrame.replaceSubPanel(activePanel);
-        mainFrame.refreshScreen();
     }
 
     /**
      * This method configures the View into PAUSE mode in which the View renders the pause menu.
      */
     public void startPauseMenu(){
-        activePanel = new PauseMenuPanel();
-        mainFrame.replaceSubPanel(activePanel);
-        mainFrame.refreshScreen();
     }
 
     public void showDeathMenu() {
-        activePanel = new DeathMenuPanel();
-        mainFrame.replaceSubPanel(activePanel);
     }
 
     /**
@@ -240,5 +240,22 @@ public class GameView extends JComponent implements ViewObserver {
         wall.getGraphics().fillRect(0,0,width,height);
         Position newPosition = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
         ((GamePanel)activePanel).paintImageRelativeToCenter(wall, newPosition.getX(), newPosition.getY());
+    }
+
+    class resumePressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().unPauseGame();}
+    }
+    class forfeitPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().stopGame();}
+    }
+    class retryPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().startGame();}
+    }
+    class exitPressed extends AbstractAction{
+        @Override
+        public void actionPerformed(ActionEvent e) {mainMenu.showMainMenu();}
     }
 }
