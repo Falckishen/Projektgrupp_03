@@ -255,7 +255,7 @@ public class Game {
     /**
      * Stops the game. The game ends, run() in WorldUpdate stops being executed and mainMenu.gameEnded() is called.
      */
-    void stopGame() {
+    public void stopGame() {
         timer.cancel();
         timer.purge();
 

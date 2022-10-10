@@ -28,8 +28,7 @@ public class KeyboardInput {
     private final MainMenu mainMenu;
     private final GameView mainView;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList,
-                         MainMenu mainMenu, GameView mainView, List<Integer> weaponInputArrayList) {
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, GameView mainView, List<Integer> weaponInputArrayList) {
 
         this.playerInputArrayList = playerInputArrayList;
         this.weaponInputArrayList = weaponInputArrayList;
