@@ -21,7 +21,7 @@ class KeyboardInputTest {
     @BeforeEach
     void initClasses() throws AWTException {
         mainMenu = new MainMenu("testWorld", 1000);
-        mainView = new GameView(mainMenu, 1000, 800);
+        mainView = new GameView(mainMenu, 1000, 800, "badoo");
         input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
         playerInputList = mainMenu.getPlayerInputList();
         robot = new Robot();
