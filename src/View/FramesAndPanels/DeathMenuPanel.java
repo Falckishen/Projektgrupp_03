@@ -13,10 +13,14 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
     private JFrame parentFrame;
     private Action retryListener;
     private Action exitListener;
+    private int highscore;
+    private int score;
 
-    public DeathMenuPanel(Action retryListener, Action exitListener) {
+    public DeathMenuPanel(Action retryListener, Action exitListener, int highscore, int score) {
         this.retryListener = retryListener;
         this.exitListener = exitListener;
+        this.highscore = highscore;
+        this.score = score;
     }
 
     private void setUpParts(){
@@ -24,10 +28,6 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         int TITLE_SIZE = 80;
         int OPTIONS_SIZE = 40;
         int SCORE_SIZE = 60;
-        int score = 420;
-        int highScore = 999;
-        Action backPressed = new backPressed();
-        Action retryPressed = new retryPressed();
 
         JLabel title = new JLabel("Yah dead lmao", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_SIZE));
@@ -36,7 +36,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         add(title, BorderLayout.CENTER);
         title.setVisible(true);
 
-        JLabel highScoreLabel = new JLabel("Highscore: "+ highScore, JLabel.CENTER);
+        JLabel highScoreLabel = new JLabel("Highscore: "+ highscore, JLabel.CENTER);
         highScoreLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, OPTIONS_SIZE));
         highScoreLabel.setBounds(0,GSH(0.30), GSW(1),GSH(0.1));
         highScoreLabel.setForeground(Color.BLACK);
