@@ -168,7 +168,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     @Override
     public void createWeakMonster() {
-        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3, difficulty, difficulty);
+        Monster m = new Monster(getXCoordinateInWorld(), getYCoordinateInWorld(), friendlies, 3,
+                difficulty, difficulty);
         enemies.add(m);
         tickObservers.add(m);
     }
@@ -188,8 +189,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddProjectile (used by Weapon class) --------------------------------------*/
 
     @Override
-    public void createSimpleProjectile(Position position, Direction direction, int velocity, int life, int attackPower) {
-        SimpleProjectile p = new SimpleProjectile(position.getX(), position.getY(), direction, velocity, life, attackPower);
+    public void createSimpleProjectile(Position position, Direction direction, int velocity, int life,
+                                       int attackPower) {
+        SimpleProjectile p = new SimpleProjectile(position.getX(), position.getY(), direction, velocity, life,
+                attackPower);
         projectiles.add(p);
         tickObservers.add(p);
     }
