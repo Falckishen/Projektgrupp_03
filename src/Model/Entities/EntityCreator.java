@@ -176,9 +176,11 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
     @Override
-    public void createPlayer(int x, int y, List<Integer> keyboardInputs) {
+    public void createPlayer(int x, int y, List<Integer> keyboardInputs,
+                List<Integer> weaponKeyboardInputs) {
         Player p = new Player(x, y, keyboardInputs);
-        p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition()));
+
+        p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition(), weaponKeyboardInputs));
         friendlies.add(p);
         tickObservers.add(p);
     }

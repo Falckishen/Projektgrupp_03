@@ -14,6 +14,7 @@ import javax.swing.*;
 public class KeyboardInput {
 
     private final List<Integer> playerInputArrayList;
+    private final List<Integer> weaponInputArrayList;
     private boolean wKeyPressed = false;
     private boolean aKeyPressed = false;
     private boolean sKeyPressed = false;
@@ -27,8 +28,11 @@ public class KeyboardInput {
     private final MainMenu mainMenu;
     private final GameView mainView;
 
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, GameView mainView) {
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList,
+                         MainMenu mainMenu, GameView mainView, List<Integer> weaponInputArrayList) {
+
         this.playerInputArrayList = playerInputArrayList;
+        this.weaponInputArrayList = weaponInputArrayList;
 
         Action walkUpActionPressed = new WalkUpActionPressed();
         Action walkLeftActionPressed = new WalkLeftActionPressed();
@@ -195,7 +199,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!upKeyPressed) {
-                playerInputArrayList.add(KeyEvent.VK_UP);
+                weaponInputArrayList.add(KeyEvent.VK_UP);
                 upKeyPressed = true;
             }
         }
@@ -205,7 +209,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!leftKeyPressed) {
-                playerInputArrayList.add(KeyEvent.VK_LEFT);
+                weaponInputArrayList.add(KeyEvent.VK_LEFT);
                 leftKeyPressed = true;
             }
         }
@@ -215,7 +219,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!downKeyPressed) {
-                playerInputArrayList.add(KeyEvent.VK_DOWN);
+                weaponInputArrayList.add(KeyEvent.VK_DOWN);
                 downKeyPressed = true;
             }
         }
@@ -225,7 +229,7 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!rightKeyPressed) {
-                playerInputArrayList.add(KeyEvent.VK_RIGHT);
+                weaponInputArrayList.add(KeyEvent.VK_RIGHT);
                 rightKeyPressed = true;
             }
         }
@@ -234,7 +238,7 @@ public class KeyboardInput {
     private class AttackUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_UP));
+            weaponInputArrayList.remove(Integer.valueOf(KeyEvent.VK_UP));
             upKeyPressed = false;
         }
     }
@@ -242,7 +246,7 @@ public class KeyboardInput {
     private class AttackLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_LEFT));
+            weaponInputArrayList.remove(Integer.valueOf(KeyEvent.VK_LEFT));
             leftKeyPressed = false;
         }
     }
@@ -250,7 +254,7 @@ public class KeyboardInput {
     private class AttackDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_DOWN));
+            weaponInputArrayList.remove(Integer.valueOf(KeyEvent.VK_DOWN));
             downKeyPressed = false;
         }
     }
@@ -258,7 +262,7 @@ public class KeyboardInput {
     private class AttackRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_RIGHT));
+            weaponInputArrayList.remove(Integer.valueOf(KeyEvent.VK_RIGHT));
             rightKeyPressed = false;
         }
     }
