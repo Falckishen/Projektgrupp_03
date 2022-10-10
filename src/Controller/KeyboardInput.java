@@ -28,6 +28,15 @@ public class KeyboardInput {
     private final MainMenu mainMenu;
     private final GameView mainView;
 
+    /**
+     * This class initiates keyboard input, it functions by binding inputs from a input map to different actions
+     *
+     * @param jComponent a java.swing component that contains the action- and input-map
+     * @param playerInputArrayList a list where all inputs related to player movement is put
+     * @param mainMenu unclear why this is here
+     * @param mainView the main view component, is utilised so that KeyboardInput can tell view to open/close pause menu
+     * @param weaponInputArrayList a list were all inputs related to weapon and shoot direction is put
+     */
     public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, GameView mainView, List<Integer> weaponInputArrayList) {
 
         this.playerInputArrayList = playerInputArrayList;
@@ -104,6 +113,9 @@ public class KeyboardInput {
         this.mainView = mainView;
     }
 
+    /**
+     * If "w" is pressed adds VK_W to playerInputArrayList
+     */
     private class WalkUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -113,7 +125,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "a" is pressed adds VK_A to playerInputArrayList
+     */
     private class WalkLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -123,7 +137,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "s" is pressed adds VK_S to playerInputArrayList
+     */
     private class WalkDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -133,7 +149,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "d" is pressed adds VK_D to playerInputArrayList
+     */
     private class WalkRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -143,7 +161,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * When "w" is released removes VK_W from playerInputArrayList
+     */
     private class WalkUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -151,7 +171,9 @@ public class KeyboardInput {
             wKeyPressed = false;
         }
     }
-
+    /**
+     * When "a" is released removes VK_A from playerInputArrayList
+     */
     private class WalkLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -159,7 +181,9 @@ public class KeyboardInput {
             aKeyPressed = false;
         }
     }
-
+    /**
+     * When "s" is released removes VK_S from playerInputArrayList
+     */
     private class WalkDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -167,7 +191,9 @@ public class KeyboardInput {
             sKeyPressed = false;
         }
     }
-
+    /**
+     * When "d" is released removes VK_D from playerInputArrayList
+     */
     private class WalkRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -273,10 +299,10 @@ public class KeyboardInput {
                 escPressed = true;
                 if (!getCurrentGame().isGamePaused()){
                     getCurrentGame().pauseGame();
-                    //mainView.startPauseMenu();
+                    mainView.startPauseMenu();
                 }
                 else if (getCurrentGame().isGamePaused()) {
-                    //mainView.startGame();
+                    mainView.startGame();
                     getCurrentGame().unPauseGame();
                 }
                 System.out.println("escPressed");
