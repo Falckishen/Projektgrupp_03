@@ -24,6 +24,8 @@ public abstract class Weapon {
     private final int projectileAttackPower;
     private Position playerPosition;
     private Long lastShotFired; //is saved as milliseconds
+    public boolean isShooting = true;
+
 
     private Direction weaponDirection;
     private List<Integer> keyInputs;
@@ -90,13 +92,14 @@ public abstract class Weapon {
         }
         Direction newDirection = KeyboardHandler.findDirection(currentDirections);
         setWeaponDirection(newDirection);
+        isShooting = this.weaponDirection != Direction.NONE;
     }
 
     protected abstract void shoot();
 
     public void actionShoot(){
         changeWeaponDirection();
-        if (System.currentTimeMillis() - lastShotFired > coolDownSec){ // check that this correlates correctly
+        if (System.currentTimeMillis() - lastShotFired > coolDownSec && isShooting){ // check that this correlates correctly
             shoot();
             this.lastShotFired = System.currentTimeMillis();
         }
