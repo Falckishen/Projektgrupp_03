@@ -13,21 +13,23 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private final ActionListener firstListener;
     private final ActionListener secondListener;
     private final ActionListener thirdListener;
+    private String gameName;
     private int highscore;
 
-    public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, int highscore){
+    public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, String gameName, int highscore){
         this.startListener = acStart;
         this.quitListener = acQuit;
         this.firstListener = firstListener;
         this.secondListener = secondListener;
         this.thirdListener = thirdListener;
+        this.gameName = gameName;
         this.highscore = highscore;
     }
 
 
     private void setUpParts(){
         this.setLayout(null);
-        JLabel title = new JLabel("Don't die, or else", JLabel.CENTER);
+        JLabel title = new JLabel(gameName, JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
         title.setBounds(0,0, GSW(1),GSH(0.125));
         add(title, BorderLayout.CENTER);

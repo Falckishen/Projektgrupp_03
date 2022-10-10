@@ -27,6 +27,7 @@ public class GameView extends JComponent implements ViewObserver {
     private final BufferedImage specialBorderBackground;
     private final MainFrame mainFrame;
     private PanelInterface activePanel;
+    private String gameName;
 
     /**
      * Constructs an instance of the View
@@ -34,11 +35,12 @@ public class GameView extends JComponent implements ViewObserver {
      * @param width the width of the frame
      * @param height the height of the frame
      */
-    public GameView(MainMenu mainMenu, int width, int height) {
+    public GameView(MainMenu mainMenu, int width, int height, String gameName) {
         this.mainMenu = mainMenu;
         ImageContainer.loadImages();
         this.displayWidth = width;
         this.displayHeight = height;
+        this.gameName = gameName;
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(1000, 800);
@@ -80,7 +82,7 @@ public class GameView extends JComponent implements ViewObserver {
         ActionListener acFirstDifficulty = e -> mainMenu.setDifficulty(1);
         ActionListener acSecondDifficulty = e -> mainMenu.setDifficulty(2);
         ActionListener acThirdDifficulty = e -> mainMenu.setDifficulty(3);
-        activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, mainMenu.getHighScore());
+        activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, gameName, mainMenu.getHighScore());
         mainFrame.replaceSubPanel(activePanel);
         mainFrame.refreshScreen();
         mainFrame.refreshScreen();
