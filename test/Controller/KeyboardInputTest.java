@@ -23,24 +23,30 @@ class KeyboardInputTest {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
         input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
-        playerInputList = mainMenu.getPlayerInputList();
+        //playerInputList = mainMenu.getPlayerInputList();
         robot = new Robot();
         mainView.showMainMenu();
     }
     @Test
     void wInputTest() throws InterruptedException {
+        boolean test = false;
         robot.keyPress(KeyEvent.VK_W);
-        for (Object o : playerInputList) {
-            if ((int)o == KeyEvent.VK_W){
-                assertEquals(1,1);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getPlayerInputList()) {
+            if ((int) o == KeyEvent.VK_W) {
+                test = true;
+                break;
             }
         }
+        robot.keyRelease(KeyEvent.VK_W);
+        assertTrue(test);
     }
     @Test
     void aInputTest() throws InterruptedException {
         boolean test = false;
+        robot.keyPress(KeyEvent.VK_A);
+        Thread.sleep(100);
         for (Object o : mainMenu.getPlayerInputList()) {
-            System.out.println(o);
             if ((int) o == KeyEvent.VK_A) {
                 test = true;
                 break;
@@ -51,28 +57,30 @@ class KeyboardInputTest {
     }
     @Test
     void sInputTest() throws InterruptedException {
-        boolean loop = true;
-        System.out.println("Press and hold S");
-        while (loop){
-            for (Object o : playerInputList) {
-                if ((int)o == KeyEvent.VK_S){
-                    loop = false;
-                }
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_S);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getPlayerInputList()) {
+            if ((int) o == KeyEvent.VK_S) {
+                test = true;
+                break;
             }
-            Thread.sleep(100);
         }
+        robot.keyRelease(KeyEvent.VK_S);
+        assertTrue(test);
     }
     @Test
     void dInputTest() throws InterruptedException {
-        boolean loop = true;
-        System.out.println("Press and hold D");
-        while (loop){
-            for (Object o : playerInputList) {
-                if ((int)o == KeyEvent.VK_D){
-                    loop = false;
-                }
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_D);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getPlayerInputList()) {
+            if ((int) o == KeyEvent.VK_D) {
+                test = true;
+                break;
             }
-            Thread.sleep(100);
         }
+        robot.keyRelease(KeyEvent.VK_D);
+        assertTrue(test);
     }
 }
