@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardInputTest {
     List playerInputList;
-    Robot robot;
-    MainMenu mainMenu;
-    GameView mainView;
-    KeyboardInput input;
-    @BeforeEach
-    void initClasses() throws AWTException {
+    static Robot robot;
+    static MainMenu mainMenu;
+    static GameView mainView;
+    static KeyboardInput input;
+    @BeforeAll
+    static void initClasses() throws AWTException {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
         input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
@@ -81,6 +81,62 @@ class KeyboardInputTest {
             }
         }
         robot.keyRelease(KeyEvent.VK_D);
+        assertTrue(test);
+    }
+    @Test
+    void upInputTest() throws InterruptedException {
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_UP);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getWeaponInputList()) {
+            if ((int) o == KeyEvent.VK_UP) {
+                test = true;
+                break;
+            }
+        }
+        robot.keyRelease(KeyEvent.VK_UP);
+        assertTrue(test);
+    }
+    @Test
+    void leftInputTest() throws InterruptedException {
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_LEFT);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getWeaponInputList()) {
+            if ((int) o == KeyEvent.VK_LEFT) {
+                test = true;
+                break;
+            }
+        }
+        robot.keyRelease(KeyEvent.VK_LEFT);
+        assertTrue(test);
+    }
+    @Test
+    void downInputTest() throws InterruptedException {
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_DOWN);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getWeaponInputList()) {
+            if ((int) o == KeyEvent.VK_DOWN) {
+                test = true;
+                break;
+            }
+        }
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        assertTrue(test);
+    }
+    @Test
+    void rightInputTest() throws InterruptedException {
+        boolean test = false;
+        robot.keyPress(KeyEvent.VK_RIGHT);
+        Thread.sleep(100);
+        for (Object o : mainMenu.getWeaponInputList()) {
+            if ((int) o == KeyEvent.VK_RIGHT) {
+                test = true;
+                break;
+            }
+        }
+        robot.keyRelease(KeyEvent.VK_RIGHT);
         assertTrue(test);
     }
 }
