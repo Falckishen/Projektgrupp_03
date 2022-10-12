@@ -267,7 +267,7 @@ public class GameView extends JComponent implements ViewObserver {
     }
     class retryPressed extends AbstractAction{
         @Override
-        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().startGame();}
+        public void actionPerformed(ActionEvent e) {mainMenu.startGame();}
     }
     class exitPressed extends AbstractAction{
         @Override
