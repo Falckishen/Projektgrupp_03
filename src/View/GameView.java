@@ -66,6 +66,7 @@ public class GameView extends JComponent implements ViewObserver {
                 paintEntities(currentGame.getProjectiles(), playerPosition);
                 paintEntities(currentGame.getNonLivingObjects(), playerPosition);
                 paintHealthBar(currentGame.getPlayerHealth()/10d);
+                paintRoundNumerals(mainMenu.getCurrentGame().getRound());
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -252,9 +253,26 @@ public class GameView extends JComponent implements ViewObserver {
         g.fillRect(0,0, (int)Math.round(800*remaining), 70);
         if(remaining != 1){
             g.setColor(new Color(255, 0, 0, 75));
-            g.fillRect((int)Math.round(500*remaining),0, 800, 70);
+            g.fillRect((int)Math.round(800*remaining),0, 800, 70);
         }
         ((GamePanel)activePanel).paintImage(healthBar, 500, 700);
+    }
+
+    private void paintRoundNumerals(int round){
+        String roundString = round + "";
+        int right = 30;
+        while(roundString.length() > 0){
+            BufferedImage image = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.NUMERAL, Integer.parseInt(roundString.charAt(0)+""));
+            ((GamePanel)activePanel).paintImage(image, right, 30);
+            roundString = removeFirstIndex(roundString);
+            right += 20;
+        }
+    }
+
+    private String removeFirstIndex(String toRemoveFrom){
+        String outputString = "";
+        for(int i=1; i < toRemoveFrom.length(); i++) outputString = outputString + toRemoveFrom.charAt(i);
+        return(outputString);
     }
 
     class resumePressed extends AbstractAction{

@@ -15,6 +15,9 @@ class ImageContainer {
             "src/View/Images/Rick3Image.png", "src/View/Images/Rick4Image.png", "src/View/Images/Rick5Image.png", "src/View/Images/Rick6Image.png",
             "src/View/Images/Rick7Image.png", "src/View/Images/Rick8Image.png", "src/View/Images/Rick9Image.png", "src/View/Images/Rick10Image.png",
             "src/View/Images/Rick11Image.png"};
+    private static final String[] NumeralsImagePaths = {"src/View/Images/7seg0.png", "src/View/Images/7seg1.png",
+            "src/View/Images/7seg2.png", "src/View/Images/7seg3.png", "src/View/Images/7seg4.png", "src/View/Images/7seg5.png",
+            "src/View/Images/7seg6.png", "src/View/Images/7seg7.png", "src/View/Images/7seg8.png", "src/View/Images/7seg9.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
     /**
@@ -28,6 +31,7 @@ class ImageContainer {
         savedImagesMatrix[ImageTypeEnum.PLAYERPROJECTILE.ordinal()] = getLoadedFileList(PlayerProjectileImagePaths);
         savedImagesMatrix[ImageTypeEnum.GRUNT.ordinal()] = getLoadedFileList(MonsterTestImagePaths);
         savedImagesMatrix[ImageTypeEnum.RICK.ordinal()] = getLoadedFileList(RickImagePaths);
+        savedImagesMatrix[ImageTypeEnum.NUMERAL.ordinal()] = getLoadedFileList(NumeralsImagePaths);
     }
 
     /**
