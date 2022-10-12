@@ -29,9 +29,9 @@ public class KeyboardInput {
     private final GameView mainView;
 
     /**
-     * This class initiates keyboard input, it functions by binding inputs from a input map to different actions
+     * This class initiates keyboard input, it functions by binding inputs from an input map to different actions
      *
-     * @param jComponent a java.swing component that contains the action- and input-map
+     * @param jComponent a java swing component that contains the action- and input-map
      * @param playerInputArrayList a list where all inputs related to player movement is put
      * @param mainMenu unclear why this is here
      * @param mainView the main view component, is utilised so that KeyboardInput can tell view to open/close pause menu
