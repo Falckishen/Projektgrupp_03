@@ -50,12 +50,18 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         difficultyGroup.add(secondDifficulty);
         JRadioButton thirdDifficulty = new JRadioButton();
         difficultyGroup.add(thirdDifficulty);
-        firstDifficulty.setBounds(GSW(0.15), GSH(0.75) ,GSW(0.10), GSH(0.05));
-        secondDifficulty.setBounds(GSW(0.45), GSH(0.75) ,GSW(0.10), GSH(0.05));
-        thirdDifficulty.setBounds(GSW(0.75), GSH(0.75) ,GSW(0.10), GSH(0.05));
+        firstDifficulty.setBounds(GSW(0.25), GSH(0.7) ,GSW(0.10), GSH(0.05));
+        firstDifficulty.setBackground(new Color(150, 150, 150));
+        secondDifficulty.setBounds(GSW(0.45), GSH(0.7) ,GSW(0.10), GSH(0.05));
+        secondDifficulty.setBackground(new Color(150, 150, 150));
+        thirdDifficulty.setBounds(GSW(0.65), GSH(0.7) ,GSW(0.10), GSH(0.05));
+        thirdDifficulty.setBackground(new Color(150, 150, 150));
         firstDifficulty.setText("First");
+        firstDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         secondDifficulty.setText("Second");
+        secondDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         thirdDifficulty.setText("Third");
+        thirdDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         add(firstDifficulty, BorderLayout.CENTER);
         firstDifficulty.setVisible(true);
         add(secondDifficulty, BorderLayout.CENTER);
@@ -65,6 +71,13 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         firstDifficulty.addActionListener(firstListener);
         secondDifficulty.addActionListener(secondListener);
         thirdDifficulty.addActionListener(thirdListener);
+        firstDifficulty.setSelected(true);
+
+        JPanel difficultyPanel = new JPanel();
+        difficultyPanel.setBounds(GSW(0.22), GSH(0.67), GSW(0.56), GSH(0.11));
+        difficultyPanel.setBackground(new Color(120, 120, 120));
+        add(difficultyPanel, BorderLayout.CENTER);
+        difficultyPanel.setVisible(true);
 
         JButton startGameButton = new JButton("Start Game");
         startGameButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));

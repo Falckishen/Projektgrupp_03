@@ -65,6 +65,7 @@ public class GameView extends JComponent implements ViewObserver {
                 paintEntities(currentGame.getEnemies(), playerPosition);
                 paintEntities(currentGame.getProjectiles(), playerPosition);
                 paintEntities(currentGame.getNonLivingObjects(), playerPosition);
+                paintHealthBar(currentGame.getPlayerHealth()/10d);
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -242,6 +243,18 @@ public class GameView extends JComponent implements ViewObserver {
         wall.getGraphics().fillRect(0,0,width,height);
         Position newPosition = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
         ((GamePanel)activePanel).paintImageRelativeToCenter(wall, newPosition.getX(), newPosition.getY());
+    }
+
+    private void paintHealthBar(double remaining){
+        BufferedImage healthBar = new BufferedImage(800, 70, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = healthBar.getGraphics();
+        g.setColor(new Color(0, 255, 0, 75));
+        g.fillRect(0,0, (int)Math.round(800*remaining), 70);
+        if(remaining != 1){
+            g.setColor(new Color(255, 0, 0, 75));
+            g.fillRect((int)Math.round(500*remaining),0, 800, 70);
+        }
+        ((GamePanel)activePanel).paintImage(healthBar, 500, 700);
     }
 
     class resumePressed extends AbstractAction{
