@@ -174,9 +174,9 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         tickObservers.add(m);
     }
     /*----------------------------------- (used for Testing) -----------------------------------------*/
-    public void createCustomMonster(int x,int y,int speed){
+    public void createCustomMonster(int x,int y,int speed,int health,int attackPower){
         Monster m = new Monster(x, y, friendlies, speed,
-                difficulty, difficulty);
+                health, attackPower);
         enemies.add(m);
         tickObservers.add(m);
     }
