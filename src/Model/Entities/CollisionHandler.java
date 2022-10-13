@@ -66,11 +66,11 @@ class CollisionHandler implements OnTick {
     public void doOnTick() {
         checkCollisionFriendlyEnemy();
         checkCollisionEnemyEnemy();
-       // checkCollisionFriendlyNonLivingObjects(); //use while testing TODO fix
         checkCollisionEnemyProjectile();
+        checkCollisionProjectileNonLivingObjects();
 
-        CollisionWithNonLivingObjects(enemies.iterator());
-        CollisionWithNonLivingObjects(friendlies.iterator());
+        checkCollisionWithNonLivingObjects(enemies.iterator());
+        checkCollisionWithNonLivingObjects(friendlies.iterator());
        // checkCollisionWithNonLivingObjects();
         removeDead(); //TODO make sure to remove from tickObervers
     }
@@ -95,38 +95,6 @@ class CollisionHandler implements OnTick {
             }
         }
     }
-
-    private void checkCollisionFriendlyNonLivingObjects(){
-        ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
-        Friendly f;
-        Iterator<Friendly> itFriendlies = friendlies.iterator();
-        while(itFriendlies.hasNext()){ // don't use for-loop (not as accurate)
-            f = itFriendlies.next();
-            addCollidedNonLivingPositionToList(entitiesCollidedWithMe, f);
-
-            if (!entitiesCollidedWithMe.isEmpty()){
-                f.collidedWithNotProjectile(entitiesCollidedWithMe.iterator());
-                entitiesCollidedWithMe.clear();
-            }
-        }
-    }
-
- /*   private void checkCollisionEnemyNotProjectile() {
-        ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
-        Enemy e;
-        Iterator<Enemy> itEnemies = enemies.iterator();
-        while(itEnemies.hasNext()){ // don't use for-loop (not as accurate)
-            e = itEnemies.next();
-            addCollidedEnemiesPositionToList(entitiesCollidedWithMe, e);
-            addCollidedFriendliesPositionToList(entitiesCollidedWithMe, e);
-            addCollidedNonLivingPositionToList(entitiesCollidedWithMe, e);
-
-            if (!entitiesCollidedWithMe.isEmpty()){
-                e.collidedWithNonLiving(entitiesCollidedWithMe.iterator());
-                entitiesCollidedWithMe.clear();
-            }
-        }
-    }*/
 
     private void checkCollisionEnemyEnemy() {
         ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
@@ -156,33 +124,6 @@ class CollisionHandler implements OnTick {
         }
     }
 
-    private void addCollidedFriendliesPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
-        Entity f;
-        Iterator<Friendly> itFriendlies = friendlies.iterator();
-        while(itFriendlies.hasNext()){ // don't use for-loop (not as accurate)
-            f = itFriendlies.next();
-            if (me != f){
-                if(hasCollided(me, f)){
-                    entitiesCollidedWithMe.add(f.getPosition());
-                }
-            }
-        }
-    }
-
-    private void addCollidedNonLivingPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
-        Entity n;
-        Iterator<Entity> itEntities = nonLivingObjects.iterator();
-        while(itEntities.hasNext()){ // don't use for-loop (not as accurate)
-            n = itEntities.next();
-            if (me != n){
-                if(hasCollided(me, n)){
-                    entitiesCollidedWithMe.add(n.getPosition());
-                }
-            }
-        }
-    }
-
-
     /**
      * checks for collision between enemies and projectiles.
      * And calls objects that has collided, with the specific collision that has occurred.
@@ -205,25 +146,16 @@ class CollisionHandler implements OnTick {
     }
 
     /**
-     * checks for collision between living objects (friendlies, enemies and projectiles) and non-living objects.
-     * And calls living objects that has collided, with the specific collision that has occurred.
+     * checks for collision between projectiles and non-living objects.
+     * And calls corresponding collision method for projectiles that has collided.
      */
-    private void checkCollisionWithNonLivingObjects(){
+    private void checkCollisionProjectileNonLivingObjects(){
         Entity n;
-        Friendly f;
         Projectile p;
 
         Iterator<Entity> itNonLivingObjects = nonLivingObjects.iterator();
         while(itNonLivingObjects.hasNext()){
             n = itNonLivingObjects.next();
-
-            Iterator<Friendly> itFriendlies = friendlies.iterator();
-            while(itFriendlies.hasNext()){
-                f = itFriendlies.next();
-                if(hasCollided(n, f)){
-                    f.collidedWithNonLivingObject(n);
-                }
-            }
 
             Iterator<Projectile> itProjectiles = projectiles.iterator();
             while(itProjectiles.hasNext()){
@@ -235,7 +167,11 @@ class CollisionHandler implements OnTick {
         }
     }
 
-    private void CollisionWithNonLivingObjects(Iterator<? extends MovableEntity> movableEntityIterator){
+    /**
+     * Takes an Iterator in which it checks all MovableEntities against all non-living objects to check for collisions.
+     * @param movableEntityIterator which iterator of any subtype of MovableEntity is used.
+     */
+    private void checkCollisionWithNonLivingObjects(Iterator<? extends MovableEntity> movableEntityIterator){
         MovableEntity e;
         Direction pushedDirection;
         while (movableEntityIterator.hasNext()){
@@ -376,13 +312,6 @@ class CollisionHandler implements OnTick {
     }
 
     private Direction resultingPushedDirection(Iterator<Direction> directionsPushed){
-        //  4 --- 3 --- 2
-        //  |           |
-        //  5     0     1
-        //  |           |
-        //  6 --- 7 --- 8
-        // number to direction chart
-
         Direction resultingDirection = null;
         int directionCounter = 0;
         int nextDirectionCount;
@@ -400,12 +329,12 @@ class CollisionHandler implements OnTick {
                     difference = directionCounter - nextDirectionCount; //neg == counterclockwise, pos == clockwise
                 } else {
                     switch (directionCounter - nextDirectionCount) {
-                        case -5 -> difference = 3; //  4 -- 3 -- 2
-                        case -6 -> difference = 2; //  |         |
-                        case -7 -> difference = 1; //  5    0    1
-                        case 5 -> difference = -3; //  |         |
-                        case 6 -> difference = -2; //  6 -- 7 -- 8
-                        case 7 -> difference = -1; // number to direction chart;
+                        case -5 -> difference = 3;
+                        case -6 -> difference = 2;
+                        case -7 -> difference = 1;
+                        case 5 -> difference = -3;
+                        case 6 -> difference = -2;
+                        case 7 -> difference = -1;
                         default -> difference = 0;
                     }
                 }
@@ -447,6 +376,19 @@ class CollisionHandler implements OnTick {
         return intToDirection(directionCounter);
     }
 
+    /**
+     * Transforms the direction to the corresponding int value.
+     * <p>
+     * 4 --- 3 --- 2 <br />
+     * |           | <br />
+     * 5     0     1 <br />
+     * |           | <br />
+     * 6 --- 7 --- 8 <br />
+     * number to direction chart
+     * </p>
+     * @param direction the inputted direction.
+     * @return the corresponding int that represents that direction.
+     */
     private int directionToInt(Direction direction){
         switch (direction) {
             case RIGHT -> {return 1;}
