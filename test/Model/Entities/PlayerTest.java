@@ -1,10 +1,12 @@
 package Model.Entities;
 
 import Model.Weapons.WeaponFactory;
+import Utilities.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ class PlayerTest {
         playerInputs = new ArrayList<>();
         player = new Player(1,1,playerInputs);
     }
+
     @Test
     void playerMoveUpTest(){
         playerInputs.add(KeyEvent.VK_W);
@@ -44,6 +47,70 @@ class PlayerTest {
         player.doOnTick();
         assertTrue(1 + player.getSpeed() == player.getPosition().getX() && 1 == player.getPosition().getY());
     }
+
+    @Test
+    void playerMoveUpLeftTest(){
+        int oldX = player.getPosition().getX();
+        int oldY = player.getPosition().getY();
+        playerInputs.add(KeyEvent.VK_W);
+        playerInputs.add(KeyEvent.VK_A);
+        player.doOnTick();
+        int newX = player.getPosition().getX();
+        int newY = player.getPosition().getY();
+        assertEquals(oldX - (int) (5 * Math.sqrt(2)/2), newX);
+        assertEquals(oldY - (int) (5 * Math.sqrt(2)/2), newY);
+    }
+
+    @Test
+    void playerMoveUpRightTest(){
+        int oldX = player.getPosition().getX();
+        int oldY = player.getPosition().getY();
+        playerInputs.add(KeyEvent.VK_W);
+        playerInputs.add(KeyEvent.VK_D);
+        player.doOnTick();
+        int newX = player.getPosition().getX();
+        int newY = player.getPosition().getY();
+        assertEquals(oldX + (int) (5 * Math.sqrt(2)/2), newX);
+        assertEquals(oldY - (int) (5 * Math.sqrt(2)/2), newY);
+    }
+
+    @Test
+    void playerMoveDownLeftTest(){
+        int oldX = player.getPosition().getX();
+        int oldY = player.getPosition().getY();
+        playerInputs.add(KeyEvent.VK_S);
+        playerInputs.add(KeyEvent.VK_A);
+        player.doOnTick();
+        int newX = player.getPosition().getX();
+        int newY = player.getPosition().getY();
+        assertEquals(oldX - (int) (5 * Math.sqrt(2)/2), newX);
+        assertEquals(oldY + (int) (5 * Math.sqrt(2)/2), newY);
+    }
+
+    @Test
+    void playerMoveDownRightTest(){
+        int oldX = player.getPosition().getX();
+        int oldY = player.getPosition().getY();
+        playerInputs.add(KeyEvent.VK_S);
+        playerInputs.add(KeyEvent.VK_D);
+        player.doOnTick();
+        int newX = player.getPosition().getX();
+        int newY = player.getPosition().getY();
+        assertEquals(oldX + (int) (5 * Math.sqrt(2)/2), newX);
+        assertEquals(oldY + (int) (5 * Math.sqrt(2)/2), newY);
+    }
+
+    @Test
+    void playerStandingStillTest(){
+        int oldX = player.getPosition().getX();
+        int oldY = player.getPosition().getY();
+        player.doOnTick();
+        int newX = player.getPosition().getX();
+        int newY = player.getPosition().getY();
+        assertEquals(oldX, newX);
+        assertEquals(oldY, newY);
+    }
+
     @Test
     void canPlayerShootTest(){
         weaponInputs = new ArrayList<>();
