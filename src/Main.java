@@ -8,8 +8,8 @@ import Controller.KeyboardInput;
 public class Main {
 
     /**
-     * First method to be executed, initiates an instance of MainMenu (Model), GameView (View) and KeyboardInput
-     * (Controller), and starts the game. First method to be executed.
+     * First method to be executed, creates an instance of MainMenu (Model), GameView (View), KeyboardInput
+     * (Controller), and starts the game.
      */
     public static void main(String[] args) {
         String gameName = "Projektgrupp 3 projekt";
@@ -19,7 +19,8 @@ public class Main {
 
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
         GameView mainView = new GameView(mainMenu, width, height, gameName);
-        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
+        new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getMovementInputList(), mainMenu, mainMenu.getWeaponInputList());
+
         mainMenu.showMainMenu();
     }
 }

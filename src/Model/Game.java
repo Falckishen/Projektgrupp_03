@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -42,9 +43,7 @@ public class Game {
      * @param outputHandler     reference to the outputHandler.
      */
 
-    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList,
-                List<Integer> weaponInputList, OutputHandler outputHandler) {
-
+    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
         this.playerInputList = playerInputList;
@@ -68,13 +67,12 @@ public class Game {
      * @return position of player.
      */
     public Position getPlayerPosition() {
-        Position p = null;
         for (MovableEntity e:entityCreator.getFriendlies()) {
             if (e.getEntityType() == EntityType.player ){
-                p = e.getPosition();
+                return e.getPosition();
             }
         }
-        return p;
+        return null;
     }
 
     /**
@@ -119,7 +117,7 @@ public class Game {
      * @return current health of the player.
      */
     public int getPlayerHealth() {
-        return getPlayer().getHealth();
+        return Objects.requireNonNull(getPlayer()).getHealth();
     }
 
     /**
@@ -129,6 +127,15 @@ public class Game {
      */
     public int getRound() {
         return round;
+    }
+
+    /**
+     * Returns true if game is paused, false if game is not paused.
+     *
+     * @return true if game is paused, false if game is not paused.
+     */
+    public boolean isGamePaused() {
+        return gamePaused;
     }
 
     /*------------------------------------------- Package-private Getters -------------------------------------------*/
@@ -149,15 +156,6 @@ public class Game {
      */
     Iterable<OnTick> getTickObservers(){
         return entityCreator.getTickObservers();
-    }
-
-    /**
-     * Returns true if game is paused, false if game is not paused.
-     *
-     * @return true if game is paused, false if game is not paused.
-     */
-    public boolean isGamePaused() {
-        return gamePaused;
     }
 
     /**
@@ -199,20 +197,21 @@ public class Game {
      * Unpauses the game, sets gamePaused to false. updateWorld() in WorldUpdate starts running.
      */
     public void unPauseGame() {
+        outputHandler.showGameScreen();
         gamePaused = false;
     }
 
     /*---------------------------------------------- New Round methods ----------------------------------------------*/
 
     /**
-     * Starts the next round and spawn the enemies of that round after a 5 s delay. Creates an instance of SpawnEnemies
-     * and its method run() is executed after a 5 s delay.
+     * Starts the next round and spawn the enemies of that round after a 3 s delay. Creates an instance of SpawnEnemies
+     * and its method run() is executed after a 3 s delay.
      */
     void nextRound() {
         enemiesSpawning = true;
         round++;
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), 5, TimeUnit.SECONDS);
+        scheduler.schedule(new SpawnEnemies(this, entityCreator, round, difficulty), 3, TimeUnit.SECONDS);
         System.out.println("ROUND: " + round);
     }
 

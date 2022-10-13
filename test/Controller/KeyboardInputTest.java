@@ -4,10 +4,8 @@ import Model.MainMenu;
 import View.GameView;
 import org.junit.jupiter.api.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +20,7 @@ class KeyboardInputTest {
     static void initClasses() throws AWTException {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
-        input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getPlayerInputList(), mainMenu, mainView, mainMenu.getWeaponInputList());
+        input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getMovementInputList(), mainMenu, mainMenu.getWeaponInputList());
         //playerInputList = mainMenu.getPlayerInputList();
         robot = new Robot();
         mainView.showMainMenu();
@@ -32,7 +30,7 @@ class KeyboardInputTest {
         boolean test = false;
         robot.keyPress(KeyEvent.VK_W);
         Thread.sleep(100);
-        for (Object o : mainMenu.getPlayerInputList()) {
+        for (Object o : mainMenu.getMovementInputList()) {
             if ((int) o == KeyEvent.VK_W) {
                 test = true;
                 break;
@@ -46,7 +44,7 @@ class KeyboardInputTest {
         boolean test = false;
         robot.keyPress(KeyEvent.VK_A);
         Thread.sleep(100);
-        for (Object o : mainMenu.getPlayerInputList()) {
+        for (Object o : mainMenu.getMovementInputList()) {
             if ((int) o == KeyEvent.VK_A) {
                 test = true;
                 break;
@@ -60,7 +58,7 @@ class KeyboardInputTest {
         boolean test = false;
         robot.keyPress(KeyEvent.VK_S);
         Thread.sleep(100);
-        for (Object o : mainMenu.getPlayerInputList()) {
+        for (Object o : mainMenu.getMovementInputList()) {
             if ((int) o == KeyEvent.VK_S) {
                 test = true;
                 break;
@@ -74,7 +72,7 @@ class KeyboardInputTest {
         boolean test = false;
         robot.keyPress(KeyEvent.VK_D);
         Thread.sleep(100);
-        for (Object o : mainMenu.getPlayerInputList()) {
+        for (Object o : mainMenu.getMovementInputList()) {
             if ((int) o == KeyEvent.VK_D) {
                 test = true;
                 break;

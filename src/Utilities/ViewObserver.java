@@ -26,4 +26,6 @@ public interface ViewObserver {
      * Renders the pause menu.
      */
     void showPauseMenu();
+
+    void showGameScreen();
 }

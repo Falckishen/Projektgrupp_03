@@ -1,19 +1,18 @@
 package Model;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import Utilities.ViewObserver;
 
 /**
- * Represents the main menu. The first object created.
+ * Represents the main menu, the top-level class in the Model. The first object created.
  *
  * @author Samuel Falck
  */
 public class MainMenu {
 
     private final int worldMapRadius;
-    private final List<Integer> playerInputList;
+    private final List<Integer> movementInputList;
     private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private final HighScoreHandler highScoreHandler;
@@ -27,7 +26,7 @@ public class MainMenu {
      */
     public MainMenu(String gameName, int worldMapRadius) {
         this.worldMapRadius = worldMapRadius;
-        this.playerInputList = new ArrayList<>();
+        this.movementInputList = new ArrayList<>();
         this.weaponInputList = new ArrayList<>();
         this.outputHandler = new OutputHandler();
         this.highScoreHandler = new HighScoreHandler(gameName);
@@ -37,16 +36,16 @@ public class MainMenu {
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
 
     /**
-     * Returns the list of current user keyboard input.
+     * Returns the list of current user keyboard input for player movement.
      *
      * @return list of current user keyboard input.
      */
-    public List<Integer> getPlayerInputList() {
-        return playerInputList;
+    public List<Integer> getMovementInputList() {
+        return movementInputList;
     }
 
     /**
-     * Returns the list of current user keyboard input.
+     * Returns the list of current user keyboard input for the weapon.
      *
      * @return list of current user keyboard input.
      */
@@ -55,9 +54,9 @@ public class MainMenu {
     }
 
     /**
-     * Returns the current running game.
+     * Returns the current game.
      *
-     * @return the current running game.
+     * @return the current game.
      */
     public Game getCurrentGame() {
         return currentGame;
@@ -98,10 +97,17 @@ public class MainMenu {
     }
 
     /**
+     * The application shuts down.
+     */
+    public void quitApplication() {
+        System.exit(0);
+    }
+
+    /**
      * Starts a game.
      */
     public void startGame() {
-        currentGame = new Game(this, worldMapRadius, difficulty, playerInputList, weaponInputList, outputHandler);
+        currentGame = new Game(this, worldMapRadius, difficulty, movementInputList, weaponInputList, outputHandler);
         System.out.println("Game created");
     }
 
@@ -111,13 +117,7 @@ public class MainMenu {
     void gameEnded(int round) {
         highScoreHandler.processScore(round);
         outputHandler.showGameOverScreen();
-    }
-
-    /**
-     * The application shuts down.
-     */
-    public void quitApplication() {
-        System.exit(0);
+        currentGame = null;
     }
 
     /*------------------------------------------------- View Methods -------------------------------------------------*/

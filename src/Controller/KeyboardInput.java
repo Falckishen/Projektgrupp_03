@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Game;
 import Model.MainMenu;
-import View.GameView;
 
 import java.util.List;
 import java.awt.event.*;
@@ -26,7 +25,6 @@ public class KeyboardInput {
     private boolean spacePressed = false;
     private boolean escPressed = false;
     private final MainMenu mainMenu;
-    private final GameView mainView;
 
     /**
      * This class initiates keyboard input, it functions by binding inputs from an input map to different actions
@@ -34,10 +32,9 @@ public class KeyboardInput {
      * @param jComponent a java swing component that contains the action- and input-map
      * @param playerInputArrayList a list where all inputs related to player movement is put
      * @param mainMenu unclear why this is here
-     * @param mainView the main view component, is utilised so that KeyboardInput can tell view to open/close pause menu
      * @param weaponInputArrayList a list were all inputs related to weapon and shoot direction is put
      */
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, GameView mainView, List<Integer> weaponInputArrayList) {
+    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, List<Integer> weaponInputArrayList) {
 
         this.playerInputArrayList = playerInputArrayList;
         this.weaponInputArrayList = weaponInputArrayList;
@@ -110,7 +107,6 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
 
         this.mainMenu = mainMenu;
-        this.mainView = mainView;
     }
 
     /**
@@ -295,17 +291,14 @@ public class KeyboardInput {
     private class PauseActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!escPressed){
+            if (mainMenu.getCurrentGame() != null && !escPressed){
                 escPressed = true;
                 if (!getCurrentGame().isGamePaused()){
                     getCurrentGame().pauseGame();
-                    mainView.startPauseMenu();
                 }
                 else if (getCurrentGame().isGamePaused()) {
-                    mainView.startGame();
                     getCurrentGame().unPauseGame();
                 }
-                System.out.println("escPressed");
             }
         }
     }
@@ -314,7 +307,6 @@ public class KeyboardInput {
         @Override
         public void actionPerformed(ActionEvent e){
             escPressed = false;
-            System.out.println("escReleased");
         }
     }
 

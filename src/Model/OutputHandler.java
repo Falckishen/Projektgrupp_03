@@ -26,35 +26,40 @@ class OutputHandler {
      *
      * @param viewObserver the view to be added as an observer of the model.
      */
-    public void addViewObserver(ViewObserver viewObserver) {
+    void addViewObserver(ViewObserver viewObserver) {
         viewObservers.add(viewObserver);
     }
 
     /**
      * All the views renders a frame of the current game.
      */
-    public void updateGameFrame() {
+    void updateGameFrame() {
         viewObservers.forEach(ViewObserver::renderGameFrame);
     }
 
     /**
      * All the views renders the main menu.
      */
-    public void showMainMenu() {
+    void showMainMenu() {
         viewObservers.forEach(ViewObserver::showMainMenu);
     }
 
     /**
      * All the views renders the game over screen.
      */
-    public void showGameOverScreen() {
+    void showGameOverScreen() {
         viewObservers.forEach(ViewObserver::showGameOverScreen);
     }
 
     /**
      * All the views renders the pause menu.
      */
-    public void showPauseMenu() {
+    void showPauseMenu() {
         viewObservers.forEach(ViewObserver::showPauseMenu);
     }
+
+    /**
+     * All the views are notified that the game is about to be rendered.
+     */
+    void showGameScreen(){viewObservers.forEach(ViewObserver::showGameScreen);}
 }
