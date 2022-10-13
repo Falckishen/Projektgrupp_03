@@ -211,7 +211,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         nonLivingObjects.add(new Wall(wallRadiusX, wallRadiusY, positionX, positionY));
     }
 
-    @Override
+   /* @Override
     public void createWorldBorderWalls() {
         int wallThicknessRadius = 10;
         int wallSectionRadius = 100; //how wide the wall parts of the border are.
@@ -233,5 +233,16 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         nonLivingObjects.add(new Wall(wallThicknessRadius, wallSectionRadius,distanceFromCentre,currentWallPosition)); //x right
         nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,distanceFromCentre)); //y top
         nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,(distanceFromCentre*(-1)) )); //y bottom
+    }*/
+
+    @Override
+    public void createWorldBorderWalls() {
+        int wallThicknessRadius = 70;
+        int distanceFromCentre = worldMapRadius+wallThicknessRadius;
+        int wallLengthRadius = worldMapRadius+ wallThicknessRadius*2;
+        nonLivingObjects.add(new Wall(wallThicknessRadius, wallLengthRadius,(distanceFromCentre*(-1)), 0)); //x left
+        nonLivingObjects.add(new Wall(wallThicknessRadius, wallLengthRadius,distanceFromCentre,0)); //x right
+        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,distanceFromCentre)); //y top
+        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,(distanceFromCentre*(-1)) )); //y bottom
     }
 }
