@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+/**
+ * The panel representing the MainMenu
+ */
 public class MainMenuPanel extends JPanel implements PanelInterface{
 
     private JFrame parentFrame;
@@ -16,6 +19,15 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private String gameName;
     private int highscore;
 
+    /**
+     * @param acStart What happens when user clicks start.
+     * @param acQuit What happens when user clicks quit.
+     * @param firstListener What happens when user clicks first difficulty.
+     * @param secondListener What happens when user clicks second difficulty.
+     * @param thirdListener What happens when user clicks third difficulty.
+     * @param gameName What the MainMenu title should say.
+     * @param highscore What the current highscore is.
+     */
     public MainMenuPanel(ActionListener acStart, ActionListener acQuit, ActionListener firstListener, ActionListener secondListener, ActionListener thirdListener, String gameName, int highscore){
         this.startListener = acStart;
         this.quitListener = acQuit;
@@ -26,7 +38,9 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         this.highscore = highscore;
     }
 
-
+    /**
+     * Creates and positions all the buttons and labels onto this panel.
+     */
     private void setUpParts(){
         this.setLayout(null);
         JLabel title = new JLabel(gameName, JLabel.CENTER);
@@ -94,18 +108,34 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         endGameButton.setVisible(true);
     }
 
+    /**
+     * Identical to getScaledWidth() but with more compact name.
+     */
     private int GSW(double scale){
         return(getScaledWidth(scale));
     }
 
+    /**
+     * Identical to getScaledHeight() but with more compact name.
+     */
     private int GSH(double scale){
         return(getScaledHeight(scale));
     }
 
+    /**
+     * Gets a point on the width of the panel based on percentage of the width of the panel.
+     * @param scale How far to go.
+     * @return The point on the width.
+     */
     private int getScaledWidth(double scale){
         return((int)Math.round(parentFrame.getWidth()*scale));
     }
 
+    /**
+     * Gets a point on the height of the panel based on percentage of the height of the panel.
+     * @param scale How far to go.
+     * @return The point on the height.
+     */
     private int getScaledHeight(double scale){
         return((int)Math.round(parentFrame.getHeight()*scale));
     }

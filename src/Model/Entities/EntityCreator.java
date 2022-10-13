@@ -198,8 +198,8 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     @Override
     public void createSimpleProjectile(Position position, Direction direction, int velocity, int life,
                                        int attackPower) {
-        SimpleProjectile p = new SimpleProjectile(position.getX(), position.getY(), direction, velocity, life,
-                attackPower);
+        Projectile p = new Projectile(EntityType.simpleProjectile, 10, 10, position.getX(),
+                position.getY(), velocity, 1, direction, life, attackPower);
         projectiles.add(p);
         tickObservers.add(p);
     }

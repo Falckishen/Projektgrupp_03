@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 import javax.swing.*;
 import Model.Entities.Entity;
 import Model.Game;
@@ -34,6 +33,7 @@ public class GameView extends JComponent implements ViewObserver {
      * @param mainMenu the model for which the view is to render the main menu and the world
      * @param width the width of the frame
      * @param height the height of the frame
+     * @param gameName the name of the game
      */
     public GameView(MainMenu mainMenu, int width, int height, String gameName) {
         this.mainMenu = mainMenu;
@@ -43,13 +43,13 @@ public class GameView extends JComponent implements ViewObserver {
         this.gameName = gameName;
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
-        mainFrame = new MainFrame(1000, 800);
-        startMainMenu();
+        mainFrame = new MainFrame(width, height);
+        showMainMenu();
     }
 
     /**
      * Renders the world as it is in the Game inside the MainMenu onto the currently active panel and shows the frame to
-     * the user.
+     * the user. If the current activePanel isn't a GamePanel then it switches to it.
      */
     @Override
     public void renderGameFrame() {
@@ -71,11 +71,11 @@ public class GameView extends JComponent implements ViewObserver {
                 System.out.println(e);
             }
         }
-        refreshScreen();
+        mainFrame.refreshScreen();
     }
 
     /**
-     * Renders the main menu through a mainMenuPanel onto the mainFrame.
+     * Switches the ActivePanel to a MainMenu panel and renders it to the user.
      */
     @Override
     public void showMainMenu() {
@@ -87,9 +87,11 @@ public class GameView extends JComponent implements ViewObserver {
         activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, gameName, mainMenu.getHighScore());
         mainFrame.replaceSubPanel(activePanel);
         mainFrame.refreshScreen();
-        mainFrame.refreshScreen();
     }
 
+    /**
+     * Switches the ActivePanel to a DeathMenu panel and renders it to the user.
+     */
     @Override
     public void showGameOverScreen() {
         activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed(), mainMenu.getHighScore(), mainMenu.getCurrentGame().getRound());
@@ -97,6 +99,9 @@ public class GameView extends JComponent implements ViewObserver {
         mainFrame.refreshScreen();
     }
 
+    /**
+     * Switches the ActivePanel to a PauseMenu panel and renders it to the user.
+     */
     @Override
     public void showPauseMenu() {
         activePanel = new PauseMenuPanel(new resumePressed(), new forfeitPressed());
@@ -141,14 +146,7 @@ public class GameView extends JComponent implements ViewObserver {
     }
 
     /**
-     * Tells the mainFrame to refresh the screen.
-     */
-    private void refreshScreen(){
-        mainFrame.refreshScreen();
-    }
-
-    /**
-     * Renders the background onto the gamePanel stored in activePanel.
+     * Renders the special background onto the gamePanel stored in activePanel.
      */
     private void paintBackground(Position playerPosition){
         BufferedImage background = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.MISC, 0);
@@ -209,8 +207,8 @@ public class GameView extends JComponent implements ViewObserver {
             }else{
                 variant = 0;
             }
-            ((GamePanel)activePanel).paintImageRelativeToCenter(ImageContainer.getImageFromTypeVariant(Objects.requireNonNull(ConversionQueryable.getImageType(entity)), variant), pos.getX(), pos.getY());
-            paintHitBox(entity, pos);
+            BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant);
+            ((GamePanel)activePanel).paintImageRelativeToCenter(entityImage, pos.getX(), pos.getY());
         }else{
             paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition(), playerPosition);
         }
@@ -247,30 +245,42 @@ public class GameView extends JComponent implements ViewObserver {
         ((GamePanel)activePanel).paintImageRelativeToCenter(wall, newPosition.getX(), newPosition.getY());
     }
 
-    private void paintHealthBar(double remaining){
+    /**
+     * Renders the players health bar onto the gamePanel stored in activePanel.
+     * @param healthRemaining players remaining percentage of the max health
+     */
+    private void paintHealthBar(double healthRemaining){
         BufferedImage healthBar = new BufferedImage(800, 70, BufferedImage.TYPE_INT_ARGB);
         Graphics g = healthBar.getGraphics();
         g.setColor(new Color(0, 255, 0, 75));
-        g.fillRect(0,0, (int)Math.round(800*remaining), 70);
-        if(remaining != 1){
+        g.fillRect(0,0, (int)Math.round(800*healthRemaining), 70);
+        if(healthRemaining != 1){
             g.setColor(new Color(255, 0, 0, 75));
-            g.fillRect((int)Math.round(800*remaining),0, 800, 70);
+            g.fillRect((int)Math.round(800*healthRemaining),0, 800, 70);
         }
         ((GamePanel)activePanel).paintImage(healthBar, 500, 700);
     }
 
+    /**
+     * Renders the current round count onto the gamePanel stored in activePanel.
+     * @param round
+     */
     private void paintRoundNumerals(int round){
         String roundString = round + "";
         int right = 30;
         while(roundString.length() > 0){
             BufferedImage image = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.NUMERAL, Integer.parseInt(roundString.charAt(0)+""));
             ((GamePanel)activePanel).paintImage(image, right, 30);
-            roundString = removeFirstIndex(roundString);
+            roundString = removeFirstCharacterFromString(roundString);
             right += 20;
         }
     }
 
-    private String removeFirstIndex(String toRemoveFrom){
+    /**
+     * @param toRemoveFrom the string from which the first character is to be removed
+     * @return the new string without the first character of the old string
+     */
+    private String removeFirstCharacterFromString(String toRemoveFrom){
         String outputString = "";
         for(int i=1; i < toRemoveFrom.length(); i++) outputString = outputString + toRemoveFrom.charAt(i);
         return(outputString);

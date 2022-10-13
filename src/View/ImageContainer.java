@@ -53,6 +53,11 @@ class ImageContainer {
         return outputList;
     }
 
+    /**
+     * @param type the type of image to get
+     * @param variant the variant of the specified type
+     * @return The image of the specified type and variant
+     */
     static BufferedImage getImageFromTypeVariant(ImageTypeEnum type, int variant){
         return(savedImagesMatrix[type.ordinal()][variant]);
     }

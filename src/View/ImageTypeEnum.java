@@ -1,7 +1,7 @@
 package View;
 
 /**
- * Enum for the types of renderables separate from EntityType since it also contains MISC which is for the background and crosshair
+ * Enum for the types of renderables separate from EntityType since it also contains MISC and NUMERAL.
  */
 enum ImageTypeEnum {
     MISC, PLAYER, PLAYERPROJECTILE, GRUNT, RICK, NUMERAL
