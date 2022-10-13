@@ -64,6 +64,9 @@ abstract class Friendly extends MovableEntity {
             deltaY += 10/nextDeltaY;
         }
 
+        if (deltaX == 0){
+            deltaX = 0.01;
+        }
         v = Math.atan(deltaY / deltaX);
         double moveX = Math.cos(v) * getSpeed();
         if (deltaX < 0) { //negative

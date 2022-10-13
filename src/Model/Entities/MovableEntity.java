@@ -98,4 +98,11 @@ public abstract class MovableEntity extends Entity implements OnTick {
             case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed()*multiplier);
         }
     }
+
+    protected void collidedWithNonLiving(Direction pushedDirection){
+        Direction savedOldDirection = direction;
+        this.direction = pushedDirection;
+        move(1);
+        this.direction = savedOldDirection;
+    }
 }

@@ -66,11 +66,13 @@ class CollisionHandler implements OnTick {
     public void doOnTick() {
         checkCollisionFriendlyEnemy();
         checkCollisionEnemyEnemy();
-        checkCollisionFriendlyNonLivingObjects(); //use while testing TODO fix
+       // checkCollisionFriendlyNonLivingObjects(); //use while testing TODO fix
         checkCollisionEnemyProjectile();
 
+        CollisionWithNonLivingObjects(enemies.iterator());
+        CollisionWithNonLivingObjects(friendlies.iterator());
        // checkCollisionWithNonLivingObjects();
-        removeDead();
+        removeDead(); //TODO make sure to remove from tickObervers
     }
 
     /**
@@ -178,7 +180,7 @@ class CollisionHandler implements OnTick {
                 }
             }
         }
-    };
+    }
 
 
     /**
@@ -230,6 +232,246 @@ class CollisionHandler implements OnTick {
                     p.collidedWithNonLivingObject();
                 }
             }
+        }
+    }
+
+    private void CollisionWithNonLivingObjects(Iterator<? extends MovableEntity> movableEntityIterator){
+        MovableEntity e;
+        Direction pushedDirection;
+        while (movableEntityIterator.hasNext()){
+            e = movableEntityIterator.next();
+            List<Entity> collidedObjects = getListOfCollidedWithNonLiving(e);
+            if (collidedObjects.isEmpty()){
+                continue;
+            } else if (collidedObjects.size() == 1){
+                pushedDirection = whichDirectionAmIPushed(e, collidedObjects.get(0));
+            } else {
+                Iterator<Entity> collidedObjectsIterator = collidedObjects.iterator();
+                ArrayList<Direction> directionsPushed = new ArrayList<>();
+                while (collidedObjectsIterator.hasNext()){
+                    directionsPushed.add(whichDirectionAmIPushed(e, collidedObjectsIterator.next()));
+                }
+                pushedDirection = resultingPushedDirection(directionsPushed.iterator());
+            }
+            if (pushedDirection != null){
+                System.out.println(pushedDirection);
+                e.collidedWithNonLiving(pushedDirection);
+            }
+        }
+    }
+
+    private List<Entity> getListOfCollidedWithNonLiving(Entity me){
+        Entity n;
+        ArrayList<Entity> entitiesCollidedWith = new ArrayList<>();
+        Iterator<Entity> itEntities = nonLivingObjects.iterator();
+        while(itEntities.hasNext()){ // don't use for-loop (not as accurate)
+            n = itEntities.next();
+            if (me != n){
+                if(hasCollided(me, n)){
+                    entitiesCollidedWith.add(n);
+                }
+            }
+        }
+        return entitiesCollidedWith;
+    }
+
+    private Direction whichDirectionAmIPushed(Entity me, Entity object){
+        Direction xAxis = pushedDirectionXAxis(me, object);
+        Direction yAxis = pushedDirectionYAxis(me, object);
+
+        if (xAxis == null && yAxis == null) {
+            return directionTowardsMiddle(me.getPosition());
+        } else if (xAxis == null){
+            return yAxis;
+        } else if (yAxis == null){
+            return xAxis;
+        } else {
+            return calculateDiagonalPushedDirection(xAxis, yAxis);
+        }
+    }
+
+    private Direction pushedDirectionXAxis(Entity me, Entity object){
+        int objectHitboxLeft = object.getPosition().getX() - object.getHitBoxRadiusX();
+        int objectHitboxRight = object.getPosition().getX() + object.getHitBoxRadiusX();
+
+        int myHitboxLeft = me.getPosition().getX() - me.getHitBoxRadiusX();
+        int myHitboxRight = me.getPosition().getX() + me.getHitBoxRadiusX();
+
+        if ( objectHitboxLeft < myHitboxLeft && myHitboxRight < objectHitboxRight){
+            return null; // not pushed along the x-axis
+        } else if (!(objectHitboxLeft < myHitboxLeft) && !(myHitboxRight < objectHitboxRight)) {
+            return null; // not pushed along the x-axis
+        }
+        else if (objectHitboxLeft < myHitboxLeft){ //crashed on left side.
+            return Direction.RIGHT;
+        } else { // crashed on right side
+            return Direction.LEFT;
+        }
+
+    }
+
+    private Direction pushedDirectionYAxis(Entity me, Entity object){
+        int objectHitboxUp = object.getPosition().getY() + object.getHitBoxRadiusY();
+        int objectHitboxDown = object.getPosition().getY() - object.getHitBoxRadiusY();
+
+        int myHitboxUp = me.getPosition().getY() + me.getHitBoxRadiusY();
+        int myHitboxDown = me.getPosition().getY() - me.getHitBoxRadiusY();
+
+        if ( objectHitboxDown < myHitboxDown && myHitboxUp < objectHitboxUp){
+            return null; // not pushed along the y-axis
+        } else if (!(objectHitboxDown < myHitboxDown) && !(myHitboxUp < objectHitboxUp)){
+            return null; // not pushed along the y-axis
+        }
+        else if (objectHitboxDown < myHitboxDown){ //crashed below. //Y-axis is inverted => crashed above
+            return Direction.DOWN;
+        } else { // crashed above //Y-axis is inverted => crashed below
+            return Direction.UP;
+        }
+
+    }
+
+    private Direction calculateDiagonalPushedDirection(Direction xAxis, Direction yAxis){
+        if (xAxis == Direction.LEFT){
+            if (yAxis == Direction.UP){
+                return Direction.LEFT_UP;
+            } else {
+                return Direction.LEFT_DOWN;
+            }
+        } else {
+            if (yAxis == Direction.UP){
+                return Direction.RIGHT_UP;
+            } else {
+                return Direction.RIGHT_DOWN;
+            }
+        }
+    }
+
+    private Direction directionTowardsMiddle(Position myPosition){
+        //TODO WARNING Very closely related to code in enemy
+        double deltaX = myPosition.getX();
+        double deltaY = myPosition.getY();
+        double v;
+        if (deltaX == 0){
+            if (deltaY > 0){return Direction.DOWN;}
+            else {return Direction.UP;}
+        }
+        v = Math.atan(Math.abs(deltaY) / Math.abs(deltaX));
+
+        //TODO WARNING copied from enemy
+        //TODO they have been able to squeeze through walls when the parameters were set to only let this method occur.
+        if (v < Math.PI / 8) {
+            return Direction.DOWN;
+        }
+
+        if (deltaX >= 0) {
+            if (v < 3 * Math.PI / 8) return Direction.LEFT_DOWN;
+            if (v < 5 * Math.PI / 8) return Direction.LEFT;
+            if (v < 7 * Math.PI / 8) return Direction.LEFT_UP;
+        } else {
+            if (v < 3 * Math.PI / 8) return Direction.RIGHT_DOWN;
+            if (v < 5 * Math.PI / 8) return Direction.RIGHT;
+            if (v < 7 * Math.PI / 8) return Direction.RIGHT_UP;
+        }
+        return Direction.UP;
+    }
+
+    private Direction resultingPushedDirection(Iterator<Direction> directionsPushed){
+        //  4 --- 3 --- 2
+        //  |           |
+        //  5     0     1
+        //  |           |
+        //  6 --- 7 --- 8
+        // number to direction chart
+
+        Direction resultingDirection = null;
+        int directionCounter = 0;
+        int nextDirectionCount;
+        int difference;
+
+        while (directionsPushed.hasNext()) {
+            if (resultingDirection == null) {
+                resultingDirection = directionsPushed.next();
+                directionCounter = directionToInt(resultingDirection);
+            }
+            if (directionsPushed.hasNext()) {
+                nextDirectionCount = directionToInt(directionsPushed.next());
+
+                if (directionCounter - nextDirectionCount >= -4 && directionCounter - nextDirectionCount <= 4) {
+                    difference = directionCounter - nextDirectionCount; //neg == counterclockwise, pos == clockwise
+                } else {
+                    switch (directionCounter - nextDirectionCount) {
+                        case -5 -> difference = 3; //  4 -- 3 -- 2
+                        case -6 -> difference = 2; //  |         |
+                        case -7 -> difference = 1; //  5    0    1
+                        case 5 -> difference = -3; //  |         |
+                        case 6 -> difference = -2; //  6 -- 7 -- 8
+                        case 7 -> difference = -1; // number to direction chart;
+                        default -> difference = 0;
+                    }
+                }
+
+                if (difference == 0) {
+                    continue;
+                }
+                if (difference == 1 || difference == -1) {
+                    if (directionCounter % 2 == 0) {
+                        directionCounter += difference;
+                    }
+                }
+                if (difference == 2 || difference == -2) {
+                    directionCounter += (difference / 2);
+                }
+                if (difference == 3 || difference == -3) {
+                    if (difference < 0) {
+                        directionCounter += 1;
+                    } else {
+                        directionCounter -= 1;
+                    }
+                }
+                if (difference == 4 || difference == -4) {
+                    resultingDirection = null;
+                    directionCounter = 0;
+                }
+
+                if (resultingDirection != null) {
+                    if (directionCounter < 1) {
+                        directionCounter += 8;
+                    }
+                    if (directionCounter > 8) {
+                        directionCounter -= 8;
+                    }
+                }
+            }
+        }
+
+        return intToDirection(directionCounter);
+    }
+
+    private int directionToInt(Direction direction){
+        switch (direction) {
+            case RIGHT -> {return 1;}
+            case RIGHT_UP -> {return 2;}
+            case UP -> {return 3;}
+            case LEFT_UP -> {return 4;}
+            case LEFT -> {return 5;}
+            case LEFT_DOWN -> {return 6;}
+            case DOWN -> {return 7;}
+            case RIGHT_DOWN -> {return 8;}
+            default -> {return 0;}
+        }
+    }
+
+    private Direction intToDirection(int directionCounter){
+        switch (directionCounter){
+            case 1 -> {return Direction.RIGHT;}
+            case 2 -> {return Direction.RIGHT_UP;}
+            case 3 -> {return Direction.UP;}
+            case 4 -> {return Direction.LEFT_UP;}
+            case 5 -> {return Direction.LEFT;}
+            case 6 -> {return Direction.LEFT_DOWN;}
+            case 7 -> {return Direction.DOWN;}
+            case 8 -> {return Direction.RIGHT_DOWN;}
+            default -> {return null;}
         }
     }
 
