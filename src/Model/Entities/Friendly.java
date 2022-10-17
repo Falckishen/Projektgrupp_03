@@ -25,7 +25,7 @@ abstract class Friendly extends MovableEntity {
     protected void CollidedWithEnemy(int attackPower){
         // attackPower = how much damage self takes
         // System.currentTimeMillis() - lastTimeTakingDamage > invulnerability time
-        if (System.currentTimeMillis() - lastTimeTakingDamage > 1000) {
+        if (System.currentTimeMillis() - lastTimeTakingDamage > 500) {
             takeDamage(attackPower);
             lastTimeTakingDamage = System.currentTimeMillis();
         }
