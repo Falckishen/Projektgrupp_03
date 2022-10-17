@@ -71,7 +71,6 @@ class CollisionHandler implements OnTick {
 
         checkCollisionWithNonLivingObjects(enemies.iterator());
         checkCollisionWithNonLivingObjects(friendlies.iterator());
-       // checkCollisionWithNonLivingObjects();
         removeDead(); //TODO make sure to remove from tickObervers
     }
 
@@ -167,6 +166,10 @@ class CollisionHandler implements OnTick {
         }
     }
 
+
+
+
+
     /**
      * Takes an Iterator in which it checks all MovableEntities against all non-living objects to check for collisions.
      * @param movableEntityIterator which iterator of any subtype of MovableEntity is used.
@@ -190,7 +193,6 @@ class CollisionHandler implements OnTick {
                 pushedDirection = resultingPushedDirection(directionsPushed.iterator());
             }
             if (pushedDirection != null){
-                System.out.println(pushedDirection);
                 e.collidedWithNonLiving(pushedDirection);
             }
         }
@@ -285,30 +287,31 @@ class CollisionHandler implements OnTick {
     private Direction directionTowardsMiddle(Position myPosition){
         //TODO WARNING Very closely related to code in enemy
         double deltaX = myPosition.getX();
-        double deltaY = myPosition.getY();
-        double v;
-        if (deltaX == 0){
-            if (deltaY > 0){return Direction.DOWN;}
-            else {return Direction.UP;}
-        }
-        v = Math.atan(Math.abs(deltaY) / Math.abs(deltaX));
-
-        //TODO WARNING copied from enemy
-        //TODO they have been able to squeeze through walls when the parameters were set to only let this method occur.
-        if (v < Math.PI / 8) {
-            return Direction.DOWN;
-        }
-
-        if (deltaX >= 0) {
-            if (v < 3 * Math.PI / 8) return Direction.LEFT_DOWN;
-            if (v < 5 * Math.PI / 8) return Direction.LEFT;
-            if (v < 7 * Math.PI / 8) return Direction.LEFT_UP;
+        double deltaY = myPosition.getY() *-1; //fix inverted axis
+        Direction xAxis;
+        Direction yAxis;
+        if (deltaX > 0){
+            xAxis = Direction.LEFT;
+        } else if (deltaX < 0){
+            xAxis = Direction.RIGHT;
         } else {
-            if (v < 3 * Math.PI / 8) return Direction.RIGHT_DOWN;
-            if (v < 5 * Math.PI / 8) return Direction.RIGHT;
-            if (v < 7 * Math.PI / 8) return Direction.RIGHT_UP;
+            xAxis = null;
         }
-        return Direction.UP;
+        if (deltaY > 0){
+            yAxis = Direction.DOWN;
+        } else if (deltaY < 0){
+            yAxis = Direction.UP;
+        } else {
+            yAxis = null;
+        }
+        double hyp = (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
+        if (hyp/2 < Math.abs(deltaX) && hyp/2 < Math.abs(deltaY)){
+            return calculateDiagonalPushedDirection(xAxis, yAxis);
+        } else if (hyp/2 > Math.abs(deltaX)){
+            return yAxis;
+        } else {
+            return xAxis;
+        }
     }
 
     private Direction resultingPushedDirection(Iterator<Direction> directionsPushed){
@@ -403,16 +406,29 @@ class CollisionHandler implements OnTick {
         }
     }
 
+    /**
+     * transforms numbers back to directions with regard to the inverted y-axis
+     * <p>
+     * 6 --- 7 --- 8 <br />
+     * |           | <br />
+     * 5     0     1 <br />
+     * |           | <br />
+     * 4 --- 3 --- 2 <br />
+     * number to direction chart
+     * </p>
+     * @param directionCounter the number which stands for the new direction.
+     * @return the new direction, or null if you're not pushed anywhere.
+     */
     private Direction intToDirection(int directionCounter){
         switch (directionCounter){
             case 1 -> {return Direction.RIGHT;}
-            case 2 -> {return Direction.RIGHT_UP;}
-            case 3 -> {return Direction.UP;}
-            case 4 -> {return Direction.LEFT_UP;}
+            case 2 -> {return Direction.RIGHT_DOWN;}
+            case 3 -> {return Direction.DOWN;}
+            case 4 -> {return Direction.LEFT_DOWN;}
             case 5 -> {return Direction.LEFT;}
-            case 6 -> {return Direction.LEFT_DOWN;}
-            case 7 -> {return Direction.DOWN;}
-            case 8 -> {return Direction.RIGHT_DOWN;}
+            case 6 -> {return Direction.LEFT_UP;}
+            case 7 -> {return Direction.UP;}
+            case 8 -> {return Direction.RIGHT_UP;}
             default -> {return null;}
         }
     }

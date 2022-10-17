@@ -100,9 +100,19 @@ public abstract class MovableEntity extends Entity implements OnTick {
     }
 
     protected void collidedWithNonLiving(Direction pushedDirection){
-        Direction savedOldDirection = direction;
-        this.direction = pushedDirection;
-        move(1);
-        this.direction = savedOldDirection;
+
+        int multiplier = 5; //5
+        int moveX = 0;
+        int moveY = 0;
+        switch (pushedDirection){
+            case RIGHT, RIGHT_UP, RIGHT_DOWN -> moveX = multiplier;
+            case LEFT, LEFT_UP, LEFT_DOWN -> moveX = multiplier * -1;
+        }
+        switch (pushedDirection){
+            case UP, LEFT_UP, RIGHT_UP -> moveY = multiplier * -1; //-1
+            case DOWN, LEFT_DOWN, RIGHT_DOWN -> moveY = multiplier; //1
+        }
+        getPosition().setX(getPosition().getX() + moveX);
+        getPosition().setY(getPosition().getY() + moveY);
     }
 }
