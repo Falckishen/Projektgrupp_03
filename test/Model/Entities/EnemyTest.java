@@ -27,7 +27,7 @@ class EnemyTest {
         playerInputs = new ArrayList<>();
         weaponInputs = new ArrayList<>();
         EntityCreator EC = new EntityCreator(1000,1);
-        EC.createPlayer(1,1,playerInputs,weaponInputs);
+        EC.createPlayer(playerStartPosition.getX(),playerStartPosition.getY(),playerInputs,weaponInputs);
         player = (Player) EC.getFriendlies().get(0);
         EC.createCustomMonster(monsterStartPosition.getX(),monsterStartPosition.getY(),5,2,1);
         monster = (Monster) EC.getEnemies().get(0);

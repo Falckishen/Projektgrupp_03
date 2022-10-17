@@ -1,26 +1,28 @@
 package Model.Entities;
 
-import Model.Weapons.WeaponFactory;
-import Utilities.Position;
+import Model.OnTick;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
-    AddProjectile projectile;
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
     Player player;
+    EntityCreator EC;
+
     @BeforeEach
     void initPlayer(){
         playerInputs = new ArrayList<>();
-        player = new Player(1,1,playerInputs);
+        weaponInputs = new ArrayList<>();
+        EC = new EntityCreator(1000,2);
+        EC.createPlayer(1,1,playerInputs,weaponInputs);
+        player = (Player) EC.getFriendlies().get(0);
     }
 
     @Test
@@ -112,10 +114,99 @@ class PlayerTest {
     }
 
     @Test
-    void canPlayerShootTest(){
-        weaponInputs = new ArrayList<>();
-        player.getNewWeapon(WeaponFactory.getGun(projectile,player.getPosition(),weaponInputs));
-        player.doOnTick();
-        assertEquals(1,1);
+    void canPlayerShootTest() throws InterruptedException {
+        weaponInputs.add(KeyEvent.VK_RIGHT);
+        List<OnTick> tickObserversLoop;
+        boolean loop = true;
+        while (loop) {
+            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
+            for (OnTick tickObserver : tickObserversLoop) {
+                tickObserver.doOnTick();
+            }
+            if (EC.getProjectiles().size() > 0){
+                loop = false;
+            }
+        }
+        assertTrue(true);
+    }
+    @Test
+    void playerShootUp(){
+        boolean test = false;
+        weaponInputs.add(KeyEvent.VK_UP);
+        List<OnTick> tickObserversLoop;
+        boolean loop = true;
+        while (loop) {
+            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
+            for (OnTick tickObserver : tickObserversLoop) {
+                tickObserver.doOnTick();
+            }
+            if (tickObserversLoop.size() > 3){
+                loop = false;
+                if (EC.getProjectiles().get(0).getPosition().getY() < -10){
+                    test = true;
+                }
+            }
+        }
+        assertTrue(test);
+    }
+    @Test
+    void playerShootLeft(){
+        boolean test = false;
+        weaponInputs.add(KeyEvent.VK_LEFT);
+        List<OnTick> tickObserversLoop;
+        boolean loop = true;
+        while (loop) {
+            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
+            for (OnTick tickObserver : tickObserversLoop) {
+                tickObserver.doOnTick();
+            }
+            if (tickObserversLoop.size() > 3){
+                loop = false;
+                if (EC.getProjectiles().get(0).getPosition().getX() < -10){
+                    test = true;
+                }
+            }
+        }
+        assertTrue(test);
+    }
+    @Test
+    void playerShootDown(){
+        boolean test = false;
+        weaponInputs.add(KeyEvent.VK_DOWN);
+        List<OnTick> tickObserversLoop;
+        boolean loop = true;
+        while (loop) {
+            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
+            for (OnTick tickObserver : tickObserversLoop) {
+                tickObserver.doOnTick();
+            }
+            if (tickObserversLoop.size() > 3){
+                loop = false;
+                if (EC.getProjectiles().get(0).getPosition().getY() > 10){
+                    test = true;
+                }
+            }
+        }
+        assertTrue(test);
+    }
+    @Test
+    void playerShootRight(){
+        boolean test = false;
+        weaponInputs.add(KeyEvent.VK_RIGHT);
+        List<OnTick> tickObserversLoop;
+        boolean loop = true;
+        while (loop) {
+            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
+            for (OnTick tickObserver : tickObserversLoop) {
+                tickObserver.doOnTick();
+            }
+            if (tickObserversLoop.size() > 3){
+                loop = false;
+                if (EC.getProjectiles().get(0).getPosition().getX() > 10){
+                    test = true;
+                }
+            }
+        }
+        assertTrue(test);
     }
 }
