@@ -21,7 +21,6 @@ class KeyboardInputTest {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
         input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getMovementInputList(), mainMenu, mainMenu.getWeaponInputList());
-        //playerInputList = mainMenu.getPlayerInputList();
         robot = new Robot();
         mainView.showMainMenu();
     }
