@@ -27,6 +27,7 @@ public class GameView extends JComponent implements ViewObserver {
     private final MainFrame mainFrame;
     private PanelInterface activePanel;
     private String gameName;
+    private Position playerPosition;
 
     /**
      * Constructs an instance of the View
@@ -53,23 +54,20 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void renderGameFrame() {
-        if (activePanel == null || !(activePanel.getClass() == GamePanel.class)) {
+        if (!(activePanel.getClass() == GamePanel.class)) {
             showGameScreen();
         }
-        Game currentGame = getCurrentGame();
-        Position playerPosition = currentGame.getPlayerPosition();
+        Game game = getCurrentGame();
+        playerPosition = game.getPlayerPosition();
         if (!(playerPosition == null)) {
-            try {
-                paintBackground(playerPosition);
-                paintEntities(currentGame.getFriendlies(), playerPosition);
-                paintEntities(currentGame.getEnemies(), playerPosition);
-                paintEntities(currentGame.getProjectiles(), playerPosition);
-                paintEntities(currentGame.getNonLivingObjects(), playerPosition);
-                paintHealthBar(currentGame.getPlayerHealth()/10d);
-                paintRoundNumerals(mainMenu.getCurrentGame().getRound());
-            }catch (Exception e){
-                System.out.println(e);
-            }
+            paintBackground();
+            paintEntities(game.getFriendlies());
+            paintEntities(game.getEnemies());
+            paintEntities(game.getProjectiles());
+            paintEntities(game.getNonLivingObjects());
+            double playerHealth = game.getPlayerHealth()/10d;
+            paintHealthBar(playerHealth);
+            paintRoundNumerals(game.getRound());
         }
         mainFrame.refreshScreen();
     }
@@ -94,7 +92,7 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void showGameOverScreen() {
-        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed(), mainMenu.getHighScore(), mainMenu.getCurrentGame().getRound());
+        activePanel = new DeathMenuPanel(new retryPressed(), new exitPressed(), mainMenu.getHighScore(), getCurrentGame().getRound());
         mainFrame.replaceSubPanel(activePanel);
         mainFrame.refreshScreen();
     }
@@ -119,23 +117,8 @@ public class GameView extends JComponent implements ViewObserver {
         mainFrame.replaceSubPanel(activePanel);
     }
 
-    public Game getCurrentGame() {
+    private Game getCurrentGame() {
         return mainMenu.getCurrentGame();
-    }
-
-    /**
-     * This method configures the View into MAINMENU mode in which the View renders the main menu.
-     */
-    public void startMainMenu(){
-    }
-
-    /**
-     * This method configures the View into PAUSE mode in which the View renders the pause menu.
-     */
-    public void startPauseMenu(){
-    }
-
-    public void showDeathMenu() {
     }
 
     /**
@@ -148,7 +131,7 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * Renders the special background onto the gamePanel stored in activePanel.
      */
-    private void paintBackground(Position playerPosition){
+    private void paintBackground(){
         BufferedImage background = ImageContainer.getImageFromTypeVariant(ImageTypeEnum.MISC, 0);
         Position position = new Position(0, 0);
         position = ConversionQueryable.transformWithPlayerPosition(position, playerPosition);
@@ -180,20 +163,18 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * Renders all entities in the input onto the gamePanel stored in activePanel.
      * @param entities the entities to render.
-     * @param playerPosition the position relative to which the entities are to be rendered.
      */
-    private void paintEntities(Iterable<? extends Entity> entities, Position playerPosition){
+    private void paintEntities(Iterable<? extends Entity> entities){
         for(Entity entity : entities){
-            paintEntity(entity, playerPosition);
+            paintEntity(entity);
         }
     }
 
     /**
      * Renders an entity onto the gamePanel stored in activePanel.
      * @param entity the entity to render.
-     * @param playerPosition the position relative to which the entity is to be rendered.
      */
-    private void paintEntity(Entity entity, Position playerPosition){
+    private void paintEntity(Entity entity){
         if(entity.getEntityType() != EntityType.wall){
             Position pos = entity.getPosition();
             pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
@@ -210,23 +191,7 @@ public class GameView extends JComponent implements ViewObserver {
             BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant);
             ((GamePanel)activePanel).paintImageRelativeToCenter(entityImage, pos.getX(), pos.getY());
         }else{
-            paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition(), playerPosition);
-        }
-    }
-
-    /**
-     * Debugging method for seeing the hitboxes of a entity
-     * @param entity the entity to debug
-     * @param pos the position of that entity
-     */
-    private void paintHitBox(Entity entity, Position pos){
-        if(entity.getHitBoxRadiusX() != 0 && entity.getHitBoxRadiusY() != 0){
-            BufferedImage hitbox = new BufferedImage(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, BufferedImage.TYPE_INT_ARGB);
-            Graphics g = hitbox.getGraphics();
-            g.setColor(Color.red);
-            g.drawRect(0, 0, entity.getHitBoxRadiusX()*2-1, entity.getHitBoxRadiusY()*2-1);
-            g.dispose();
-            ((GamePanel)activePanel).paintImageRelativeToCenter(hitbox, pos.getX(), pos.getY());
+            paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition());
         }
     }
 
@@ -235,9 +200,8 @@ public class GameView extends JComponent implements ViewObserver {
      * @param width the width of the wall
      * @param height the height of the wall
      * @param position the position of the wall
-     * @param playerPosition the position relative to which the wall is to be rendered.
      */
-    private void paintWall(int width, int height, Position position, Position playerPosition){
+    private void paintWall(int width, int height, Position position){
         BufferedImage wall = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         wall.getGraphics().setColor(Color.BLACK);
         wall.getGraphics().fillRect(0,0,width,height);
@@ -286,6 +250,9 @@ public class GameView extends JComponent implements ViewObserver {
         return(outputString);
     }
 
+    /**
+     * Classes representing what happens when you click certain buttons in the UI.
+     */
     class resumePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().unPauseGame();}
