@@ -1,6 +1,6 @@
 package Model.Entities;
 
-import Utilities.Position;
+import Model.Position;
 
 /**
  * An interface for creating entities that are subtypes of Projectile.

@@ -2,8 +2,8 @@ package Model.Entities;
 
 import java.util.Iterator;
 import java.util.Random;
-import Utilities.EntityType;
-import Utilities.Position;
+
+import Model.Position;
 
 /**
  * @author Ida Altenstedt

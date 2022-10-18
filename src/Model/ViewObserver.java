@@ -1,4 +1,4 @@
-package Utilities;
+package Model;
 
 /**
  * Interface for all the views.

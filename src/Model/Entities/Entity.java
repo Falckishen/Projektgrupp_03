@@ -1,7 +1,6 @@
 package Model.Entities;
 
-import Utilities.EntityType;
-import Utilities.Position;
+import Model.Position;
 
 /**
  * @author Ida Altenstedt

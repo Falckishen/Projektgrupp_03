@@ -1,15 +1,13 @@
 package Model.Entities;
 
 import Model.OnTick;
-import Utilities.Position;
+import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

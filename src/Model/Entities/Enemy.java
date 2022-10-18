@@ -2,8 +2,7 @@ package Model.Entities;
 
 import java.util.*;
 
-import Utilities.EntityType;
-import Utilities.Position;
+import Model.Position;
 
 /**
  * The abstract class Enemy containing the code used by all hostile entities.

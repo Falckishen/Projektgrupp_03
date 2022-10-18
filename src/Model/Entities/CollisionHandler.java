@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import Model.OnTick;
-import Utilities.Position;
+import Model.Position;
 
 /**
  * The class handling the collision between all the entities in a given game.

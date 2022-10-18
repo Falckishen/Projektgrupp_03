@@ -2,8 +2,8 @@ package View;
 
 import java.util.Random;
 import Model.Entities.Entity;
-import Utilities.EntityType;
-import Utilities.Position;
+import Model.Entities.EntityType;
+import Model.Position;
 
 class ConversionQueryable {
     static ImageTypeEnum gruntType = null;

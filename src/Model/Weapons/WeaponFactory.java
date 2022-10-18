@@ -1,7 +1,7 @@
 package Model.Weapons;
 
 import Model.Entities.AddProjectile;
-import Utilities.Position;
+import Model.Position;
 import java.util.List;
 
 

@@ -2,7 +2,6 @@ package Model;
 
 import java.util.List;
 import java.util.ArrayList;
-import Utilities.ViewObserver;
 
 /**
  * Represents the main menu, the top-level class in the Model. The first object created.

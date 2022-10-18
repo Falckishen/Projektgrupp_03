@@ -1,5 +1,5 @@
 package View.FramesAndPanels;
-import Utilities.LabelButton;
+import View.LabelButton;
 
 import javax.swing.*;
 import java.awt.*;
