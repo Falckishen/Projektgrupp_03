@@ -28,11 +28,13 @@ class CollisionHandlerTest {
         return EC.getEnemies().get(EC.getEnemies().size()-1);
 
     }
+
     MovableEntity createTestProjectile(int positionX, int positionY, Direction direction){
         EC.createSimpleProjectile(new Position(positionX, positionY), direction, 10, 20, 1);
         return EC.getProjectiles().get(EC.getProjectiles().size()-1);
 
     }
+
     MovableEntity createTestPlayer(int positionX, int positionY){
         List<Integer> playerInputs = new ArrayList<>();
         List<Integer> weaponInputs = new ArrayList<>();
@@ -66,6 +68,7 @@ class CollisionHandlerTest {
         assertTrue(e1.getPosition().getY() == 0 && e2.getPosition().getY() == 0 && //neither should have moved in y-led
                 e1.getPosition().getX() > 20 && e2.getPosition().getX() < 0); //both should have moved in x-led
     }
+
     @Test
     void testEnemyEnemySamePositionCollision(){
         System.out.println("Both enemies thrown into random directions.");
@@ -79,6 +82,7 @@ class CollisionHandlerTest {
         assertTrue(e1.getPosition().getY() != 0 && e2.getPosition().getY() != 0 &&
                 e1.getPosition().getX() != 0 && e2.getPosition().getX() != 0);
     }
+
     @Test
     void testEnemyEnemyMultipleCollision(){
         System.out.println("Resulting position when starting on specified placement.");
@@ -96,6 +100,7 @@ class CollisionHandlerTest {
 
     @Test
     void testEnemyFriendlyCollision(){
+        System.out.println("Check for collision between enemy and friendly \nDoes three checks.");
         MovableEntity player = createTestPlayer(0,0);
         MovableEntity enemy = createTestEnemy(90, 90);
         boolean playerDidNotMove = false;
@@ -108,7 +113,7 @@ class CollisionHandlerTest {
         }
         if (enemy.getPosition().getX() > 90 && enemy.getPosition().getY() > 90){ //enemy pushed back
             enemyDidMove = true;
-            //problem with the inverted y-axis ask Smaug how she made it
+            //TODO problem with the inverted y-axis ask Smaug how she made it
         }
         if (player.getHealth() != 10){ //friendly takes damage //not full health
             playerTookDamage = true;
@@ -121,36 +126,171 @@ class CollisionHandlerTest {
 
         assertTrue(playerDidNotMove && enemyDidMove && playerTookDamage);
     }
+
     @Test
     void testEnemyProjectileCollision(){
-        fail();
-        //enemy takes damage
-        //projectile minus one life(dies)
+        System.out.println("Check for collision between enemy and projectile \n" +
+                "Enemy should take damage and the projectile should die.");
+        MovableEntity p = createTestProjectile(55,0, Direction.LEFT);
+        MovableEntity e = createTestEnemy(0,0);
+        doATick();
+
+        assertTrue(e.getHealth()<2 && p.getIsDead());
     }
+
+    //wall collision
+
     @Test
     void testProjectileWallCollision(){
-        fail();
-        //projectile disappears
+        System.out.println("Check for collision between projectile and a wall\n" +
+                "projectile should die.");
+        EC.createWall(0,0,10,10);
+        MovableEntity p = createTestProjectile(1,0, Direction.LEFT);
+        doATick();
+
+        assertTrue(p.getIsDead());
     }
+
+    //head on {start}
     @Test
-    void testMovableEntityWallCollisions(){
-        fail();
-        //calls multiple methods
+    void testHeadOnCollisionWallXPos(){
+        System.out.println("Check for collision for entity collided with wall on their right.");
+        EC.createWall(0,0,200,200);
+        MovableEntity e = createTestEnemy(-200,0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX()<-200 && e.getPosition().getY() == 0);
     }
+
     @Test
-    void testHeadOnCollisionWall(){
-        fail();
+    void testHeadOnCollisionWallXNeg(){
+        System.out.println("Check for collision for entity collided with wall on their left.");
+        EC.createWall(0,0,200,200);
+        MovableEntity e = createTestEnemy(200,0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX()>200 && e.getPosition().getY() == 0);
     }
+
+    @Test
+    void testHeadOnCollisionWallYPos(){
+        System.out.println("Check for collision for entity collided with wall above them.");
+        EC.createWall(0,0,200,200);
+        MovableEntity e = createTestEnemy(0,200); //inverted y-axis
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() == 0 && e.getPosition().getY() > 200);
+    }
+
+    @Test
+    void testHeadOnCollisionWallYNeg(){
+        System.out.println("Check for collision for entity collided with wall below them.");
+        EC.createWall(0,0,200,200);
+        MovableEntity e = createTestEnemy(0,-200); //inverted y-axis
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() == 0 && e.getPosition().getY() < -200);
+    }
+    //head on {end}
+
     @Test
     void testAngledCollisionWall(){
-        fail();
+        System.out.println("Check for collision for entity collided with wall on an angle.");
+        EC.createWall(0,0,200,200);
+        MovableEntity e = createTestEnemy(200,200); //inverted y-axis
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() > 200 && e.getPosition().getY() > 200);
     }
+
     @Test
-    void testSideCollisionWall(){
-        fail();
+    void testInsideCollisionWall(){
+        System.out.println("Check for collision for entity which has ended up inside a wall. \n" +
+                "Should be pushed towards middle (0,0)");
+        boolean collisionUpSuccess = false;
+        boolean collisionDownSuccess = false;
+        boolean collisionLeftSuccess = false;
+        boolean collisionRightSuccess = false;
+
+        EC.createWall(0,0,200,200);
+        MovableEntity eUp  = createTestEnemy(0,-130); // standing above (inverted y-axis)
+        MovableEntity eDown = createTestEnemy(0,130); // standing below (inverted y-axis)
+        MovableEntity eLeft = createTestEnemy(-130,0); //standing on left side
+        MovableEntity eRight = createTestEnemy(130,0); //standing on right side
+        doATick();
+
+        if (eUp.getPosition().getX() == 0 && eUp.getPosition().getY()>-130){collisionUpSuccess = true;}
+        if (eDown.getPosition().getX() == 0 && eDown.getPosition().getY()<130){collisionDownSuccess = true;}
+        if (eLeft.getPosition().getX() > -130 && eLeft.getPosition().getY() == 0){collisionLeftSuccess = true;}
+        if (eRight.getPosition().getX() < 130 && eRight.getPosition().getY() == 0){collisionRightSuccess = true;}
+
+        System.out.println("Collision up: " + collisionUpSuccess + "\n" +
+                "   New eUp position:    " + eUp.getPosition().getX() + ", " + eUp.getPosition().getY());
+        System.out.println("Collision down: " + collisionDownSuccess + "\n" +
+                "   New eDown position:  " + eDown.getPosition().getX() + ", " + eDown.getPosition().getY());
+        System.out.println("Collision left: " + collisionLeftSuccess + "\n" +
+                "   New eLeft position:  " + eLeft.getPosition().getX() + ", " + eLeft.getPosition().getY());
+        System.out.println("Collision right: " + collisionRightSuccess + "\n" +
+                "   New eRight position: " + eRight.getPosition().getX() + ", " + eRight.getPosition().getY());
+
+        assertTrue(collisionUpSuccess && collisionDownSuccess && collisionLeftSuccess && collisionRightSuccess);
     }
+
+    //multiple {start}
     @Test
-    void testMultipleWallCollision(){
-        fail();
+    void testMultipleWallCollisionLeftUp(){
+        System.out.println("Check for collision for entity collided with multiple walls. (below, right)");
+        createWallBelow();
+        createWallToTheRight();
+        MovableEntity e = createTestEnemy(0,0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() < 0 && e.getPosition().getY() < 0);
+    }
+
+    @Test
+    void testMultipleWallCollisionLeftDown(){
+        System.out.println("Check for collision for entity collided with multiple walls. (above, right)");
+        createWallAbove();
+        createWallToTheRight();
+        MovableEntity e = createTestEnemy(-0,0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() < -0 && e.getPosition().getY() > 0);
+    }
+
+    @Test
+    void testMultipleWallCollisionRightUp(){
+        System.out.println("Check for collision for entity collided with multiple walls. (below, left)");
+        createWallBelow();
+        createWallToTheLeft();
+        MovableEntity e = createTestEnemy(0,-0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() > 0 && e.getPosition().getY() < -0);
+    }
+
+    @Test
+    void testMultipleWallCollisionRightDown(){
+        System.out.println("Check for collision for entity collided with multiple walls. (above,left)");
+        createWallAbove();
+        createWallToTheLeft();
+        MovableEntity e = createTestEnemy(0,0);
+        doATick();
+        System.out.println("   New entity position: " + e.getPosition().getX() + ", " + e.getPosition().getY());
+        assertTrue(e.getPosition().getX() > 0 && e.getPosition().getY() > 0);
+    }
+    //multiple {end}
+    void createWallAbove(){
+        EC.createWall(0, -80, 100, 70); //(inverted y-axis)
+    }
+    void createWallBelow(){
+        EC.createWall(0, 80, 100, 70); //(inverted y-axis)
+    }
+    void createWallToTheLeft(){
+        EC.createWall(-80, 0, 70, 100);
+    }
+    void createWallToTheRight(){
+        EC.createWall(80, 0, 70, 100);
     }
 }
