@@ -1,7 +1,7 @@
 package Model.Entities;
 
 import Model.OnTick;
-import Utilities.Position;
+import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +18,7 @@ public class EntityCreatorTest {
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
     List<OnTick> tickObservers;
+    EntityCreator EC;
 
 
 
@@ -30,7 +31,7 @@ public class EntityCreatorTest {
 
     @Test
     void createWeakMonsterTest(){
-        EntityCreator EC = new EntityCreator(1000,1);
+        EC = new EntityCreator(1000,1);
         EC.createWeakMonster();
         assertFalse(EC.getEnemies().isEmpty());
     }
