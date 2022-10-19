@@ -1,4 +1,4 @@
-package Utilities;
+package Model;
 
 /**
  * Interface for all the views.
@@ -27,5 +27,8 @@ public interface ViewObserver {
      */
     void showPauseMenu();
 
+    /**
+     * Tells the view to show the game screen.
+     */
     void showGameScreen();
 }

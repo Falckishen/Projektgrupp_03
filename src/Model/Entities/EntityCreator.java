@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import Model.OnTick;
+import Model.Position;
 import Model.Weapons.WeaponFactory;
-import Utilities.*;
 
 /**
  * @author Ida Altenstedt

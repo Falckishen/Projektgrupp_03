@@ -4,10 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.ControllableDirection;
 import Model.Weapons.Weapon;
-import Utilities.EntityType;
-import Utilities.KeyboardHandler;
 
 /**
  * @author Ida Altenstedt

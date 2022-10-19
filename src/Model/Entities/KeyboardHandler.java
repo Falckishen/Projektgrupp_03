@@ -1,4 +1,4 @@
-package Utilities;
+package Model.Entities;
 
 import Controller.KeyboardInput;
 import Model.Entities.Direction;

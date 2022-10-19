@@ -1,7 +1,6 @@
 package Model.Entities;
 
 import Model.OnTick;
-import Utilities.EntityType;
 
 /**
  * @author Ida Altenstedt

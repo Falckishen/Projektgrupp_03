@@ -2,7 +2,6 @@ package Model;
 
 import java.util.List;
 import java.util.ArrayList;
-import Utilities.ViewObserver;
 
 /**
  * A class that acts as the bridge between the model and the views, uses the observer pattern to not be dependent on the

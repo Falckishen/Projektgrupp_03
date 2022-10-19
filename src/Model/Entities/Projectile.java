@@ -1,7 +1,5 @@
 package Model.Entities;
 
-import Utilities.EntityType;
-
 /**
  * @author Ida Altenstedt
  */
