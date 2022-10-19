@@ -1,7 +1,7 @@
 package Model.Entities;
 
 import Model.OnTick;
-import Utilities.Position;
+import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

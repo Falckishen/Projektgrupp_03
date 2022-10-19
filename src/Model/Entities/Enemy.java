@@ -139,8 +139,6 @@ abstract class Enemy extends MovableEntity {
     }
 
     protected void collidedWithEnemy(Iterator<Position> collidedPositions){
-        //TODO weird thing with half stuck in wall. FIX!
-        //TODO doublet exists in Friendly
         Random rand = new Random();
         double nextDeltaX;
         double nextDeltaY;
@@ -160,60 +158,17 @@ abstract class Enemy extends MovableEntity {
                 nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
                 nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
             }
-            if (!(nextDeltaX == 0)){
+            if (nextDeltaX != 0){
                 deltaX += 100/nextDeltaX;
             }
-            if (!(nextDeltaY == 0)){
+            if (nextDeltaY != 0){
                 deltaY += 100/nextDeltaY;
             }
-
-
         }
 
         if (deltaX == 0){
             deltaX = 0.01;
         }
-        v = Math.atan(deltaY / deltaX);
-        double moveX = Math.cos(v) * getSpeed();
-        if (deltaX < 0) { //negative
-            moveX = moveX * (-1);
-        }
-        double moveY = Math.sin(v) * getSpeed();
-        if (deltaY < 0) { //negative
-            moveY = moveY * (-1);
-        }
-
-        getPosition().setX(getPosition().getX() + (int) moveX);
-        getPosition().setY(getPosition().getY() + (int) moveY);
-    }
-
-    protected void collidedWithNonLiving(Iterator<Position> collidedPositions){
-        //TODO weird thing with half stuck in wall. FIX!
-        //TODO doublet exists in Friendly
-        Random rand = new Random();
-        double nextDeltaX;
-        double nextDeltaY;
-
-        double deltaX = 0;
-        double deltaY = 0;
-        double v;
-
-        while(collidedPositions.hasNext()){
-            Position nextEnemyPosition = collidedPositions.next();
-
-            if (getPosition().getX() == nextEnemyPosition.getX() && nextEnemyPosition.getY() == getPosition().getY()){
-                double tempV = rand.nextInt(360);
-                nextDeltaX = Math.cos(tempV) * 2;
-                nextDeltaY = Math.sin(tempV) * 2;
-            } else {
-                nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
-                nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
-            }
-
-            deltaX += 100/nextDeltaX;
-            deltaY += 100/nextDeltaY;
-        }
-
         v = Math.atan(deltaY / deltaX);
         double moveX = Math.cos(v) * getSpeed();
         if (deltaX < 0) { //negative

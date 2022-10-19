@@ -66,48 +66,16 @@ public class Game {
      * @return position of player.
      */
     public Position getPlayerPosition() {
-        for (MovableEntity e:entityCreator.getFriendlies()) {
-            if (e.getEntityType() == EntityType.player ){
-                return e.getPosition();
-            }
-        }
-        return null;
+        return entityCreator.getPlayer().getPosition();
     }
 
     /**
-     * Returns the list of enemies alive.
+     * Return the Iterable of all current entities in the game.
      *
-     * @return list of enemies alive.
+     * @return Iterable of entities.
      */
-    public Iterable<MovableEntity> getEnemies() {
-        return (Iterable<MovableEntity>) entityCreator.getEnemies();
-    }
-
-    /**
-     * Returns the list of friendlies alive.
-     *
-     * @return list of friendlies alive.
-     */
-    public Iterable<MovableEntity> getFriendlies() {
-        return (Iterable<MovableEntity>) entityCreator.getFriendlies();
-    }
-
-    /**
-     * Returns the list of projectiles.
-     *
-     * @return list of projectiles.
-     */
-    public Iterable<MovableEntity> getProjectiles() {
-        return (Iterable<MovableEntity>) entityCreator.getProjectiles();
-    }
-
-    /**
-     * Return the list of non-living objects.
-     *
-     * @return List of non-living objects.
-     */
-    public Iterable<Entity> getNonLivingObjects() {
-        return (Iterable<Entity>) entityCreator.getNonLivingObjects();
+    public Iterable<Entity> getAllEntities(){
+        return entityCreator.getAllEntities();
     }
 
     /**
@@ -116,7 +84,7 @@ public class Game {
      * @return current health of the player.
      */
     public int getPlayerHealth() {
-        return Objects.requireNonNull(getPlayer()).getHealth();
+        return Objects.requireNonNull(entityCreator.getPlayer()).getHealth();
     }
 
     /**
@@ -164,22 +132,6 @@ public class Game {
      */
     boolean isPlayerDead() {
         return !entityCreator.isPlayerAlive();
-    }
-
-    /*------------------------------------------------ Private Getters ------------------------------------------------*/
-
-    /**
-     * Returns the player.
-     *
-     * @return player.
-     */
-    private MovableEntity getPlayer() {
-        for (MovableEntity e : entityCreator.getFriendlies()) {
-            if (e.getEntityType() == EntityType.player){
-                return e;
-            }
-        }
-        return null;
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/

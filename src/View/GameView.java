@@ -61,10 +61,11 @@ public class GameView extends JComponent implements ViewObserver {
         playerPosition = game.getPlayerPosition();
         if (!(playerPosition == null)) {
             paintBackground();
-            paintEntities(game.getFriendlies());
-            paintEntities(game.getEnemies());
-            paintEntities(game.getProjectiles());
-            paintEntities(game.getNonLivingObjects());
+            paintEntities(game.getAllEntities());
+            //paintEntities(game.getFriendlies());
+            //paintEntities(game.getEnemies());
+            //paintEntities(game.getProjectiles());
+            //paintEntities(game.getNonLivingObjects());
             double playerHealth = game.getPlayerHealth()/10d;
             paintHealthBar(playerHealth);
             paintRoundNumerals(game.getRound());
@@ -164,7 +165,7 @@ public class GameView extends JComponent implements ViewObserver {
      * Renders all entities in the input onto the gamePanel stored in activePanel.
      * @param entities the entities to render.
      */
-    private void paintEntities(Iterable<? extends Entity> entities){
+    private void paintEntities(Iterable<Entity> entities){
         for(Entity entity : entities){
             paintEntity(entity);
         }
