@@ -38,11 +38,11 @@ public abstract class Entity {
         return hitBoxRadiusY;
     }
 
-    protected void setIsDead() {
+    void setIsDead() {
         this.isDead = true;
     }
 
-    protected boolean getIsDead() {
+    boolean getIsDead() {
         return isDead;
     }
 }

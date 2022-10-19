@@ -13,7 +13,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
     private int speed;
     private int health;
 
-    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,
+    MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,
                             int speed, int health){
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
@@ -21,23 +21,23 @@ public abstract class MovableEntity extends Entity implements OnTick {
         this.health= health;
     }
 
-    protected Direction getDirection() {
+    Direction getDirection() {
         return direction;
     }
 
-    protected int getSpeed() {
+    int getSpeed() {
         return speed;
     }
 
-    protected void setDirection(Direction direction) {
+    void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    protected void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    protected void takeDamage(int attackPower){
+    void takeDamage(int attackPower){
         health -= attackPower;
         if (health <= 0){
             setIsDead();
@@ -48,7 +48,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
         return health;
     }
 
-    protected void move(){
+    void move(){
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
         switch (direction) {
             case UP -> getPosition().setY(getPosition().getY()-getSpeed());
@@ -74,7 +74,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
         }
     }
 
-    protected void move(int multiplier){ //Used in collision
+    void move(int multiplier){ //Used in collision
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
         switch (direction) {
             case UP -> getPosition().setY(getPosition().getY()-getSpeed()*multiplier);
@@ -100,7 +100,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
         }
     }
 
-    protected void collidedWithNonLiving(Direction pushedDirection){
+    void collidedWithNonLiving(Direction pushedDirection){
 
         int multiplier = 5; //5
         int moveX = 0;

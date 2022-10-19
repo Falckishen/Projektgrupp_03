@@ -10,7 +10,7 @@ import java.util.List;
 
 class SingleShooter extends Weapon{
 
-    protected SingleShooter(AddProjectile projectileCreator, Position playerPosition, int coolDownSec,
+    SingleShooter(AddProjectile projectileCreator, Position playerPosition, int coolDownSec,
                             int projectileVelocity, int projectileLife, int projectileAttackPower,
                             List<Integer> keyInputs) {
         super(projectileCreator, playerPosition, coolDownSec, projectileVelocity, projectileLife,
@@ -18,7 +18,7 @@ class SingleShooter extends Weapon{
     }
 
     @Override
-    protected void shoot(){
+    void shoot(){
         addProjectile();
     }
 

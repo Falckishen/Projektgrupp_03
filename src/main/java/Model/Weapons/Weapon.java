@@ -31,7 +31,7 @@ public abstract class Weapon {
     private List<Integer> weaponKeyInputs;
 
 
-    protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity,
+    Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity,
                      int projectileLife, int projectileAttackPower, List<Integer> weaponKeyInputs){
         this.projectileCreator = projectileCreator;
         this.coolDownSec = coolDownSec *100; //saved in seconds not milliseconds
@@ -44,7 +44,7 @@ public abstract class Weapon {
         this.weaponKeyInputs = weaponKeyInputs;
     }
 
-    protected Direction getWeaponDirection() {
+    Direction getWeaponDirection() {
         return weaponDirection;
     }
 
@@ -73,9 +73,9 @@ public abstract class Weapon {
         }
     }
 
-    protected abstract void shoot();
+    abstract void shoot();
 
-    protected void addProjectile(Direction projectileDirection) {
+    void addProjectile(Direction projectileDirection) {
         projectileCreator.createSimpleProjectile(playerPosition, projectileDirection, projectileVelocity,
                 projectileLife, projectileAttackPower);
     }

@@ -25,7 +25,7 @@ class Player extends Friendly {
         this.weapon = null;
     }
 
-    protected void getNewWeapon(Weapon weapon){
+    void getNewWeapon(Weapon weapon){
         this.weapon = weapon;
     }
 

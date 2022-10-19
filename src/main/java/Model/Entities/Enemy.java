@@ -33,7 +33,7 @@ abstract class Enemy extends MovableEntity {
      * @param attackPower The attack power of the enemy.
      * @param friendliesIterable an alias of the list of friendly entities (saved as Iterable)
      */
-    protected Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health, int attackPower, Iterable<Friendly> friendliesIterable) {
+    Enemy(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health, int attackPower, Iterable<Friendly> friendliesIterable) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y, speed, health);
         this.attackPower = attackPower;
         this.friendliesIterable = friendliesIterable;
@@ -43,14 +43,14 @@ abstract class Enemy extends MovableEntity {
      * A get method for the attack power.
      * @return attack power.
      */
-    protected int getAttackPower() {
+    int getAttackPower() {
         return attackPower;
     }
 
     /**
      * Walks towards the closest friendly entity of such exists.
      */
-    protected void walkTowardsFriendly(){
+    void walkTowardsFriendly(){
         Iterator<Friendly> friendlyIterator = friendliesIterable.iterator();
         ArrayList<Position> positionsOfFriendlies = new ArrayList<>();
         if (friendlyIterator.hasNext()) {
@@ -130,17 +130,17 @@ abstract class Enemy extends MovableEntity {
 
     /*------------------------------------------------ Collisions ----------------------------------------------------*/
 
-    protected void collidedWithProjectile(int attackPower){
+    void collidedWithProjectile(int attackPower){
         //looses health in relation to the attackPower
         takeDamage(attackPower);
     }
 
-    protected void collidedWithFriendly(){
+    void collidedWithFriendly(){
         //pushed back
         move(-2);
     }
 
-    protected void collidedWithEnemy(Iterator<Position> collidedPositions){
+    void collidedWithEnemy(Iterator<Position> collidedPositions){
         Random rand = new Random();
         double nextDeltaX;
         double nextDeltaY;
