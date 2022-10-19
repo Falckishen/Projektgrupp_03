@@ -3,15 +3,17 @@ package Controller;
 import Model.Game;
 import Model.MainMenu;
 
-import java.util.List;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
  * @author Alfred Berglöf and Samuel Falck
  */
 public class KeyboardInput {
 
+    private final MainMenu mainMenu;
     private final List<Integer> playerInputArrayList;
     private final List<Integer> weaponInputArrayList;
     private boolean wKeyPressed = false;
@@ -22,9 +24,7 @@ public class KeyboardInput {
     private boolean leftKeyPressed = false;
     private boolean downKeyPressed = false;
     private boolean rightKeyPressed = false;
-    private boolean spacePressed = false;
     private boolean escPressed = false;
-    private final MainMenu mainMenu;
 
     /**
      * This class initiates keyboard input, it functions by binding inputs from an input map to different actions
@@ -34,10 +34,12 @@ public class KeyboardInput {
      * @param mainMenu unclear why this is here
      * @param weaponInputArrayList a list were all inputs related to weapon and shoot direction is put
      */
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, List<Integer> weaponInputArrayList) {
+    public KeyboardInput(MainMenu mainMenu, JComponent jComponent) {
 
-        this.playerInputArrayList = playerInputArrayList;
-        this.weaponInputArrayList = weaponInputArrayList;
+        this.mainMenu = mainMenu;
+
+        this.playerInputArrayList = mainMenu.getMovementInputList();
+        this.weaponInputArrayList = mainMenu.getWeaponInputList();
 
         Action walkUpActionPressed = new WalkUpActionPressed();
         Action walkLeftActionPressed = new WalkLeftActionPressed();
@@ -47,9 +49,6 @@ public class KeyboardInput {
         Action walkLeftActionReleased = new WalkLeftActionReleased();
         Action walkDownActionReleased = new WalkDownActionReleased();
         Action walkRightActionReleased = new WalkRightActionReleased();
-
-        Action attackActionPressed = new AttackActionPressed();
-        Action attackActionReleased = new AttackActionReleased();
 
         Action attackUpActionPressed = new AttackUpActionPressed();
         Action attackUpActionReleased = new AttackUpActionReleased();
@@ -79,11 +78,6 @@ public class KeyboardInput {
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
         jComponent.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
 
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false),"attackActionPressed");
-        jComponent.getActionMap().put("attackActionPressed", attackActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true),"attackActionReleased");
-        jComponent.getActionMap().put("attackActionReleased", attackActionReleased);
-
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),"attackUpActionPressed");
         jComponent.getActionMap().put("attackUpActionPressed", attackUpActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false),"attackLeftActionPressed");
@@ -105,8 +99,6 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
-
-        this.mainMenu = mainMenu;
     }
 
     /**
@@ -197,25 +189,9 @@ public class KeyboardInput {
             dKeyPressed = false;
         }
     }
-
-    private class AttackActionPressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!spacePressed) {
-                playerInputArrayList.add(KeyEvent.VK_SPACE);
-                spacePressed = true;
-            }
-        }
-    }
-
-    private class AttackActionReleased extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            playerInputArrayList.remove(Integer.valueOf(KeyEvent.VK_SPACE));
-            spacePressed = false;
-        }
-    }
-
+    /**
+     * If "up-key" is pressed adds VK_UP to playerInputArrayList
+     */
     private class AttackUpActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -225,7 +201,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "left-key" is pressed adds VK_LEFT to playerInputArrayList
+     */
     private class AttackLeftActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -235,7 +213,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "down-key" is pressed adds VK_DOWN to playerInputArrayList
+     */
     private class AttackDownActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -245,7 +225,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * If "right-key" is pressed adds VK_RIGHT to playerInputArrayList
+     */
     private class AttackRightActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -255,7 +237,9 @@ public class KeyboardInput {
             }
         }
     }
-
+    /**
+     * When "up-key" is released removes VK_UP from playerInputArrayList
+     */
     private class AttackUpActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -263,7 +247,9 @@ public class KeyboardInput {
             upKeyPressed = false;
         }
     }
-
+    /**
+     * When "left-key" is released removes VK_LEFT from playerInputArrayList
+     */
     private class AttackLeftActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -271,7 +257,9 @@ public class KeyboardInput {
             leftKeyPressed = false;
         }
     }
-
+    /**
+     * When "down-key" is released removes VK_DOWN from playerInputArrayList
+     */
     private class AttackDownActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -279,7 +267,9 @@ public class KeyboardInput {
             downKeyPressed = false;
         }
     }
-
+    /**
+     * When "right-key" is released removes VK_RIGHT from playerInputArrayList
+     */
     private class AttackRightActionReleased extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -287,7 +277,9 @@ public class KeyboardInput {
             rightKeyPressed = false;
         }
     }
-
+    /**
+     * If "esc" is pressed, calls the pauseGame() or unPauseGame() method in the mainMenuClass
+     */
     private class PauseActionPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {

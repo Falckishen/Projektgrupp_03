@@ -21,11 +21,13 @@ public class EntityCreatorTest {
     EntityCreator EC;
 
 
-
     @BeforeEach
-    void initPlayer(){
+    void initPlayerAndVariables(){
+        EC = new EntityCreator(1000,2);
         playerInputs = new ArrayList<>();
         weaponInputs = new ArrayList<>();
+        EC.createPlayer(1,1,playerInputs,weaponInputs);
+        player = (Player) EC.getFriendlies().get(0);
         tickObservers = EC.getTickObservers();
     }
 
@@ -35,5 +37,9 @@ public class EntityCreatorTest {
         EC.createWeakMonster();
         assertFalse(EC.getEnemies().isEmpty());
     }
-
+    @Test
+    void createPlayer(){
+        //Player created in init
+        assertTrue(player.getPosition().getX() == 1 && player.getPosition().getY() == 1 && EC.getFriendlies().contains(player));
+    }
 }

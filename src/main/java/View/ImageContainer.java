@@ -6,18 +6,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 class ImageContainer {
+    private final static String imageSrcPath = "src/main/java/View/Images/";
 
-    private static final String[] miscImagePaths = {"src/View/Images/NewerBackgroundImageOOP.png", "src/View/Images/CrosshairImageOOP.png"};
-    private static final String[] PlayerImagePaths = {"src/View/Images/PlayerMove0.png", "src/View/Images/PlayerMove1.png", "src/View/Images/PlayerMove2.png"};
-    private static final String[] PlayerProjectileImagePaths = {"src/View/Images/PlayerProjectile.png"};
-    private static final String[] MonsterTestImagePaths = {"src/View/Images/EnemyImageOOP.png"};
-    private static final String[] RickImagePaths = {"src/View/Images/Rick0Image.png", "src/View/Images/Rick1Image.png", "src/View/Images/Rick2Image.png",
-            "src/View/Images/Rick3Image.png", "src/View/Images/Rick4Image.png", "src/View/Images/Rick5Image.png", "src/View/Images/Rick6Image.png",
-            "src/View/Images/Rick7Image.png", "src/View/Images/Rick8Image.png", "src/View/Images/Rick9Image.png", "src/View/Images/Rick10Image.png",
-            "src/View/Images/Rick11Image.png"};
-    private static final String[] NumeralsImagePaths = {"src/View/Images/7seg0.png", "src/View/Images/7seg1.png",
-            "src/View/Images/7seg2.png", "src/View/Images/7seg3.png", "src/View/Images/7seg4.png", "src/View/Images/7seg5.png",
-            "src/View/Images/7seg6.png", "src/View/Images/7seg7.png", "src/View/Images/7seg8.png", "src/View/Images/7seg9.png"};
+    private static final String[] miscImagePaths = {"NewerBackgroundImageOOP.png", "CrosshairImageOOP.png"};
+    private static final String[] PlayerImagePaths = {"PlayerMove0.png", "PlayerMove1.png", "PlayerMove2.png"};
+    private static final String[] PlayerProjectileImagePaths = {"PlayerProjectile.png"};
+    private static final String[] MonsterTestImagePaths = {"EnemyImageOOP.png"};
+    private static final String[] NumeralsImagePaths = {"7seg0.png", "7seg1.png", "7seg2.png", "7seg3.png",
+            "7seg4.png", "7seg5.png", "7seg6.png", "7seg7.png", "7seg8.png", "7seg9.png"};
     private static BufferedImage[][] savedImagesMatrix;
 
     /**
@@ -30,7 +26,6 @@ class ImageContainer {
         savedImagesMatrix[ImageTypeEnum.PLAYER.ordinal()] = getLoadedFileList(PlayerImagePaths);
         savedImagesMatrix[ImageTypeEnum.PLAYERPROJECTILE.ordinal()] = getLoadedFileList(PlayerProjectileImagePaths);
         savedImagesMatrix[ImageTypeEnum.GRUNT.ordinal()] = getLoadedFileList(MonsterTestImagePaths);
-        savedImagesMatrix[ImageTypeEnum.RICK.ordinal()] = getLoadedFileList(RickImagePaths);
         savedImagesMatrix[ImageTypeEnum.NUMERAL.ordinal()] = getLoadedFileList(NumeralsImagePaths);
     }
 
@@ -43,7 +38,7 @@ class ImageContainer {
         String filePath;
         BufferedImage[] outputList = new BufferedImage[fileList.length];
         for(int i=0; i < fileList.length; i++){
-            filePath = fileList[i];
+            filePath = imageSrcPath + fileList[i];
             try {
                 outputList[i] = ImageIO.read(new File(filePath));
             } catch (IOException e) {

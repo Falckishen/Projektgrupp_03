@@ -26,7 +26,7 @@ public class GameView extends JComponent implements ViewObserver {
     private final BufferedImage specialBorderBackground;
     private final MainFrame mainFrame;
     private PanelInterface activePanel;
-    private String gameName;
+    private final String gameName;
     private Position playerPosition;
 
     /**
@@ -178,17 +178,7 @@ public class GameView extends JComponent implements ViewObserver {
         if(entity.getEntityType() != EntityType.wall){
             Position pos = entity.getPosition();
             pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
-            int variant;
-            if(entity.getEntityType() == EntityType.player){
-                double changePerSec = 0.5;
-                variant = (int)((System.currentTimeMillis()/(changePerSec*1000))%2);
-            }else if(entity.getEntityType() == EntityType.monster && ConversionQueryable.gruntType == ImageTypeEnum.RICK){
-                double changePerSec = 0.2;
-                variant = (int)((System.currentTimeMillis()/(changePerSec*1000))%12);
-            }else{
-                variant = 0;
-            }
-            BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), variant);
+            BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), 0);
             ((GamePanel)activePanel).paintImageRelativeToCenter(entityImage, pos.getX(), pos.getY());
         }else{
             paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition());

@@ -6,7 +6,6 @@ import Model.Entities.EntityType;
 import Model.Position;
 
 class ConversionQueryable {
-    static ImageTypeEnum gruntType = null;
 
     static Position transformWithPlayerPosition(Position position, Position playerPosition){
         return(new Position(position.getX()-playerPosition.getX(), position.getY()- playerPosition.getY()));
@@ -21,14 +20,7 @@ class ConversionQueryable {
             return(ImageTypeEnum.PLAYER);
         }
         if(entity.getEntityType() == EntityType.monster){
-            if(gruntType == null){
-                if(new Random().nextInt(10) == 1){
-                    gruntType = ImageTypeEnum.RICK;
-                }else{
-                    gruntType = ImageTypeEnum.GRUNT;
-                }
-            }
-            return(gruntType);
+            return(ImageTypeEnum.GRUNT);
         }
         if(entity.getEntityType() == EntityType.simpleProjectile){
             return(ImageTypeEnum.PLAYERPROJECTILE);
