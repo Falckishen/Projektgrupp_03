@@ -48,10 +48,6 @@ public abstract class Weapon {
         return weaponDirection;
     }
 
-    /**
-     * What happens when the weapon shoots one(1) time.
-     */
-
     private void changeWeaponDirection() {
         //set direction up left if playerKeyInputs.contains(W) && contains(A)
         // should this be moved to controller?
