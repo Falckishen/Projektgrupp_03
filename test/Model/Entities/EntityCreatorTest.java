@@ -19,9 +19,11 @@ public class EntityCreatorTest {
     List<Integer> weaponInputs;
     List<OnTick> tickObservers;
     EntityCreator EC;
+
+
+
     @BeforeEach
     void initPlayer(){
-        EC = new EntityCreator(1000,2);
         playerInputs = new ArrayList<>();
         weaponInputs = new ArrayList<>();
         tickObservers = EC.getTickObservers();
@@ -29,7 +31,7 @@ public class EntityCreatorTest {
 
     @Test
     void createWeakMonsterTest(){
-        EntityCreator EC = new EntityCreator(1000,1);
+        EC = new EntityCreator(1000,1);
         EC.createWeakMonster();
         assertFalse(EC.getEnemies().isEmpty());
     }

@@ -20,7 +20,7 @@ class KeyboardInputTest {
     static void initClasses() throws AWTException {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
-        input = new KeyboardInput(mainView.getFrameRootPane(), mainMenu.getMovementInputList(), mainMenu, mainMenu.getWeaponInputList());
+        input = new KeyboardInput(mainMenu, mainView.getFrameRootPane());
         robot = new Robot();
         mainView.showMainMenu();
     }
