@@ -28,11 +28,11 @@ public abstract class Weapon {
 
 
     private Direction weaponDirection;
-    private List<Integer> keyInputs;
+    private List<Integer> weaponKeyInputs;
 
 
     protected Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity,
-                     int projectileLife, int projectileAttackPower, List<Integer> keyInputs){
+                     int projectileLife, int projectileAttackPower, List<Integer> weaponKeyInputs){
         this.projectileCreator = projectileCreator;
         this.coolDownSec = coolDownSec *100; //saved in seconds not milliseconds
         this.projectileVelocity = projectileVelocity;
@@ -41,37 +41,12 @@ public abstract class Weapon {
         this.lastShotFired = System.currentTimeMillis();
         this.weaponDirection = Direction.LEFT;
         this.playerPosition = playerPosition;
-        this.keyInputs = keyInputs;
+        this.weaponKeyInputs = weaponKeyInputs;
     }
 
     protected Direction getWeaponDirection() {
         return weaponDirection;
     }
-
-    private void setWeaponDirection(Direction newDirection) {
-        weaponDirection = newDirection;
-    }
-
-    protected Position getPlayerPosition(){
-        return playerPosition;
-    }
-
-    protected int getProjectileVelocity() {
-        return projectileVelocity;
-    }
-
-    protected int getProjectileLife() {
-        return projectileLife;
-    }
-
-    protected int getProjectileAttackPower(){
-        return projectileAttackPower;
-    }
-
-    protected AddProjectile getProjectileCreator(){ //just to subclasses has access to the factory
-        return projectileCreator;
-    }
-
 
     /**
      * What happens when the weapon shoots one(1) time.
@@ -81,7 +56,7 @@ public abstract class Weapon {
         //set direction up left if playerKeyInputs.contains(W) && contains(A)
         // should this be moved to controller?
         List<Direction> currentDirections = new ArrayList<>();
-        for (Integer input : keyInputs) {
+        for (Integer input : weaponKeyInputs) {
             //  if ()
             switch (input) {
                 case KeyEvent.VK_UP -> currentDirections.add(Direction.UP);
@@ -90,12 +65,9 @@ public abstract class Weapon {
                 case KeyEvent.VK_RIGHT -> currentDirections.add(Direction.RIGHT);
             }
         }
-        Direction newDirection = KeyboardHandler.findDirection(currentDirections);
-        setWeaponDirection(newDirection);
+        this.weaponDirection = KeyboardHandler.findDirection(currentDirections);
         isShooting = this.weaponDirection != Direction.NONE;
     }
-
-    protected abstract void shoot();
 
     public void actionShoot(){
         changeWeaponDirection();
@@ -103,5 +75,12 @@ public abstract class Weapon {
             shoot();
             this.lastShotFired = System.currentTimeMillis();
         }
+    }
+
+    protected abstract void shoot();
+
+    protected void addProjectile(Direction projectileDirection) {
+        projectileCreator.createSimpleProjectile(playerPosition, projectileDirection, projectileVelocity,
+                projectileLife, projectileAttackPower);
     }
 }
