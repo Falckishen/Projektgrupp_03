@@ -1,4 +1,4 @@
-package Model.Entities;
+package Model;
 
 /**
  * @author Ida Altenstedt

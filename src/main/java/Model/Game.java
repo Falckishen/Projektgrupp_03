@@ -8,8 +8,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import Model.Entities.Entity;
 import Model.Entities.EntityCreator;
-import Model.Entities.MovableEntity;
-import Model.Entities.EntityType;
 
 /**
  * Represents a game. Is the central class in the Model that binds the other classes. Acts as a facade, the view only

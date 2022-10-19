@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Model.Direction;
+import Model.EntityType;
 import Model.OnTick;
 import Model.Position;
 import Model.Weapons.WeaponFactory;
@@ -11,7 +13,7 @@ import Model.Weapons.WeaponFactory;
 /**
  * @author Ida Altenstedt
  */
-public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
+public class EntityCreator implements AddProjectile, AddEnemy {
 
     private final List<Enemy> enemies;
     private final List<Friendly> friendlies;
@@ -174,9 +176,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
-    @Override
-    public void createPlayer(int x, int y, List<Integer> keyboardInputs,
-                List<Integer> weaponKeyboardInputs) {
+    public void createPlayer(int x, int y, List<Integer> keyboardInputs, List<Integer> weaponKeyboardInputs) {
         Player p = new Player(x, y, keyboardInputs);
 
         p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition(), weaponKeyboardInputs));
@@ -197,12 +197,20 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*----------------------------- AddNonLivingEntities (called when game created) ---------------------------------*/
 
-    @Override
+    /**
+     * Creates a wall in a specific place according to inputted parameters.
+     * @param positionX the wall's position on the x-axis.
+     * @param positionY the wall's position on the y-axis.
+     * @param wallRadiusX the wall's radius along the x-axis.
+     * @param wallRadiusY the wall's radius along the y-axis.
+     */
     public void createWall(int positionX, int positionY, int wallRadiusX, int wallRadiusY) {
         nonLivingObjects.add(new Wall(wallRadiusX, wallRadiusY, positionX, positionY));
     }
 
-    @Override
+    /**
+     * Creates walls according to the size of the world to act as a world Boarder.
+     */
     public void createWorldBorderWalls() {
         int wallThicknessRadius = 70;
         int distanceFromCentre = worldMapRadius+wallThicknessRadius;

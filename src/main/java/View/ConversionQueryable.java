@@ -1,8 +1,7 @@
 package View;
 
-import java.util.Random;
 import Model.Entities.Entity;
-import Model.Entities.EntityType;
+import Model.EntityType;
 import Model.Position;
 
 class ConversionQueryable {

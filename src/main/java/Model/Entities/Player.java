@@ -4,6 +4,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Direction;
+import Model.EntityType;
+import Model.KeyboardHandler;
 import Model.Weapons.Weapon;
 
 /**

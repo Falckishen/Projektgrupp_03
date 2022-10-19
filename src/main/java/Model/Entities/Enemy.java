@@ -2,6 +2,8 @@ package Model.Entities;
 
 import java.util.*;
 
+import Model.Direction;
+import Model.EntityType;
 import Model.Position;
 
 /**

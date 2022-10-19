@@ -8,7 +8,7 @@ import javax.swing.*;
 import Model.Entities.Entity;
 import Model.Game;
 import Model.MainMenu;
-import Model.Entities.EntityType;
+import Model.EntityType;
 import Model.Position;
 import Model.ViewObserver;
 import View.FramesAndPanels.*;

@@ -1,8 +1,8 @@
 package Model.Weapons;
 
 import Model.Entities.AddProjectile;
-import Model.Entities.Direction;
-import Model.Entities.KeyboardHandler;
+import Model.Direction;
+import Model.KeyboardHandler;
 import Model.Position;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

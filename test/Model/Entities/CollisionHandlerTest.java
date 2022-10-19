@@ -1,5 +1,6 @@
 package Model.Entities;
 
+import Model.Direction;
 import Model.OnTick;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
