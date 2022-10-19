@@ -26,7 +26,7 @@ public class GameView extends JComponent implements ViewObserver {
     private final BufferedImage specialBorderBackground;
     private final MainFrame mainFrame;
     private PanelInterface activePanel;
-    private String gameName;
+    private final String gameName;
     private Position playerPosition;
 
     /**
