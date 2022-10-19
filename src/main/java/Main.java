@@ -20,7 +20,6 @@ public class Main {
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
         GameView gameView = new GameView(mainMenu, width, height, gameName);
         new KeyboardInput(mainMenu, gameView.getFrameRootPane());
-        //new KeyboardInput(gameView.getFrameRootPane(), mainMenu.getMovementInputList(), mainMenu, mainMenu.getWeaponInputList());
 
         mainMenu.showMainMenu();
     }
