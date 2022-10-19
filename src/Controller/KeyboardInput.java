@@ -3,15 +3,17 @@ package Controller;
 import Model.Game;
 import Model.MainMenu;
 
-import java.util.List;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
  * @author Alfred Berglöf and Samuel Falck
  */
 public class KeyboardInput {
 
+    private final MainMenu mainMenu;
     private final List<Integer> playerInputArrayList;
     private final List<Integer> weaponInputArrayList;
     private boolean wKeyPressed = false;
@@ -24,7 +26,6 @@ public class KeyboardInput {
     private boolean rightKeyPressed = false;
     private boolean spacePressed = false;
     private boolean escPressed = false;
-    private final MainMenu mainMenu;
 
     /**
      * This class initiates keyboard input, it functions by binding inputs from an input map to different actions
@@ -34,10 +35,12 @@ public class KeyboardInput {
      * @param mainMenu unclear why this is here
      * @param weaponInputArrayList a list were all inputs related to weapon and shoot direction is put
      */
-    public KeyboardInput(JComponent jComponent, List<Integer> playerInputArrayList, MainMenu mainMenu, List<Integer> weaponInputArrayList) {
+    public KeyboardInput(MainMenu mainMenu, JComponent jComponent) {
 
-        this.playerInputArrayList = playerInputArrayList;
-        this.weaponInputArrayList = weaponInputArrayList;
+        this.mainMenu = mainMenu;
+
+        this.playerInputArrayList = mainMenu.getMovementInputList();
+        this.weaponInputArrayList = mainMenu.getWeaponInputList();
 
         Action walkUpActionPressed = new WalkUpActionPressed();
         Action walkLeftActionPressed = new WalkLeftActionPressed();
@@ -105,8 +108,6 @@ public class KeyboardInput {
         jComponent.getActionMap().put("escPressed", pauseActionPressed);
         jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
         jComponent.getActionMap().put("escReleased", pauseActionReleased);
-
-        this.mainMenu = mainMenu;
     }
 
     /**
