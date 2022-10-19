@@ -161,9 +161,14 @@ abstract class Enemy extends MovableEntity {
                 nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
                 nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
             }
+            if (!(nextDeltaX == 0)){
+                deltaX += 100/nextDeltaX;
+            }
+            if (!(nextDeltaY == 0)){
+                deltaY += 100/nextDeltaY;
+            }
 
-            deltaX += 100/nextDeltaX;
-            deltaY += 100/nextDeltaY;
+
         }
 
         if (deltaX == 0){
