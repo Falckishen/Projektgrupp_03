@@ -139,8 +139,6 @@ abstract class Enemy extends MovableEntity {
     }
 
     protected void collidedWithEnemy(Iterator<Position> collidedPositions){
-        //TODO weird thing with half stuck in wall. FIX!
-        //TODO doublet exists in Friendly
         Random rand = new Random();
         double nextDeltaX;
         double nextDeltaY;
@@ -160,14 +158,12 @@ abstract class Enemy extends MovableEntity {
                 nextDeltaX = getPosition().getX() - nextEnemyPosition.getX();
                 nextDeltaY = getPosition().getY() - nextEnemyPosition.getY();
             }
-            if (!(nextDeltaX == 0)){
+            if (nextDeltaX != 0){
                 deltaX += 100/nextDeltaX;
             }
-            if (!(nextDeltaY == 0)){
+            if (nextDeltaY != 0){
                 deltaY += 100/nextDeltaY;
             }
-
-
         }
 
         if (deltaX == 0){
@@ -186,5 +182,4 @@ abstract class Enemy extends MovableEntity {
         getPosition().setX(getPosition().getX() + (int) moveX);
         getPosition().setY(getPosition().getY() + (int) moveY);
     }
-
 }
