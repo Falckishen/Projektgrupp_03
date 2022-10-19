@@ -47,29 +47,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
     }
 
     protected void move(){
-        int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
-        switch (direction) {
-            case UP -> getPosition().setY(getPosition().getY()-getSpeed());
-            case LEFT_UP -> {
-                getPosition().setX(getPosition().getX()-diagSpeed);
-                getPosition().setY(getPosition().getY()-diagSpeed);
-            }
-            case RIGHT_UP -> {
-                getPosition().setX(getPosition().getX()+diagSpeed);
-                getPosition().setY(getPosition().getY()-diagSpeed);
-            }
-            case DOWN -> getPosition().setY(getPosition().getY()+getSpeed());
-            case LEFT_DOWN -> {
-                getPosition().setX(getPosition().getX()-diagSpeed);
-                getPosition().setY(getPosition().getY()+diagSpeed);
-            }
-            case RIGHT_DOWN -> {
-                getPosition().setX(getPosition().getX()+diagSpeed);
-                getPosition().setY(getPosition().getY()+diagSpeed);
-            }
-            case LEFT -> getPosition().setX(getPosition().getX()-getSpeed());
-            case RIGHT -> getPosition().setX(getPosition().getX()+getSpeed());
-        }
+        move(1);
     }
 
     protected void move(int multiplier){ //Used in collision

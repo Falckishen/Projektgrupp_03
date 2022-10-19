@@ -7,7 +7,7 @@ import java.util.List;
 import Model.Weapons.Weapon;
 
 /**
- * @author Ida Altenstedt
+ * @author Ida Altenstedt, Wanda Wannelöf
  */
 class Player extends Friendly {
 
