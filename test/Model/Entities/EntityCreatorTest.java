@@ -33,7 +33,6 @@ public class EntityCreatorTest {
 
     @Test
     void createWeakMonsterTest(){
-        EC = new EntityCreator(1000,1);
         EC.createWeakMonster();
         assertFalse(EC.getEnemies().isEmpty());
     }
