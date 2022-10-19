@@ -1,12 +1,10 @@
 package Model.Entities;
 
 import Model.Weapons.WeaponFactory;
-import Utilities.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,16 @@ class PlayerTest {
     AddProjectile projectile;
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
+    List<Friendly> playerList;
+    List<Enemy> enemyList;
+    List<Projectile> projectileList;
+    List<Entity> nonLivingObjectList;
+
     Player player;
+    Monster monster;
+    CollisionHandler collisionHandler;
+
+
     @BeforeEach
     void initPlayer(){
         playerInputs = new ArrayList<>();
@@ -117,5 +124,22 @@ class PlayerTest {
         player.getNewWeapon(WeaponFactory.getGun(projectile,player.getPosition(),weaponInputs));
         player.doOnTick();
         assertEquals(1,1);
+    }
+
+    @Test
+    void playerTakesDamageTest(){
+        playerList = new ArrayList<>();
+        enemyList = new ArrayList<>();
+        projectileList = new ArrayList<>();
+        nonLivingObjectList = new ArrayList<>();
+        playerList.add(player);
+        int startHealth = player.getHealth();
+        Monster testMonster = new Monster(1,1, playerList,1,1,1);
+        enemyList.add(testMonster);
+        CollisionHandler collisionHandler = new CollisionHandler(playerList, enemyList,projectileList, nonLivingObjectList);
+        collisionHandler.doOnTick();
+        assertEquals(startHealth - testMonster.getAttackPower(), player.getHealth());
+        player.takeDamage(10);
+        assertTrue(player.getIsDead());
     }
 }
