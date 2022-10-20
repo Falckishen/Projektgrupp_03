@@ -100,7 +100,7 @@ class CollisionHandlerTest {
 
     @Test
     void testEnemyFriendlyCollision(){
-        System.out.println("Check for collision between enemy and friendly \nDoes three checks.");
+        System.out.println("Check for collision between enemy and friendlyy \nDoes three checks.");
         MovableEntity player = createTestPlayer(0,0);
         MovableEntity enemy = createTestEnemy(90, 90);
         boolean playerDidNotMove = false;
