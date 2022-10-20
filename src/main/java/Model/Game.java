@@ -19,8 +19,6 @@ public class Game {
 
     private final MainMenu mainMenu;
     private final int difficulty;
-    private final List<Integer> playerInputList;
-    private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private final EntityCreator entityCreator;
     private final Timer timer;
@@ -40,11 +38,10 @@ public class Game {
      * @param outputHandler     reference to the outputHandler.
      */
 
-    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
+    Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
-        this.playerInputList = playerInputList;
-        this.weaponInputList = weaponInputList;
+
         this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius, difficulty);
         this.entityCreator.createWorldBorderWalls();
@@ -53,7 +50,7 @@ public class Game {
         this.enemiesSpawning = false;
         this.gamePaused = false;
 
-        startGame();
+        startGame(playerInputList, weaponInputList);
     }
 
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
@@ -186,7 +183,7 @@ public class Game {
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
      * run() is executed every 17 ms. An instance of Player is created.
      */
-    public void startGame() {
+    void startGame(List<Integer> playerInputList, List<Integer> weaponInputList) {
         entityCreator.createPlayer(0,0, playerInputList, weaponInputList);
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);

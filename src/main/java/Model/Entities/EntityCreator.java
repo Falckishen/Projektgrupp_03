@@ -102,7 +102,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
      */
     private int getXCoordinateInWorld(){
         Random rand = new Random();
-        int spawnX = 0;
+        int spawnX;
         while(true){
             boolean toClose = false;
             spawnX = rand.nextInt(worldMapRadius-100);
@@ -134,7 +134,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
      */
     private int getYCoordinateInWorld(){
         Random rand = new Random();
-        int spawnY = 0;
+        int spawnY;
         while(true){
             boolean toClose = false;
             spawnY = rand.nextInt(worldMapRadius-100);
@@ -217,7 +217,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
         int wallLengthRadius = worldMapRadius+ wallThicknessRadius*2;
         nonLivingObjects.add(new Wall(wallThicknessRadius, wallLengthRadius,(distanceFromCentre*(-1)), 0)); //x left
         nonLivingObjects.add(new Wall(wallThicknessRadius, wallLengthRadius,distanceFromCentre,0)); //x right
-        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,distanceFromCentre)); //y top
-        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,(distanceFromCentre*(-1)) )); //y bottom
+        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,distanceFromCentre)); //y bottom
+        nonLivingObjects.add(new Wall(wallLengthRadius, wallThicknessRadius,0,(distanceFromCentre*(-1)) )); //y top
     }
 }

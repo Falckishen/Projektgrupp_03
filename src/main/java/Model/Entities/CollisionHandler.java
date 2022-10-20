@@ -192,10 +192,8 @@ class CollisionHandler implements OnTick {
                     directionsPushed.add(whichDirectionAmIPushed(e, collidedObjectsIterator.next()));
                 }
                 pushedDirection = resultingPushedDirection(directionsPushed.iterator());
-                System.out.println("here " + pushedDirection);
             }
             if (pushedDirection != null){
-                System.out.println(e.getPosition().getX() + " " + e.getPosition().getY());
                 e.collidedWithNonLiving(pushedDirection);
             }
         }
@@ -353,7 +351,7 @@ class CollisionHandler implements OnTick {
                     }
                 }
                 if (difference == 2 || difference == -2) {
-                    directionCounter += (difference / 2);
+                    directionCounter -= (difference / 2);
                 }
                 if (difference == 3 || difference == -3) {
                     if (difference < 0) {
@@ -377,18 +375,17 @@ class CollisionHandler implements OnTick {
                 }
             }
         }
-        System.out.println(intToDirection(directionCounter));
         return intToDirection(directionCounter);
     }
 
     /**
      * Transforms the direction to the corresponding int value.
      * <p>
-     * 4 --- 3 --- 2 <br />
+     * 6 --- 7 --- 8 <br />
      * |           | <br />
      * 5     0     1 <br />
      * |           | <br />
-     * 6 --- 7 --- 8 <br />
+     * 4 --- 3 --- 2 <br />
      * number to direction chart
      * </p>
      * @param direction the inputted direction.
@@ -397,47 +394,16 @@ class CollisionHandler implements OnTick {
     private int directionToInt(Direction direction){
         switch (direction) {
             case RIGHT -> {return 1;}
-            case RIGHT_UP -> {return 2;}
-            case UP -> {return 3;}
-            case LEFT_UP -> {return 4;}
-            case LEFT -> {return 5;}
-            case LEFT_DOWN -> {return 6;}
-            case DOWN -> {return 7;}
-            case RIGHT_DOWN -> {return 8;}
-            default -> {return 0;}
-        }
-    }
-
-    /*
-    * the tests are inverted both x and y
-    * /**
-     * Transforms the direction to the corresponding int value.
-     * <p>
-     * 8 --- 7 --- 6 <br />
-     * |           | <br />
-     * 1     0     5 <br />
-     * |           | <br />
-     * 2 --- 3 --- 4 <br />
-     * number to direction chart
-     * </p>
-     * @param direction the inputted direction.
-     * @return the corresponding int that represents that direction.
-     */
-    /*
-    private int directionToInt(Direction direction){
-        switch (direction) {
-            case RIGHT -> {return 5;}
-            case RIGHT_UP -> {return 6;}
+            case RIGHT_UP -> {return 8;}
             case UP -> {return 7;}
-            case LEFT_UP -> {return 8;}
-            case LEFT -> {return 1;}
-            case LEFT_DOWN -> {return 2;}
+            case LEFT_UP -> {return 6;}
+            case LEFT -> {return 5;}
+            case LEFT_DOWN -> {return 4;}
             case DOWN -> {return 3;}
-            case RIGHT_DOWN -> {return 4;}
+            case RIGHT_DOWN -> {return 2;}
             default -> {return 0;}
         }
     }
-     */
 
     /**
      * transforms numbers back to directions with regard to the inverted y-axis
