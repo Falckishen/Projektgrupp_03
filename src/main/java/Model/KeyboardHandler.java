@@ -1,7 +1,6 @@
-package Model.Entities;
+package Model;
 
-import Controller.KeyboardInput;
-import Model.Entities.Direction;
+import Model.Direction;
 
 import java.util.*;
 

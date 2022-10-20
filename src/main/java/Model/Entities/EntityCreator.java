@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import Model.Direction;
+import Model.EntityType;
 import Model.OnTick;
 import Model.Position;
 import Model.Weapons.WeaponFactory;
@@ -11,7 +13,7 @@ import Model.Weapons.WeaponFactory;
 /**
  * @author Ida Altenstedt
  */
-public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddNonLivingObjects {
+public class EntityCreator implements AddProjectile, AddEnemy {
 
     private final List<Enemy> enemies;
     private final List<Friendly> friendlies;
@@ -21,18 +23,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
     private final int worldMapRadius;
     private final int difficulty;
 
-    /*
-    public EntityCreator(List<Enemy> enemies, List<Friendly> friendlies, List<Projectile> projectiles,
-                        List<OnTick> tickObservers, List<Entity> nonLivingObjects){
-        this.enemies = enemies;
-        this.friendlies = friendlies;
-        this.projectiles = projectiles;
-        this.tickObservers= tickObservers;
-        this.nonLivingObjects = nonLivingObjects;
-        addCollisionHandler();
-    }
-    */
-
     public EntityCreator(int worldMapRadius, int difficulty) {
         this.enemies = new ArrayList<>();
         this.friendlies = new ArrayList<>();
@@ -41,10 +31,10 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         this.nonLivingObjects = new ArrayList<>();
         this.worldMapRadius = worldMapRadius;
         this.difficulty = difficulty;
-        addCollisionHandler();
+        CreateCollisionHandler();
     }
 
-    private void addCollisionHandler(){
+    private void CreateCollisionHandler(){
         tickObservers.add(new CollisionHandler(friendlies, enemies, projectiles, nonLivingObjects));
     }
 
@@ -55,29 +45,41 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
         return tickObservers;
     }
 
-    public List<MovableEntity> getMovableEntities(){
-        ArrayList<MovableEntity> allMovableEntities = new ArrayList<>();
-        allMovableEntities.addAll(enemies);
-        allMovableEntities.addAll(friendlies);
-        allMovableEntities.addAll(projectiles);
-        return allMovableEntities;
+    public List<Entity> getAllEntities(){
+        ArrayList<Entity> allEntities = new ArrayList<>();
+        allEntities.addAll(enemies);
+        allEntities.addAll(friendlies);
+        allEntities.addAll(projectiles);
+        allEntities.addAll(nonLivingObjects);
+        return allEntities;
     }
 
+    /**
+     * Returns the player or null if player doesn't exist.
+     * @return player or null if player doesn't exist.
+     */
+    public MovableEntity getPlayer() {
+        for (MovableEntity e : friendlies) {
+            if (e.getEntityType() == EntityType.player){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    //used for tests
     public List<? extends MovableEntity> getEnemies() {
         return enemies;
     }
-
+    //used for tests
     public List<? extends MovableEntity> getFriendlies() {
         return friendlies;
     }
-
+    //used for tests
     public List<? extends MovableEntity> getProjectiles() {
         return projectiles;
     }
 
-    public List<? extends Entity> getNonLivingObjects(){
-        return nonLivingObjects;
-    }
 
     public boolean isAnyEnemiesAlive() {
         return !enemies.isEmpty();
@@ -90,15 +92,6 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
             }
         }
         return false;
-    }
-
-    public Position getPlayerPosition(){
-        for (Friendly f : friendlies){
-            if (f.getEntityType() == EntityType.player){
-                return f.getPosition();
-            }
-        }
-        return null;
     }
 
     /*--------------------------------------- AddEnemy (used by Game class) ----------------------------------------*/
@@ -183,9 +176,7 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*----------------------------------- AddFriendly (used by Game class) -----------------------------------------*/
 
-    @Override
-    public void createPlayer(int x, int y, List<Integer> keyboardInputs,
-                List<Integer> weaponKeyboardInputs) {
+    public void createPlayer(int x, int y, List<Integer> keyboardInputs, List<Integer> weaponKeyboardInputs) {
         Player p = new Player(x, y, keyboardInputs);
 
         p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition(), weaponKeyboardInputs));
@@ -206,36 +197,20 @@ public class EntityCreator implements AddProjectile, AddEnemy, AddFriendly, AddN
 
     /*----------------------------- AddNonLivingEntities (called when game created) ---------------------------------*/
 
-    @Override
+    /**
+     * Creates a wall in a specific place according to inputted parameters.
+     * @param positionX the wall's position on the x-axis.
+     * @param positionY the wall's position on the y-axis.
+     * @param wallRadiusX the wall's radius along the x-axis.
+     * @param wallRadiusY the wall's radius along the y-axis.
+     */
     public void createWall(int positionX, int positionY, int wallRadiusX, int wallRadiusY) {
         nonLivingObjects.add(new Wall(wallRadiusX, wallRadiusY, positionX, positionY));
     }
 
-   /* @Override
-    public void createWorldBorderWalls() {
-        int wallThicknessRadius = 10;
-        int wallSectionRadius = 100; //how wide the wall parts of the border are.
-
-        int wallWidth = wallSectionRadius *2;
-        int currentWallPosition = worldMapRadius*(-1) + wallSectionRadius - (wallThicknessRadius*2); //makes clean corner
-        for (; currentWallPosition < worldMapRadius- wallSectionRadius +(wallThicknessRadius*2);
-             currentWallPosition = currentWallPosition + wallWidth){
-
-            createBorderWallSegment(wallThicknessRadius, wallSectionRadius, currentWallPosition);
-        }
-        currentWallPosition = worldMapRadius- wallSectionRadius +(wallThicknessRadius*2); //Make last clean corner
-        createBorderWallSegment(wallThicknessRadius, wallSectionRadius, currentWallPosition);
-    }
-
-    private void createBorderWallSegment(int wallThicknessRadius, int wallSectionRadius, int currentWallPosition){
-        int distanceFromCentre = worldMapRadius+wallThicknessRadius; //world radius + wall radius thickness
-        nonLivingObjects.add(new Wall(wallThicknessRadius, wallSectionRadius,(distanceFromCentre*(-1)), currentWallPosition)); //x left
-        nonLivingObjects.add(new Wall(wallThicknessRadius, wallSectionRadius,distanceFromCentre,currentWallPosition)); //x right
-        nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,distanceFromCentre)); //y top
-        nonLivingObjects.add(new Wall(wallSectionRadius, wallThicknessRadius,currentWallPosition,(distanceFromCentre*(-1)) )); //y bottom
-    }*/
-
-    @Override
+    /**
+     * Creates walls according to the size of the world to act as a world Boarder.
+     */
     public void createWorldBorderWalls() {
         int wallThicknessRadius = 70;
         int distanceFromCentre = worldMapRadius+wallThicknessRadius;

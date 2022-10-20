@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Model.Direction;
 import Model.OnTick;
 import Model.Position;
 
@@ -191,8 +192,10 @@ class CollisionHandler implements OnTick {
                     directionsPushed.add(whichDirectionAmIPushed(e, collidedObjectsIterator.next()));
                 }
                 pushedDirection = resultingPushedDirection(directionsPushed.iterator());
+                System.out.println("here " + pushedDirection);
             }
             if (pushedDirection != null){
+                System.out.println(e.getPosition().getX() + " " + e.getPosition().getY());
                 e.collidedWithNonLiving(pushedDirection);
             }
         }
@@ -216,7 +219,6 @@ class CollisionHandler implements OnTick {
     private Direction whichDirectionAmIPushed(Entity me, Entity object){
         Direction xAxis = pushedDirectionXAxis(me, object);
         Direction yAxis = pushedDirectionYAxis(me, object);
-
         if (xAxis == null && yAxis == null) {
             return directionTowardsMiddle(me.getPosition());
         } else if (xAxis == null){
@@ -375,7 +377,7 @@ class CollisionHandler implements OnTick {
                 }
             }
         }
-
+        System.out.println(intToDirection(directionCounter));
         return intToDirection(directionCounter);
     }
 
@@ -405,6 +407,37 @@ class CollisionHandler implements OnTick {
             default -> {return 0;}
         }
     }
+
+    /*
+    * the tests are inverted both x and y
+    * /**
+     * Transforms the direction to the corresponding int value.
+     * <p>
+     * 8 --- 7 --- 6 <br />
+     * |           | <br />
+     * 1     0     5 <br />
+     * |           | <br />
+     * 2 --- 3 --- 4 <br />
+     * number to direction chart
+     * </p>
+     * @param direction the inputted direction.
+     * @return the corresponding int that represents that direction.
+     */
+    /*
+    private int directionToInt(Direction direction){
+        switch (direction) {
+            case RIGHT -> {return 5;}
+            case RIGHT_UP -> {return 6;}
+            case UP -> {return 7;}
+            case LEFT_UP -> {return 8;}
+            case LEFT -> {return 1;}
+            case LEFT_DOWN -> {return 2;}
+            case DOWN -> {return 3;}
+            case RIGHT_DOWN -> {return 4;}
+            default -> {return 0;}
+        }
+    }
+     */
 
     /**
      * transforms numbers back to directions with regard to the inverted y-axis
@@ -448,11 +481,13 @@ class CollisionHandler implements OnTick {
                 return hasCollidedYAxis(entity1, entity2);
             }
         }
-        else{
+        else if (entity1.getPosition().getX() > entity2.getPosition().getX()){
             if ( (entity1.getPosition().getX() - entity1.getHitBoxRadiusX() ) <
                     (entity2.getPosition().getX() + entity2.getHitBoxRadiusX() )){
                 return hasCollidedYAxis(entity1, entity2);
             }
+        } else {
+            return hasCollidedYAxis(entity1, entity2); //entity1-positionX == entity2.positionX
         }
         return false;
     }
@@ -470,9 +505,11 @@ class CollisionHandler implements OnTick {
             return (entity1.getPosition().getY() + entity1.getHitBoxRadiusY()) >
                     (entity2.getPosition().getY() - entity2.getHitBoxRadiusY());
         }
-        else{
+        else if (entity1.getPosition().getY() > entity2.getPosition().getY()){
             return (entity1.getPosition().getY() - entity1.getHitBoxRadiusY()) <
                     (entity2.getPosition().getY() + entity2.getHitBoxRadiusY());
+        }else {
+            return true; //entity1-positionY == entity2.positionY
         }
     }
 

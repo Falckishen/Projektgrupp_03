@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class WeaponFactory {
 
-    public static Weapon getGun(AddProjectile projectileList, Position playerPosition, List<Integer> keyInputs) {
-        return new SingleShooter(projectileList, playerPosition,3,15,
+    public static Weapon getGun(AddProjectile projectileCreator, Position playerPosition, List<Integer> keyInputs) {
+        return new SingleShooter(projectileCreator, playerPosition,3,15,
                 40, 1, keyInputs);
     }
 }

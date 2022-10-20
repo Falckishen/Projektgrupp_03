@@ -1,4 +1,4 @@
-package Model.Entities;
+package Model;
 
 /**
  * An enum containing all the different directions entities can move.
