@@ -1,4 +1,4 @@
-package Model.Weapons;
+package Model.Entities.Weapons;
 
 import Model.Entities.AddProjectile;
 import Model.Direction;

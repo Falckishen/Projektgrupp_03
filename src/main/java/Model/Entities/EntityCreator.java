@@ -8,13 +8,14 @@ import Model.Direction;
 import Model.EntityType;
 import Model.OnTick;
 import Model.Position;
-import Model.Weapons.WeaponFactory;
+import Model.Entities.Weapons.WeaponFactory;
 
 /**
  * @author Ida Altenstedt
  */
 public class EntityCreator implements AddProjectile, AddEnemy {
 
+    private final WeaponFactory weaponFactory;
     private final List<Enemy> enemies;
     private final List<Friendly> friendlies;
     private final List<Projectile> projectiles;
@@ -24,6 +25,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
     private final int difficulty;
 
     public EntityCreator(int worldMapRadius, int difficulty) {
+        this.weaponFactory = new WeaponFactory();
         this.enemies = new ArrayList<>();
         this.friendlies = new ArrayList<>();
         this.projectiles = new ArrayList<>();
@@ -39,6 +41,10 @@ public class EntityCreator implements AddProjectile, AddEnemy {
     }
 
     /*------------------------------------------------ Getters ------------------------------------------------------*/
+
+    public WeaponFactory getWeaponFactory(){
+        return weaponFactory;
+    }
 
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
@@ -179,7 +185,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
     public void createPlayer(int x, int y, List<Integer> keyboardInputs, List<Integer> weaponKeyboardInputs) {
         Player p = new Player(x, y, keyboardInputs);
 
-        p.getNewWeapon(WeaponFactory.getGun(this, p.getPosition(), weaponKeyboardInputs));
+        p.getNewWeapon(weaponFactory.getGun(this, p.getPosition(), weaponKeyboardInputs));
         friendlies.add(p);
         tickObservers.add(p);
     }

@@ -7,7 +7,7 @@ import java.util.List;
 import Model.Direction;
 import Model.EntityType;
 import Model.KeyboardHandler;
-import Model.Weapons.Weapon;
+import Model.Entities.Weapons.Weapon;
 
 /**
  * @author Ida Altenstedt, Wanda Wannelöf
