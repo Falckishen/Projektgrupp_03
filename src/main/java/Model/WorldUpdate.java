@@ -67,7 +67,7 @@ class WorldUpdate extends TimerTask {
      * Updates all objects in the model that needs to be updated every update (tickObservers).
      */
     private void updateTickObservers() {
-        Iterable<OnTick> ticks = new ArrayList<>((Collection<? extends OnTick>) tickObservers);
-        ticks.forEach(OnTick::doOnTick);
+        Iterable<OnTick> observers = new ArrayList<>((Collection<? extends OnTick>) tickObservers);
+        observers.forEach(OnTick::doOnTick);
     }
 }
