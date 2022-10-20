@@ -1,7 +1,7 @@
 package View;
 
 import Model.Entities.Entity;
-import Model.EntityType;
+import Model.Entities.EntityType;
 import Model.Position;
 
 class ConversionQueryable {

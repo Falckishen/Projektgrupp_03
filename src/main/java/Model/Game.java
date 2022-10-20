@@ -1,14 +1,12 @@
 package Model;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import Model.Entities.Entity;
 import Model.Entities.EntityCreator;
-import Model.Entities.MovableEntity;
 
 /**
  * Represents a game. Is the central class in the Model that binds the other classes. Acts as a facade, the view only
@@ -40,9 +38,9 @@ public class Game {
      */
 
     Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
+
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
-
         this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius, difficulty);
         this.entityCreator.createWorldBorderWalls();
@@ -62,7 +60,16 @@ public class Game {
      * @return position of player.
      */
     public Position getPlayerPosition() {
-        return Objects.requireNonNull(entityCreator.getPlayer()).getPosition();
+        return entityCreator.getPlayerPosition();
+    }
+
+    /**
+     * Returns the current health of the player.
+     *
+     * @return current health of the player.
+     */
+    public int getPlayerHealth() {
+        return entityCreator.getPlayerHealth();
     }
 
     /**
@@ -72,15 +79,6 @@ public class Game {
      */
     public Iterable<Entity> getAllEntities(){
         return entityCreator.getAllEntities();
-    }
-
-    /**
-     * Returns the current health of the player.
-     *
-     * @return current health of the player.
-     */
-    public int getPlayerHealth() {
-        return Objects.requireNonNull(entityCreator.getPlayer()).getHealth();
     }
 
     /**
@@ -110,15 +108,6 @@ public class Game {
      */
     boolean isAnyEnemiesAlive() {
         return entityCreator.isAnyEnemiesAlive();
-    }
-
-    /**
-     * Returns the list of the tick observers.
-     *
-     * @return list of the tick observers.
-     */
-    Iterable<OnTick> getTickObservers(){
-        return entityCreator.getTickObservers();
     }
 
     /**
@@ -184,10 +173,10 @@ public class Game {
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
      * run() is executed every 17 ms. An instance of Player is created.
      */
-    void startGame(List<Integer> playerInputList, List<Integer> weaponInputList) {
+    private void startGame(List<Integer> playerInputList, List<Integer> weaponInputList) {
         entityCreator.createPlayer(0,0, playerInputList, weaponInputList);
         int period = 17;
-        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);
+        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period, entityCreator.getTickObservers()), 0, period);
         /*
         WorldUpdate runs as a thread, inputs are running parallel
         1. task 2. delay 3. period

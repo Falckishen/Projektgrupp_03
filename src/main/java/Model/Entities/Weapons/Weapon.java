@@ -1,20 +1,16 @@
 package Model.Entities.Weapons;
 
-import Model.Entities.AddProjectile;
-import Model.Direction;
-import Model.KeyboardHandler;
-import Model.Position;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.awt.event.KeyEvent;
+import Model.Entities.AddProjectile;
+import Model.Entities.Direction;
+import Model.Entities.KeyboardHandler;
+import Model.Position;
 
 /**
  * @author Ida Altenstedt
  */
-
-
-
 public abstract class Weapon {
 
     private final AddProjectile projectileCreator;
@@ -22,14 +18,11 @@ public abstract class Weapon {
     private final int projectileVelocity;
     private final int projectileLife;
     private final int projectileAttackPower;
-    private Position playerPosition;
+    private final Position playerPosition;
     private Long lastShotFired; //is saved as milliseconds
     public boolean isShooting = true;
-
-
     private Direction weaponDirection;
-    private List<Integer> weaponKeyInputs;
-
+    private final List<Integer> weaponKeyInputs;
 
     Weapon(AddProjectile projectileCreator, Position playerPosition, int coolDownSec, int projectileVelocity,
                      int projectileLife, int projectileAttackPower, List<Integer> weaponKeyInputs){

@@ -24,11 +24,11 @@ class WorldUpdate extends TimerTask {
      * @param maxAllowedDelay   the longest execution time (in ms) allowed for an update so as not to delay the next
      *                          update. Same as the time between executions of run(), 17 ms.
      */
-    WorldUpdate(Game game, OutputHandler outputHandler, int maxAllowedDelay) {
+    WorldUpdate(Game game, OutputHandler outputHandler, int maxAllowedDelay, Iterable<OnTick> tickObservers) {
         this.game = game;
         this.outputHandler = outputHandler;
         this.maxAllowedDelay = maxAllowedDelay;
-        this.tickObservers = game.getTickObservers();
+        this.tickObservers = tickObservers;
     }
 
     /**

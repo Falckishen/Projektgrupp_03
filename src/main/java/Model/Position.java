@@ -1,7 +1,9 @@
 package Model;
 
 /**
- * @author
+ * Class for x and y position.
+ *
+ * @author Samuel Falck
  */
 public class Position {
 

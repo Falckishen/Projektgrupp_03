@@ -1,7 +1,5 @@
 package Model.Entities;
 
-import Model.EntityType;
-
 /**
  * A class for creating walls which is nothing more than stationary, non-living objects.
  * @author Ida Altenstedt

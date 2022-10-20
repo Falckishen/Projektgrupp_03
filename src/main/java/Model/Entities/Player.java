@@ -1,12 +1,8 @@
 package Model.Entities;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.Direction;
-import Model.EntityType;
-import Model.KeyboardHandler;
+import java.awt.event.KeyEvent;
 import Model.Entities.Weapons.Weapon;
 
 /**
@@ -14,7 +10,7 @@ import Model.Entities.Weapons.Weapon;
  */
 class Player extends Friendly {
 
-    private List<Integer> playerKeyInputs;
+    private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 

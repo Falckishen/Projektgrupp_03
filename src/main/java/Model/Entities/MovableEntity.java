@@ -1,7 +1,5 @@
 package Model.Entities;
 
-import Model.Direction;
-import Model.EntityType;
 import Model.OnTick;
 
 /**
@@ -13,16 +11,11 @@ public abstract class MovableEntity extends Entity implements OnTick {
     private int speed;
     private int health;
 
-    MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,
-                            int speed, int health){
+    MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
         this.speed = speed;
         this.health= health;
-    }
-
-    Direction getDirection() {
-        return direction;
     }
 
     int getSpeed() {
@@ -44,10 +37,9 @@ public abstract class MovableEntity extends Entity implements OnTick {
         }
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
-
 
     void move(){
         move(1);

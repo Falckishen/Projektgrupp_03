@@ -1,13 +1,12 @@
 package Model.Entities.Weapons;
 
+import java.util.List;
 import Model.Entities.AddProjectile;
 import Model.Position;
 
 /**
  * @author Ida Altenstedt
  */
-import java.util.List;
-
 class SingleShooter extends Weapon{
 
     SingleShooter(AddProjectile projectileCreator, Position playerPosition, int coolDownSec,

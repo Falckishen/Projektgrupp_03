@@ -1,9 +1,8 @@
 package Model.Entities.Weapons;
 
+import java.util.List;
 import Model.Entities.AddProjectile;
 import Model.Position;
-import java.util.List;
-
 
 /**
  * @author Ida Altenstedt

@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import Model.EntityType;
 import Model.Position;
 
 /**

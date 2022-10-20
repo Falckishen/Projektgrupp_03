@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Model.Direction;
-import Model.EntityType;
 import Model.OnTick;
 import Model.Position;
 import Model.Entities.Weapons.WeaponFactory;
@@ -42,10 +40,6 @@ public class EntityCreator implements AddProjectile, AddEnemy {
 
     /*------------------------------------------------ Getters ------------------------------------------------------*/
 
-    public WeaponFactory getWeaponFactory(){
-        return weaponFactory;
-    }
-
     //temporary used for the testing constructor
     public List<OnTick> getTickObservers() {
         return tickObservers;
@@ -71,6 +65,18 @@ public class EntityCreator implements AddProjectile, AddEnemy {
             }
         }
         return null;
+    }
+
+    public Position getPlayerPosition() {
+        MovableEntity player = getPlayer();
+        if(player == null) {
+            return null;
+        }
+        return player.getPosition();
+    }
+
+    public int getPlayerHealth() {
+        return getPlayer().getHealth();
     }
 
     //used for tests

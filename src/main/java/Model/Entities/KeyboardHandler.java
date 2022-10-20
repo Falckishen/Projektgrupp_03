@@ -1,24 +1,10 @@
-package Model;
-
-import Model.Direction;
+package Model.Entities;
 
 import java.util.*;
 
 public class KeyboardHandler {
-    /*private List<Integer> keyInputs;
-
-    KeyboardHandler(List<Integer> keyInputs) {
-        this.keyBoardInputs = keyInputs;
-    }
-
-
-    private void setNewDirection(Direction direction){
-    }*/
 
     public static Direction findDirection(List<Direction> currentDirections){
-        Direction newDirection = Direction.DOWN;
-
-
         // FALL 1: 1 Knapp är nere
         if(currentDirections.size() == 1) {
             return currentDirections.get(0);

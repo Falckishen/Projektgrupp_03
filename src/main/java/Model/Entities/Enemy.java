@@ -1,9 +1,6 @@
 package Model.Entities;
 
 import java.util.*;
-
-import Model.Direction;
-import Model.EntityType;
 import Model.Position;
 
 /**
@@ -63,6 +60,7 @@ abstract class Enemy extends MovableEntity {
             } catch (NullPointerException e){
                 p = new Position(0,0);
             }
+            assert p != null;
             this.setDirection(findDirectionToPosition(p));
 
             move();
