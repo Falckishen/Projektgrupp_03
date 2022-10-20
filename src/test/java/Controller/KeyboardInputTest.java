@@ -1,4 +1,4 @@
-/*package Controller;
+package Controller;
 
 import Model.MainMenu;
 import View.GameView;
@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardInputTest {
-    List playerInputList;
+    /*List playerInputList;
     static Robot robot;
     static MainMenu mainMenu;
     static GameView mainView;
@@ -136,4 +136,6 @@ class KeyboardInputTest {
         robot.keyRelease(KeyEvent.VK_RIGHT);
         assertTrue(test);
     }
-}*/
+
+     */
+}
