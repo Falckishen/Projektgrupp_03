@@ -281,16 +281,17 @@ class CollisionHandlerTest {
         assertTrue(e.getPosition().getX() > 0 && e.getPosition().getY() > 0);
     }
     //multiple {end}
+
     void createWallAbove(){
-        EC.createWall(0, -80, 100, 70); //(inverted y-axis)
+        EC.createWall(0, -100, 100, 70); //(inverted y-axis)
     }
     void createWallBelow(){
-        EC.createWall(0, 80, 100, 70); //(inverted y-axis)
+        EC.createWall(0, 100, 100, 70); //(inverted y-axis)
     }
     void createWallToTheLeft(){
-        EC.createWall(-80, 0, 70, 100);
+        EC.createWall(-100, 0, 70, 100);
     }
     void createWallToTheRight(){
-        EC.createWall(80, 0, 70, 100);
+        EC.createWall(100, 0, 70, 100);
     }
 }
