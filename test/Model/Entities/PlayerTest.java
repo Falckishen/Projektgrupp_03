@@ -1,4 +1,4 @@
-package Model.Entities;
+/*package Model.Entities;
 
 import Model.OnTick;
 import org.junit.jupiter.api.BeforeEach;
@@ -233,4 +233,4 @@ class PlayerTest {
         player.takeDamage(10);
         assertTrue(player.getIsDead());
     }
-}
+}*/

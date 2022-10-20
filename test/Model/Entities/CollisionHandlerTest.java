@@ -1,6 +1,6 @@
+/*
 package Model.Entities;
 
-import Model.Direction;
 import Model.OnTick;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -294,4 +294,4 @@ class CollisionHandlerTest {
     void createWallToTheRight(){
         EC.createWall(100, 0, 70, 100);
     }
-}
+}*/

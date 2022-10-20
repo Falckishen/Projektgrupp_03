@@ -1,3 +1,4 @@
+/*
 package Model.Entities;
 
 import Model.OnTick;
@@ -80,4 +81,4 @@ class EnemyTest {
         }
         assertTrue(test);
     }
-}
+}*/
