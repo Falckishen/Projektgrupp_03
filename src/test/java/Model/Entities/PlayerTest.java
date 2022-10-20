@@ -1,4 +1,4 @@
-package Model.Entities;
+/*package Model.Entities;
 
 import Model.Entities.*;
 import Model.OnTick;
@@ -234,4 +234,4 @@ class PlayerTest {
         player.takeDamage(10);
         assertTrue(player.getIsDead());
     }
-}
+}*/

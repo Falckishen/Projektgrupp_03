@@ -31,7 +31,7 @@ class SpawnEnemies implements Runnable {
     }
 
     /**
-     * Spawns the enemies of the next round. Executed by ScheduledExecutorService.schedule() 5 s after the previous
+     * Spawns the enemies of the next round. Executed by ScheduledExecutorService.schedule() 3 s after the previous
      * round ended.
      */
     @Override
