@@ -1,5 +1,8 @@
 package Model.Entities;
 
+import Model.Entities.EntityCreator;
+import Model.Entities.Monster;
+import Model.Entities.Player;
 import Model.OnTick;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,5 +1,6 @@
 package Model.Entities;
 
+import Model.Entities.*;
 import Model.OnTick;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

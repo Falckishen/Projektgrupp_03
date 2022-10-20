@@ -2,12 +2,9 @@ package Model.Entities;
 
 import Model.EntityType;
 import Model.OnTick;
-import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

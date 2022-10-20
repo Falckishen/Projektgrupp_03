@@ -1,6 +1,9 @@
 package Model.Entities;
 
 import Model.Direction;
+import Model.Entities.Entity;
+import Model.Entities.EntityCreator;
+import Model.Entities.MovableEntity;
 import Model.OnTick;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
