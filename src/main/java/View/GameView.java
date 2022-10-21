@@ -118,15 +118,16 @@ public class GameView extends JComponent implements ViewObserver {
         mainFrame.replaceSubPanel(activePanel);
     }
 
-    private Game getCurrentGame() {
-        return mainMenu.getCurrentGame();
+    /**
+     * @return the root pane of the main frame.
+     */
+    @Override
+    public JComponent getMainFrameRootPane() {
+        return mainFrame.getRootPane();
     }
 
-    /**
-     * @return the root pane of the frame.
-     */
-    public JComponent getFrameRootPane() {
-        return mainFrame.getRootPane();
+    private Game getCurrentGame() {
+        return mainMenu.getCurrentGame();
     }
 
     /**
