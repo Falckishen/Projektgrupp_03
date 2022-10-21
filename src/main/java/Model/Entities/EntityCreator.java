@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Model.OnTick;
+import Model.TickObserver;
 import Model.Position;
 import Model.Entities.Weapons.WeaponFactory;
 
@@ -17,7 +17,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
     private final List<Enemy> enemies;
     private final List<Friendly> friendlies;
     private final List<Projectile> projectiles;
-    private final List<OnTick> tickObservers;
+    private final List<TickObserver> tickObservers;
     private final List<Entity> nonLivingObjects;
     private final int worldMapRadius;
     private final int difficulty;
@@ -41,7 +41,7 @@ public class EntityCreator implements AddProjectile, AddEnemy {
     /*------------------------------------------------ Getters ------------------------------------------------------*/
 
     //temporary used for the testing constructor
-    public List<OnTick> getTickObservers() {
+    public List<TickObserver> getTickObservers() {
         return tickObservers;
     }
 

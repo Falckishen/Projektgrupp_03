@@ -1,11 +1,11 @@
 package Model.Entities;
 
-import Model.OnTick;
+import Model.TickObserver;
 
 /**
  * @author Ida Altenstedt
  */
-public abstract class MovableEntity extends Entity implements OnTick {
+public abstract class MovableEntity extends Entity implements TickObserver {
 
     private Direction direction;
     private int speed;

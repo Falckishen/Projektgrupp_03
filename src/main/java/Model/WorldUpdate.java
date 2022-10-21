@@ -15,7 +15,7 @@ class WorldUpdate extends TimerTask {
     private final Game game;
     private final OutputHandler outputHandler;
     private final int maxAllowedDelay;
-    private final Iterable<OnTick> tickObservers;
+    private final Iterable<TickObserver> tickObservers;
 
     /**
      * Creates an instance of WorldUpdate.
@@ -24,7 +24,7 @@ class WorldUpdate extends TimerTask {
      * @param maxAllowedDelay   the longest execution time (in ms) allowed for an update so as not to delay the next
      *                          update. Same as the time between executions of run(), 17 ms.
      */
-    WorldUpdate(Game game, OutputHandler outputHandler, int maxAllowedDelay, Iterable<OnTick> tickObservers) {
+    WorldUpdate(Game game, OutputHandler outputHandler, int maxAllowedDelay, Iterable<TickObserver> tickObservers) {
         this.game = game;
         this.outputHandler = outputHandler;
         this.maxAllowedDelay = maxAllowedDelay;
@@ -67,7 +67,7 @@ class WorldUpdate extends TimerTask {
      * Updates all objects in the model that needs to be updated every update (tickObservers).
      */
     private void updateTickObservers() {
-        Iterable<OnTick> observers = new ArrayList<>((Collection<? extends OnTick>) tickObservers);
-        observers.forEach(OnTick::doOnTick);
+        Iterable<TickObserver> observers = new ArrayList<>((Collection<? extends TickObserver>) tickObservers);
+        observers.forEach(TickObserver::doOnTick);
     }
 }

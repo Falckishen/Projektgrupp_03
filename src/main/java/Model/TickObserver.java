@@ -5,7 +5,7 @@ package Model;
  *
  * @author Ida Altenstedt
  */
-public interface OnTick {
+public interface TickObserver {
 
     /**
      * The method called every time an update occurs.

@@ -3,7 +3,7 @@ package Model.Entities;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import Model.OnTick;
+import Model.TickObserver;
 import Model.Position;
 
 /**
@@ -14,7 +14,7 @@ import Model.Position;
  *</p>
  * @author Ida Altenstedt
  */
-class CollisionHandler implements OnTick {
+class CollisionHandler implements TickObserver {
 
     /**
      * An Iterable of objects that is subject to the abstract class Friendly's collision methods.
