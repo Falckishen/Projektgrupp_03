@@ -3,7 +3,7 @@ package Model.Entities;
 import Model.OnTick;
 
 /**
- * @author Ida Altenstedt
+ * @author Ida Altenstedt & Wanda Wannelöf
  */
 public abstract class MovableEntity extends Entity implements OnTick {
 
@@ -48,7 +48,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
 
     protected void move(){
         move(1);
-    }
+    } // Default multiplier to avoid duplicated code
 
     protected void move(int multiplier){ //Used in collision
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);

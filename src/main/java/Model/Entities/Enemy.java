@@ -6,7 +6,7 @@ import Model.Position;
 
 /**
  * The abstract class Enemy containing the code used by all hostile entities.
- * @author Ida Altenstedt
+ * @author Ida Altenstedt & Wanda Wannelöf
  */
 abstract class Enemy extends MovableEntity {
     /**

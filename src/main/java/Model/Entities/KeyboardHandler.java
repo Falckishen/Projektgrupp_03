@@ -4,21 +4,18 @@ import Controller.KeyboardInput;
 import Model.Entities.Direction;
 
 import java.util.*;
-
+/**
+ * @author Wanda Wannelöf
+ */
 public class KeyboardHandler {
-    /*private List<Integer> keyInputs;
 
-    KeyboardHandler(List<Integer> keyInputs) {
-        this.keyBoardInputs = keyInputs;
-    }
-
-
-    private void setNewDirection(Direction direction){
-    }*/
-
+    /**
+     * This changes the direction of a Player or Weapon object. It changes depending on how many buttons are
+     * currently pushed down (and therefore registered in a list of directions for each object) and which of them it is.
+     * @param currentDirections which is the direction which the Player object itself has
+     * @return Direction
+     */
     public static Direction findDirection(List<Direction> currentDirections){
-        Direction newDirection = Direction.DOWN;
-
 
         // FALL 1: 1 Knapp är nere
         if(currentDirections.size() == 1) {

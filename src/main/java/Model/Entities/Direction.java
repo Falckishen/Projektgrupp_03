@@ -3,7 +3,7 @@ package Model.Entities;
 /**
  * An enum containing all the different directions entities can move.
  *
- * @author Ida Altenstedt
+ * @author Ida Altenstedt & Wanda Wannelöf
  */
 public enum Direction {
     LEFT,
