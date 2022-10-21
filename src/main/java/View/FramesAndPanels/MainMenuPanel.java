@@ -1,7 +1,6 @@
 package View.FramesAndPanels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
@@ -16,8 +15,8 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private final ActionListener firstListener;
     private final ActionListener secondListener;
     private final ActionListener thirdListener;
-    private String gameName;
-    private int highscore;
+    private final String gameName;
+    private final int highscore;
 
     /**
      * @param acStart What happens when user clicks start.
@@ -50,9 +49,9 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         title.setVisible(true);
 
         JLabel score;
-        score = new JLabel(highscore + "", JLabel.CENTER);
+        score = new JLabel("Highscore: " + highscore, JLabel.CENTER);
         score.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-        score.setBounds(GSW(0.15), GSH(0.5) ,GSW(0.7), GSH(0.05));
+        score.setBounds(GSW(0.15), GSH(0.5) ,GSW(0.7), GSH(0.10));
         score.setOpaque(true);
         add(score, BorderLayout.CENTER);
         score.setVisible(true);

@@ -1,8 +1,5 @@
 package Model.Entities;
 
-import Controller.KeyboardInput;
-import Model.Entities.Direction;
-
 import java.util.*;
 /**
  * @author Wanda Wannelöf

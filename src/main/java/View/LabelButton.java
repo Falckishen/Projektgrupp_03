@@ -1,15 +1,16 @@
 package View;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
 
 /**
- * @author
+ * @author Alfred Berglöf
  */
 public class LabelButton extends JLabel{
+
     private final Color color;
     private final Color highlightColor;
     private final JLabel text;

@@ -1,56 +1,51 @@
 package Model.Entities;
 
-import Model.OnTick;
+import Model.TickObserver;
 
 /**
  * @author Ida Altenstedt & Wanda Wannelöf
  */
-public abstract class MovableEntity extends Entity implements OnTick {
+public abstract class MovableEntity extends Entity implements TickObserver {
 
     private Direction direction;
     private int speed;
     private int health;
 
-    protected MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y,
-                            int speed, int health){
+    MovableEntity(EntityType entityType, int hitBoxRadiusX, int hitBoxRadiusY, int x, int y, int speed, int health) {
         super(entityType, hitBoxRadiusX, hitBoxRadiusY, x, y);
         this.direction = Direction.LEFT;
         this.speed = speed;
         this.health= health;
     }
 
-    protected Direction getDirection() {
-        return direction;
-    }
-
-    protected int getSpeed() {
+    int getSpeed() {
         return speed;
     }
 
-    protected void setDirection(Direction direction) {
+    void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    protected void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    protected void takeDamage(int attackPower){
+    void takeDamage(int attackPower){
         health -= attackPower;
         if (health <= 0){
             setIsDead();
         }
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
 
-    protected void move(){
+    void move(){
         move(1);
     } // Default multiplier to avoid duplicated code
 
-    protected void move(int multiplier){ //Used in collision
+    void move(int multiplier){ //Used in collision
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);
         switch (direction) {
             case UP -> getPosition().setY(getPosition().getY()-getSpeed()*multiplier);
@@ -76,7 +71,7 @@ public abstract class MovableEntity extends Entity implements OnTick {
         }
     }
 
-    protected void collidedWithNonLiving(Direction pushedDirection){
+    void collidedWithNonLiving(Direction pushedDirection){
 
         int multiplier = 5; //5
         int moveX = 0;

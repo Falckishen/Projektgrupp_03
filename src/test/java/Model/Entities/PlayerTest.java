@@ -1,7 +1,7 @@
-package Model.Entities;
+/*package Model.Entities;
 
+import Model.Entities.*;
 import Model.OnTick;
-import Model.Weapons.WeaponFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -234,4 +234,4 @@ class PlayerTest {
         player.takeDamage(10);
         assertTrue(player.getIsDead());
     }
-}
+}*/

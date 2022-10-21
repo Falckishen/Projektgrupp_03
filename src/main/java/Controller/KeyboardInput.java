@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Game;
 import Model.MainMenu;
+import Model.ViewObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,16 +28,16 @@ public class KeyboardInput {
     private boolean escPressed = false;
 
     /**
-     * This class initiates keyboard input, it functions by binding inputs from an input map to different actions
+     * This class initiates keyboard input, it functions by binding inputs from an input map to different actions.
      *
-     * @param jComponent a java swing component that contains the action- and input-map
-     * @param playerInputArrayList a list where all inputs related to player movement is put
-     * @param mainMenu unclear why this is here
-     * @param weaponInputArrayList a list were all inputs related to weapon and shoot direction is put
+     * @param mainMenu reference to Model.
+     * @param mainView reference to main View.
      */
-    public KeyboardInput(MainMenu mainMenu, JComponent jComponent) {
+    public KeyboardInput(MainMenu mainMenu, ViewObserver mainView) {
 
         this.mainMenu = mainMenu;
+
+        JComponent mainFrameRootPane = mainView.getMainFrameRootPane();
 
         this.playerInputArrayList = mainMenu.getMovementInputList();
         this.weaponInputArrayList = mainMenu.getWeaponInputList();
@@ -61,44 +62,44 @@ public class KeyboardInput {
         Action pauseActionPressed = new PauseActionPressed();
         Action pauseActionReleased = new PauseActionReleased();
 
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
-        jComponent.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false),"walkLeftActionPressed");
-        jComponent.getActionMap().put("walkLeftActionPressed", walkLeftActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, false),"walkDownActionPressed");
-        jComponent.getActionMap().put("walkDownActionPressed", walkDownActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"walkRightActionPressed");
-        jComponent.getActionMap().put("walkRightActionPressed", walkRightActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, true),"walkUpActionReleased");
-        jComponent.getActionMap().put("walkUpActionReleased", walkUpActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true),"walkLeftActionReleased");
-        jComponent.getActionMap().put("walkLeftActionReleased", walkLeftActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, true),"walkDownActionReleased");
-        jComponent.getActionMap().put("walkDownActionReleased", walkDownActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
-        jComponent.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false),"walkUpActionPressed");
+        mainFrameRootPane.getActionMap().put("walkUpActionPressed", walkUpActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, false),"walkLeftActionPressed");
+        mainFrameRootPane.getActionMap().put("walkLeftActionPressed", walkLeftActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, false),"walkDownActionPressed");
+        mainFrameRootPane.getActionMap().put("walkDownActionPressed", walkDownActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false),"walkRightActionPressed");
+        mainFrameRootPane.getActionMap().put("walkRightActionPressed", walkRightActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, true),"walkUpActionReleased");
+        mainFrameRootPane.getActionMap().put("walkUpActionReleased", walkUpActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true),"walkLeftActionReleased");
+        mainFrameRootPane.getActionMap().put("walkLeftActionReleased", walkLeftActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, true),"walkDownActionReleased");
+        mainFrameRootPane.getActionMap().put("walkDownActionReleased", walkDownActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true),"walkRightActionReleased");
+        mainFrameRootPane.getActionMap().put("walkRightActionReleased", walkRightActionReleased);
 
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),"attackUpActionPressed");
-        jComponent.getActionMap().put("attackUpActionPressed", attackUpActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false),"attackLeftActionPressed");
-        jComponent.getActionMap().put("attackLeftActionPressed", attackLeftActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),"attackDownActionPressed");
-        jComponent.getActionMap().put("attackDownActionPressed", attackDownActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false),"attackRightActionPressed");
-        jComponent.getActionMap().put("attackRightActionPressed", attackRightActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, true),"attackUpActionReleased");
-        jComponent.getActionMap().put("attackUpActionReleased", attackUpActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true),"attackLeftActionReleased");
-        jComponent.getActionMap().put("attackLeftActionReleased", attackLeftActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true),"attackDownActionReleased");
-        jComponent.getActionMap().put("attackDownActionReleased", attackDownActionReleased);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true),"attackRightActionReleased");
-        jComponent.getActionMap().put("attackRightActionReleased", attackRightActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),"attackUpActionPressed");
+        mainFrameRootPane.getActionMap().put("attackUpActionPressed", attackUpActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false),"attackLeftActionPressed");
+        mainFrameRootPane.getActionMap().put("attackLeftActionPressed", attackLeftActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),"attackDownActionPressed");
+        mainFrameRootPane.getActionMap().put("attackDownActionPressed", attackDownActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false),"attackRightActionPressed");
+        mainFrameRootPane.getActionMap().put("attackRightActionPressed", attackRightActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, true),"attackUpActionReleased");
+        mainFrameRootPane.getActionMap().put("attackUpActionReleased", attackUpActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true),"attackLeftActionReleased");
+        mainFrameRootPane.getActionMap().put("attackLeftActionReleased", attackLeftActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true),"attackDownActionReleased");
+        mainFrameRootPane.getActionMap().put("attackDownActionReleased", attackDownActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true),"attackRightActionReleased");
+        mainFrameRootPane.getActionMap().put("attackRightActionReleased", attackRightActionReleased);
 
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false),"escPressed");
-        jComponent.getActionMap().put("escPressed", pauseActionPressed);
-        jComponent.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
-        jComponent.getActionMap().put("escReleased", pauseActionReleased);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false),"escPressed");
+        mainFrameRootPane.getActionMap().put("escPressed", pauseActionPressed);
+        mainFrameRootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true), "escReleased");
+        mainFrameRootPane.getActionMap().put("escReleased", pauseActionReleased);
     }
 
     /**

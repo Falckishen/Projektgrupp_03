@@ -37,7 +37,7 @@ public class MainMenu {
     /**
      * Returns the list of current user keyboard input for player movement.
      *
-     * @return list of current user keyboard input.
+     * @return list of current user keyboard input for player movement.
      */
     public List<Integer> getMovementInputList() {
         return movementInputList;
@@ -46,7 +46,7 @@ public class MainMenu {
     /**
      * Returns the list of current user keyboard input for the weapon.
      *
-     * @return list of current user keyboard input.
+     * @return list of current user keyboard input for the weapon.
      */
     public List<Integer> getWeaponInputList() {
         return weaponInputList;

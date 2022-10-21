@@ -1,17 +1,16 @@
 package Model.Entities;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.Weapons.Weapon;
+import java.awt.event.KeyEvent;
+import Model.Entities.Weapons.Weapon;
 
 /**
  * @author Ida Altenstedt & Wanda Wannelöf
  */
 class Player extends Friendly {
 
-    private List<Integer> playerKeyInputs;
+    private final List<Integer> playerKeyInputs;
     private Weapon weapon;
     private final int defaultSpeed;
 

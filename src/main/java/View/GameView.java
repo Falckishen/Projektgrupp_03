@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import javax.swing.*;
 import Model.Entities.Entity;
 import Model.Game;
@@ -61,10 +62,11 @@ public class GameView extends JComponent implements ViewObserver {
         playerPosition = game.getPlayerPosition();
         if (!(playerPosition == null)) {
             paintBackground();
-            paintEntities(game.getFriendlies());
-            paintEntities(game.getEnemies());
-            paintEntities(game.getProjectiles());
-            paintEntities(game.getNonLivingObjects());
+            paintEntities(game.getAllEntities());
+            //paintEntities(game.getFriendlies());
+            //paintEntities(game.getEnemies());
+            //paintEntities(game.getProjectiles());
+            //paintEntities(game.getNonLivingObjects());
             double playerHealth = game.getPlayerHealth()/10d;
             paintHealthBar(playerHealth);
             paintRoundNumerals(game.getRound());
@@ -117,15 +119,16 @@ public class GameView extends JComponent implements ViewObserver {
         mainFrame.replaceSubPanel(activePanel);
     }
 
-    private Game getCurrentGame() {
-        return mainMenu.getCurrentGame();
+    /**
+     * @return the root pane of the main frame.
+     */
+    @Override
+    public JComponent getMainFrameRootPane() {
+        return mainFrame.getRootPane();
     }
 
-    /**
-     * @return the root pane of the frame.
-     */
-    public JComponent getFrameRootPane() {
-        return mainFrame.getRootPane();
+    private Game getCurrentGame() {
+        return mainMenu.getCurrentGame();
     }
 
     /**
@@ -164,7 +167,7 @@ public class GameView extends JComponent implements ViewObserver {
      * Renders all entities in the input onto the gamePanel stored in activePanel.
      * @param entities the entities to render.
      */
-    private void paintEntities(Iterable<? extends Entity> entities){
+    private void paintEntities(Iterable<Entity> entities){
         for(Entity entity : entities){
             paintEntity(entity);
         }
@@ -178,7 +181,7 @@ public class GameView extends JComponent implements ViewObserver {
         if(entity.getEntityType() != EntityType.wall){
             Position pos = entity.getPosition();
             pos = ConversionQueryable.transformWithPlayerPosition(pos, playerPosition);
-            BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(ConversionQueryable.getImageType(entity), 0);
+            BufferedImage entityImage = ImageContainer.getImageFromTypeVariant(Objects.requireNonNull(ConversionQueryable.getImageType(entity)), 0);
             ((GamePanel)activePanel).paintImageRelativeToCenter(entityImage, pos.getX(), pos.getY());
         }else{
             paintWall(entity.getHitBoxRadiusX()*2, entity.getHitBoxRadiusY()*2, entity.getPosition());
@@ -217,7 +220,8 @@ public class GameView extends JComponent implements ViewObserver {
 
     /**
      * Renders the current round count onto the gamePanel stored in activePanel.
-     * @param round
+     *
+     * @param round current round.
      */
     private void paintRoundNumerals(int round){
         String roundString = round + "";
@@ -235,9 +239,9 @@ public class GameView extends JComponent implements ViewObserver {
      * @return the new string without the first character of the old string
      */
     private String removeFirstCharacterFromString(String toRemoveFrom){
-        String outputString = "";
-        for(int i=1; i < toRemoveFrom.length(); i++) outputString = outputString + toRemoveFrom.charAt(i);
-        return(outputString);
+        StringBuilder outputString = new StringBuilder();
+        for(int i=1; i < toRemoveFrom.length(); i++) outputString.append(toRemoveFrom.charAt(i));
+        return(outputString.toString());
     }
 
     /**

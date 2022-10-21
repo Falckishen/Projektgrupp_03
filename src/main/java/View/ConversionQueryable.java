@@ -1,6 +1,5 @@
 package View;
 
-import java.util.Random;
 import Model.Entities.Entity;
 import Model.Entities.EntityType;
 import Model.Position;

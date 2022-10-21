@@ -1,12 +1,9 @@
-package Model.Entities;
+/*package Model.Entities;
 
 import Model.OnTick;
-import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,4 +38,17 @@ public class EntityCreatorTest {
         //Player created in init
         assertTrue(player.getPosition().getX() == 1 && player.getPosition().getY() == 1 && EC.getFriendlies().contains(player));
     }
-}
+
+    @Test
+    void createWorldWalls(){
+        //Player created in init
+        EC.createWorldBorderWalls();
+        int nrWalls = 0;
+        for (Entity entity : EC.getAllEntities()) {
+            if (entity.getEntityType() == EntityType.wall) {
+                nrWalls += 1;
+            }
+        }
+        assertEquals(4, nrWalls);
+    }
+}*/

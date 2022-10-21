@@ -1,15 +1,12 @@
 package Model;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import Model.Entities.Entity;
 import Model.Entities.EntityCreator;
-import Model.Entities.MovableEntity;
-import Model.Entities.EntityType;
 
 /**
  * Represents a game. Is the central class in the Model that binds the other classes. Acts as a facade, the view only
@@ -21,8 +18,6 @@ public class Game {
 
     private final MainMenu mainMenu;
     private final int difficulty;
-    private final List<Integer> playerInputList;
-    private final List<Integer> weaponInputList;
     private final OutputHandler outputHandler;
     private final EntityCreator entityCreator;
     private final Timer timer;
@@ -42,11 +37,10 @@ public class Game {
      * @param outputHandler     reference to the outputHandler.
      */
 
-    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
+    Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
+
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;
-        this.playerInputList = playerInputList;
-        this.weaponInputList = weaponInputList;
         this.outputHandler = outputHandler;
         this.entityCreator = new EntityCreator(worldMapRadius, difficulty);
         this.entityCreator.createWorldBorderWalls();
@@ -55,7 +49,7 @@ public class Game {
         this.enemiesSpawning = false;
         this.gamePaused = false;
 
-        startGame();
+        startGame(playerInputList, weaponInputList);
     }
 
     /*------------------------------------------------ Public Getters ------------------------------------------------*/
@@ -66,48 +60,7 @@ public class Game {
      * @return position of player.
      */
     public Position getPlayerPosition() {
-        for (MovableEntity e:entityCreator.getFriendlies()) {
-            if (e.getEntityType() == EntityType.player ){
-                return e.getPosition();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the list of enemies alive.
-     *
-     * @return list of enemies alive.
-     */
-    public Iterable<MovableEntity> getEnemies() {
-        return (Iterable<MovableEntity>) entityCreator.getEnemies();
-    }
-
-    /**
-     * Returns the list of friendlies alive.
-     *
-     * @return list of friendlies alive.
-     */
-    public Iterable<MovableEntity> getFriendlies() {
-        return (Iterable<MovableEntity>) entityCreator.getFriendlies();
-    }
-
-    /**
-     * Returns the list of projectiles.
-     *
-     * @return list of projectiles.
-     */
-    public Iterable<MovableEntity> getProjectiles() {
-        return (Iterable<MovableEntity>) entityCreator.getProjectiles();
-    }
-
-    /**
-     * Return the list of non-living objects.
-     *
-     * @return List of non-living objects.
-     */
-    public Iterable<Entity> getNonLivingObjects() {
-        return (Iterable<Entity>) entityCreator.getNonLivingObjects();
+        return entityCreator.getPlayerPosition();
     }
 
     /**
@@ -116,7 +69,16 @@ public class Game {
      * @return current health of the player.
      */
     public int getPlayerHealth() {
-        return Objects.requireNonNull(getPlayer()).getHealth();
+        return entityCreator.getPlayerHealth();
+    }
+
+    /**
+     * Return the Iterable of all current entities in the game.
+     *
+     * @return Iterable of entities.
+     */
+    public Iterable<Entity> getAllEntities(){
+        return entityCreator.getAllEntities();
     }
 
     /**
@@ -149,37 +111,12 @@ public class Game {
     }
 
     /**
-     * Returns the list of the tick observers.
-     *
-     * @return list of the tick observers.
-     */
-    Iterable<OnTick> getTickObservers(){
-        return entityCreator.getTickObservers();
-    }
-
-    /**
      * Returns true if player is dead, false if player is alive.
      *
      * @return true if player is dead, false if player is alive.
      */
     boolean isPlayerDead() {
         return !entityCreator.isPlayerAlive();
-    }
-
-    /*------------------------------------------------ Private Getters ------------------------------------------------*/
-
-    /**
-     * Returns the player.
-     *
-     * @return player.
-     */
-    private MovableEntity getPlayer() {
-        for (MovableEntity e : entityCreator.getFriendlies()) {
-            if (e.getEntityType() == EntityType.player){
-                return e;
-            }
-        }
-        return null;
     }
 
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
@@ -236,10 +173,10 @@ public class Game {
      * Start the game, the world starts updating and round one start. Creates an instance of WorldUpdate and its method
      * run() is executed every 17 ms. An instance of Player is created.
      */
-    public void startGame() {
+    private void startGame(List<Integer> playerInputList, List<Integer> weaponInputList) {
         entityCreator.createPlayer(0,0, playerInputList, weaponInputList);
         int period = 17;
-        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period), 0, period);
+        timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period, entityCreator.getTickObservers()), 0, period);
         /*
         WorldUpdate runs as a thread, inputs are running parallel
         1. task 2. delay 3. period
