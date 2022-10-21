@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 class ImageContainer {
     private final static String imageSrcPath = "classes/Images/";
-
     private static final String[] miscImagePaths = {"NewerBackgroundImageOOP.png", "CrosshairImageOOP.png"};
     private static final String[] PlayerImagePaths = {"PlayerMove0.png", "PlayerMove1.png", "PlayerMove2.png"};
     private static final String[] PlayerProjectileImagePaths = {"PlayerProjectile.png"};

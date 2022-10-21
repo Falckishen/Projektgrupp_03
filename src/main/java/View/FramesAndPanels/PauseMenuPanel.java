@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class PauseMenuPanel extends JPanel implements PanelInterface{
     private JFrame parentFrame;
-    private Action resumeListener;
-    private Action forfeitListener;
+    private final Action resumeListener;
+    private final Action forfeitListener;
 
     public PauseMenuPanel(Action resumeListener, Action forfeitListener){
         this.resumeListener = resumeListener;
@@ -19,13 +19,8 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
 
     private void setUpParts(){
         this.setLayout(null);
-        //Color translucent = new Color(0,0,0,0);
         int TITLE_SIZE = 80;
         int OPTIONS_SIZE = 40;
-        /*Action quitPressed = new quitPressed();
-        Action resumePressed = new resumePressed();*/
-
-        //this.setBackground(new Color(0,0,0,200));
 
         JLabel title = new JLabel("PAUSED", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_SIZE));
@@ -38,7 +33,6 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
         quitButton.setBounds(GSW(0.15), GSH(0.85), GSW(0.3), GSH(0.1));
         add(quitButton,BorderLayout.CENTER);
         quitButton.setVisible(true);
-
 
         LabelButton resumeButton = new LabelButton(resumeListener, "Resume",new Font(Font.SANS_SERIF, Font.BOLD, OPTIONS_SIZE),Color.BLACK,Color.red);
         resumeButton.setBounds(GSW(0.70), GSH(0.85), GSW(0.3), GSH(0.1));
@@ -65,22 +59,6 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
     public void destroyPanel() {
         getParent().remove(this);
     }
-
-    /*//TODO add/call method for quiting/giving up game in actionPerformed()
-    class quitPressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Quitting");
-        }
-    }
-    //TODO add/call method for resuming game in actionPerformed()
-    static class resumePressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Resuming");
-
-        }
-    }*/
 
     private int GSW(double scale){
         return(getScaledWidth(scale));

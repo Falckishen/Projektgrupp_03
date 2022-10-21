@@ -1,9 +1,8 @@
 package View.FramesAndPanels;
-import View.LabelButton;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import javax.swing.*;
+import View.LabelButton;
 
 /**
  * @author Alfred Berglöf
@@ -11,10 +10,10 @@ import java.awt.event.ActionEvent;
 
 public class DeathMenuPanel extends JPanel implements PanelInterface {
     private JFrame parentFrame;
-    private Action retryListener;
-    private Action exitListener;
-    private int highscore;
-    private int score;
+    private final Action retryListener;
+    private final Action exitListener;
+    private final int highscore;
+    private final int score;
 
     public DeathMenuPanel(Action retryListener, Action exitListener, int highscore, int score) {
         this.retryListener = retryListener;
@@ -97,22 +96,5 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
 
     private int getScaledHeight(double scale){
         return((int)Math.round(parentFrame.getHeight()*scale));
-    }
-
-    //TODO add/call method for going back to main menu in actionPerformed()
-    static class backPressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Back");
-        }
-    }
-
-    //TODO add/call method for resuming game in actionPerformed()
-    static class retryPressed extends AbstractAction{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Retry");
-
-        }
     }
 }

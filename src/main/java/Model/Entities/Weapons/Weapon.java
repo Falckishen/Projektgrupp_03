@@ -37,7 +37,7 @@ public abstract class Weapon {
         this.weaponKeyInputs = weaponKeyInputs;
     }
 
-    Direction getWeaponDirection() {
+    protected Direction getWeaponDirection() {
         return weaponDirection;
     }
 
@@ -68,7 +68,7 @@ public abstract class Weapon {
 
     abstract void shoot();
 
-    void addProjectile(Direction projectileDirection) {
+    protected void addProjectile(Direction projectileDirection) {
         projectileCreator.createSimpleProjectile(playerPosition, projectileDirection, projectileVelocity,
                 projectileLife, projectileAttackPower);
     }

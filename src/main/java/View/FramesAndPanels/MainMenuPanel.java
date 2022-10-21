@@ -1,7 +1,6 @@
 package View.FramesAndPanels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
@@ -16,8 +15,8 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
     private final ActionListener firstListener;
     private final ActionListener secondListener;
     private final ActionListener thirdListener;
-    private String gameName;
-    private int highscore;
+    private final String gameName;
+    private final int highscore;
 
     /**
      * @param acStart What happens when user clicks start.
