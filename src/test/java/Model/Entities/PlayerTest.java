@@ -1,7 +1,7 @@
-/*package Model.Entities;
+package Model.Entities;
 
 import Model.Entities.*;
-import Model.OnTick;
+import Model.TickObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -124,11 +124,11 @@ class PlayerTest {
     @Test
     void canPlayerShootTest() throws InterruptedException {
         weaponInputs.add(KeyEvent.VK_RIGHT);
-        List<OnTick> tickObserversLoop;
+        List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (EC.getProjectiles().size() > 0){
@@ -141,11 +141,11 @@ class PlayerTest {
     void playerShootUp(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_UP);
-        List<OnTick> tickObserversLoop;
+        List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (tickObserversLoop.size() > 3){
@@ -161,11 +161,11 @@ class PlayerTest {
     void playerShootLeft(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_LEFT);
-        List<OnTick> tickObserversLoop;
+        List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (tickObserversLoop.size() > 3){
@@ -181,11 +181,11 @@ class PlayerTest {
     void playerShootDown(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_DOWN);
-        List<OnTick> tickObserversLoop;
+        List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (tickObserversLoop.size() > 3){
@@ -201,11 +201,11 @@ class PlayerTest {
     void playerShootRight(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_RIGHT);
-        List<OnTick> tickObserversLoop;
+        List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(EC.getTickObservers());
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (tickObserversLoop.size() > 3){
@@ -234,4 +234,4 @@ class PlayerTest {
         player.takeDamage(10);
         assertTrue(player.getIsDead());
     }
-}*/
+}

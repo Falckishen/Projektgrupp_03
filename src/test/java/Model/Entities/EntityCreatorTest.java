@@ -1,6 +1,6 @@
-/*package Model.Entities;
+package Model.Entities;
 
-import Model.OnTick;
+import Model.TickObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class EntityCreatorTest {
     Player player;
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
-    List<OnTick> tickObservers;
+    List<TickObserver> tickObservers;
     EntityCreator EC;
 
 
@@ -51,4 +51,4 @@ public class EntityCreatorTest {
         }
         assertEquals(4, nrWalls);
     }
-}*/
+}

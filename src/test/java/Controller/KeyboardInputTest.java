@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardInputTest {
-    /*List playerInputList;
+    List playerInputList;
     static Robot robot;
     static MainMenu mainMenu;
     static GameView mainView;
@@ -20,7 +20,7 @@ class KeyboardInputTest {
     static void initClasses() throws AWTException {
         mainMenu = new MainMenu("testWorld", 1000);
         mainView = new GameView(mainMenu, 1000, 800, "badoo");
-        input = new KeyboardInput(mainMenu, mainView.getFrameRootPane());
+        input = new KeyboardInput(mainMenu, mainView);
         robot = new Robot();
         mainView.showMainMenu();
     }
@@ -137,5 +137,5 @@ class KeyboardInputTest {
         assertTrue(test);
     }
 
-     */
+
 }

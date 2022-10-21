@@ -1,7 +1,7 @@
-/*
+
 package Model.Entities;
 
-import Model.OnTick;
+import Model.TickObserver;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ class CollisionHandlerTest {
     }
 
     void doATick(){
-        Iterator<OnTick> tickIterator = EC.getTickObservers().iterator();
+        Iterator<TickObserver> tickIterator = EC.getTickObservers().iterator();
         while (tickIterator.hasNext()){
             tickIterator.next().doOnTick();
         }
@@ -295,4 +295,4 @@ class CollisionHandlerTest {
     void createWallToTheRight(){
         EC.createWall(100, 0, 70, 100);
     }
-}*/
+}
