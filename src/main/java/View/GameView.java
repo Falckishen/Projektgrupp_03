@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.InvalidClassException;
 import java.util.Objects;
 import javax.swing.*;
 import Model.Entities.Entity;
@@ -61,15 +62,15 @@ public class GameView extends JComponent implements ViewObserver {
         Game game = getCurrentGame();
         playerPosition = game.getPlayerPosition();
         if (!(playerPosition == null)) {
-            paintBackground();
-            paintEntities(game.getAllEntities());
-            //paintEntities(game.getFriendlies());
-            //paintEntities(game.getEnemies());
-            //paintEntities(game.getProjectiles());
-            //paintEntities(game.getNonLivingObjects());
-            double playerHealth = game.getPlayerHealth()/10d;
-            paintHealthBar(playerHealth);
-            paintRoundNumerals(game.getRound());
+            try {
+                paintBackground();
+                paintEntities(game.getAllEntities());
+                double playerHealth = game.getPlayerHealth()/10d;
+                paintHealthBar(playerHealth);
+                paintRoundNumerals(game.getRound());
+            }catch (ClassCastException e){
+                System.out.println("Switched panel while rendering");
+            }
         }
         mainFrame.refreshScreen();
     }
