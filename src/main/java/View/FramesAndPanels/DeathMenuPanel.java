@@ -28,7 +28,7 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
         int OPTIONS_SIZE = 40;
         int SCORE_SIZE = 60;
 
-        JLabel title = new JLabel("Yah dead lmao", JLabel.CENTER);
+        JLabel title = new JLabel("Game Over", JLabel.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_SIZE));
         title.setBounds(0,0, GSW(1),GSH(0.2));
         title.setForeground(Color.BLACK);
