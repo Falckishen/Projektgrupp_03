@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import Model.Entities.Weapons.Weapon;
 
 /**
- * @author Ida Altenstedt, Wanda Wannelöf
+ * @author Ida Altenstedt & Wanda Wannelöf
  */
 class Player extends Friendly {
 
@@ -32,6 +32,11 @@ class Player extends Friendly {
         shootAttack();
     }
 
+    /**
+     * Checks what KeyEvents are currently in a list of playerKeyInputs and register Directions in the Player object's
+     * list of current Directions. Further asks keyboardHandler to calculate what the sum of all Directions are and sets
+     * the Player object's Direction accordingly.
+     */
     private void changeDirection() {
         //set direction up left if playerKeyInputs.contains(W) && contains(A)
         // should this be moved to controller?

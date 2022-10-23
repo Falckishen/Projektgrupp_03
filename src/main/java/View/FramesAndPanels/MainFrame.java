@@ -17,6 +17,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Used to replace the current subPanel with a new one, destroys the old one.
+     * @param newPanel The new panel to attach
+     */
     public void replaceSubPanel(PanelInterface newPanel){
         if(subPanel != null){
             subPanel.destroyPanel();
@@ -25,6 +29,9 @@ public class MainFrame extends JFrame {
         subPanel.startPanel(this);
     }
 
+    /**
+     * Refreshes the display by telling the supPanel to update.
+     */
     public void refreshScreen(){
         subPanel.updateDisplay();
     }

@@ -3,7 +3,7 @@ package Model.Entities;
 import Model.TickObserver;
 
 /**
- * @author Ida Altenstedt
+ * @author Ida Altenstedt & Wanda Wannelöf
  */
 public abstract class MovableEntity extends Entity implements TickObserver {
 
@@ -43,7 +43,7 @@ public abstract class MovableEntity extends Entity implements TickObserver {
 
     void move(){
         move(1);
-    }
+    } // Default multiplier to avoid duplicated code
 
     void move(int multiplier){ //Used in collision
         int diagSpeed = (int) (getSpeed()*Math.sqrt(2)/2);

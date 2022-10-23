@@ -1,4 +1,4 @@
-/*package Model.Entities;
+package Model.Entities;
 
 import Model.TickObserver;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,4 +51,4 @@ public class EntityCreatorTest {
         }
         assertEquals(4, nrWalls);
     }
-}*/
+}

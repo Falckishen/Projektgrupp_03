@@ -1,10 +1,19 @@
 package Model.Entities;
 
 import java.util.*;
-
+/**
+ * @author Wanda Wannelöf
+ */
 public class KeyboardHandler {
 
+    /**
+     * This changes the direction of a Player or Weapon object. It changes depending on how many buttons are
+     * currently pushed down (and therefore registered in a list of directions for each object) and which of them it is.
+     * @param currentDirections which is the direction which the Player object itself has
+     * @return Direction
+     */
     public static Direction findDirection(List<Direction> currentDirections){
+
         // FALL 1: 1 Knapp är nere
         if(currentDirections.size() == 1) {
             return currentDirections.get(0);

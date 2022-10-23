@@ -1,4 +1,4 @@
-/*
+
 package Model.Entities;
 
 import Model.TickObserver;
@@ -295,4 +295,4 @@ class CollisionHandlerTest {
     void createWallToTheRight(){
         EC.createWall(100, 0, 70, 100);
     }
-}*/
+}
