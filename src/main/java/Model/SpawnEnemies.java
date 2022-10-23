@@ -36,7 +36,7 @@ class SpawnEnemies implements Runnable {
      */
     @Override
     public void run() {
-        int numberOfNewEnemies = numberOfNewEnemies();
+        int numberOfNewEnemies = getNumberOfNewEnemies();
         for (int i = 0; i < numberOfNewEnemies; i++) {
             enemyEntityCreator.createWeakMonster();
         }
@@ -49,7 +49,7 @@ class SpawnEnemies implements Runnable {
      *
      * @return (round^2)*difficulty/2 rounded down to the nearest integer if its 1 or higher, otherwise 1.
      */
-    private int numberOfNewEnemies() {
+    private int getNumberOfNewEnemies() {
         int n = (int) (Math.pow(round, 2)*difficulty/2);
         return Math.max(1, n);
     }

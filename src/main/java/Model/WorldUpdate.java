@@ -44,6 +44,7 @@ class WorldUpdate extends TimerTask {
         }
         else if (delay <= maxAllowedDelay && !game.isGamePaused()) {
             updateWorld();
+            outputHandler.updateGameFrame();
         }
         else if(delay > maxAllowedDelay) {
             System.out.println("FRAME SKIPPED! Lag: " + delay + " ms");
@@ -59,8 +60,6 @@ class WorldUpdate extends TimerTask {
         if (!game.isEnemiesSpawning() && !game.isAnyEnemiesAlive()) {
             game.nextRound();
         }
-
-        outputHandler.updateGameFrame();
     }
 
     /**
