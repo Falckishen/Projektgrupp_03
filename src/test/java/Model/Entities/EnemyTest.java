@@ -4,7 +4,7 @@ package Model.Entities;
 import Model.Entities.EntityCreator;
 import Model.Entities.Monster;
 import Model.Entities.Player;
-import Model.OnTick;
+import Model.TickObserver;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class EnemyTest {
     Monster monster;
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
-    List<OnTick> tickObservers;
+    List<TickObserver> tickObservers;
     Position playerStartPosition = new Position(1,1);
     Position monsterStartPosition = new Position(1,300);
 
@@ -43,7 +43,7 @@ class EnemyTest {
     @Test
     void monsterDealDamage(){
         while (player.getHealth() >= 10){
-            for (OnTick tickObserver : tickObservers) {
+            for (TickObserver tickObserver : tickObservers) {
                 tickObserver.doOnTick();
             }
         }
@@ -55,7 +55,7 @@ class EnemyTest {
         int monsterEnd = monster.getPosition().getY();
         while (monsterStart>monsterEnd){
             monsterStart = monster.getPosition().getY();
-            for (OnTick tickObserver : tickObservers){
+            for (TickObserver tickObserver : tickObservers){
                 tickObserver.doOnTick();
             }
             monsterEnd = monster.getPosition().getY();
@@ -66,11 +66,11 @@ class EnemyTest {
     void monsterTakeDamageFromProjectileTest(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_DOWN);
-        ArrayList<OnTick> tickObserversLoop = new ArrayList<OnTick>(tickObservers);
+        ArrayList<TickObserver> tickObserversLoop = new ArrayList<TickObserver>(tickObservers);
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<OnTick>(tickObservers);
-            for (OnTick tickObserver : tickObserversLoop) {
+            tickObserversLoop = new ArrayList<TickObserver>(tickObservers);
+            for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
             if (monster.getIsDead()){
