@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * @author Wanda Wannelöf
  */
-public class KeyboardHandler {
+public class DirectionHandler {
 
     /**
      * This changes the direction of a Player or Weapon object. It changes depending on how many buttons are

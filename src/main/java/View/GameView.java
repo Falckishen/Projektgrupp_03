@@ -4,9 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.InvalidClassException;
 import java.util.Objects;
 import javax.swing.*;
+
+import Controller.ButtonHandler;
 import Model.Entities.Entity;
 import Model.Game;
 import Model.MainMenu;
@@ -28,8 +29,9 @@ public class GameView extends JComponent implements ViewObserver {
     private final int displayHeight;
     private final BufferedImage specialBorderBackground;
     private final MainFrame mainFrame;
-    private PanelInterface activePanel;
     private final String gameName;
+    private final ButtonHandler buttonHandler;
+    private PanelInterface activePanel;
     private Position playerPosition;
 
     /**
@@ -45,6 +47,7 @@ public class GameView extends JComponent implements ViewObserver {
         this.displayWidth = width;
         this.displayHeight = height;
         this.gameName = gameName;
+        this.buttonHandler = new ButtonHandler(mainMenu);
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(width, height);
@@ -81,11 +84,11 @@ public class GameView extends JComponent implements ViewObserver {
      */
     @Override
     public void showMainMenu() {
-        ActionListener acStart = e -> mainMenu.startGame();
-        ActionListener acQuit = e -> mainMenu.quitApplication();
-        ActionListener acFirstDifficulty = e -> mainMenu.setDifficulty(1);
-        ActionListener acSecondDifficulty = e -> mainMenu.setDifficulty(2);
-        ActionListener acThirdDifficulty = e -> mainMenu.setDifficulty(3);
+        ActionListener acStart = e -> buttonHandler.startGame();
+        ActionListener acQuit = e -> buttonHandler.quitApplication();
+        ActionListener acFirstDifficulty = e -> buttonHandler.setDifficulty(1);
+        ActionListener acSecondDifficulty = e -> buttonHandler.setDifficulty(2);
+        ActionListener acThirdDifficulty = e -> buttonHandler.setDifficulty(3);
         activePanel = new MainMenuPanel(acStart, acQuit, acFirstDifficulty, acSecondDifficulty, acThirdDifficulty, gameName, mainMenu.getHighScore());
         mainFrame.replaceSubPanel(activePanel);
         mainFrame.refreshScreen();
@@ -251,18 +254,20 @@ public class GameView extends JComponent implements ViewObserver {
      */
     class resumePressed extends AbstractAction{
         @Override
-        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().unPauseGame();}
+        public void actionPerformed(ActionEvent e) {getCurrentGame().unPauseGame();}
     }
     class forfeitPressed extends AbstractAction{
         @Override
-        public void actionPerformed(ActionEvent e) {mainMenu.getCurrentGame().stopGame();}
+        public void actionPerformed(ActionEvent e) {getCurrentGame().stopGame();}
     }
-    class retryPressed extends AbstractAction{
+    class retryPressed extends AbstractAction {
         @Override
-        public void actionPerformed(ActionEvent e) {mainMenu.startGame();}
+        public void actionPerformed(ActionEvent e) {
+            buttonHandler.startGame();}
     }
     class exitPressed extends AbstractAction{
         @Override
-        public void actionPerformed(ActionEvent e) {mainMenu.showMainMenu();}
+        public void actionPerformed(ActionEvent e) {
+            buttonHandler.showMainMenu();}
     }
 }

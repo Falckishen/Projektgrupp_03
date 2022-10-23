@@ -1,9 +1,6 @@
 
 package Model.Entities;
 
-import Model.Entities.EntityCreator;
-import Model.Entities.Monster;
-import Model.Entities.Player;
 import Model.TickObserver;
 import Model.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +35,7 @@ class EnemyTest {
     @Test
     void walkTowardsPlayer(){
         monster.doOnTick();
-        assertTrue(monster.getPosition().getY() == monsterStartPosition.getY()-monster.getSpeed());
+        assertEquals(monster.getPosition().getY(), monsterStartPosition.getY() - monster.getSpeed());
     }
     @Test
     void monsterDealDamage(){
@@ -66,10 +63,10 @@ class EnemyTest {
     void monsterTakeDamageFromProjectileTest(){
         boolean test = false;
         weaponInputs.add(KeyEvent.VK_DOWN);
-        ArrayList<TickObserver> tickObserversLoop = new ArrayList<TickObserver>(tickObservers);
+        ArrayList<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(tickObservers);
+            tickObserversLoop = new ArrayList<>(tickObservers);
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
@@ -78,7 +75,6 @@ class EnemyTest {
                 loop = false;
             }
             else if (player.getIsDead()) {
-                test = false;
                 loop = false;
             }
         }

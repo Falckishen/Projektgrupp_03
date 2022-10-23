@@ -5,7 +5,7 @@ import java.util.List;
 import java.awt.event.KeyEvent;
 import Model.Entities.AddProjectile;
 import Model.Entities.Direction;
-import Model.Entities.KeyboardHandler;
+import Model.Entities.DirectionHandler;
 import Model.Position;
 
 /**
@@ -54,7 +54,7 @@ public abstract class Weapon {
                 case KeyEvent.VK_RIGHT -> currentDirections.add(Direction.RIGHT);
             }
         }
-        this.weaponDirection = KeyboardHandler.findDirection(currentDirections);
+        this.weaponDirection = DirectionHandler.findDirection(currentDirections);
         isShooting = this.weaponDirection != Direction.NONE;
     }
 
