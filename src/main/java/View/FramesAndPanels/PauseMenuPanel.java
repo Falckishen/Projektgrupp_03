@@ -12,6 +12,10 @@ public class PauseMenuPanel extends JPanel implements PanelInterface{
     private final Action resumeListener;
     private final Action forfeitListener;
 
+    /**
+     * @param resumeListener What happens when the user clicks resume
+     * @param forfeitListener What happens when the user clicks forfeit
+     */
     public PauseMenuPanel(Action resumeListener, Action forfeitListener){
         this.resumeListener = resumeListener;
         this.forfeitListener = forfeitListener;

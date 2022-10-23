@@ -9,4 +9,4 @@ How to run the game in a terminal:
     B. mvn package
   3. Then open a terminal with the targeted directory being the "target" folder inside of the outer folder and type in "java -jar topdownshooter-1.0.0.jar"
 
-recomend using Java 18 or 19 as we know they works
+We recommend using Java 18 or 19 as we know they work

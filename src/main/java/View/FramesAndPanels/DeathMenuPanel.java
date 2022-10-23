@@ -5,9 +5,9 @@ import javax.swing.*;
 import View.LabelButton;
 
 /**
- * @author Alfred Berglöf
+ * DeathMenuPanel used to display the death menu.
+ * @author Alfred Berglöf and William Johansson
  */
-
 public class DeathMenuPanel extends JPanel implements PanelInterface {
     private JFrame parentFrame;
     private final Action retryListener;
@@ -15,6 +15,12 @@ public class DeathMenuPanel extends JPanel implements PanelInterface {
     private final int highscore;
     private final int score;
 
+    /**
+     * @param retryListener What happens when user clicks retry
+     * @param exitListener What happens when user clicks exit
+     * @param highscore Users highscore
+     * @param score Users score from the finished round
+     */
     public DeathMenuPanel(Action retryListener, Action exitListener, int highscore, int score) {
         this.retryListener = retryListener;
         this.exitListener = exitListener;

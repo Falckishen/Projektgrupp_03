@@ -3,6 +3,9 @@ package View.FramesAndPanels;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * MainFrame represents the window and should be coupled with an implementation of PanelInterface.
+ */
 public class MainFrame extends JFrame {
 
     private PanelInterface subPanel;

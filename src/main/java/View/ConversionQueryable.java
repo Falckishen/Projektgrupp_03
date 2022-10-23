@@ -4,6 +4,9 @@ import Model.Entities.Entity;
 import Model.Entities.EntityType;
 import Model.Position;
 
+/**
+ * @author William Johansson
+ */
 class ConversionQueryable {
 
     static Position transformWithPlayerPosition(Position position, Position playerPosition){

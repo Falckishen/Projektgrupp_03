@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 /**
+ * Custom button for the user interface
  * @author Alfred Berglöf
  */
 public class LabelButton extends JLabel{
@@ -16,6 +17,13 @@ public class LabelButton extends JLabel{
     private final JLabel text;
     private final Action buttonPressed;
 
+    /**
+     * @param a What happens when the user clicks the button.
+     * @param buttonText What the button should say
+     * @param textFont The font of the button
+     * @param textColor The color of the button
+     * @param highlightColor The highlightcolor of the button
+     */
     public LabelButton(Action a, String buttonText, Font textFont, Color textColor, Color highlightColor){
         color = textColor;
         this.highlightColor = highlightColor;

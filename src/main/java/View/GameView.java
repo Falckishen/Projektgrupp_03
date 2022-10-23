@@ -16,9 +16,10 @@ import Model.ViewObserver;
 import View.FramesAndPanels.*;
 
 /**
- * View without outside input renders either menus or the world that a player might be playing in. It accesses
+ * View is told to render either menus or the world that a player might be playing in. It accesses
  * information from the Game class to know where to paint entities as well as the background, it therefore requires
  * a Game instance as input when constructing a View
+ * @author William Johansson
  */
 public class GameView extends JComponent implements ViewObserver {
 
