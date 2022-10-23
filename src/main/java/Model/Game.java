@@ -178,7 +178,7 @@ public class Game {
         int period = 17;
         timer.scheduleAtFixedRate(new WorldUpdate(this, outputHandler, period, entityCreator.getTickObservers()), 0, period);
         /*
-        WorldUpdate runs as a thread, inputs are running parallel
+        Inputs are running parallel to WorldUpdate.
         1. task 2. delay 3. period
         165 FPS = one update every 7  (6.0606) ms.
         144 FPS = one update every 7  (6.944) ms.
