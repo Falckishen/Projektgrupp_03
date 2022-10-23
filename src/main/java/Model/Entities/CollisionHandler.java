@@ -94,6 +94,10 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * checks for collision between enemies and enemies.
+     * And calls for each enemy which enemies it has collided with.
+     */
     private void checkCollisionEnemyEnemy() {
         ArrayList<Position> entitiesCollidedWithMe = new ArrayList<>();
         Enemy e;
@@ -109,6 +113,11 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * Checks and adds all enemies that has collided with "me" to "entitiesCollidedWithMe"
+     * @param entitiesCollidedWithMe The list the positions are added to
+     * @param me the Entity all collisions are checked against
+     */
     private void addCollidedEnemiesPositionToList(List<Position> entitiesCollidedWithMe, Entity me){
         Entity e;
         Iterator<Enemy> itEnemies = enemies.iterator();
@@ -197,6 +206,11 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * returns a list of all non-living entities that has collided with "me"
+     * @param me The Entity everyone is checked against
+     * @return a list of entities
+     */
     private List<Entity> getListOfCollidedWithNonLiving(Entity me){
         Entity n;
         ArrayList<Entity> entitiesCollidedWith = new ArrayList<>();
@@ -212,6 +226,12 @@ class CollisionHandler implements TickObserver {
         return entitiesCollidedWith;
     }
 
+    /**
+     * Returns the direction "me" is pushed depending on how the collision with "object" has occurred.
+     * @param me The first object in question and the one who will be moved.
+     * @param object the stationary object it crashed into.
+     * @return The direction "me" is pushed.
+     */
     private Direction whichDirectionAmIPushed(Entity me, Entity object){
         Direction xAxis = pushedDirectionXAxis(me, object);
         Direction yAxis = pushedDirectionYAxis(me, object);
@@ -226,6 +246,13 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * Checks and returns the direction pushed along the x-axis.
+     * (returns null if not pushed along the x-axis)
+     * @param me The first object in question and the one who is pushed.
+     * @param object the stationary object it crashed into.
+     * @return the direction "me" is pushed, and null of it isnt pushed, along the x-axis
+     */
     private Direction pushedDirectionXAxis(Entity me, Entity object){
         int objectHitboxLeft = object.getPosition().getX() - object.getHitBoxRadiusX();
         int objectHitboxRight = object.getPosition().getX() + object.getHitBoxRadiusX();
@@ -246,6 +273,13 @@ class CollisionHandler implements TickObserver {
 
     }
 
+    /**
+     * Checks and returns the direction pushed along the y-axis.
+     * (returns null if not pushed along the y-axis)
+     * @param me The first object in question and the one who is pushed.
+     * @param object the stationary object it crashed into.
+     * @return the direction "me" is pushed, and null of it isnt pushed, along the y-axis
+     */
     private Direction pushedDirectionYAxis(Entity me, Entity object){
         int objectHitboxUp = object.getPosition().getY() + object.getHitBoxRadiusY();
         int objectHitboxDown = object.getPosition().getY() - object.getHitBoxRadiusY();
@@ -266,6 +300,12 @@ class CollisionHandler implements TickObserver {
 
     }
 
+    /**
+     * returns the diagonal direction depending on the directions along the x-axis and y-axis.
+     * @param xAxis the direction along the x-axis.
+     * @param yAxis the direction along the y-axis.
+     * @return the resulting diagonal direction.
+     */
     private Direction calculateDiagonalPushedDirection(Direction xAxis, Direction yAxis){
         if (xAxis == Direction.LEFT){
             if (yAxis == Direction.UP){
@@ -282,6 +322,11 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * calculates and returns the direction from myPosition to middle (0,0)
+     * @param myPosition the position to be checked.
+     * @return the resulting direction.
+     */
     private Direction directionTowardsMiddle(Position myPosition){
         //TODO WARNING Very closely related to code in enemy
         double deltaX = myPosition.getX();
@@ -312,6 +357,11 @@ class CollisionHandler implements TickObserver {
         }
     }
 
+    /**
+     * returns the resulting direction from a list of directions that can be any of the eight directions in the Enum Direction, or null.
+     * @param directionsPushed A list of directions something is pushed in.
+     * @return the resulting direction pushed.
+     */
     private Direction resultingPushedDirection(Iterator<Direction> directionsPushed){
         Direction resultingDirection = null;
         int directionCounter = 0;
@@ -408,7 +458,7 @@ class CollisionHandler implements TickObserver {
      * <p>
      * 6 --- 7 --- 8 <br />
      * |           | <br />
-     * 5     0     1 <br />
+     * 5   null    1 <br />
      * |           | <br />
      * 4 --- 3 --- 2 <br />
      * number to direction chart
