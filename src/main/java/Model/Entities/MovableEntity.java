@@ -5,7 +5,7 @@ import Model.TickObserver;
 /**
  * @author Ida Altenstedt & Wanda Wannelöf
  */
-public abstract class MovableEntity extends Entity implements TickObserver {
+abstract class MovableEntity extends Entity implements TickObserver {
 
     private Direction direction;
     private int speed;

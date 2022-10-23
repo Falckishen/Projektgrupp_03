@@ -50,7 +50,7 @@ class Player extends Friendly {
                 case KeyEvent.VK_D -> currentDirections.add(Direction.RIGHT);
             }
         }
-        Direction newDirection = KeyboardHandler.findDirection(currentDirections);
+        Direction newDirection = DirectionHandler.findDirection(currentDirections);
         super.setDirection(newDirection);
         if (newDirection == Direction.NONE) setSpeed(0);
         else setSpeed(defaultSpeed);
