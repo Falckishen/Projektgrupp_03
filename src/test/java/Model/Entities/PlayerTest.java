@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import Model.Entities.*;
 import Model.TickObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +20,6 @@ class PlayerTest {
 
     Player player;
     EntityCreator EC;
-    Monster monster;
-    CollisionHandler collisionHandler;
 
     @BeforeEach
     void initPlayer(){
@@ -122,12 +119,12 @@ class PlayerTest {
     }
 
     @Test
-    void canPlayerShootTest() throws InterruptedException {
+    void canPlayerShootTest() {
         weaponInputs.add(KeyEvent.VK_RIGHT);
         List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            tickObserversLoop = new ArrayList<>(EC.getTickObservers());
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
@@ -144,7 +141,7 @@ class PlayerTest {
         List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            tickObserversLoop = new ArrayList<>(EC.getTickObservers());
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
@@ -164,7 +161,7 @@ class PlayerTest {
         List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            tickObserversLoop = new ArrayList<>(EC.getTickObservers());
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
@@ -184,7 +181,7 @@ class PlayerTest {
         List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            tickObserversLoop = new ArrayList<>(EC.getTickObservers());
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
@@ -204,7 +201,7 @@ class PlayerTest {
         List<TickObserver> tickObserversLoop;
         boolean loop = true;
         while (loop) {
-            tickObserversLoop = new ArrayList<TickObserver>(EC.getTickObservers());
+            tickObserversLoop = new ArrayList<>(EC.getTickObservers());
             for (TickObserver tickObserver : tickObserversLoop) {
                 tickObserver.doOnTick();
             }
