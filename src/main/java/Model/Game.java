@@ -37,7 +37,7 @@ public class Game {
      * @param outputHandler     reference to the outputHandler.
      */
 
-    Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
+    public Game(MainMenu mainMenu, int worldMapRadius, int difficulty, List<Integer> playerInputList, List<Integer> weaponInputList, OutputHandler outputHandler) {
 
         this.mainMenu = mainMenu;
         this.difficulty = difficulty;

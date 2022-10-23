@@ -1,9 +1,11 @@
 package Model.Entities;
 
+import Model.Position;
 import Model.TickObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +25,13 @@ public class EntityCreatorTest {
         playerInputs = new ArrayList<>();
         weaponInputs = new ArrayList<>();
         EC.createPlayer(1,1,playerInputs,weaponInputs);
+        EC.createWeakMonster();
         player = (Player) EC.getFriendlies().get(0);
         tickObservers = EC.getTickObservers();
     }
 
     @Test
     void createWeakMonsterTest(){
-        EC.createWeakMonster();
         assertFalse(EC.getEnemies().isEmpty());
     }
     @Test
@@ -49,4 +51,37 @@ public class EntityCreatorTest {
         }
         assertEquals(4, nrWalls);
     }
+
+    @Test
+    void getPlayerTest() {
+        MovableEntity pl = EC.getPlayer();
+        assertSame(pl.getEntityType(), EntityType.player);
+    }
+
+    @Test
+    void getPlayerPositionTest() {
+        Position startPosition = EC.getPlayerPosition();
+        Position expectedPosition = new Position(1,1);
+        assertEquals(startPosition.getX(), expectedPosition.getX());
+        assertEquals(startPosition.getY(), expectedPosition.getY());
+    }
+
+    @Test
+    void getPlayerHealthTest() {
+        int health = EC.getPlayerHealth();
+        int expectedHealth = 10;
+        assertEquals(health, expectedHealth);
+    }
+
+    @Test
+    void isAnyEnemiesAliveTest() {
+        assertTrue(EC.isAnyEnemiesAlive());
+    }
+
+    @Test
+    void isPlayerAliveTest() {
+        assertTrue(EC.isPlayerAlive());
+    }
+
+
 }
