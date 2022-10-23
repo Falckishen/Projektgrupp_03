@@ -10,7 +10,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EntityCreatorTest {
-    Monster monster;
     Player player;
     List<Integer> playerInputs;
     List<Integer> weaponInputs;
@@ -41,7 +40,6 @@ public class EntityCreatorTest {
 
     @Test
     void createWorldWalls(){
-        //Player created in init
         EC.createWorldBorderWalls();
         int nrWalls = 0;
         for (Entity entity : EC.getAllEntities()) {
