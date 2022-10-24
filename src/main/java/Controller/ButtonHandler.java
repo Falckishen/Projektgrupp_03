@@ -2,6 +2,9 @@ package Controller;
 
 import Model.MainMenu;
 
+/**
+ * @author Samuel Falck
+ */
 public class ButtonHandler {
 
     private final MainMenu mainMenu;
