@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CollisionHandlerTest {
 
     EntityCreator EC;
-    //monster hitBox radius = 50;
 
     @BeforeEach
     void init(){
@@ -111,21 +110,14 @@ class CollisionHandlerTest {
         if (player.getPosition().getX() == 0 && player.getPosition().getY() == 0){ //Player did not get pushed back
             playerDidNotMove = true;
         }
-        if (enemy.getPosition().getX() > 90 && enemy.getPosition().getY() > 90){ //enemy pushed back
+        if (enemy.getPosition().getX() != 90 && enemy.getPosition().getY() != 90){ //enemy pushed back
             enemyDidMove = true;
             //TODO problem with the inverted y-axis ask Smaug how she made it
         }
         if (player.getHealth() != 10){ //friendly takes damage //not full health
             playerTookDamage = true;
         }
-
-        System.out.println("The player did not move: " + playerDidNotMove);
-        System.out.println("The enemy got pushed backwards: " + enemyDidMove);
-        System.out.println("   New enemy position: " + enemy.getPosition().getX() + ", " + enemy.getPosition().getY());
-        System.out.println("The player took damage: " + playerTookDamage);
-
-        //assertTrue(playerDidNotMove && enemyDidMove && playerTookDamage);
-        assertTrue(true); //TODO fixa testet
+        assertTrue(playerDidNotMove && enemyDidMove && playerTookDamage);
     }
 
     @Test
