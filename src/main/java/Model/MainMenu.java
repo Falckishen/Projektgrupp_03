@@ -75,6 +75,15 @@ public class MainMenu {
         }
     }
 
+    public int getDifficulty(){
+        try {
+            return difficulty;
+        }
+        catch (Exception e) {
+            return 0;
+        }
+    }
+
     /*------------------------------------------------ Public Setters ------------------------------------------------*/
 
     /**
