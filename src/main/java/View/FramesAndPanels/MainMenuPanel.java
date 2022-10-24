@@ -69,11 +69,11 @@ public class MainMenuPanel extends JPanel implements PanelInterface{
         secondDifficulty.setBackground(new Color(150, 150, 150));
         thirdDifficulty.setBounds(GSW(0.65), GSH(0.7) ,GSW(0.10), GSH(0.05));
         thirdDifficulty.setBackground(new Color(150, 150, 150));
-        firstDifficulty.setText("First");
+        firstDifficulty.setText("Easy");
         firstDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-        secondDifficulty.setText("Second");
+        secondDifficulty.setText("Medium");
         secondDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-        thirdDifficulty.setText("Third");
+        thirdDifficulty.setText("Hard");
         thirdDifficulty.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         add(firstDifficulty, BorderLayout.CENTER);
         firstDifficulty.setVisible(true);
