@@ -10,6 +10,10 @@ public class MainFrame extends JFrame {
 
     private PanelInterface subPanel;
 
+    /**
+     * @param width The width of the frame
+     * @param height The height of the frame
+     */
     public MainFrame(int width, int height){
         setSize(new Dimension(width,height));
         setResizable(false);

@@ -13,6 +13,7 @@ class ImageContainer {
     private static final String[] MonsterTestImagePaths = {"EnemyImageOOP.png"};
     private static final String[] NumeralsImagePaths = {"7seg0.png", "7seg1.png", "7seg2.png", "7seg3.png",
             "7seg4.png", "7seg5.png", "7seg6.png", "7seg7.png", "7seg8.png", "7seg9.png"};
+
     private static BufferedImage[][] savedImagesMatrix;
 
     /**

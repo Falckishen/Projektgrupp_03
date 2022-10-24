@@ -251,21 +251,33 @@ public class GameView extends JComponent implements ViewObserver {
     }
 
     /**
-     * Classes representing what happens when you click certain buttons in the UI.
+     * Classes representing what happens when you click resume.
      */
     class resumePressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {getCurrentGame().unPauseGame();}
     }
+
+    /**
+     * Classes representing what happens when you click forfeit.
+     */
     class forfeitPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {getCurrentGame().stopGame();}
     }
+
+    /**
+     * Classes representing what happens when you click retry.
+     */
     class retryPressed extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             buttonHandler.startGame();}
     }
+
+    /**
+     * Classes representing what happens when you click exitToMainMenu.
+     */
     class exitPressed extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
