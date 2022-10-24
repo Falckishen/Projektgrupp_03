@@ -37,17 +37,18 @@ public class GameView extends JComponent implements ViewObserver {
     /**
      * Constructs an instance of the View
      * @param mainMenu the model for which the view is to render the main menu and the world
+     * @param buttonHandler the controller for the buttons.
      * @param width the width of the frame
      * @param height the height of the frame
      * @param gameName the name of the game
      */
-    public GameView(MainMenu mainMenu, int width, int height, String gameName) {
+    public GameView(MainMenu mainMenu, ButtonHandler buttonHandler, int width, int height, String gameName) {
         this.mainMenu = mainMenu;
         ImageContainer.loadImages();
         this.displayWidth = width;
         this.displayHeight = height;
         this.gameName = gameName;
-        this.buttonHandler = new ButtonHandler(mainMenu);
+        this.buttonHandler = buttonHandler;
         mainMenu.addViewObserver(this);
         specialBorderBackground = generateSpecialBorderBackground();
         mainFrame = new MainFrame(width, height);

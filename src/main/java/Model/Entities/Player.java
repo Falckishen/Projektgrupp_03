@@ -34,7 +34,7 @@ class Player extends Friendly {
 
     /**
      * Checks what KeyEvents are currently in a list of playerKeyInputs and register Directions in the Player object's
-     * list of current Directions. Further asks keyboardHandler to calculate what the sum of all Directions are and sets
+     * list of current Directions. Further, asks keyboardHandler to calculate what the sum of all Directions are and sets
      * the Player object's Direction accordingly.
      */
     private void changeDirection() {

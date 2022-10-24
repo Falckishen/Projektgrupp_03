@@ -1,3 +1,4 @@
+import Controller.ButtonHandler;
 import Model.MainMenu;
 import View.GameView;
 import Controller.KeyboardInput;
@@ -18,7 +19,8 @@ public class Main {
         int height = 800;
 
         MainMenu mainMenu = new MainMenu(gameName, worldMapRadius);
-        GameView gameView = new GameView(mainMenu, width, height, gameName);
+        ButtonHandler buttonHandler = new ButtonHandler(mainMenu);
+        GameView gameView = new GameView(mainMenu, buttonHandler, width, height, gameName);
         new KeyboardInput(mainMenu, gameView);
 
         mainMenu.showMainMenu();

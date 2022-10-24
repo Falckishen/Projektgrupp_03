@@ -26,5 +26,4 @@ abstract class Friendly extends MovableEntity {
             lastTimeTakingDamage = System.currentTimeMillis();
         }
     }
-
 }
